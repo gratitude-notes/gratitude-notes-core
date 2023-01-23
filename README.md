@@ -73,7 +73,7 @@
 
 The core purpose of our application is to allow our users to analyze their habits and actions every day and identify something that had a positive effect on their mood. Moreover, with the use of AI services, we encourage the user to track unique happiness notes, and access our application on iOS, Android, and the Web.
 
-See more detail in the [organization's main page](https://github.com/gratitude-notes/gratitude-notes-core).
+See more detail in the [organization's main page](https://github.com/gratitude-notes).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
