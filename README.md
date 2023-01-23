@@ -71,9 +71,9 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Our application will allow a user to track their happiness, and enter bullet points of what they were happy for. However, the user must not be able to input similar items which made them happy, as this is how the application encourages the user to explore for new things in their life that make them happy. We want our application to be platform-independent (will support mobile & desktop), which is why we are building this on the web. The application will have dashboards, reminders, and suggestions to aid them with exploring their happiness. Moreover, our application will use sentiment analysis in order to gather data on their happiness, in correlation to the user's input. Furthermore, our application will also use topic modeling in order to discourage repeated similar entries, so the user can really explore things that make them happy.
+The core purpose of our application is to allow our users to analyze their habits and actions every day and identify something that had a positive effect on their mood. Moreover, with the use of AI services, we encourage the user to track unique happiness notes, and access our application on iOS, Android, and the Web.
 
-The core purpose of our application is to allow our users to analyze their habits and actions every day and identify something that had a positive effect on their mood. Moreover, with the use of AI services, we encourage the user to 
+See more detail in the [organization's main page](https://github.com/gratitude-notes/gratitude-notes-core).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
