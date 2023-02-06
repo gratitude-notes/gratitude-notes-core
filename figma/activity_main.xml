@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- logo-google -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/logo_google"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/logo_google"
+        />
+
+
+    <!-- drawable/logo_google.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="90dp"
+        android:height="90dp"
+        android:viewportWidth="90"
+        android:viewportHeight="90"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H90V90H0V0Z"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Date Button -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/date_button"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/date_button"
+        />
+
+
+    <!-- drawable/date_button.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="110dp"
+        android:height="200dp"
+        android:viewportWidth="110"
+        android:viewportHeight="200"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M5 0H105C107.761 0 110 2.23858 110 5V195C110 197.761 107.761 200 105 200H5C2.23858 200 0 197.761 0 195V5C0 2.23858 2.23858 0 5 0Z"
+                />
+
+            <path
+                android:pathData="M5 0H105C107.761 0 110 2.23858 110 5V195C110 197.761 107.761 200 105 200H5C2.23858 200 0 197.761 0 195V5C0 2.23858 2.23858 0 5 0Z"
+                android:strokeWidth="2"
+                android:strokeColor="#9747FF"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Shuffle Button -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/shuffle_but"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/shuffle_but"
+        />
+
+
+    <!-- drawable/shuffle_but.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="100dp"
+        android:height="100dp"
+        android:viewportWidth="100"
+        android:viewportHeight="100"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H100V100H0V0Z"
+                />
+
+            <path
+                android:pathData="M0 0V100H100V0"
+                android:fillColor="#DEBAC0"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Quotes -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/quotes"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/quotes"
+        />
+
+
+    <!-- drawable/quotes.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1089dp"
+        android:height="947dp"
+        android:viewportWidth="1089"
+        android:viewportHeight="947"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M5 0H1084C1086.76 0 1089 2.23858 1089 5V942C1089 944.761 1086.76 947 1084 947H5C2.23858 947 0 944.761 0 942V5C0 2.23858 2.23858 0 5 0Z"
+                />
+
+            <path
+                android:pathData="M5 0H1084C1086.76 0 1089 2.23858 1089 5V942C1089 944.761 1086.76 947 1084 947H5C2.23858 947 0 944.761 0 942V5C0 2.23858 2.23858 0 5 0Z"
+                android:strokeWidth="2"
+                android:strokeColor="#9747FF"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Add Note Button -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/add_note_bu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/add_note_bu"
+        android:elevation="5dp"
+        />
+
+
+    <!-- drawable/add_note_bu.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="462dp"
+        android:height="141dp"
+        android:viewportWidth="462"
+        android:viewportHeight="141"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M20 0H442C453.046 0 462 8.95431 462 20V121C462 132.046 453.046 141 442 141H20C8.95431 141 0 132.046 0 121V20C0 8.95431 8.95431 0 20 0Z"
+                />
+
+            <path
+                android:pathData="M0 0V141H462V0"
+                android:fillColor="#C47AC0"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Return to Dashboard -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/return_to_d"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/return_to_d"
+        />
+
+
+    <!-- drawable/return_to_d.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="592dp"
+        android:height="141dp"
+        android:viewportWidth="592"
+        android:viewportHeight="141"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H592V141H0V0Z"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- add-circle -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/add_circle"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/add_circle"
+        />
+
+
+    <!-- drawable/add_circle.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="95dp"
+        android:height="95dp"
+        android:viewportWidth="95"
+        android:viewportHeight="95"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H95V95H0V0Z"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- References -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/references"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/references"
+        />
+
+
+    <!-- drawable/references.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1920dp"
+        android:height="1080dp"
+        android:viewportWidth="1920"
+        android:viewportHeight="1080"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H1920V1080H0V0Z"
+                />
+
+            <path
+                android:pathData="M0 0V1080H1920V0"
+                android:fillColor="#808080"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- View Notes Page -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/view_notes_"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/view_notes_"
+        />
+
+
+    <!-- drawable/view_notes_.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1920dp"
+        android:height="1080dp"
+        android:viewportWidth="1920"
+        android:viewportHeight="1080"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H1920V1080H0V0Z"
+                />
+
+            <path
+                android:pathData="M0 0V1080H1920V0"
+                android:fillColor="#FFFFFF"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Add Notes Page -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/add_notes_p"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/add_notes_p"
+        />
+
+
+    <!-- drawable/add_notes_p.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1920dp"
+        android:height="1080dp"
+        android:viewportWidth="1920"
+        android:viewportHeight="1080"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H1920V1080H0V0Z"
+                />
+
+            <path
+                android:pathData="M0 0V1080H1920V0"
+                android:fillColor="#FFFFFF"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Empty Slider -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/empty_slide"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/empty_slide"
+        />
+
+
+    <!-- drawable/empty_slide.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1135dp"
+        android:height="2977dp"
+        android:viewportWidth="1135"
+        android:viewportHeight="2977"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M5 0H1130C1132.76 0 1135 2.23858 1135 5V2972C1135 2974.76 1132.76 2977 1130 2977H5C2.23858 2977 0 2974.76 0 2972V5C0 2.23858 2.23858 0 5 0Z"
+                />
+
+            <path
+                android:pathData="M5 0H1130C1132.76 0 1135 2.23858 1135 5V2972C1135 2974.76 1132.76 2977 1130 2977H5C2.23858 2977 0 2974.76 0 2972V5C0 2.23858 2.23858 0 5 0Z"
+                android:strokeWidth="2"
+                android:strokeColor="#9747FF"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Dashboard Page -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dashboard_p"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/dashboard_p"
+        />
+
+
+    <!-- drawable/dashboard_p.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1920dp"
+        android:height="1080dp"
+        android:viewportWidth="1920"
+        android:viewportHeight="1080"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H1920V1080H0V0Z"
+                />
+
+            <path
+                android:pathData="M0 0V1080H1920V0"
+                android:fillColor="#FFFFFF"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Dashboard Button Temp -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dashboard_b"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/dashboard_b"
+        />
+
+
+    <!-- drawable/dashboard_b.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="105dp"
+        android:height="105dp"
+        android:viewportWidth="105"
+        android:viewportHeight="105"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H105V105H0V0Z"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Login Page -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/login_page"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clipToOutline="true"
+        android:background="@drawable/login_page"
+        />
+
+
+    <!-- drawable/login_page.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="1920dp"
+        android:height="1080dp"
+        android:viewportWidth="1920"
+        android:viewportHeight="1080"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H1920V1080H0V0Z"
+                />
+
+            <path
+                android:pathData="M0 0V1080H1920V0"
+                android:fillColor="#DEBAC0"
+                />
+
+        </group>
+
+    </vector>
+
+
+
+    <!-- Submit Note Button -->
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/submit_note"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/submit_note"
+        android:elevation="5dp"
+        />
+
+
+    <!-- drawable/submit_note.xml -->
+    <vector
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:aapt="http://schemas.android.com/aapt"
+        android:width="462dp"
+        android:height="141dp"
+        android:viewportWidth="462"
+        android:viewportHeight="141"
+        >
+
+        <group>
+
+            <clip-path
+                android:pathData="M0 0H462V141H0V0Z"
+                />
+
+        </group>
+
+    </vector>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
