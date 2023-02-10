@@ -1,0 +1,7 @@
+{
+  "name": "gratitude-notes-core",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

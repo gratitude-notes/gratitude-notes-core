@@ -88,8 +88,8 @@ See more detail in the [organization's main page](https://github.com/gratitude-n
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- TODO -->
-<!-- GETTING STARTED
+
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -102,22 +102,22 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   npm install npm@latest -g
   ```
+* Ionic CLI
+  ```sh
+  npm install -g @ionic/cli
+  ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/gratitude-notes/gratitude-notes-core.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+3. Paste the `.env.local` file into the `/app` of this repository. If you do not have one, then please reach out to @DineshUmasankar
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
