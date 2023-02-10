@@ -19,7 +19,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/gratitude-notes/gratitude-notes-core">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="docs-images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Gratitude Notes</h3>
@@ -179,4 +179,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [Firebase-url]: https://firebase.google.com/
 [Google-Cloud]: https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white
 [Google-Cloud-url]: https://cloud.google.com/
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: docs-images/screenshot.png
