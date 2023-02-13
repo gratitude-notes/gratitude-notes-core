@@ -1,0 +1,12 @@
+#notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.note-text-area {
+    border-radius: 10px;
+    height: 20vh;
+    width: 33vw;
+}
