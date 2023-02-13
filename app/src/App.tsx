@@ -23,6 +23,7 @@ import './theme/variables.css';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
 import AddNotes from './pages/Add-Notes';
+import ViewNotes from './pages/View-Notes';
 
 setupIonicReact();
 
@@ -35,6 +36,9 @@ const App: React.FC = () => (
         }} />
         <Route exact path="/add-notes" render={() => {
           return <AddNotes />
+        }} />
+        <Route exact path="/view-notes" render={() => {
+          return <ViewNotes />
         }} />
         <Route render={() => <Redirect to="/"/>} />
       </IonRouterOutlet>
