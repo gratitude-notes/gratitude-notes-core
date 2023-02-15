@@ -9,7 +9,7 @@ const Login: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonButton>Test</IonButton>
+                <IonButton onClick={() => {console.log(process.env.REACT_APP_FB_API_KEY)}}>Sign In</IonButton>
             </IonContent>
         </IonPage>
     );
