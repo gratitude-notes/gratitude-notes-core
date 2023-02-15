@@ -22,7 +22,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
-import AddNotes from './pages/Add-Notes';
+import AddNotes from './pages/Add-Note';
 import ViewNotes from './pages/View-Notes';
 
 setupIonicReact();
@@ -34,7 +34,7 @@ const App: React.FC = () => (
         <Route exact path="/login" render={() => {
           return <Login />
         }} />
-        <Route exact path="/add-notes" render={() => {
+        <Route exact path="/add-note" render={() => {
           return <AddNotes />
         }} />
         <Route exact path="/view-notes" render={() => {
