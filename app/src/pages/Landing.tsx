@@ -1,4 +1,4 @@
-import { IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 
 const Landing: React.FC = () => {
     return (
@@ -8,6 +8,9 @@ const Landing: React.FC = () => {
                     <IonTitle>Landing Page</IonTitle>
                 </IonToolbar>
             </IonHeader>
+            <IonContent fullscreen>
+                <IonButton onClick={() => {console.log("Plane")}}>Landing</IonButton>
+            </IonContent>
         </IonPage>
     );
 }

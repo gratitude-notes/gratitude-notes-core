@@ -96,8 +96,9 @@ This is an example of how you may give instructions on setting up your project l
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
+Install these following packages ONLY if you do not have them installed and configured already.
 
-This is an example of how to list things you need to use the software and how to install them.
+* [Node.js](https://nodejs.org/en/)
 * npm
   ```sh
   npm install npm@latest -g
@@ -113,11 +114,12 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/gratitude-notes/gratitude-notes-core.git
    ```
-2. Install NPM packages
+2. Open the `/app` directory within a terminal
+3. Install NPM packages
    ```sh
    npm install
    ```
-3. Paste the `.env.local` file into the `/app` of this repository. If you do not have one, then please reach out to @DineshUmasankar
+4. Paste the `.env.local` file into the `/app` of this repository. If you do not have one, then please reach out to @DineshUmasankar
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
