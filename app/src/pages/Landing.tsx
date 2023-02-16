@@ -1,6 +1,9 @@
-import { IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { useContext } from "react";
+import { AuthContext } from "../AuthData";
 
 const Landing: React.FC = () => {
+    const userContext = useContext(AuthContext);
     return (
         <IonPage>
             <IonHeader>
@@ -8,6 +11,9 @@ const Landing: React.FC = () => {
                     <IonTitle>Landing Page</IonTitle>
                 </IonToolbar>
             </IonHeader>
+            <IonContent fullscreen>
+                <p>{`${userContext.logged_in}`}</p>
+            </IonContent>
         </IonPage>
     );
 }
