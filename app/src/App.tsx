@@ -29,7 +29,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
-import AddNotes from './pages/Add-Notes';
+import AddNotes from './pages/Add-Note';
 import ViewNotes from './pages/View-Notes';
 import Dashboard from './pages/Dashboard';
 
