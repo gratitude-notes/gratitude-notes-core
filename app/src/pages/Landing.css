@@ -2,7 +2,7 @@
     position: fixed;
     left: 0.5em;
     top: 0.5em;
-    color: var(--ion-color-light);
+    color: var(--ion-color-secondary);
 }
 
 .content {
