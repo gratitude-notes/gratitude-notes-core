@@ -1,7 +1,13 @@
+/* React Imports */
 import { Route, Redirect } from 'react-router-dom';
+
+/* Ion Component Imports */
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { useAuthInit } from './Auth';
+
+/* Firebase Component Imports */
+import { AuthContext, useAuthInit } from './AuthData';
+import { useFirebase, useFirebaseInit } from './Firebase';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -28,6 +34,11 @@ import ViewNotes from './pages/View-Notes';
 import Dashboard from './pages/Dashboard';
 
 setupIonicReact();
+
+const FirebaseInit = () => {
+  useFirebaseInit();
+  console.log("Test");
+}
 
 const PrivateRoutes: React.FC = () => (
   /**
@@ -66,11 +77,11 @@ const PublicRoutes: React.FC = () => (
 );
 
 const App: React.FC = () => {
-  const { loading, auth } = useAuthInit();
-
+  const { auth_loading, auth } = useAuthInit();
+  
   return (
     <IonApp>
-      { auth ? <PrivateRoutes /> : <PublicRoutes /> }
+      { false ? <PrivateRoutes /> : <PublicRoutes /> }
     </IonApp>
   );
 }

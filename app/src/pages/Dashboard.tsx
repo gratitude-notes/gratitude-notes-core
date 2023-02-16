@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { useContext } from "react";
-import { AuthContext } from "../Auth";
+import { AuthContext } from "../AuthData";
 
 const Dashboard: React.FC = () => {
     const userContext = useContext(AuthContext);
@@ -12,7 +12,7 @@ const Dashboard: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <p>{`${userContext.loggedIn}`}</p>
+                <p>{`${userContext.logged_in}`}</p>
             </IonContent>
         </IonPage>
     );
