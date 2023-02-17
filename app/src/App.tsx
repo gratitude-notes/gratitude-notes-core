@@ -70,6 +70,10 @@ const PublicRoutes: React.FC = () => (
         <IonRouterOutlet>
           <Route exact path="/landing" component={Landing} />
           <Route exact path="/login" component={Login} />
+
+          {/* Dashboard should not be a Public Route, just using for design purposes. */}
+          <Route exact path="/dashboard" component={Dashboard} />
+
           <Route exact path="/" component={Landing} />
           <Route render={() => <Redirect to="/"/> } />
         </IonRouterOutlet>
