@@ -1,11 +1,32 @@
-import { IonButton, IonContent, IonHeader, IonIcon, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
-import { useContext } from "react";
+import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { MutableRefObject, useContext, useEffect, useRef } from "react";
 import './Landing.css';
 import './global.css';
 import '../theme/variables.css';
+import logo from '../assets/GNlogo.svg';
 import { AuthContext } from "../AuthData";
-import ToolBarHeader from "../components/tool-bar-header/ToolBarHeader";
 import styled from 'styled-components';
+
+const Toolbar = styled(IonToolbar)`
+    --background: var(--ion-color-primary);
+    text-align: right;
+`
+
+const GNlogoIcon = styled(IonIcon)`
+    color: var(--ion-color-secondary);
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    cursor: pointer; 
+`
+
+const ToolbarButton = styled(IonButton)`
+    text-transform: none;
+    --box-shadow: none;
+    font-size: 1rem;
+    font-family: Montserrat;
+    --color: var(--ion-color-secondary);
+`
 
 const LoginButton = styled.button`
     background-color: var(--ion-color-secondary); 
@@ -29,16 +50,58 @@ const LoginButton = styled.button`
 
 const Landing: React.FC = () => {
     const userContext = useContext(AuthContext);
+
+    const topRef = useRef(null);
+    const aboutRef = useRef(null);
+    const reviewsRef = useRef(null);
+    const faqRef = useRef(null);
+    const contactRef = useRef(null);
+
+    const scrollToRef = (elementRef: any) => {
+        elementRef.current.scrollIntoView({behavior: 'smooth'})
+    }
+
     return (
         <IonPage>
-            <ToolBarHeader />
-            <IonContent fullscreen className="content-primary-color">
+            <IonHeader className="ion-no-border">
+                <Toolbar>
+                    <GNlogoIcon onClick={() => scrollToRef(topRef)} icon={logo} size="large"/>
+                    <ToolbarButton onClick={() => scrollToRef(aboutRef)}>About</ToolbarButton>
+                    <ToolbarButton onClick={() => scrollToRef(reviewsRef)}>Reviews</ToolbarButton>
+                    <ToolbarButton onClick={() => scrollToRef(faqRef)}>FAQ</ToolbarButton>
+                    <ToolbarButton onClick={() => scrollToRef(contactRef)}>Contact</ToolbarButton>
+                    <LoginButton>Login</LoginButton>
+                </Toolbar>
+            </IonHeader>
+            <IonContent className="content-primary-color">
 
-                <div className="center-display-flex-container">
+                <div ref={topRef} className="center-display-flex-container">
                     <h1>Gratitude Notes</h1>
                     <p>Welcome to Gratitude Notes.</p>
                 </div>
+
+                <div ref={aboutRef} className="center-display-flex-container">
+                    <h1>About</h1>
+                </div>
+                
+                <div ref={reviewsRef} className="center-display-flex-container">
+                    <h1>Reviews</h1>
+                </div>
+
+                <div ref={faqRef}className="center-display-flex-container">
+                    <h1>FAQ</h1>
+                </div>
+
+                <div ref={contactRef} className="center-display-flex-container">
+                    <h1>Contact</h1>
+                </div>
+
+
             </IonContent>
+
+            {/* <IonFooter>
+                <IonButton >CLICK ME</IonButton>
+            </IonFooter> */}
         </IonPage>
     );
 }
