@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonModal, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { MutableRefObject, useContext, useEffect, useRef } from "react";
 import './Landing.css';
 import './global.css';
@@ -48,6 +48,11 @@ const LoginButton = styled.button`
     }
 `
 
+const CloseIcon = styled(IonIcon)`
+    color: black;
+    size: 5em;
+`
+
 const Landing: React.FC = () => {
     const userContext = useContext(AuthContext);
 
@@ -58,9 +63,9 @@ const Landing: React.FC = () => {
     const contactRef = useRef(null);
 
     const scrollToRef = (elementRef: any) => {
-        elementRef.current.scrollIntoView({behavior: 'smooth'})
+        elementRef.current.scrollIntoView({behavior: 'smooth'});
     }
-
+    
     return (
         <IonPage>
             <IonHeader className="ion-no-border">
@@ -70,7 +75,7 @@ const Landing: React.FC = () => {
                     <ToolbarButton onClick={() => scrollToRef(reviewsRef)}>Reviews</ToolbarButton>
                     <ToolbarButton onClick={() => scrollToRef(faqRef)}>FAQ</ToolbarButton>
                     <ToolbarButton onClick={() => scrollToRef(contactRef)}>Contact</ToolbarButton>
-                    <LoginButton>Login</LoginButton>
+                    <LoginButton id="login-btn">Login</LoginButton>
                 </Toolbar>
             </IonHeader>
             <IonContent className="content-primary-color">
@@ -96,9 +101,13 @@ const Landing: React.FC = () => {
                     <h1>Contact</h1>
                 </div>
 
+                <IonModal id="login-modal" trigger="login-btn" backdropDismiss={false}>
+                    {/* <IonButton onClick={closeModal}>Close me</IonButton> */}
+                </IonModal>
 
             </IonContent>
 
+            {/* Auto scroll to next component try */}
             {/* <IonFooter>
                 <IonButton >CLICK ME</IonButton>
             </IonFooter> */}
