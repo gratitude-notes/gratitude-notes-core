@@ -14,7 +14,7 @@
   More specific styles, like position on the pages or within components should
   be styled within more specific .css files.
 */   
-.GNlogoIcon {
+.secondary-color {
   color: var(--ion-color-secondary);
 }
 

@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen className="content">
-                <button id="add-note-btn" className="my-button">Add a Note for Today</button>
+                {/* <button id="add-note-btn" className="my-button">Add a Note for Today</button> */}
             </IonContent>
             <IonFooter className="footer">
                 <div className="container">
