@@ -1,9 +1,9 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonFooter, IonButton, IonTextarea, IonText} from '@ionic/react';
-import './Add-Note.css';
+import './Write-Note.css';
 import '../theme/variables.css'
 import React, {useState} from 'react';
 
-const Add_Notes: React.FC = () => {
+const Write_Note: React.FC = () => {
   const [notes, setNotes] = useState<string[]>([]);
 
   const handleUpdateNote = (index: number, e: any) => {
@@ -69,4 +69,4 @@ const Add_Notes: React.FC = () => {
   );
 };
 
-export default Add_Notes;
+export default Write_Note;

@@ -25,4 +25,4 @@ const About = React.forwardRef((props, ref: React.Ref<HTMLDivElement>) => (
         <AboutParagraph>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sed aut sunt perspiciatis expedita quisquam provident, dicta animi, suscipit repellendus, eaque deleniti! Totam, eaque inventore impedit eveniet itaque animi dolores accusantium!</AboutParagraph>
     </div>
 ));
-export default About; 
+export default About;

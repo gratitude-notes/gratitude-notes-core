@@ -112,10 +112,6 @@ const Landing: React.FC = () => {
     const reviewsRef = useRef<HTMLDivElement>(null);
     const faqRef = useRef<HTMLDivElement>(null);
     const contactRef = useRef<HTMLDivElement>(null);
-
-    const scrollToRef = (elementRef: any) => {
-        elementRef.current.scrollIntoView({behavior: 'smooth'});
-    }
     
     return (
         <IonPage>
@@ -123,14 +119,15 @@ const Landing: React.FC = () => {
 
             <IonHeader>
                 <Toolbar>
-                    <GNlogoIcon onClick={() => scrollToRef(openingTitleRef)} icon={logo}/>
-                    <ToolbarButton onClick={() => scrollToRef(aboutRef)}>About</ToolbarButton>
-                    <ToolbarButton onClick={() => scrollToRef(reviewsRef)}>Reviews</ToolbarButton>
-                    <ToolbarButton onClick={() => scrollToRef(faqRef)}>FAQ</ToolbarButton>
-                    <ToolbarButton onClick={() => scrollToRef(contactRef)}>Contact</ToolbarButton>
+                    <GNlogoIcon onClick={() => openingTitleRef.current?.scrollIntoView({behavior: 'smooth'})} icon={logo}/>
+                    <ToolbarButton onClick={() => aboutRef.current?.scrollIntoView({behavior: 'smooth'})}>About</ToolbarButton>
+                    <ToolbarButton onClick={() => reviewsRef.current?.scrollIntoView({behavior: 'smooth'})}>Reviews</ToolbarButton>
+                    <ToolbarButton onClick={() => faqRef.current?.scrollIntoView({behavior: 'smooth'})}>FAQ</ToolbarButton>
+                    <ToolbarButton onClick={() => contactRef.current?.scrollIntoView({behavior: 'smooth'})}>Contact</ToolbarButton>
                     <LoginButton id="login-btn">Login</LoginButton>
                 </Toolbar>
             </IonHeader>
+
             <IonContent color="primary">
 
                 <OpeningTitle ref={openingTitleRef}/>
@@ -140,7 +137,7 @@ const Landing: React.FC = () => {
                 <Contact ref={contactRef}/>
 
                 <LoginModal id="login-modal" trigger="login-btn" backdropDismiss={false}>
-                    <CloseIcon icon={close} onClick={() => modalController.dismiss()}></CloseIcon>
+                    <CloseIcon icon={close} onClick={async () => await modalController.dismiss()}></CloseIcon>
 
                     <LoginModalContainer className="center-display-flex-container">
                         <IonText color="light">
