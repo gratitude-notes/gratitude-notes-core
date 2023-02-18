@@ -6,6 +6,12 @@ import '../theme/variables.css';
 import logo from '../assets/GNlogo.svg';
 import { AuthContext } from "../AuthData";
 import styled from 'styled-components';
+import ToolbarHeader from "../components/landing-page/toolbar-header/ToolbarHeader";
+import About from "../components/landing-page/about/About";
+import OpeningTitle from "../components/landing-page/opening-title/OpeningTitle";
+import Reviews from "../components/landing-page/reviews/Reviews";
+import FAQ from "../components/landing-page/faq/FAQ";
+import Contact from "../components/landing-page/contact/Contact";
 
 const Toolbar = styled(IonToolbar)`
     --background: var(--ion-color-primary);
@@ -56,11 +62,11 @@ const CloseIcon = styled(IonIcon)`
 const Landing: React.FC = () => {
     const userContext = useContext(AuthContext);
 
-    const topRef = useRef(null);
-    const aboutRef = useRef(null);
-    const reviewsRef = useRef(null);
-    const faqRef = useRef(null);
-    const contactRef = useRef(null);
+    const openingTitleRef = useRef<HTMLDivElement>(null);
+    const aboutRef = useRef<HTMLDivElement>(null);
+    const reviewsRef = useRef<HTMLDivElement>(null);
+    const faqRef = useRef<HTMLDivElement>(null);
+    const contactRef = useRef<HTMLDivElement>(null);
 
     const scrollToRef = (elementRef: any) => {
         elementRef.current.scrollIntoView({behavior: 'smooth'});
@@ -68,9 +74,10 @@ const Landing: React.FC = () => {
     
     return (
         <IonPage>
+            {/* <ToolbarHeader props={topRef}></ToolbarHeader> */}
             <IonHeader className="ion-no-border">
                 <Toolbar>
-                    <GNlogoIcon onClick={() => scrollToRef(topRef)} icon={logo} size="large"/>
+                    <GNlogoIcon onClick={() => scrollToRef(openingTitleRef)} icon={logo} size="large"/>
                     <ToolbarButton onClick={() => scrollToRef(aboutRef)}>About</ToolbarButton>
                     <ToolbarButton onClick={() => scrollToRef(reviewsRef)}>Reviews</ToolbarButton>
                     <ToolbarButton onClick={() => scrollToRef(faqRef)}>FAQ</ToolbarButton>
@@ -80,26 +87,11 @@ const Landing: React.FC = () => {
             </IonHeader>
             <IonContent className="content-primary-color">
 
-                <div ref={topRef} className="center-display-flex-container">
-                    <h1>Gratitude Notes</h1>
-                    <p>Welcome to Gratitude Notes.</p>
-                </div>
-
-                <div ref={aboutRef} className="center-display-flex-container">
-                    <h1>About</h1>
-                </div>
-                
-                <div ref={reviewsRef} className="center-display-flex-container">
-                    <h1>Reviews</h1>
-                </div>
-
-                <div ref={faqRef}className="center-display-flex-container">
-                    <h1>FAQ</h1>
-                </div>
-
-                <div ref={contactRef} className="center-display-flex-container">
-                    <h1>Contact</h1>
-                </div>
+                <OpeningTitle ref={openingTitleRef}/>
+                <About ref={aboutRef}/>
+                <Reviews ref={reviewsRef}/>
+                <FAQ ref={faqRef}/>
+                <Contact ref={contactRef}/>
 
                 <IonModal id="login-modal" trigger="login-btn" backdropDismiss={false}>
                     {/* <IonButton onClick={closeModal}>Close me</IonButton> */}
