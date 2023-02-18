@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const About = React.forwardRef((props, ref: React.Ref<HTMLDivElement>) => (
     <div ref={ref} className="center-display-flex-container">
         <h1>About</h1>

@@ -1,5 +1,5 @@
 import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonModal, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
-import { MutableRefObject, useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import './Landing.css';
 import './global.css';
 import '../theme/variables.css';
@@ -74,7 +74,8 @@ const Landing: React.FC = () => {
     
     return (
         <IonPage>
-            {/* <ToolbarHeader props={topRef}></ToolbarHeader> */}
+            {/* <ToolbarHeader ref={{ aboutRef: this.aboutRef, reviewsRef: this.reviewsRef } }></ToolbarHeader> */}
+
             <IonHeader className="ion-no-border">
                 <Toolbar>
                     <GNlogoIcon onClick={() => scrollToRef(openingTitleRef)} icon={logo} size="large"/>
@@ -98,11 +99,6 @@ const Landing: React.FC = () => {
                 </IonModal>
 
             </IonContent>
-
-            {/* Auto scroll to next component try */}
-            {/* <IonFooter>
-                <IonButton >CLICK ME</IonButton>
-            </IonFooter> */}
         </IonPage>
     );
 }
