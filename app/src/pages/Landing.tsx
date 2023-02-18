@@ -4,6 +4,7 @@ import './Landing.css';
 import './global.css';
 import '../theme/variables.css';
 import logo from '../assets/GNlogo.svg';
+import { close } from 'ionicons/icons';
 import { AuthContext } from "../AuthData";
 import styled from 'styled-components';
 import ToolbarHeader from "../components/landing-page/toolbar-header/ToolbarHeader";
@@ -12,18 +13,21 @@ import OpeningTitle from "../components/landing-page/opening-title/OpeningTitle"
 import Reviews from "../components/landing-page/reviews/Reviews";
 import FAQ from "../components/landing-page/faq/FAQ";
 import Contact from "../components/landing-page/contact/Contact";
+import { modalController } from '@ionic/core';
 
 const Toolbar = styled(IonToolbar)`
     --background: var(--ion-color-primary);
     text-align: right;
+
 `
 
 const GNlogoIcon = styled(IonIcon)`
     color: var(--ion-color-secondary);
     position: fixed;
-    top: 0.5rem;
-    left: 0.5rem;
+    top: 1rem;
+    left: 1rem;
     cursor: pointer; 
+    font-size: 2.5rem;
 `
 
 const ToolbarButton = styled(IonButton)`
@@ -54,9 +58,50 @@ const LoginButton = styled.button`
     }
 `
 
+const LoginModal = styled(IonModal)`
+    --max-width: 20rem;
+    --max-height: 30rem;
+    --border-radius: 50px;
+    --background: var(--ion-color-secondary);
+`
+
 const CloseIcon = styled(IonIcon)`
-    color: black;
-    size: 5em;
+    font-size: 2rem;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    color: var(--ion-color-light);
+    cursor: pointer;
+`
+
+const LoginModalContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+`
+
+const ContinueWithServiceBtn = styled.button`
+    background-color: var(--ion-color-light); 
+    border-radius: 29px; 
+    border: 1px solid var(--ion-color-light); 
+    color: var(--ion-color-secondary); 
+    font-family: Montserrat;
+    font-size: 0.85rem; 
+    padding: 0.75rem 1.5rem;
+    cursor: pointer; 
+    transition: 0.3s; 
+    margin: 1rem;
+
+    :hover {
+        background-color: var(--ion-color-primary); 
+        color: var(--ion-color-secondary); 
+        border-color: var(--ion-color-primary); 
+        transition: 0.3s; 
+    }
 `
 
 const Landing: React.FC = () => {
@@ -76,9 +121,9 @@ const Landing: React.FC = () => {
         <IonPage>
             {/* <ToolbarHeader ref={{ aboutRef: this.aboutRef, reviewsRef: this.reviewsRef } }></ToolbarHeader> */}
 
-            <IonHeader className="ion-no-border">
+            <IonHeader>
                 <Toolbar>
-                    <GNlogoIcon onClick={() => scrollToRef(openingTitleRef)} icon={logo} size="large"/>
+                    <GNlogoIcon onClick={() => scrollToRef(openingTitleRef)} icon={logo}/>
                     <ToolbarButton onClick={() => scrollToRef(aboutRef)}>About</ToolbarButton>
                     <ToolbarButton onClick={() => scrollToRef(reviewsRef)}>Reviews</ToolbarButton>
                     <ToolbarButton onClick={() => scrollToRef(faqRef)}>FAQ</ToolbarButton>
@@ -86,7 +131,7 @@ const Landing: React.FC = () => {
                     <LoginButton id="login-btn">Login</LoginButton>
                 </Toolbar>
             </IonHeader>
-            <IonContent className="content-primary-color">
+            <IonContent color="primary">
 
                 <OpeningTitle ref={openingTitleRef}/>
                 <About ref={aboutRef}/>
@@ -94,9 +139,20 @@ const Landing: React.FC = () => {
                 <FAQ ref={faqRef}/>
                 <Contact ref={contactRef}/>
 
-                <IonModal id="login-modal" trigger="login-btn" backdropDismiss={false}>
-                    {/* <IonButton onClick={closeModal}>Close me</IonButton> */}
-                </IonModal>
+                <LoginModal id="login-modal" trigger="login-btn" backdropDismiss={false}>
+                    <CloseIcon icon={close} onClick={() => modalController.dismiss()}></CloseIcon>
+
+                    <LoginModalContainer className="center-display-flex-container">
+                        <IonText color="light">
+                            <h3>Login</h3>
+                        </IonText>
+                        <IonText color="light">
+                            <p>By continuing, you are agreeing to set up a Gratitude Notes account and agreeing to our User Agreement and Privacy Policy.</p>
+                        </IonText>
+                        <ContinueWithServiceBtn id="login-google-btn">Continue with Google</ContinueWithServiceBtn>
+                        <ContinueWithServiceBtn id="login-apple-btn">Continue with Apple</ContinueWithServiceBtn>
+                    </LoginModalContainer>
+                </LoginModal>
 
             </IonContent>
         </IonPage>

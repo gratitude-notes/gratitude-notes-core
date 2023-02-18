@@ -14,9 +14,6 @@
   More specific styles, like position on the pages or within components should
   be styled within more specific .css files.
 */   
-.secondary-color {
-  color: var(--ion-color-secondary);
-}
 
 .center-display-flex-container {
   display: flex;
@@ -25,8 +22,4 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-}
-
-.content-primary-color {
-  --background: var(--ion-color-primary);
 }
