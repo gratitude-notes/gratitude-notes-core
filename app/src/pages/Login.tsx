@@ -1,5 +1,6 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 
+
 const Login: React.FC = () => {
     return (
         <IonPage>
@@ -9,7 +10,7 @@ const Login: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonButton>Test</IonButton>
+                <IonButton onClick={() => {console.log("secret")}}>Sign In</IonButton>
             </IonContent>
         </IonPage>
     );
