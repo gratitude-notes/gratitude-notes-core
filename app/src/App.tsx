@@ -29,7 +29,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
-import AddNotes from './pages/Add-Note';
+import WriteNote from './pages/Write-Note';
 import ViewNotes from './pages/View-Notes';
 import Dashboard from './pages/Dashboard';
 
@@ -44,16 +44,15 @@ const PrivateRoutes: React.FC = () => (
   /**
    * Routes for Authorized Users
    * 
-   * Accessible Routes: [AddNotes, ViewNotes, Dashboard]
+   * Accessible Routes: [WriteNote, ViewNotes, Dashboard]
    * Fallback Route: [Dashboard]
    */
   <IonReactRouter>
     <IonRouterOutlet>
-      <Route exact path="/add-notes" component={AddNotes} />
+      <Route exact path="/write-note" component={WriteNote} />
       <Route exact path="/view-notes" component={ViewNotes} />
       <Route exact path="/dashboard" component={Dashboard} />
       <Route path="/" exact component={Dashboard} />
-      <Route render={() => <Redirect to="/"/> } />
     </IonRouterOutlet>
   </IonReactRouter>
 );
@@ -72,10 +71,12 @@ const PublicRoutes: React.FC = () => (
           <Route exact path="/login" component={Login} />
 
           {/* Dashboard should not be a Public Route, just using for design purposes. */}
-          <Route exact path="/dashboard" component={Dashboard} />
+          {/* <Route exact path="/dashboard" component={Dashboard} /> */}
+
+          {/* Write Note should not be a Public Route, just using for design purposes. */}
+          <Route exact path="/write-note" component={WriteNote} />
 
           <Route exact path="/" component={Landing} />
-          <Route render={() => <Redirect to="/"/> } />
         </IonRouterOutlet>
     </IonReactRouter>
 );
