@@ -1,18 +1,21 @@
-import { IonContent, IonFooter, IonHeader, IonIcon, IonLabel, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { useContext } from "react";
+
+import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import './Dashboard.css';
 import './global.css';
 import '../theme/variables.css';
 import logo from '../assets/GNlogo.svg';
-import { AuthContext } from "../AuthData";
+
+import { logout } from "../lib/AuthFunctions";
+import { AuthContext } from "../lib/AuthContext";
 
 const Dashboard: React.FC = () => {
-    const userContext = useContext(AuthContext);
     return (
         <IonPage>
             <IonHeader className="header">
                 <IonToolbar className="header-toolbar">
                     <IonIcon id="GNlogoIcon" icon={logo} size="large"></IonIcon>
+                    <IonButton onClick={logout}>Logout</IonButton>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen className="content">

@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonFooter, IonButton, IonTextarea, IonText} from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonText} from '@ionic/react';
 import './View-Notes.css';
 import '../theme/variables.css'
 import React, {useState, useEffect} from 'react';

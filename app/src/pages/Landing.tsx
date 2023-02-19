@@ -1,11 +1,10 @@
-import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonModal, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonText, IonToolbar } from "@ionic/react";
 import { useContext, useRef } from "react";
 import './Landing.css';
 import './global.css';
 import '../theme/variables.css';
 import logo from '../assets/GNlogo.svg';
 import { close } from 'ionicons/icons';
-import { AuthContext } from "../AuthData";
 import styled from 'styled-components';
 import ToolbarHeader from "../components/landing-page/toolbar-header/ToolbarHeader";
 import About from "../components/landing-page/about/About";
@@ -13,7 +12,10 @@ import OpeningTitle from "../components/landing-page/opening-title/OpeningTitle"
 import Reviews from "../components/landing-page/reviews/Reviews";
 import FAQ from "../components/landing-page/faq/FAQ";
 import Contact from "../components/landing-page/contact/Contact";
-import { modalController } from '@ionic/core';
+import { modalController } from '@ionic/core/components';
+import { login } from "../lib/AuthFunctions";
+import { AuthContext } from "../lib/AuthContext";
+import { Redirect } from "react-router";
 
 const Toolbar = styled(IonToolbar)`
     --background: var(--ion-color-primary);
@@ -105,14 +107,12 @@ const ContinueWithServiceBtn = styled.button`
 `
 
 const Landing: React.FC = () => {
-    const userContext = useContext(AuthContext);
-
     const openingTitleRef = useRef<HTMLDivElement>(null);
     const aboutRef = useRef<HTMLDivElement>(null);
     const reviewsRef = useRef<HTMLDivElement>(null);
     const faqRef = useRef<HTMLDivElement>(null);
     const contactRef = useRef<HTMLDivElement>(null);
-    
+
     return (
         <IonPage>
             {/* <ToolbarHeader ref={{ aboutRef: this.aboutRef, reviewsRef: this.reviewsRef } }></ToolbarHeader> */}
@@ -127,16 +127,16 @@ const Landing: React.FC = () => {
                     <LoginButton id="login-btn">Login</LoginButton>
                 </Toolbar>
             </IonHeader>
-
+            
             <IonContent color="primary">
-
+            
                 <OpeningTitle ref={openingTitleRef}/>
                 <About ref={aboutRef}/>
                 <Reviews ref={reviewsRef}/>
                 <FAQ ref={faqRef}/>
                 <Contact ref={contactRef}/>
 
-                <LoginModal id="login-modal" trigger="login-btn" backdropDismiss={false}>
+                <LoginModal id="login-modal" trigger="login-btn" backdropDismiss={true}>
                     <CloseIcon icon={close} onClick={async () => await modalController.dismiss()}></CloseIcon>
 
                     <LoginModalContainer className="center-display-flex-container">
@@ -146,11 +146,10 @@ const Landing: React.FC = () => {
                         <IonText color="light">
                             <p>By continuing, you are agreeing to set up a Gratitude Notes account and agreeing to our User Agreement and Privacy Policy.</p>
                         </IonText>
-                        <ContinueWithServiceBtn id="login-google-btn">Continue with Google</ContinueWithServiceBtn>
+                        <ContinueWithServiceBtn onClick={() => {login(); modalController.dismiss()}} id="login-google-btn">Continue with Google</ContinueWithServiceBtn>
                         <ContinueWithServiceBtn id="login-apple-btn">Continue with Apple</ContinueWithServiceBtn>
                     </LoginModalContainer>
                 </LoginModal>
-
             </IonContent>
         </IonPage>
     );
