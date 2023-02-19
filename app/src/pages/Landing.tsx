@@ -127,9 +127,9 @@ const Landing: React.FC = () => {
                     <LoginButton id="login-btn">Login</LoginButton>
                 </Toolbar>
             </IonHeader>
-
+            
             <IonContent color="primary">
-
+            
                 <OpeningTitle ref={openingTitleRef}/>
                 <About ref={aboutRef}/>
                 <Reviews ref={reviewsRef}/>
@@ -150,8 +150,7 @@ const Landing: React.FC = () => {
                         <ContinueWithServiceBtn id="login-apple-btn">Continue with Apple</ContinueWithServiceBtn>
                     </LoginModalContainer>
                 </LoginModal>
-
-            </IonContent>
+                
         </IonPage>
     );
 }
