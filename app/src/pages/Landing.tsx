@@ -18,7 +18,7 @@ import { modalController } from '@ionic/core';
 const Toolbar = styled(IonToolbar)`
     --background: var(--ion-color-primary);
     text-align: right;
-
+    height: 75px;
 `
 
 const GNlogoIcon = styled(IonIcon)`
