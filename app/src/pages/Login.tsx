@@ -1,5 +1,10 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { useGoogleSSOLogin } from "../firebase-hooks/Session";
 
+
+const signIn = () => {
+    
+}
 
 const Login: React.FC = () => {
     return (
@@ -10,7 +15,7 @@ const Login: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonButton onClick={() => {console.log("secret")}}>Sign In</IonButton>
+                <IonButton>Sign In</IonButton>
             </IonContent>
         </IonPage>
     );

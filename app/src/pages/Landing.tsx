@@ -13,6 +13,7 @@ const Landing: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen>
                 <p>{`${userContext.logged_in}`}</p>
+                <IonButton routerLink="/login">Login Page</IonButton>
             </IonContent>
         </IonPage>
     );

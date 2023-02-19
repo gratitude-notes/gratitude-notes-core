@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { useFirebase } from "./Firebase";
+import { useFirebase } from "./FirebaseComponents";
 
 interface AuthData {
     /**
@@ -23,7 +22,7 @@ interface AuthDataInit {
 // Using React Context Hook & Establishing ContextProvider
 export const AuthContext = React.createContext<AuthData>({logged_in: false});
 
-export function useAuth(): AuthData {
+export function useAuthData(): AuthData {
     /**
      * Gets Current State of UserAuth (including their profile data).
      * 
@@ -33,7 +32,7 @@ export function useAuth(): AuthData {
     return useContext(AuthContext);
 }
 
-export function useAuthInit(): AuthDataInit {
+export function useAuthDataInit(): AuthDataInit {
     /**
      * Starts the firebase event listener `onAuthChanged` and updates `Auth` accordingly.
      * 
@@ -43,7 +42,7 @@ export function useAuthInit(): AuthDataInit {
     const { auth } = useFirebase();
 
     useEffect(() => {
-        return auth?.onAuthStateChanged((firebaseUser) => {
+        return auth.onAuthStateChanged((firebaseUser) => {
             const auth_result = firebaseUser 
             ? {logged_in: true, user_id: firebaseUser.uid, user_data: firebaseUser}
             : {logged_in: false }
