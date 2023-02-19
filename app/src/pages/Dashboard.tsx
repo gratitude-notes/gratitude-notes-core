@@ -8,18 +8,14 @@ import logo from '../assets/GNlogo.svg';
 
 import { logout } from "../lib/AuthFunctions";
 import { AuthContext } from "../lib/AuthContext";
-import { Redirect } from "react-router";
 
 const Dashboard: React.FC = () => {
-    const currentUser = useContext(AuthContext);
-   
     return (
         <IonPage>
             <IonHeader className="header">
                 <IonToolbar className="header-toolbar">
                     <IonIcon id="GNlogoIcon" icon={logo} size="large"></IonIcon>
                     <IonButton onClick={logout}>Logout</IonButton>
-                    <IonButton onClick={() => {<Redirect to="/write-notes"/>}}></IonButton>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen className="content">
