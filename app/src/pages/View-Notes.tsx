@@ -35,3 +35,54 @@ const View_Notes: React.FC = () => {
 };
 
 export default View_Notes;
+
+
+
+      {/* <IonList>
+      <IonListHeader>
+        <IonLabel>Date</IonLabel>
+      </IonListHeader>
+      <IonItem>
+        <IonButton 
+          id = "viewBtn"
+          color="primary" 
+          expand="full"
+          fill="clear"
+          >
+            New Note
+      </IonButton>
+      </IonItem>
+      <IonItem>
+        <IonLabel>Mega Man X</IonLabel>
+      </IonItem>
+      <IonItem>
+        <IonLabel>The Legend of Zelda</IonLabel>
+      </IonItem>
+      <IonItem onClick={() => console.log("hi")}>
+        <IonLabel>Pac-Man</IonLabel>
+      </IonItem>
+      <IonItem>
+        <IonLabel>Super Mario World Note Here akda;dkfad;fkdjfkd;fkdjflkdsjf;dkjfakljfkajfkdjfa</IonLabel>
+      </IonItem>
+    </IonList>
+
+
+      
+        <ViewNotesModal id="login-modal" trigger="viewBtn" backdropDismiss={true}>
+
+                    <ViewListContainer className="center-display-flex-container">
+                        <IonText color="light">
+                            <h3>Login</h3>
+                        </IonText>
+                        <IonText color="light">
+                            <p>By continuing, you are agreeing to set up a Gratitude Notes account and agreeing to our User Agreement and Privacy Policy.</p>
+                        </IonText>
+                    </ViewListContainer>
+          </ViewNotesModal>
+      </IonContent>
+
+      <IonFooter>
+        <IonToolbar>
+        </IonToolbar>
+      </IonFooter>
+    </IonPage> */}
