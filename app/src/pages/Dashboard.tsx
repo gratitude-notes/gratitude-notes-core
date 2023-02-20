@@ -1,5 +1,3 @@
-import { useContext } from "react";
-
 import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import './Dashboard.css';
 import './global.css';
@@ -7,7 +5,6 @@ import '../theme/variables.css';
 import logo from '../assets/GNlogo.svg';
 
 import { logout } from "../lib/AuthFunctions";
-import { AuthContext } from "../lib/AuthContext";
 
 const Dashboard: React.FC = () => {
     return (
