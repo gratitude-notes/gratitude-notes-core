@@ -2,6 +2,17 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonTex
 import './View-Notes.css';
 import '../theme/variables.css'
 import React, {useState, useEffect} from 'react';
+import styled from 'styled-components';
+import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
+
+const NoteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`
 
 const View_Notes: React.FC = () => {
   return (
@@ -13,9 +24,9 @@ const View_Notes: React.FC = () => {
       </IonHeader>
 
       <IonContent className="ion-padding">
-        <div id="notes-container">
-            <IonText>This is a past note.</IonText>
-        </div>
+        <NoteContainer>
+            
+        </NoteContainer>
       </IonContent>
 
       <IonFooter>
@@ -27,3 +38,5 @@ const View_Notes: React.FC = () => {
 };
 
 export default View_Notes;
+
+
