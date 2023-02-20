@@ -22,7 +22,7 @@ const View_Notes: React.FC = () => {
       <IonContent className="ion-padding">
         <div id="notes-container">
           <SearchBar ref={searchbar}/>
-          <ViewList ref={viewlist}/>
+          <ViewList/>
         </div>
       </IonContent>
 
