@@ -13,7 +13,7 @@ import Reviews from "../components/landing-page/reviews/Reviews";
 import FAQ from "../components/landing-page/faq/FAQ";
 import Contact from "../components/landing-page/contact/Contact";
 import { modalController } from '@ionic/core/components';
-import { login } from "../lib/AuthFunctions";
+import { loginWithGoogle } from "../lib/AuthFunctions";
 import { AuthContext } from "../lib/AuthContext";
 import { Redirect } from "react-router";
 
@@ -146,7 +146,7 @@ const Landing: React.FC = () => {
                         <IonText color="light">
                             <p>By continuing, you are agreeing to set up a Gratitude Notes account and agreeing to our User Agreement and Privacy Policy.</p>
                         </IonText>
-                        <ContinueWithServiceBtn onClick={() => {login(); modalController.dismiss()}} id="login-google-btn">Continue with Google</ContinueWithServiceBtn>
+                        <ContinueWithServiceBtn onClick={() => {loginWithGoogle(); modalController.dismiss()}} id="login-google-btn">Continue with Google</ContinueWithServiceBtn>
                         <ContinueWithServiceBtn id="login-apple-btn">Continue with Apple</ContinueWithServiceBtn>
                     </LoginModalContainer>
                 </LoginModal>

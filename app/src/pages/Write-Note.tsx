@@ -4,6 +4,8 @@ import '../theme/variables.css'
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
+import { writeNote } from '../lib/FirestoreFunctions';
+import { useAuth } from '../lib/AuthContext';
 
 const NoteContainer = styled.div`
   display: flex;
@@ -50,7 +52,7 @@ const SumbitNoteButton = styled.button`
 `
 
 const Write_Note: React.FC = () => {
-
+  const currentUser = useAuth();
   const [note, setNote] = useState<string>("");
 
   const handleUpdateNote = (e: any) => {
@@ -72,7 +74,7 @@ const Write_Note: React.FC = () => {
             <NoteTextarea value={note} onIonChange={(e) => handleUpdateNote(e)} maxlength={250} autoGrow={true} rows={10} autofocus={true}/>
           </NoteItem>
           
-          <SumbitNoteButton>Submit Note</SumbitNoteButton>
+          <SumbitNoteButton onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</SumbitNoteButton>
         </NoteContainer>
 
       </IonContent>

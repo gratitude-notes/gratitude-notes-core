@@ -1,12 +1,14 @@
 import { fb_auth } from "../config/Firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 
-export const login = async () => {
+export const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/userinfo.email');
 
     fb_auth.useDeviceLanguage();
-    await signInWithPopup(fb_auth, provider);
+    const result = signInWithPopup(fb_auth, provider).then(() => {return true}).catch((err) => {return false});
+
+    return result;
 }
 
 export const logout = async () => {
