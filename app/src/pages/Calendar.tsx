@@ -17,7 +17,7 @@ const CalendarHeaderContainer = styled.div`
     width: 100%;
     height: 5%;
     justify-content: space-between;
-    border: 5px solid red;
+    /* border: 5px solid red; */
 `
 
 const MonthCalendarContainer = styled.div`
@@ -26,14 +26,14 @@ const MonthCalendarContainer = styled.div`
     width: 100%;
     height: 95%;
     overflow-y: hidden;
-    border: 5px solid blue;
+    /* border: 5px solid blue; */
 `
 
 const WeekCalendarContainer = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    border: 5px solid yellow;
+    /* border: 5px solid yellow; */
 `
 
 const DayCalendarContainer = styled.div`
@@ -42,14 +42,14 @@ const DayCalendarContainer = styled.div`
     width: 100%;
     height: 100%;
     border: 1px solid black;
-    border: 5px solid purple;
+    /* border: 5px solid purple; */
 `
 
 const DayCardHeaderContainer = styled.div`
     display: flex;
     width: 100%;
     height: 25%;
-    border: 5px solid pink;
+    /* border: 5px solid pink; */
 `
 
 const DayCardHeaderText = styled.h1`
@@ -65,14 +65,14 @@ const DayCardFlexGridContainer = styled.div`
     width: 100%;
     height: 100%;
     gap: 1px 1px;
-    border: 5px solid green;
+    /* border: 5px solid green; */
 `
 
 const DayCardFlexGridRowContainer = styled.div`
     flex: 1;
     width: 100%;
     height: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 const DayCardFlexGridColContainer = styled.div`
@@ -86,7 +86,7 @@ const DayCardFlexGridItem = styled.div`
     flex: 1;
     width: 100%;
     height: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 `
 
 const CalendarHeader = (props: any) => {

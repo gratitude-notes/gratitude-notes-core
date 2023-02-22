@@ -28,6 +28,7 @@ import WriteNote from './pages/Write-Note';
 import ViewNotes from './pages/View-Notes';
 import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar';
+import DayCard from './pages/DayCard';
 
 /* Auth Context */
 import { AuthContext, useAuth, UserAuth } from './lib/AuthContext';
@@ -41,6 +42,7 @@ const Routes: React.FC<{ currentUser: UserAuth }> = ({ currentUser}) => {
         <Route exact path="/write-note" component={WriteNote} />
         <Route exact path="/view-notes" component={ViewNotes} />
         <Route exact path="/calendar" component={Calendar} />
+        <Route exact path="/day-card" component={DayCard} />
         <Route exact path="/" component={Dashboard} />
       </>
     );
