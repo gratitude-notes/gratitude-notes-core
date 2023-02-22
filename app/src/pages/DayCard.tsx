@@ -7,7 +7,7 @@ const data = {
     },
     {
       "time": "1:45:30 AM",
-      "score": -4
+      "score": 0
     },
     {
       "time": "8:15:00 AM",
@@ -67,7 +67,8 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
     top: reversePointY.concat('%'),
     backgroundColor: 'blue',
     height: '0.5rem',
-    width: '0.5rem'
+    width: '0.5rem',
+    borderRadius: '0.5rem'
   } as React.CSSProperties
 
   return (
@@ -78,14 +79,16 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
 const DayCard: React.FC = () => {
 
   const date = data.date;
-  const time = data.noteData[0].time;
-  const score = data.noteData[0].score;
 
   return (
     <div style={styles.layout}>
       <h1 style={styles.dayDate}>{date.split(" ")[1].replace(',', '')}</h1>
       <div style={styles.dayPoints}>
-        <DayCardPoint date={date} time={time} score={score}/>
+        {data.noteData.map((singleNoteData, key) => {
+          return (
+            <DayCardPoint key={key} date={date} time={singleNoteData.time} score={singleNoteData.score} />
+          );
+        })}
       </div>
       <div></div>
       <div></div>
