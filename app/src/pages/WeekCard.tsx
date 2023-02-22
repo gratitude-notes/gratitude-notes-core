@@ -77,7 +77,7 @@ const styles = {
           / 1fr 1fr 1fr 1fr 1fr 1fr 1fr`,
         gap: '1px',
         height: '100%',
-        border: '5px solid gren'
+        border: '5px solid green'
     } as React.CSSProperties,
     dayCard1: { gridArea: 'dayCard1' } as React.CSSProperties,
     dayCard2: { gridArea: 'dayCard2' } as React.CSSProperties,
