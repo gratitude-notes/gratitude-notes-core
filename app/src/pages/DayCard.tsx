@@ -1,12 +1,27 @@
-const data =
-[{
-    time: 'February 21, 2023 11:20:09 PM',
-    score: 5
-}]
-
-interface Point {
-  time: string,
-  score: number
+const data = {
+  "date": "February 22, 2023",
+  "noteData": [
+    {
+      "time": "11:59:00 PM",
+      "score": 5
+    },
+    {
+      "time": "1:45:30 AM",
+      "score": -4
+    },
+    {
+      "time": "8:15:00 AM",
+      "score": -2
+    },
+    {
+      "time": "3:00:15 PM",
+      "score": -3
+    },
+    {
+      "time": "9:30:45 PM",
+      "score": 2
+    }
+  ]
 }
 
 const SECONDS_IN_DAY = 86400;
@@ -19,14 +34,22 @@ const MAX_SCORE = 5;
 const MIN_SCALE = 0;
 const MAX_SCALE = 100;
 
-const DayCardPoint: React.FC<Point> = ({ time, score }) => {
-  
-  // parse time
-  const timeObj = new Date(time);
+interface Point {
+  date: string,
+  time: string,
+  score: number
+}
 
-  const hours = timeObj.getHours();
-  const minutes = timeObj.getMinutes();
-  const seconds = timeObj.getSeconds();
+const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
+
+  // Give format like February 22, 2023 11:20:09 PM
+  const dateTime = [date, time].join(" ");
+  
+  const dateObj = new Date(dateTime);
+
+  const hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const seconds = dateObj.getSeconds();
 
   const totalSeconds = (hours * SECONDS_IN_HOUR) + (minutes * SECONDS_IN_MINUTE) + (seconds);
 
@@ -43,8 +66,8 @@ const DayCardPoint: React.FC<Point> = ({ time, score }) => {
     left: pointX.concat('%'),
     top: reversePointY.concat('%'),
     backgroundColor: 'blue',
-    height: '10px',
-    width: '10px'
+    height: '0.5rem',
+    width: '0.5rem'
   } as React.CSSProperties
 
   return (
@@ -54,19 +77,23 @@ const DayCardPoint: React.FC<Point> = ({ time, score }) => {
 
 const DayCard: React.FC = () => {
 
-  const dateData = data[0].time.split(' ')[1].replace(',','');
-  const timeData = data[0].time;
-  const scoreData = data[0].score;
+  const date = data.date;
+  const time = data.noteData[0].time;
+  const score = data.noteData[0].score;
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>{dateData}</h1>
-
-      <div style={styles.pointsContainer}> 
-        <DayCardPoint time={timeData} score={scoreData}/>
+    <div style={styles.layout}>
+      <h1 style={styles.dayDate}>{date.split(" ")[1].replace(',', '')}</h1>
+      <div style={styles.dayPoints}>
+        <DayCardPoint date={date} time={time} score={score}/>
       </div>
-      
-
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 }
@@ -74,23 +101,22 @@ const DayCard: React.FC = () => {
 export default DayCard;
 
 const styles = {
-  container: {
-    width: '100%',
+  layout: {
+    display: 'grid',
+    grid:
+      `". . dayDate" 1fr
+      ". dayPoints ." 11fr
+      ". . ." 1fr
+      / 1fr 24fr 1fr`,
+    gap: '1px',
     height: '100%',
-    border: '5px solid red',
-    padding: '3rem'
+    border: '5px solid red'
   } as React.CSSProperties,
-  pointsContainer: {
-    border: '5px solid green',
-    width: '100%',
-    height: '100%'
+  dayDate: {
+    gridArea: 'dayDate',
+    paddingRight: '1rem'
   } as React.CSSProperties,
-  header: {
-    margin: 0,
-    padding: 0,
-    position: 'fixed',
-    top: '1rem',
-    right: '1rem',
-    border: '5px solid blue',
+  dayPoints: {
+    gridArea: 'dayPoints'
   } as React.CSSProperties
 }
