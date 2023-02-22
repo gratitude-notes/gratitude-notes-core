@@ -84,7 +84,7 @@ const DayCard: React.FC = () => {
     <div style={styles.layout}>
       <h1 style={styles.dayDate}>{date.split(" ")[1].replace(',', '')}</h1>
       <div style={styles.dayPoints}>
-        {data.noteData.map((singleNoteData, key) => {
+        {data.noteData.map((singleNoteData: { time: string, score: number }, key) => {
           return (
             <DayCardPoint key={key} date={date} time={singleNoteData.time} score={singleNoteData.score} />
           );
