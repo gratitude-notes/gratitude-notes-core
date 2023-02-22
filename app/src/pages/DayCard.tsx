@@ -11,7 +11,7 @@ const data = {
     },
     {
       "time": "8:15:00 AM",
-      "score": -2
+      "score": -1
     },
     {
       "time": "3:00:15 PM",
@@ -23,6 +23,31 @@ const data = {
     }
   ]
 }
+
+// const data = {
+//   "February 22, 2023": [
+//     {
+//       "time": "11:59:00 PM",
+//       "score": 5
+//     },
+//     {
+//       "time": "1:45:30 AM",
+//       "score": 0
+//     },
+//     {
+//       "time": "8:15:00 AM",
+//       "score": -2
+//     },
+//     {
+//       "time": "3:00:15 PM",
+//       "score": -3
+//     },
+//     {
+//       "time": "9:30:45 PM",
+//       "score": 2
+//     }
+//   ]
+// }
 
 const SECONDS_IN_DAY = 86400;
 const SECONDS_IN_HOUR = 3600;
@@ -76,27 +101,26 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
   );
 }
 
-const DayCard: React.FC = () => {
+interface DayCardData {
+  date: string,
+  noteData: {
+    time: string,
+    score: number
+  }[]
+}
 
-  const date = data.date;
+const DayCard: React.FC<DayCardData> = ({date, noteData }) => {
 
   return (
     <div style={styles.layout}>
       <h1 style={styles.dayDate}>{date.split(" ")[1].replace(',', '')}</h1>
       <div style={styles.dayPoints}>
-        {data.noteData.map((singleNoteData: { time: string, score: number }, key) => {
+        {noteData.map((singleNoteData: { time: string, score: number }, key) => {
           return (
             <DayCardPoint key={key} date={date} time={singleNoteData.time} score={singleNoteData.score} />
           );
         })}
       </div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
     </div>
   );
 }
