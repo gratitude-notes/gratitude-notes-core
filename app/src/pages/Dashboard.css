@@ -1,13 +1,4 @@
-.header-toolbar {
-    --background: var(--ion-color-primary);
-}
-
-.content {
-    --background: var(--ion-color-primary);
-}
-
 .footer {
-    background-color:  var(--ion-color-primary);
     height: 15em;
 }
 
@@ -24,7 +15,6 @@
     position: absolute;
     left: 0.5em;
     top: 0.5em;
-    color: var(--ion-color-secondary);
     font-family: Open_Sans;
     font-size: 2em;
 }
@@ -39,12 +29,10 @@
 }
 
 #featured-note-text {
-    color: var(--ion-color-secondary);
     font-family: Montserrat;
     font-size: 1em;
 }
 #featured-note-date-text {
-    color: var(--ion-color-secondary);
     font-family: Montserrat;
     font-style: italic;
     font-size: 1em;
