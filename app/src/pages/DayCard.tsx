@@ -1,3 +1,4 @@
+/*  EXAMPLE OBJECT FOR SINGLE DAY
 const data = {
   "date": "February 22, 2023",
   "noteData": [
@@ -23,6 +24,7 @@ const data = {
     }
   ]
 }
+*/
 
 const SECONDS_IN_DAY = 86400;
 const SECONDS_IN_HOUR = 3600;
@@ -33,6 +35,26 @@ const MAX_SCORE = 5;
 
 const MIN_SCALE = 0;
 const MAX_SCALE = 100;
+
+// const POINT_COLORS = {
+//   '5': 'green',
+//   '4': 'green',
+//   '3': 'green',
+//   '2': 'yellow',
+//   '1': 'yellow',
+//   '0': 'yellow',
+//   '-1': 'yellow',
+//   '-2': 'yellow',
+//   '-3': 'red',
+//   '-4': 'red',
+//   '-5': 'red'
+// }
+
+const getPointColor = (score: number) => {
+  if (score >= -5 && score <= -3) return 'red'
+  else if (score >= -2 && score <= 2) return 'yellow'
+  else if (score >= 3 && score <= 5) return 'green'
+}
 
 interface Point {
   date: string,
@@ -61,14 +83,18 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
   // reverse scale of pointY
   const reversePointY = (MIN_SCALE - normalizePointY + MAX_SCALE).toString()  // score
 
+  // get color
+  const pointColor = getPointColor(score)
+
   const style = {
     position: 'relative',
     left: pointX.concat('%'),
     top: reversePointY.concat('%'),
-    backgroundColor: 'blue',
+    backgroundColor: `${pointColor}`,
     height: '0.5rem',
     width: '0.5rem',
-    borderRadius: '0.5rem'
+    borderRadius: '0.5rem',
+    border: '1px solid black'
   } as React.CSSProperties
 
   return (
