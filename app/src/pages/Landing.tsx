@@ -18,13 +18,11 @@ import { AuthContext } from "../lib/AuthContext";
 import { Redirect } from "react-router";
 
 const Toolbar = styled(IonToolbar)`
-    --background: var(--ion-color-primary);
     text-align: right;
     height: 75px;
 `
 
 const GNlogoIcon = styled(IonIcon)`
-    color: var(--ion-color-secondary);
     position: fixed;
     top: 1rem;
     left: 1rem;
@@ -37,7 +35,6 @@ const ToolbarButton = styled(IonButton)`
     --box-shadow: none;
     font-size: 1rem;
     font-family: Montserrat;
-    --color: var(--ion-color-secondary);
 `
 
 const LoginButton = styled.button`
@@ -64,7 +61,6 @@ const LoginModal = styled(IonModal)`
     --max-width: 20rem;
     --max-height: 30rem;
     --border-radius: 50px;
-    --background: var(--ion-color-secondary);
 `
 
 const CloseIcon = styled(IonIcon)`
@@ -72,7 +68,6 @@ const CloseIcon = styled(IonIcon)`
     position: fixed;
     top: 1rem;
     right: 1rem;
-    color: var(--ion-color-light);
     cursor: pointer;
 `
 
@@ -128,7 +123,7 @@ const Landing: React.FC = () => {
                 </Toolbar>
             </IonHeader>
             
-            <IonContent color="primary">
+            <IonContent>
             
                 <OpeningTitle ref={openingTitleRef}/>
                 <About ref={aboutRef}/>
