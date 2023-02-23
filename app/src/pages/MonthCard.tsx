@@ -34,8 +34,7 @@ const styles = {
           "day22 day23 day24 day25 day26 day27 day28"                                                           1fr
           "day29 day30 day31 day32 day33 day34 day35"                                                           1fr
           / 1fr 1fr 1fr 1fr 1fr 1fr 1fr`,
-        gap: '1px',
-        height: '100%'
+        width: '750px'
     } as React.CSSProperties,
     sundayHeader:       { gridArea: 'sundayHeader', textAlign: 'center' } as React.CSSProperties,
     mondayHeader:       { gridArea: 'mondayHeader', textAlign: 'center' } as React.CSSProperties,

@@ -1,4 +1,4 @@
-/*  EXAMPLE OBJECT FOR SINGLE DAY
+// EXAMPLE OBJECT FOR SINGLE DAY
 const data = {
   "date": "February 22, 2023",
   "noteData": [
@@ -11,7 +11,7 @@ const data = {
       "score": 0
     },
     {
-      "time": "8:15:00 AM",
+      "time": "12:15:00 AM",
       "score": -1
     },
     {
@@ -24,7 +24,7 @@ const data = {
     }
   ]
 }
-*/
+
 
 const SECONDS_IN_DAY = 86400;
 const SECONDS_IN_HOUR = 3600;
@@ -86,13 +86,14 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
   let pointColor = getPointColor(score)
 
   const style = {
-    position: 'relative',
+    position: 'absolute',
     left: pointX.concat('%'),
     top: reversePointY.concat('%'),
     backgroundColor: `${pointColor}`,
     height: '10px',
     width: '10px',
     borderRadius: '10px',
+    margin: '-5px',         // make sure this is half the size of radius and negative to ensure proper centering
     border: '1px solid black'
   } as React.CSSProperties
 
@@ -129,28 +130,20 @@ export default DayCard;
 
 const styles = {
   layout: {
-    display: 'grid',
-    // grid:
-    //   `". . dayDate" 1fr
-    //   ". dayPoints ." 11fr
-    //   ". . ." 1fr
-    //   / 1fr 24fr 1fr`,
-    grid:
-    `". . dayDate"      0.25fr
-    ". dayPoints ."     1.375fr
-    ". . ."             0.1fr
-    / 0.25fr 5fr 0.25fr`,
-    gap: '1px',
-    height: '100%',
+    display: 'block',
+    maxWidth: '150px',
+    padding: '0 10px 10px 10px',
     border: '1px solid black'
   } as React.CSSProperties,
   dayDate: {
-    gridArea: 'dayDate',
-    fontSize: '1rem',
-    margin: '5px',
-    padding: '0'
+    textAlign: 'right',
+    margin: '0.1rem',
+    fontSize: '1rem'
   } as React.CSSProperties,
   dayPoints: {
-    gridArea: 'dayPoints'
+    position: 'relative',
+    maxWidth: '100px',
+    minHeight: '100px',
+    margin: 'auto'
   } as React.CSSProperties
 }
