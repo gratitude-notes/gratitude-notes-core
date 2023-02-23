@@ -51,9 +51,9 @@ const MAX_SCALE = 100;
 // }
 
 const getPointColor = (score: number) => {
-  if (score >= -5 && score <= -3) return 'red'
-  else if (score >= -2 && score <= 2) return 'yellow'
-  else if (score >= 3 && score <= 5) return 'green'
+  if (score >= -5 && score <= -2) return 'red'
+  else if (score >= -1 && score <= 1) return 'yellow'
+  else if (score >= 2 && score <= 5) return 'green'
 }
 
 interface Point {
@@ -77,23 +77,22 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
 
   const pointX = (totalSeconds / SECONDS_IN_DAY * 100).toString() // time
 
-  let normalizePointY = (score - (MIN_SCORE)) / ((MAX_SCORE) - (MIN_SCORE))
-  normalizePointY = (normalizePointY * 100)
+  let normalizePointY = (score - (MIN_SCORE)) / ((MAX_SCORE) - (MIN_SCORE)) * 100
 
   // reverse scale of pointY
   const reversePointY = (MIN_SCALE - normalizePointY + MAX_SCALE).toString()  // score
 
   // get color
-  const pointColor = getPointColor(score)
+  let pointColor = getPointColor(score)
 
   const style = {
     position: 'relative',
     left: pointX.concat('%'),
     top: reversePointY.concat('%'),
     backgroundColor: `${pointColor}`,
-    height: '0.75rem',
-    width: '0.75rem',
-    borderRadius: '0.75rem',
+    height: '10px',
+    width: '10px',
+    borderRadius: '10px',
     border: '1px solid black'
   } as React.CSSProperties
 
@@ -137,17 +136,19 @@ const styles = {
     //   ". . ." 1fr
     //   / 1fr 24fr 1fr`,
     grid:
-    `". . dayDate" 0.25fr
-    ". dayPoints ." 1.375fr
-    ". . ." 0.25fr
-    / 0.25fr 3fr 0.25fr`,
+    `". . dayDate"      0.25fr
+    ". dayPoints ."     1.375fr
+    ". . ."             0.1fr
+    / 0.25fr 5fr 0.25fr`,
     gap: '1px',
     height: '100%',
     border: '1px solid black'
   } as React.CSSProperties,
   dayDate: {
     gridArea: 'dayDate',
-    paddingRight: '1rem'
+    fontSize: '1rem',
+    margin: '5px',
+    padding: '0'
   } as React.CSSProperties,
   dayPoints: {
     gridArea: 'dayPoints'

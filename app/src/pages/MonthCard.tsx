@@ -5,13 +5,13 @@ const MonthCard: React.FC = () => {
   
     return (
         <div style={styles.layout}>
-            <div style={styles.saturdayHeader}>Saturday</div>
+            <div style={styles.sundayHeader}>Sunday</div>
             <div style={styles.mondayHeader}>Monday</div>
             <div style={styles.tuesdayHeader}>Tuesday</div>
             <div style={styles.wednesdayHeader}>Wednesday</div>
             <div style={styles.thursdayHeader}>Thursday</div>
             <div style={styles.fridayHeader}>Friday</div>
-            <div style={styles.sundayHeader}>Saturday</div>
+            <div style={styles.saturdayHeader}>Saturday</div>
             {data.map((singleDayData, key) => {
                 return (
                     <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData} />
@@ -28,22 +28,22 @@ const styles = {
         display: 'grid',
         grid:
           `"saturdayHeader mondayHeader tuesdayHeader wednesdayHeader thursdayHeader fridayHeader sundayHeader" 0.25fr
-          "day1 day2 day3 day4 day5 day6 day7" 1fr
-          "day8 day9 day10 day11 day12 day13 day14" 1fr
-          "day15 day16 day17 day18 day19 day20 day21" 1fr
-          "day22 day23 day24 day25 day26 day27 day28" 1fr
-          "day29 day30 day31 day32 day33 day34 day35" 1fr
+          "day1 day2 day3 day4 day5 day6 day7"                                                                  1fr
+          "day8 day9 day10 day11 day12 day13 day14"                                                             1fr
+          "day15 day16 day17 day18 day19 day20 day21"                                                           1fr
+          "day22 day23 day24 day25 day26 day27 day28"                                                           1fr
+          "day29 day30 day31 day32 day33 day34 day35"                                                           1fr
           / 1fr 1fr 1fr 1fr 1fr 1fr 1fr`,
         gap: '1px',
         height: '100%'
     } as React.CSSProperties,
-    saturdayHeader:     { gridArea: 'saturdayHeader', textAlign: 'center' } as React.CSSProperties,
+    sundayHeader:       { gridArea: 'sundayHeader', textAlign: 'center' } as React.CSSProperties,
     mondayHeader:       { gridArea: 'mondayHeader', textAlign: 'center' } as React.CSSProperties,
     tuesdayHeader:      { gridArea: 'tuesdayHeader', textAlign: 'center' } as React.CSSProperties,
     wednesdayHeader:    { gridArea: 'wednesdayHeader', textAlign: 'center' } as React.CSSProperties,
     thursdayHeader:     { gridArea: 'thursdayHeader', textAlign: 'center' } as React.CSSProperties,
     fridayHeader:       { gridArea: 'fridayHeader', textAlign: 'center' } as React.CSSProperties,
-    sundayHeader:       { gridArea: 'sundayHeader', textAlign: 'center' } as React.CSSProperties,
+    saturdayHeader:     { gridArea: 'saturdayHeader', textAlign: 'center' } as React.CSSProperties,
     day1:   { gridArea: 'day1' } as React.CSSProperties,
     day2:   { gridArea: 'day2' } as React.CSSProperties,
     day3:   { gridArea: 'day3' } as React.CSSProperties,
@@ -78,5 +78,5 @@ const styles = {
     day32:  { gridArea: 'day32' } as React.CSSProperties,
     day33:  { gridArea: 'day33' } as React.CSSProperties,
     day34:  { gridArea: 'day34' } as React.CSSProperties,
-    day35:  { gridArea: 'day35' } as React.CSSProperties
+    day35:  { gridArea: 'day35' }
 }

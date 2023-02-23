@@ -201,7 +201,8 @@ const styles = {
           `"dayCard1 dayCard2 dayCard3 dayCard4 dayCard5 dayCard6 dayCard7" 1fr
           / 1fr 1fr 1fr 1fr 1fr 1fr 1fr`,
         gap: '1px',
-        height: '100%'
+        height: '30%',
+        overflowX: 'scroll'
     } as React.CSSProperties,
     dayCard1: { gridArea: 'dayCard1' } as React.CSSProperties,
     dayCard2: { gridArea: 'dayCard2' } as React.CSSProperties,
