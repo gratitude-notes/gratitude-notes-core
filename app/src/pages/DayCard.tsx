@@ -90,10 +90,10 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
     left: pointX.concat('%'),
     top: reversePointY.concat('%'),
     backgroundColor: `${pointColor}`,
-    height: '10px',
-    width: '10px',
-    borderRadius: '10px',
-    margin: '-5px',         // make sure this is half the size of radius and negative to ensure proper centering
+    height: '7px',
+    width: '7px',
+    borderRadius: '100%',
+    margin: '-3.5px',         // make sure this is half the size of radius and negative to ensure proper centering
     border: '1px solid black'
   } as React.CSSProperties
 
@@ -131,6 +131,7 @@ export default DayCard;
 const styles = {
   layout: {
     display: 'block',
+    minWidth: '80px',
     maxWidth: '150px',
     padding: '0 10px 10px 10px',
     border: '1px solid black'
@@ -143,7 +144,7 @@ const styles = {
   dayPoints: {
     position: 'relative',
     maxWidth: '100px',
-    minHeight: '100px',
+    minHeight: '80px',
     margin: 'auto'
   } as React.CSSProperties
 }
