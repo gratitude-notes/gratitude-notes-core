@@ -1,69 +1,22 @@
-import WeekCard from "./WeekCard";
-
-const data = {
-    "week1NoteData": [{
-        "date": "February 22, 2023",
-        "noteData": [
-            {
-                "time": "11:59:00 PM",
-                "score": 5
-            },
-            {
-                "time": "1:45:30 AM",
-                "score": 0
-            },
-            {
-                "time": "8:15:00 AM",
-                "score": -1
-            },
-            {
-                "time": "3:00:15 PM",
-                "score": -3
-            },
-            {
-                "time": "9:30:45 PM",
-                "score": 2
-            }
-        ]
-    }],
-    "week2NoteData": [{
-        "date": "February 22, 2023",
-        "noteData": [
-            {
-                "time": "11:59:00 PM",
-                "score": 5
-            },
-            {
-                "time": "1:45:30 AM",
-                "score": 0
-            },
-            {
-                "time": "8:15:00 AM",
-                "score": -1
-            },
-            {
-                "time": "3:00:15 PM",
-                "score": -3
-            },
-            {
-                "time": "9:30:45 PM",
-                "score": 2
-            }
-        ]
-    }]
-}
-
+import data from './data.json';
+import DayCard from "./DayCard";
 
 const MonthCard: React.FC = () => {
   
     return (
         <div style={styles.layout}>
-            <div style={styles.calendarHeader}>1</div>
-            <div style={styles.weekCard1}>2</div>
-            <div style={styles.weekCard2}>3</div>
-            <div style={styles.weekCard3}>4</div>
-            <div style={styles.weekCard4}>5</div>
-            <div style={styles.weekCard5}>6</div>
+            <div style={styles.saturdayHeader}>Saturday</div>
+            <div style={styles.mondayHeader}>Monday</div>
+            <div style={styles.tuesdayHeader}>Tuesday</div>
+            <div style={styles.wednesdayHeader}>Wednesday</div>
+            <div style={styles.thursdayHeader}>Thursday</div>
+            <div style={styles.fridayHeader}>Friday</div>
+            <div style={styles.sundayHeader}>Saturday</div>
+            {data.map((singleDayData, key) => {
+                return (
+                    <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData} />
+                );
+            })}
         </div>
     );
 }
@@ -74,21 +27,56 @@ const styles = {
     layout: {
         display: 'grid',
         grid:
-          `"calendarHeader" 0.5fr
-          "weekCard1" 1fr
-          "weekCard2" 1fr
-          "weekCard3" 1fr
-          "weekCard4" 1fr
-          "weekCard5" 1fr
-          / 1fr`,
+          `"saturdayHeader mondayHeader tuesdayHeader wednesdayHeader thursdayHeader fridayHeader sundayHeader" 0.25fr
+          "day1 day2 day3 day4 day5 day6 day7" 1fr
+          "day8 day9 day10 day11 day12 day13 day14" 1fr
+          "day15 day16 day17 day18 day19 day20 day21" 1fr
+          "day22 day23 day24 day25 day26 day27 day28" 1fr
+          "day29 day30 day31 day32 day33 day34 day35" 1fr
+          / 1fr 1fr 1fr 1fr 1fr 1fr 1fr`,
         gap: '1px',
-        height: '100%',
-        border: '5px solid yellow'
+        height: '100%'
     } as React.CSSProperties,
-        calendarHeader: { gridArea: 'calendarHeader' } as React.CSSProperties,
-        weekCard1: { gridArea: 'weekCard1' } as React.CSSProperties,
-        weekCard2: { gridArea: 'weekCard2' } as React.CSSProperties,
-        weekCard3: { gridArea: 'weekCard3' } as React.CSSProperties,
-        weekCard4: { gridArea: 'weekCard4' } as React.CSSProperties,
-        weekCard5: { gridArea: 'weekCard5' } as React.CSSProperties
+    saturdayHeader:     { gridArea: 'saturdayHeader', textAlign: 'center' } as React.CSSProperties,
+    mondayHeader:       { gridArea: 'mondayHeader', textAlign: 'center' } as React.CSSProperties,
+    tuesdayHeader:      { gridArea: 'tuesdayHeader', textAlign: 'center' } as React.CSSProperties,
+    wednesdayHeader:    { gridArea: 'wednesdayHeader', textAlign: 'center' } as React.CSSProperties,
+    thursdayHeader:     { gridArea: 'thursdayHeader', textAlign: 'center' } as React.CSSProperties,
+    fridayHeader:       { gridArea: 'fridayHeader', textAlign: 'center' } as React.CSSProperties,
+    sundayHeader:       { gridArea: 'sundayHeader', textAlign: 'center' } as React.CSSProperties,
+    day1:   { gridArea: 'day1' } as React.CSSProperties,
+    day2:   { gridArea: 'day2' } as React.CSSProperties,
+    day3:   { gridArea: 'day3' } as React.CSSProperties,
+    day4:   { gridArea: 'day4' } as React.CSSProperties,
+    day5:   { gridArea: 'day5' } as React.CSSProperties,
+    day6:   { gridArea: 'day6' } as React.CSSProperties,
+    day7:   { gridArea: 'day7' } as React.CSSProperties,
+    day8:   { gridArea: 'day8' } as React.CSSProperties,
+    day9:   { gridArea: 'day9' } as React.CSSProperties,
+    day10:  { gridArea: 'day10' } as React.CSSProperties,
+    day11:  { gridArea: 'day11' } as React.CSSProperties,
+    day12:  { gridArea: 'day12' } as React.CSSProperties,
+    day13:  { gridArea: 'day13' } as React.CSSProperties,
+    day14:  { gridArea: 'day14' } as React.CSSProperties,
+    day15:  { gridArea: 'day15' } as React.CSSProperties,
+    day16:  { gridArea: 'day16' } as React.CSSProperties,
+    day17:  { gridArea: 'day17' } as React.CSSProperties,
+    day18:  { gridArea: 'day18' } as React.CSSProperties,
+    day19:  { gridArea: 'day19' } as React.CSSProperties,
+    day20:  { gridArea: 'day20' } as React.CSSProperties,
+    day21:  { gridArea: 'day21' } as React.CSSProperties,
+    day22:  { gridArea: 'day22' } as React.CSSProperties,
+    day23:  { gridArea: 'day23' } as React.CSSProperties,
+    day24:  { gridArea: 'day24' } as React.CSSProperties,
+    day25:  { gridArea: 'day25' } as React.CSSProperties,
+    day26:  { gridArea: 'day26' } as React.CSSProperties,
+    day27:  { gridArea: 'day27' } as React.CSSProperties,
+    day28:  { gridArea: 'day28' } as React.CSSProperties,
+    day29:  { gridArea: 'day29' } as React.CSSProperties,
+    day30:  { gridArea: 'day30' } as React.CSSProperties,
+    day31:  { gridArea: 'day31' } as React.CSSProperties,
+    day32:  { gridArea: 'day32' } as React.CSSProperties,
+    day33:  { gridArea: 'day33' } as React.CSSProperties,
+    day34:  { gridArea: 'day34' } as React.CSSProperties,
+    day35:  { gridArea: 'day35' } as React.CSSProperties
 }

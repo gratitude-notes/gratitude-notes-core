@@ -105,14 +105,19 @@ export default DayCard;
 const styles = {
   layout: {
     display: 'grid',
+    // grid:
+    //   `". . dayDate" 1fr
+    //   ". dayPoints ." 11fr
+    //   ". . ." 1fr
+    //   / 1fr 24fr 1fr`,
     grid:
-      `". . dayDate" 1fr
-      ". dayPoints ." 11fr
-      ". . ." 1fr
-      / 1fr 24fr 1fr`,
+    `". . dayDate" 0.25fr
+    ". dayPoints ." 1.375fr
+    ". . ." 0.25fr
+    / 0.25fr 3fr 0.25fr`,
     gap: '1px',
     height: '100%',
-    border: '5px solid red'
+    border: '1px solid black'
   } as React.CSSProperties,
   dayDate: {
     gridArea: 'dayDate',
