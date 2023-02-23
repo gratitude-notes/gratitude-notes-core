@@ -181,7 +181,6 @@ const data = [
 
 const WeekCard: React.FC = () => {
   
-    console.log(data)
     return (
         <div style={styles.layout}>
             {data.map((singleDayData, key) => {

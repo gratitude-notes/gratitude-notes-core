@@ -91,9 +91,9 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
     left: pointX.concat('%'),
     top: reversePointY.concat('%'),
     backgroundColor: `${pointColor}`,
-    height: '0.5rem',
-    width: '0.5rem',
-    borderRadius: '0.5rem',
+    height: '0.75rem',
+    width: '0.75rem',
+    borderRadius: '0.75rem',
     border: '1px solid black'
   } as React.CSSProperties
 
