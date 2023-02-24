@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonItem, IonTextarea, IonLabel} from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonTextarea, IonLabel, IonButton} from '@ionic/react';
 import './Write-Note.css';
 import '../theme/variables.css'
 import React, {useState} from 'react';
@@ -75,6 +75,7 @@ const Write_Note: React.FC = () => {
           </NoteItem>
           
           <SumbitNoteButton onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</SumbitNoteButton>
+          <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
         </NoteContainer>
 
       </IonContent>

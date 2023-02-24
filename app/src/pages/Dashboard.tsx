@@ -3,6 +3,8 @@ import './Dashboard.css';
 import './global.css';
 import '../theme/variables.css';
 import logo from '../assets/GNlogo.svg';
+import { create, eye, calendar } from 'ionicons/icons';
+
 
 import { logout } from "../lib/AuthFunctions";
 
@@ -17,6 +19,10 @@ const Dashboard: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen className="content">
                 {/* <button id="add-note-btn" className="my-button">Add a Note for Today</button> */}
+            <IonButton color="tertiary" routerLink="/Write-Note"> Write Note <IonIcon slot="end" icon={create}></IonIcon> </IonButton>
+            <IonButton color="tertiary" routerLink="/View-Notes"> View Note <IonIcon slot="end" icon={eye}></IonIcon> </IonButton>
+            <IonButton color="tertiary" routerLink="/MonthCard"> Calendar <IonIcon slot="end" icon={calendar}></IonIcon> </IonButton>
+
             </IonContent>
             <IonFooter className="footer">
                 <div className="container">
