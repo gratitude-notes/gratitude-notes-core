@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonText} from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonText, IonButton} from '@ionic/react';
 import { useContext, useRef } from "react";
 import './View-Notes.css';
 import '../theme/variables.css'
@@ -24,6 +24,7 @@ const View_Notes: React.FC = () => {
           <SearchBar ref={searchbar}/>
           <ViewList/>
         </div>
+        <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
       </IonContent>
 
       <IonFooter>
