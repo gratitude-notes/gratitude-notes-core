@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
 import { writeNote } from '../lib/FirestoreFunctions';
 import { useAuth } from '../lib/AuthContext';
+import SliderBar from "../components/write-note-page/SliderBar";
+import { SAMLAuthProvider } from 'firebase/auth';
 
 const NoteContainer = styled.div`
   display: flex;
@@ -76,7 +78,9 @@ const Write_Note: React.FC = () => {
           
           <SumbitNoteButton onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</SumbitNoteButton>
           <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
+          <SliderBar></SliderBar>
         </NoteContainer>
+        
 
       </IonContent>
     </IonPage>

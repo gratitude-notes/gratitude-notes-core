@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { IonItem, IonLabel, IonList, IonListHeader, IonButton, IonHeader, IonPage, IonToolbar, IonContent, IonTitle, IonButtons, IonInput, IonModal } from '@ionic/react';
 import { OverlayEventDetail } from '@ionic/core/components';
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateModal from '../modalFolderView/CreateModal';
 const ListContainer = styled.div`
   display: flex;
@@ -15,6 +15,8 @@ const ListContainer = styled.div`
 //const ViewPastNoteList = React.forwardRef((props, ref: React.Ref<HTMLDivElement>) => (
 const ViewPastNoteList: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
+    const [notes, setNotes] = useState([]);
+    const [date, setDate] = useState('');
   
     const handleShowModal = () => {
       setShowModal(true);
