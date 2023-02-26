@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonItem, IonTextarea, IonLabel, IonButton} from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonTextarea, IonLabel, IonButton, IonText} from '@ionic/react';
 import './Write-Note.css';
 import '../theme/variables.css'
 import React, {useState} from 'react';
@@ -6,36 +6,30 @@ import styled from 'styled-components';
 import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
 import { writeNote } from '../lib/FirestoreFunctions';
 import { useAuth } from '../lib/AuthContext';
-
-const SumbitNoteButton = styled.button`
-    background-color: var(--ion-color-secondary); 
-    border-radius: 29px; 
-    border: 1px solid var(--ion-color-secondary); 
-    color: var(--ion-color-light); 
-    font-family: Montserrat;
-    font-size: 1rem; 
-    padding: 0.75rem 1.5rem;
-    cursor: pointer; 
-    transition: 0.3s; 
-    margin: 1rem;
-
-    :hover {
-        background-color: var(--ion-color-light); 
-        color: var(--ion-color-secondary); 
-        border-color: var(--ion-color-secondary); 
-        transition: 0.3s; 
-    }
-`
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Write_Note: React.FC = () => {
   const currentUser = useAuth();
   const [note, setNote] = useState<string>("");
 
-  const handleUpdateNote = (e: any) => {
-    const newNote = e.detail.value;
-    console.log(newNote)
-    setNote(newNote);
-  };
+  const quillModules = {
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline'],
+      [{'list': 'ordered'}, {'list': 'bullet'}],
+      ['image']
+    ]
+  }
+
+  const quillFormats = [
+    'header',
+    'bold', 'italic', 'underline',
+    'list', 'bullet',
+    'image'
+  ]
+
+  const MAX_LENGTH = 2000;
 
   return (
     <IonPage>
@@ -44,14 +38,18 @@ const Write_Note: React.FC = () => {
 
       <IonContent>
 
-        <div style={styles.noteContainer}>
-          <IonItem color='primary' counter={true} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
+        <div style={styles.layout}>
+          {/* <IonItem color='primary' counter={true} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
             <IonLabel color='light' style={styles.noteLabel} position='stacked'><h1>Note for Today</h1></IonLabel>
             <IonTextarea  color='light' style={styles.noteTextarea} value={note} onIonChange={(e) => handleUpdateNote(e)} maxlength={250} autoGrow={true} rows={10} autofocus={true}/>
-          </IonItem>
+          </IonItem> */}
 
-          <IonButton color="tertiary" onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</IonButton>  
-          <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
+          <ReactQuill style={styles.quillTextarea} theme='snow' modules={quillModules} formats={quillFormats} value={note} onChange={setNote}/>
+
+          <div style={styles.buttonContainer}>
+            <IonButton color="tertiary" onClick={() => {console.log('note sent:', note); writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</IonButton>  
+            <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
+          </div>
         </div>
 
       </IonContent>
@@ -62,7 +60,7 @@ const Write_Note: React.FC = () => {
 export default Write_Note;
 
 const styles = {
-  noteContainer: {
+  layout: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -70,11 +68,18 @@ const styles = {
     width: '100%',
     height: '100%'
   } as React.CSSProperties,
+  buttonContainer: {
+    marginTop: '50px'
+  } as React.CSSProperties,
   noteLabel: {
     fontFamily: 'Open_Sans'
   } as React.CSSProperties,
   noteTextarea: {
     fontFamily: 'Open_Sans',
     width: '300px'
+  } as React.CSSProperties,
+  quillTextarea: {
+    height: '300px',
+    maxHeight: '500px'
   } as React.CSSProperties
 }
