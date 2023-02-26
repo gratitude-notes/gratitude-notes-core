@@ -31,9 +31,11 @@ import Calendar from './pages/Calendar';
 import DayCard from './pages/DayCard';
 import WeekCard from './pages/WeekCard';
 import MonthCard from './pages/MonthCard';
+import RetrieveDelta from './pages/Retrieve-Delta';
 
 /* Auth Context */
 import { AuthContext, useAuth, UserAuth } from './lib/AuthContext';
+import Retrieve_Delta from './pages/Retrieve-Delta';
 
 setupIonicReact();
 
@@ -47,6 +49,7 @@ const Routes: React.FC<{ currentUser: UserAuth }> = ({ currentUser}) => {
         <Route exact path="/day-card" component={DayCard} />
         <Route exact path="/week-card" component={WeekCard} />
         <Route exact path="/month-card" component={MonthCard} />
+        <Route exact path="/retrieve-delta" component={RetrieveDelta} />
         <Route exact path="/" component={Dashboard} />
       </>
     );
