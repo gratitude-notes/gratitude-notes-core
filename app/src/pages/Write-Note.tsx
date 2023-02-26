@@ -7,30 +7,6 @@ import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
 import { writeNote } from '../lib/FirestoreFunctions';
 import { useAuth } from '../lib/AuthContext';
 
-const NoteContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-`
-
-const NoteItem = styled(IonItem)`
-  --background: var(--ion-color-secondary); 
-`
-
-const NoteTextarea = styled(IonTextarea)`
-  --background: var(--ion-color-secondary); 
-  --color: var(--ion-color-light); 
-  font-family: Open_Sans;
-  width: 25rem;
-`
-
-const NoteLabel = styled(IonLabel)`
-  font-family: Open_Sans;
-`
-
 const SumbitNoteButton = styled.button`
     background-color: var(--ion-color-secondary); 
     border-radius: 29px; 
@@ -66,17 +42,17 @@ const Write_Note: React.FC = () => {
 
       <GNLogoHeader />
 
-      <IonContent color="primary">
-        
-        <NoteContainer>
-          <NoteItem counter={true} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
-            <NoteLabel position='stacked' color={'light'}><h1>Note for Today</h1></NoteLabel>
-            <NoteTextarea value={note} onIonChange={(e) => handleUpdateNote(e)} maxlength={250} autoGrow={true} rows={10} autofocus={true}/>
-          </NoteItem>
-          
-          <SumbitNoteButton onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</SumbitNoteButton>
+      <IonContent>
+
+        <div style={styles.noteContainer}>
+          <IonItem color='primary' counter={true} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
+            <IonLabel color='light' style={styles.noteLabel} position='stacked'><h1>Note for Today</h1></IonLabel>
+            <IonTextarea  color='light' style={styles.noteTextarea} value={note} onIonChange={(e) => handleUpdateNote(e)} maxlength={250} autoGrow={true} rows={10} autofocus={true}/>
+          </IonItem>
+
+          <IonButton color="tertiary" onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</IonButton>  
           <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
-        </NoteContainer>
+        </div>
 
       </IonContent>
     </IonPage>
@@ -84,3 +60,21 @@ const Write_Note: React.FC = () => {
 }
 
 export default Write_Note;
+
+const styles = {
+  noteContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%'
+  } as React.CSSProperties,
+  noteLabel: {
+    fontFamily: 'Open_Sans'
+  } as React.CSSProperties,
+  noteTextarea: {
+    fontFamily: 'Open_Sans',
+    width: '300px'
+  } as React.CSSProperties
+}
