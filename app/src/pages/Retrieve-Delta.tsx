@@ -13,10 +13,17 @@ import { DeltaStatic, Sources } from 'quill';
 
 const Retrieve_Delta: React.FC = () => {
   
+    let myString = '{"ops":[{"insert":"Note"},{"attributes":{"header":1},"insert":"\n"},{"attributes":{"bold":true},"insert":"Cool day"},{"attributes":{"list":"ordered"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Awesome"},{"attributes":{"list":"ordered"},"insert":"\n"}]}'; 
+    myString = myString.replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t");
+    myString = JSON.parse(myString);
 
-  return (
-    <div>hi</div>
-  );
+    const quillModules = {
+        toolbar: false
+    }
+
+    return (
+        <ReactQuill theme='snow' modules={quillModules} readOnly={true} value={myString}/>
+    );
 }
 
 export default Retrieve_Delta;
