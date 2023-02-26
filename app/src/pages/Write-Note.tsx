@@ -2,16 +2,24 @@ import { IonContent, IonPage, IonItem, IonTextarea, IonLabel, IonButton, IonText
 import './Write-Note.css';
 import '../theme/variables.css'
 import React, {useState} from 'react';
-import styled from 'styled-components';
 import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
 import { writeNote } from '../lib/FirestoreFunctions';
 import { useAuth } from '../lib/AuthContext';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { DeltaStatic, Sources } from 'quill';
+
+interface QuillStateType {
+  content: string,
+  delta: DeltaStatic,
+  source: Sources,
+  editor: ReactQuill.UnprivilegedEditor
+}
 
 const Write_Note: React.FC = () => {
   const currentUser = useAuth();
-  const [note, setNote] = useState<string>("");
+  const [note, setNote] = useState<string>('');
+  const [quillState, setQuillState] = useState<QuillStateType>();
 
   const quillModules = {
     toolbar: [
@@ -29,8 +37,6 @@ const Write_Note: React.FC = () => {
     'image'
   ]
 
-  const MAX_LENGTH = 2000;
-
   return (
     <IonPage>
 
@@ -44,10 +50,21 @@ const Write_Note: React.FC = () => {
             <IonTextarea  color='light' style={styles.noteTextarea} value={note} onIonChange={(e) => handleUpdateNote(e)} maxlength={250} autoGrow={true} rows={10} autofocus={true}/>
           </IonItem> */}
 
-          <ReactQuill style={styles.quillTextarea} theme='snow' modules={quillModules} formats={quillFormats} value={note} onChange={setNote}/>
+          <ReactQuill style={styles.quillTextarea} theme='snow'
+                      modules={quillModules} formats={quillFormats} value={note}
+                      onChange={(content, delta, source, editor) => {
+                        setNote(content);
+                        setQuillState({ content, delta, source, editor});
+                      }}/>
 
           <div style={styles.buttonContainer}>
-            <IonButton color="tertiary" onClick={() => {console.log('note sent:', note); writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</IonButton>  
+            <IonButton color="tertiary"
+                        onClick={() => {
+                          const delta = quillState?.editor.getContents();
+                          console.log('stringified delta', JSON.stringify(delta));
+                          console.log('html note', note);
+                          writeNote(JSON.stringify(delta), `${currentUser.user_id}`);
+                        }}>Submit Note</IonButton>  
             <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
           </div>
         </div>
