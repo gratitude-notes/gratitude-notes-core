@@ -1,7 +1,7 @@
-import { IonContent, IonPage, IonItem, IonTextarea, IonLabel, IonButton} from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonTextarea, IonLabel, IonButton, IonRange} from '@ionic/react';
 import './Write-Note.css';
 import '../theme/variables.css'
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
 import GNLogoHeader from '../components/global/gnlogo-header/GNLogoHeader';
 import { writeNote } from '../lib/FirestoreFunctions';
@@ -15,7 +15,7 @@ const NoteContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 70%;
 `
 
 const NoteItem = styled(IonItem)`
@@ -57,6 +57,8 @@ const Write_Note: React.FC = () => {
   const currentUser = useAuth();
   const [note, setNote] = useState<string>("");
 
+  const sliderBar = useRef<HTMLDivElement>(null);
+
   const handleUpdateNote = (e: any) => {
     const newNote = e.detail.value;
     console.log(newNote)
@@ -68,7 +70,7 @@ const Write_Note: React.FC = () => {
 
       <GNLogoHeader />
 
-      <IonContent color="primary">
+      <IonContent color="#fff">
         
         <NoteContainer>
           <NoteItem counter={true} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
@@ -78,8 +80,12 @@ const Write_Note: React.FC = () => {
           
           <SumbitNoteButton onClick={() => {writeNote(note, `${currentUser.user_id}`); setNote('SUBMITTED');}}>Submit Note</SumbitNoteButton>
           <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
-          <SliderBar></SliderBar>
+          
         </NoteContainer>
+        <div id="n-container">
+          <SliderBar></SliderBar>
+        </div>
+        
         
 
       </IonContent>
