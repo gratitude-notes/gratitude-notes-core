@@ -8,6 +8,7 @@ import { useAuth } from '../lib/AuthContext';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { DeltaStatic, Sources } from 'quill';
+import SliderBar from "../components/write-note-page/SliderBar";
 
 interface QuillStateType {
   content: string,
@@ -68,6 +69,9 @@ const Write_Note: React.FC = () => {
             <IonButton color="tertiary" routerLink="/"> Return to Dashboard</IonButton>
           </div>
         </div>
+        <div id="n-container">
+          <SliderBar></SliderBar>
+        </div>
 
       </IonContent>
     </IonPage>
@@ -83,7 +87,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: '100%'
+    height: '65%'
   } as React.CSSProperties,
   buttonContainer: {
     marginTop: '50px'
