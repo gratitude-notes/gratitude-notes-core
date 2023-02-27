@@ -22,7 +22,10 @@ const Retrieve_Delta: React.FC = () => {
     }
 
     return (
-        <ReactQuill theme='snow' modules={quillModules} readOnly={true} value={myString}/>
+        <>
+            <ReactQuill theme='snow' modules={quillModules} readOnly={true} value={myString}/>
+            <ReactQuill theme='snow' modules={quillModules} readOnly={true} value={myString}/>
+        </>
     );
 }
 

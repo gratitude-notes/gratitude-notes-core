@@ -26,16 +26,14 @@ const Write_Note: React.FC = () => {
     toolbar: [
       [{ 'header': [1, 2, false] }],
       ['bold', 'italic', 'underline'],
-      [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['image']
+      [{'list': 'ordered'}, {'list': 'bullet'}]
     ]
   }
 
   const quillFormats = [
     'header',
     'bold', 'italic', 'underline',
-    'list', 'bullet',
-    'image'
+    'list', 'bullet'
   ]
 
   return (

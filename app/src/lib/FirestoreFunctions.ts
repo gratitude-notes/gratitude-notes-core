@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthContext"
 export const writeNote = async (note: string, currentUserID: string) => {
 
     const date = new Date();                                                            // Sat Feb 25 2023 21:23:42 GMT-0500 (Eastern Standard Time)
-    const dateStr = [date.getMonth(), date.getDate(), date.getFullYear()].join(" ");    // 1 25 2023
+    const dateStr = [date.getMonth(), date.getDate(), date.getFullYear()].join("-");    // 1 25 2023
     let timeStr = [date.getHours(), date.getMinutes(), date.getSeconds()].join(":");    // 9:23:42
     timeStr = [timeStr, (date.getHours() >= 12) ? "PM" : "AM"].join(" ");               // 9:23:42 PM
 
