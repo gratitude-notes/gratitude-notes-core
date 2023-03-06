@@ -7,7 +7,8 @@
     "dev": "npm i && vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "android": "vite build && npx cap sync && npx cap open android"
+    "setup android": "npx cap add android",
+    "open android": "vite build && npx cap sync && npx cap open android"
   },
   "dependencies": {
     "@capacitor/android": "^4.7.0",
