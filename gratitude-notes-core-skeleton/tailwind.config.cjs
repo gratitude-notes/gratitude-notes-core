@@ -9,9 +9,6 @@ module.exports = {
       fontFamily: {
         'opensans' : ['Open Sans']
       },
-      borderBottomWidth: {
-        'b-1': '1px',
-      }
     },
   },
   plugins: [],

@@ -20,12 +20,17 @@ const Navbar: React.FC = () => {
             </button>
 
             <div className="flex flex-row justify-center flex-nowrap">
-              <button onClick={() => signInWithGoogle()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
-                Get Started
-              </button>
-              <button onClick={() => signOut()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
-                Sign Out
-              </button>
+              {
+              (user) 
+                ?               
+                <button onClick={() => signOut()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
+                  Sign Out
+                </button>
+                :
+                <button onClick={() => signInWithGoogle()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
+                  Get Started
+                </button>
+              }
               <ThemeButton/>
             </div>
             
