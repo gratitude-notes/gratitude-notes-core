@@ -1,4 +1,4 @@
-import NoteItem from "./NoteItem";
+import NoteItem from "./FeedNoteItem";
 
 
 const FeedList: React.FC = () => {  
