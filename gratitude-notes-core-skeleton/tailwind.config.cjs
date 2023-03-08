@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'opensans' : ['Open Sans']
+        myRoboto: ["Roboto", "sans-serif"],
+        myClimateCrisis: ["Climate Crisis", "cursive"],
       },
     },
   },
