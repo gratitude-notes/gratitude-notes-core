@@ -1,7 +1,10 @@
 import useComponentVisible from '../hooks/useComponentVisible';
-
+import { useSignInWithGoogle, useSignOut } from "react-firebase-hooks/auth";
+import { fb_auth } from "../lib/Firebase";
 
 const AvatarButton: React.FC = () => {
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(fb_auth);
+    const [signOut, loadingSO, errorSO] = useSignOut(fb_auth);
     const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
 
     const handleAvatarButton = () => {
@@ -24,10 +27,29 @@ const AvatarButton: React.FC = () => {
                     </button>
                     <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
                         Settings
+                    </button>              
+                    <button onClick={() => signOut()} className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
+                        Sign Out
                     </button>
-                    <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                        Signout
-                    </button>
+                    {/* {
+                    (user) 
+                        ?
+                        <>
+                            <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
+                                Dashboard
+                            </button>
+                            <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
+                                Settings
+                            </button>              
+                            <button onClick={() => signOut()} className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
+                                Sign Out
+                            </button>
+                        </>
+                        :
+                        <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
+                            Test
+                        </button>
+                    } */}
                 </div>
             </div>
         </div>

@@ -1,18 +1,11 @@
 import ThemeButton from "./ThemeButton";
+import AvatarButton from "./AvatarButton";
 import { useSignInWithGoogle, useSignOut } from "react-firebase-hooks/auth";
 import { fb_auth } from "../lib/Firebase";
-import { useState } from "react";
-import AvatarButton from "./AvatarButton";
 
 const Navbar: React.FC = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(fb_auth);
   const [signOut, loadingSO, errorSO] = useSignOut(fb_auth);
-
-  const [isOpen, setOpen] = useState(false);
-
-  const handleDropdown = () => {
-    setOpen(!isOpen);
-  };
 
   return (
     <header>
@@ -28,10 +21,7 @@ const Navbar: React.FC = () => {
               </div>
             </button>
 
-            <AvatarButton />
-
-            {/* <div className="flex flex-row justify-center flex-nowrap">
-              {
+            {
               (user) 
                 ?               
                 <button onClick={() => signOut()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
@@ -39,33 +29,21 @@ const Navbar: React.FC = () => {
                 </button>
                 :
                 <button onClick={() => signInWithGoogle()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
-                  Login
+                  Get Started
                 </button>
               }
-              <ThemeButton/>
-            </div> */}
 
-            {/* <div id="avatarButton" onClick={handleDropdown} className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-              <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
-            </div> */}
-
-            {/* Dropdown menu */}
-            {/* <div id="userDropdown" className={`${isOpen ? "block" : "hidden"}
-                                                z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
-                <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                  <div>First, Last</div>
-                  <div className="font-medium truncate">first.last@gmail.com</div>
-                </div>
-                <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
-                  <li>
-                    <a className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                  </li>
-                </ul>
-                <div className="py-1">
-                  <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                </div>
-            </div> */}
-            
+            {/* {
+              (user)
+                ?
+                <button onClick={() => signInWithGoogle()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
+                  Login
+                </button>
+                :
+                <AvatarButton />
+            } */}
+            <AvatarButton />
+            {/* <ThemeButton /> */}
           </div>
       </nav>
     </header>
