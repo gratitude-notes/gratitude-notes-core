@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         myRoboto: ["Roboto", "sans-serif"],
-        myClimateCrisis: ["Climate Crisis", "cursive"],
+        myClimateCrisis: ["Climate Crisis", "cursive"]
       },
     },
   },
