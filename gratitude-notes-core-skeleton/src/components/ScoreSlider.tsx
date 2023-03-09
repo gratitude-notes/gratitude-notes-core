@@ -1,58 +1,33 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { BsFillEmojiSmileFill, BsFillEmojiFrownFill } from 'react-icons/bs';
 
 const Slider = () => {
-    const [value, setValue] = useState(50);
-  
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(parseInt(event.target.value));
-    };
-  
-    const tickCount = 5; // number of ticks
-    const tickSpacing = 100 / (tickCount - 1); // spacing between ticks
-    const tickLabels = ["0", "25", "50", "75", "100"]; // labels for ticks
-  
-    return (
-      <div className="flex items-center space-x-4">
-        <div className="flex-grow">
-          <div className="relative w-full">
-            {/* Track */}
-            <div
-              className="h-1 bg-gray-300 rounded-full"
-              style={{ backgroundSize: `${tickSpacing}% 100%`, backgroundImage: `linear-gradient(to right, #2c5282, #2c5282 ${tickSpacing - 1}%, #cbd5e0 ${tickSpacing - 1}%, #cbd5e0 100%)` }}
-            >
-              {/* Ticks */}
-              {Array(tickCount).fill(0).map((_, index) => (
-                <span
-                  key={index}
-                  className="absolute w-1 h-2 bg-gray-300 rounded-full top-0.5"
-                  style={{ left: `${index * tickSpacing}%` }}
-                />
-              ))}
-            </div>
-  
-            {/* Knob */}
-            <input
-              type="range"
-              className="absolute top-0 left-0 -ml-1 w-full h-full appearance-none cursor-pointer z-10 focus:outline-none"
-              value={value}
-              onChange={handleChange}
-              min={0}
-              max={100}
-              step={1}
-            />
-          </div>
-        </div>
-  
-        <div className="w-12 text-center">
-          {tickLabels.map((label, index) => (
-            <div key={index} className="text-xs" style={{ left: `${index * tickSpacing}%` }}>
-              {label}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  const [value, setValue] = useState<number>(0);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(event.target.value));
   };
-  
-  export default Slider;
+
+  return (
+    <div className="flex flex-col items-center relative">
+      <input
+        type="range"
+        min="-5"
+        max="5"
+        value={value}
+        onChange={handleChange}
+        className="w-64 h-2 bg-gray-200 rounded-full appearance-none"
+      />
+      <div className="absolute top-0 left-0 p-2">
+        <BsFillEmojiFrownFill />
+      </div>
+      <div className="absolute top-0 right-0 p-2">
+        <BsFillEmojiSmileFill />
+      </div>
+      <div className="mt-2 text-gray-700">{value}</div>
+    </div>
+  );
+};
+
+export default Slider;
 
