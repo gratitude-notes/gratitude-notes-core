@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header>
-      <nav className = "flex flex-row justify-center w-full p-2 border-black flex-nowrap h-18 border-b-1">
+      <nav className = "flex flex-row justify-center w-full p-2 border-gray-200 flex-nowrap h-16 border-2">
           <div className="flex flex-row justify-between w-full">
             
             {/* GN logo */}
