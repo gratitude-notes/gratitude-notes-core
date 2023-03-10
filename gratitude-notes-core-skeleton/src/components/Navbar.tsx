@@ -1,4 +1,5 @@
 import ThemeButton from "./ThemeButton";
+import AvatarButton from "./AvatarButton";
 import { useSignInWithGoogle, useSignOut } from "react-firebase-hooks/auth";
 import { fb_auth } from "../lib/Firebase";
 
@@ -11,6 +12,7 @@ const Navbar: React.FC = () => {
       <nav className = "flex flex-row justify-center w-full p-2 border-black flex-nowrap h-18 border-b-1">
           <div className="flex flex-row justify-between w-full">
             
+            {/* GN logo */}
             <button className="block bg-transparent border-0 hover:no-underline hover:shadow-none focus:no-underline focus:ring-0">
               <div className="[&>svg]:w-11 fill-purple-600 dark:fill-blue-50 flex flex-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1135 916.562">
@@ -19,8 +21,7 @@ const Navbar: React.FC = () => {
               </div>
             </button>
 
-            <div className="flex flex-row justify-center flex-nowrap">
-              {
+            {
               (user) 
                 ?               
                 <button onClick={() => signOut()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
@@ -31,9 +32,18 @@ const Navbar: React.FC = () => {
                   Get Started
                 </button>
               }
-              <ThemeButton/>
-            </div>
-            
+
+            {/* {
+              (user)
+                ?
+                <button onClick={() => signInWithGoogle()} className="px-4 py-2 text-white bg-purple-600 rounded-full text-md">
+                  Login
+                </button>
+                :
+                <AvatarButton />
+            } */}
+            <AvatarButton />
+            {/* <ThemeButton /> */}
           </div>
       </nav>
     </header>
