@@ -27,7 +27,7 @@ const FeedList: React.FC = () => {
                     <h1>FONT EXAMPLE</h1>
                     <p className="text-xl font-myRoboto">Roboto</p>
                     <p className="text-xl font-myClimateCrisis">ClimateCrisis</p>
-            </div> */}
+                </div> */}
             
             
         </>
