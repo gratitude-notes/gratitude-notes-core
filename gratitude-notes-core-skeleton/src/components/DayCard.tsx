@@ -61,18 +61,19 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
 
   const totalSeconds = (hours * SECONDS_IN_HOUR) + (minutes * SECONDS_IN_MINUTE) + (seconds);
 
-  const pointX = (totalSeconds / SECONDS_IN_DAY * 100).toString() // time
-  const pointXStr = `left-[${Math.floor(Number(pointX))}%]`
+  const pointX = (totalSeconds / SECONDS_IN_DAY * 100).toFixed(0); // time
+  const pointXStr = `left-${pointX}%`
 
   let normalizePointY = (score - (MIN_SCORE)) / ((MAX_SCORE) - (MIN_SCORE)) * 100
 
   // reverse scale of pointY
-  const reversePointY = (MIN_SCALE - normalizePointY + MAX_SCALE).toString()  // score
-  const reversePointYStr = `top-[${reversePointY}%]`
+  const reversePointY = (MIN_SCALE - normalizePointY + MAX_SCALE).toFixed(0);  // score
+  const reversePointYStr = `top-${reversePointY}%`
 
   console.log(pointXStr)
   console.log(reversePointYStr)
 
+  
   // get background color
   let pointBackgroundColor = getPointBackgroundColor(score)
 
@@ -89,7 +90,7 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
   // } as React.CSSProperties
 
   return (
-    <div className={`absolute ${reversePointYStr} ${pointXStr} ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px] border-[1px] border-black`}></div>
+    <div className={`absolute ${pointXStr} top-14% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px] border-[1px] border-black`}></div>
   );
 }
 

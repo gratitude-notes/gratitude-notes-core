@@ -32,7 +32,7 @@ const FeedList: React.FC = () => {
     return (
         <>
             <ol className="relative border-l border-gray-200 dark:border-gray-700">
-                {/* <DayCard date={data.date} noteData={data.noteData}/> */}
+                <DayCard date={data.date} noteData={data.noteData}/>
 
                 <NoteItem date="March 7, 2023" time="4:35PM" note="adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum a" score={5}/>
                 <NoteItem date="March 7, 2023" time="10:30PM" note="eget felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor nec feugiat nisl" score={2}/> 
