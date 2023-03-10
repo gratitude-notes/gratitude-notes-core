@@ -11,7 +11,7 @@ const AvatarButton: React.FC = () => {
         (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
     }
 
-    const avatarVisible = (isComponentVisible) ? "visible" : "invisible";
+    const avatarVisible = (isComponentVisible) ? "visible" : "hidden";
 
     return (
         <div ref={ref}>
@@ -31,25 +31,6 @@ const AvatarButton: React.FC = () => {
                     <button onClick={() => signOut()} className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
                         Sign Out
                     </button>
-                    {/* {
-                    (user) 
-                        ?
-                        <>
-                            <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                                Dashboard
-                            </button>
-                            <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                                Settings
-                            </button>              
-                            <button onClick={() => signOut()} className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                                Sign Out
-                            </button>
-                        </>
-                        :
-                        <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                            Test
-                        </button>
-                    } */}
                 </div>
             </div>
         </div>
