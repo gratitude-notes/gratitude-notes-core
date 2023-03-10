@@ -1,5 +1,6 @@
 import DayCard from "./DayCard";
 import FeedNoteItem from "./FeedNoteItem";
+import WeekCard from "./WeekCard";
 
 const data = {
     "date": "February 22, 2023",
@@ -30,10 +31,7 @@ const data = {
 
 const FeedList: React.FC = () => {  
     return (
-      <ol className="border-gray-200">
-        <DayCard date={data.date} noteData={data.noteData}/>
-
-
+      <ol className="mt-1 ml-1 mr-1">
         <FeedNoteItem date="March 7, 2023" time="4:35PM" note="adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum a" score={5}/>
         <FeedNoteItem date="March 7, 2023" time="10:30PM" note="eget felis eget nunc lobortis mattis aliquam faucibus purus in massa tempor nec feugiat nisl" score={2}/> 
         <FeedNoteItem date="March 7, 2023" time="11:15PM" note="ac placerat vestibulum lectus mauris ultrices eros in cursus turpis massa tincidunt dui ut ornare" score={-5}/>
