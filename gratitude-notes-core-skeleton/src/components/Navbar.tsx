@@ -1,15 +1,90 @@
+import { useAuth, UserAuth } from "../lib/AuthContext";
+
 import ThemeButton from "./ThemeButton";
 import AvatarButton from "./AvatarButton";
 import { useSignInWithGoogle, useSignOut } from "react-firebase-hooks/auth";
 import { fb_auth } from "../lib/Firebase";
+import { toast } from "react-hot-toast";
+
+const SignInButton = () => {
+  const [signInWithGoogle, user, loadingSignInGoogle, errorSignInGoogle] = useSignInWithGoogle(fb_auth);
+
+  const loginWithGoogle = async () => {
+    await signInWithGoogle(['https://www.googleapis.com/auth/userinfo.email'])
+  }
+
+  if (errorSignInGoogle) {
+    return (
+      <>
+      </>
+    )
+  }
+
+  if (loadingSignInGoogle) {
+    return (
+      <button  className="disabled px-4 py-2 text-white bg-black rounded-full text-md">
+        Loading
+      </button>
+    )
+  }
+
+  return (
+    <button onClick={loginWithGoogle} className="px-4 py-2 text-white bg-black rounded-full text-md">
+      Sign In
+    </button>
+  )
+}
+
+const SignOutButton = () => {
+  const [signOut, loadingSignOut, errorSignOut] = useSignOut(fb_auth);
+
+  if (errorSignOut) {
+    return (
+      <>
+      </>
+    )
+  }
+
+  if (loadingSignOut) {
+    return (
+      <button className="disabled px-4 py-2 text-white bg-black rounded-full text-md">
+        Loading
+      </button>
+    )
+  }
+
+  return (
+    <button onClick={signOut} className="px-4 py-2 text-white bg-black rounded-full text-md">
+      Sign Out
+    </button>
+  )
+}
+
+const AuthButton: React.FC<UserAuth> = (userAuth: UserAuth) => {
+  const { user } = userAuth;  
+  console.log("AUTH");
+  if (user) {
+    return (
+      <>
+        <SignOutButton />
+        <AvatarButton />
+        <ThemeButton />
+      </>
+    )
+  }
+  else {
+    return (
+      <SignInButton />
+    )
+  }
+}
 
 const Navbar: React.FC = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(fb_auth);
-  const [signOut, loadingSO, errorSO] = useSignOut(fb_auth);
+  const user = useAuth();
 
   return (
     <header>
-      <nav className = "flex flex-row justify-center w-full p-2 border-gray-200 flex-nowrap h-16 border-2">
+      <nav className="flex flex-row justify-center w-full p-2 border-gray-200 flex-nowrap h-16 border-2">
           <div className="flex flex-row justify-between w-full">
             
             {/* GN logo */}
@@ -21,21 +96,9 @@ const Navbar: React.FC = () => {
               </div>
             </button>
 
-            {
-              (user) 
-                ?
-                <>
-                  <button onClick={() => signOut()} className="px-4 py-2 text-white bg-black rounded-full text-md">
-                    Sign Out
-                  </button>
-                  <AvatarButton />
-                  <ThemeButton />
-                </>               
-                :
-                <button onClick={() => signInWithGoogle()} className="px-4 py-2 text-white bg-black rounded-full text-md">
-                  Login
-                </button>
-              }
+            
+            {/* Login / Signout Button */}
+            <AuthButton {...user} />
           </div>
       </nav>
     </header>
