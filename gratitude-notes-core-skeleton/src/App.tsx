@@ -8,7 +8,6 @@ import { AuthContext } from "./lib/AuthContext";
 
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {

@@ -1,20 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 
-const positionPercentSafelist = [];
-
-for (let i = 1; i < 101; i++) {
-  positionPercentSafelist.push(`left-${i}%`);
-  positionPercentSafelist.push(`top-${i}%`);
-}
-
 module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
-  safelist: 
-    positionPercentSafelist,
-    pattern: /bg-(red|yellow|green)-(400)/,
+  safelist: [
+    {
+      pattern: /(top|left)-(0|[1-9][0-9]?|100)%/ //,
+      // variants: ['lg', 'sm', 'hover']
+    }
+  ],
   theme: {
     extend: {
       fontFamily: {
