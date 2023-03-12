@@ -86,9 +86,9 @@ interface DayCardData {
 const DayCard: React.FC<DayCardData> = ({date, noteData }) => {
 
   return (
-    <div className="block w-[100px] h-[100px] p-1 border border-gray-200 rounded-lg">
+    <div className="border border-gray-200 rounded-lg">
       <h1 className="text-right text-sm">{date.split(" ")[1].replace(',', '')}</h1>
-      <div className="relative w-[75px] h-[75px]">
+      <div className="relative w-20 h-16">
         {noteData.map((singleNoteData: { time: string, score: number }, key) => {
           return (
             <DayCardPoint key={key} date={date} time={singleNoteData.time} score={singleNoteData.score} />

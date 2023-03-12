@@ -181,12 +181,14 @@ const data = [
 const WeekCard: React.FC = () => {
   
     return (
-        <div className="grid grid-cols-7 w-[700px]">
-            {data.map((singleDayData, key) => {
-                return (
-                    <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData} />
-                );
-            })}
+        <div>
+            <div className="flex flex-row overflow-x-scroll">
+                {data.map((singleDayData, key) => {
+                    return (
+                        <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData} />
+                    );
+                })}
+            </div>
         </div>
     );
 }

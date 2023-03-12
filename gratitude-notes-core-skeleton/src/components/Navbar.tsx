@@ -62,7 +62,7 @@ const SignOutButton = () => {
 
 const AuthButton: React.FC<UserAuth> = (userAuth: UserAuth) => {
   const { user } = userAuth;  
-  console.log("AUTH");
+  console.log("AUTH2");
   if (user) {
     return (
       <>
@@ -83,8 +83,8 @@ const Navbar: React.FC = () => {
   const user = useAuth();
 
   return (
-    <header>
-      <nav className="flex flex-row justify-center w-full p-2 border-gray-200 flex-nowrap h-16 border-2">
+    <header className="sticky top-0 bg-white">
+      <nav className="flex flex-row justify-center w-full p-2 border-gray-200 flex-nowrap border-2">
           <div className="flex flex-row justify-between w-full">
             
             {/* GN logo */}
