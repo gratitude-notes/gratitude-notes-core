@@ -15,7 +15,6 @@ const App: React.FC = () => {
 
     return (
         <AuthContext.Provider value={{user}}>
-            <Navbar />
             <Routes>
                 <Route 
                     path="/"
