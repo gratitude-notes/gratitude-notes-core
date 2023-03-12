@@ -8,12 +8,11 @@ import { AuthContext } from "./lib/AuthContext";
 
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
     const [user, loading, error] = useAuthState(fb_auth);
-    
+
     return (
         <AuthContext.Provider value={{user}}>
             <Navbar />
