@@ -5,7 +5,6 @@ import RightSidebar from "../components/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
-import useUserData from "../hooks/useUserData";
 
 const Dashboard: React.FC = () => { 
   const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
@@ -13,9 +12,6 @@ const Dashboard: React.FC = () => {
   const handleFAB = () => {
       (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
   }
-
-  const data = useUserData();
-  console.log(data);
 
   const modalVisible = (isComponentVisible) ? "visible" : "hidden";
   
