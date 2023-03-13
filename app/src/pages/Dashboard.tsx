@@ -26,7 +26,6 @@ const Dashboard: React.FC = () => {
           <FeedList />
           <RightSidebar />
         </div>
-
       </div>
 
       <button onClick={handleFAB} className="fixed bottom-2 right-2 text-white bg-black rounded-full p-2">

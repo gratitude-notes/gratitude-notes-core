@@ -1,5 +1,5 @@
-import useComponentVisible from '../hooks/useComponentVisible';
-import { BsBrightnessHigh, BsThreeDots } from 'react-icons/bs'
+import useComponentVisible from '../../../hooks/useComponentVisible';
+import { BsThreeDots } from 'react-icons/bs'
 
 const DotMenu: React.FC = () => {  
         const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
