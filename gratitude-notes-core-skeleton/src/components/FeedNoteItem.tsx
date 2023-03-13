@@ -1,7 +1,7 @@
 import DotMenu from "../components/DotMenu";
 import KeyWordItem from "./KeyWordItem";
-import Gauge from "../components/ViewScore"
 import GaugeChart from 'react-gauge-chart'
+import Guage from "../components/ViewScore";
 interface NoteData {
     date: string,
     time: string,
@@ -21,10 +21,7 @@ const NoteItem: React.FC<NoteData> = ({date, time, note, score, keywordsStr}) =>
                 <KeyWordItem keywords={keywordsStr}></KeyWordItem>
                 </div>
                 <time className="block absolute right-10 mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{date} {time}</time>
-                <GaugeChart id="gauge-chart2" 
-  nrOfLevels={20} 
-  percent={0.86} 
-/>
+                <Guage value={score}></Guage>
             </a>
         </ul>
     )
