@@ -8,17 +8,17 @@ const LikeButton: React.FC = () => {
     <>
       {isFilled ? (
         <button
-          className="text-white font-bold py-2 px-4"
+          className="text-white font-bold"
           onClick={() => setIsFilled(false)}
         >
-          <BsHeartFill className="inline-block mr-2 fill-pink-600" />
+          <BsHeartFill className="inline-block fill-pink-600" />
         </button>
       ) : (
         <button
-          className="text-pink-500 font-bold py-2 px-4"
+          className="text-pink-500 font-bold"
           onClick={() => setIsFilled(true)}
         >
-          {!isFilled && <BsHeart className="inline-block mr-2" />}
+          {!isFilled && <BsHeart className="inline-block" />}
         </button>
       )}
     </>

@@ -21,14 +21,16 @@ const Dashboard: React.FC = () => {
   
   return (
     <div ref={ref}>
-      <div className="overflow-y-scroll h-screen w-screen flex flex-col border-4 border-red-500">
+      <div className="overflow-y-scroll h-screen w-screen flex flex-col">
         <Navbar />
-        <WeekCard />
 
-        <div className="flex">
-          <LeftSidebar />
-          <FeedList />
-          <RightSidebar />
+        <div className="p-2">
+          <WeekCard />
+          <div className="flex">
+            <LeftSidebar />
+            <FeedList />
+            <RightSidebar />
+          </div>
         </div>
       </div>
 
