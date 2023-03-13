@@ -3,6 +3,7 @@ import LeftSidebar from "../components/LeftSidebar";
 import RightSidebar from "../components/RightSidebar";
 import Slider from "../components/ScoreSlider";
 import SearchBar from "../components/searchBar";
+import LikeButton from "../components/LikeButton";
 
 const Dashboard: React.FC = () => {  
   return (
@@ -13,6 +14,10 @@ const Dashboard: React.FC = () => {
 
       <Slider />
       <SearchBar/>
+      <div>
+        <LikeButton></LikeButton>
+      </div>
+    
       
     </div>
   )
