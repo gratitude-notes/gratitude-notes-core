@@ -5,24 +5,39 @@ import React from 'react';
 import WordCloudComp from 'react-d3-cloud';
 import './WordCloud.css';
 import NoteInfo from './dataDay.json';
-import { string } from "prop-types";
 
 const WordCloudTest: React.FC = () => {  
 
   //make 'global' array so return can access
   var noteDayArr: string[] =[];
+  const numOfNotes=5; //assume max notes for a day is 5
 
   {NoteInfo.map((singleDayData, key) => {
-
-      var i = 0;
       //fill array w/ notes from a day
-      while (singleDayData['noteData'][i]['note']){
+      for(let i = 0; i<numOfNotes; i++){ 
           noteDayArr[i] = singleDayData['noteData'][i]['note'];
-          i++;
           console.log(noteDayArr[i] + "\n");
       }
-
   })}
+
+  //make array filled with all words from the day
+  var wordArr: any[] =[];
+
+  for(let j=0; j<numOfNotes; j++){
+      wordArr = wordArr.concat(noteDayArr[j].split(" "));
+  }
+
+  //find the most common words (makes 2d array [word][word(0), value(1)])
+  let uniqueElements = [...new Set(wordArr)];
+  const commonWordsArr = uniqueElements.map(value => [value, wordArr.filter(str => str === value).length]);
+  console.log(commonWordsArr);
+
+  //form an array the WordCloudComp can use
+  const wordCloudData =[];
+  for(let k=0;k<commonWordsArr.length;k++){
+      wordCloudData[k] = {text: commonWordsArr[k][0], value: commonWordsArr[k][1]};
+  }
+
   const data = [
       { text: 'Hey', value: 1000 },
       { text: 'lol', value: 200 },
@@ -32,7 +47,7 @@ const WordCloudTest: React.FC = () => {
   ]
 
 return (
-  <div className='WordCloudDiv'><WordCloudComp data={noteDayArr} /></div>
+  <div className='WordCloudDiv'><WordCloudComp data={wordCloudData} /></div>
    );
 }
 
