@@ -1,8 +1,8 @@
-import { useSession } from "../../lib/Session";
+import { useSession } from "../lib/Session";
 import ThemeButton from "./ThemeButton";
-import AvatarButton from "./AvatarButton";
-import { SignOutButton } from "./SignOutButton";
-import { SignInButton } from "./SignInButton";
+import AvatarButton from "./Navbar/AvatarButton";
+import { SignOutButton } from "./Navbar/SignOutButton";
+import { SignInButton } from "./Navbar/SignInButton";
 
 const AuthButton: React.FC = () => {
   const session = useSession();  
