@@ -1,30 +1,14 @@
 import { Toaster } from "react-hot-toast"
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Route, Routes } from "react-router-dom";
-
-import { fb_auth } from "./lib/Firebase";
-import { AuthContext } from "./lib/AuthContext";
-
-import Landing from "./pages/Landing";
-import Dashboard from "./pages/Dashboard";
-import ErrorPage from "./pages/ErrorPage";
-import Navbar from "./components/Navbar";
+import { SessionWrapper } from "./lib/Session";
+import { MainView } from "./components/MainView/MainView";
 
 const App: React.FC = () => {
-    const [user, loading, error] = useAuthState(fb_auth);
-    
     return (
-        <AuthContext.Provider value={{user}}>
-            <Navbar />
-            <Routes>
-                <Route 
-                    path="/"
-                    element={(user) ? <Dashboard /> : <Landing />}
-                />
-            </Routes>
+        <SessionWrapper>
+            <MainView />
             <Toaster/>
-        </AuthContext.Provider>
+        </SessionWrapper>
     )
 }
 
