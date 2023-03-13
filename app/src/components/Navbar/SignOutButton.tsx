@@ -1,7 +1,7 @@
 import { signOut } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 
-export const SignOutButton = () => {
+const SignOutButton = () => {
     const handleClick = () => {
         signOut(fb_auth);
     }
@@ -12,4 +12,5 @@ export const SignOutButton = () => {
         </button>
     )
 }
-  
+
+export default SignOutButton;

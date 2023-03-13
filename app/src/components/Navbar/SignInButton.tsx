@@ -1,7 +1,7 @@
 import { getRedirectResult, GoogleAuthProvider, signInWithRedirect } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 
-export const SignInButton = () => {
+const SignInButton = () => {
     const handleClick = async () => {
         const provider = new GoogleAuthProvider();
         provider.addScope('https://www.googleapis.com/auth/userinfo.email');
@@ -20,3 +20,5 @@ export const SignInButton = () => {
       </button>
     )
 }
+
+export default SignInButton;
