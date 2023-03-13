@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.gratitudenotes.app',
   appName: 'gratitude-notes-core',
-  webDir: 'build',
+  webDir: 'dist',
   bundledWebRuntime: false
 };
 
