@@ -23,7 +23,7 @@ const NoteItem: React.FC<NoteData> = ({date, time, note, score, keywordsStr}) =>
 
                 {/* Main Content */}
                 <div className="pl-6 pt-6 pr-6">
-                    <p className="font-normal text-gray-700 dark:text-gray-400">{note}</p>
+                    <p className="font-normal text-gray-700 break-words dark:text-gray-400">{note}</p>
                     <KeyWordItem keywords={keywordsStr} />
                 </div>
 
