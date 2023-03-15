@@ -23,17 +23,21 @@ const NoteItem: React.FC<FeedNoteItemType> = ({date, time, note, score, keywords
 
                 {/* Main Content */}
                 <div className="pl-6 pt-6 pr-6">
-                    <p className="font-normal text-gray-700 break-words dark:text-gray-400">{note}</p>
-                    <KeyWordItem keywords={keywordsArray} />
+                    <div>
+                        <p className="font-normal text-gray-700 break-words dark:text-gray-400">{note}</p>
+                    </div>
+                    <div className="pt-2 pb-2">
+                        <KeyWordItem keywords={keywordsArray} />
+                    </div>
                 </div>
 
                 {/* Footer */}
                 <div className="relative pl-6 pt-2 pr-6 pb-6">
-                    <div className="absolute left-6">
+                    <div className="absolute bottom-2 left-6">
                         <LikeButton />
                     </div>
-                    <div className="absolute right-6">
-                        <time className="block text-sm font-normal leading-none text-gray-400">{date} {time}</time>
+                    <div className="absolute bottom-2 right-2">
+                        <time className="text-sm font-normal leading-none text-gray-400">{date} {time}</time>
                     </div>
                 </div>
             </div>
