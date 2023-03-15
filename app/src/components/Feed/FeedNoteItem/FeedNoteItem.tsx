@@ -2,15 +2,15 @@ import DotMenu from "./DotMenu";
 import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
 
-interface NoteData {
+interface FeedNoteItemType {
     date: string,
     time: string,
     note: string,
     score: number,
-    keywordsStr: string[]
+    keywordsArray: string[]
 }
 
-const NoteItem: React.FC<NoteData> = ({date, time, note, score, keywordsStr}) => {  
+const NoteItem: React.FC<FeedNoteItemType> = ({date, time, note, score, keywordsArray}) => {  
     return (
         <ul className="mb-2">
             <div className="bg-white border border-black rounded-lg shadow hover:bg-gray-100">
@@ -24,7 +24,7 @@ const NoteItem: React.FC<NoteData> = ({date, time, note, score, keywordsStr}) =>
                 {/* Main Content */}
                 <div className="pl-6 pt-6 pr-6">
                     <p className="font-normal text-gray-700 break-words dark:text-gray-400">{note}</p>
-                    <KeyWordItem keywords={keywordsStr} />
+                    <KeyWordItem keywords={keywordsArray} />
                 </div>
 
                 {/* Footer */}

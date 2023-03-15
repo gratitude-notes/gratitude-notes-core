@@ -17,7 +17,7 @@ const DotMenu: React.FC = () => {
                 </button>
 
                 {/* Dropdown Menu */}
-                <div className={`${twVisible} absolute right-0 bg-white shadow-lg focus:outline-none`}>
+                <div className={`${twVisible} absolute right-0 z-40 bg-white shadow-lg focus:outline-none`}>
                     <div className="py-1" role="none">
                         <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
                             Edit

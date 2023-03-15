@@ -1,11 +1,18 @@
 import useNoteData from "../../hooks/useNoteData";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 
+interface FeedNoteItemType {
+  date: string,
+  time: string,
+  note: string,
+  score: number,
+  keywordsArray: string[]
+}
+
 const FeedList: React.FC = () => {
 
   const { data } = useNoteData();
-  // const [noteItems, setNoteItems] = useState<any>([]);
-  const noteItems: any[] = [];
+  const noteItems: FeedNoteItemType[] = [];
 
   if (data) {
     data.forEach((doc: any) => {
@@ -21,7 +28,7 @@ const FeedList: React.FC = () => {
   return (
     <ol className="w-full">
       {noteItems.map((noteItem, index) => (
-        <FeedNoteItem key={index} date="date" time={noteItem.time} note={noteItem.note} keywordsStr={myKeywords} score={noteItem.score} />
+        <FeedNoteItem key={index} date="date" time={noteItem.time} note={noteItem.note} keywordsArray={myKeywords} score={noteItem.score} />
       ))}
       {/* <FeedNoteItem date="March 7, 2023" time="4:35PM" note="Today was busy. I woke up early to run in the park, which helped me start the day feeling energized and refreshed. However, work was challenging as I had a lot of deadlines and my boss was being difficult. During my lunch break, I met up with a friend and it was great to catch up and chat.
                   To balance out the stress of the day, I made time for self-care. I watched a movie and had a healthy dinner, which helped me unwind and relax. As I reflect on the day, I feel accomplished and grateful for the moments of joy and connection.
