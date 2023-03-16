@@ -25,7 +25,7 @@ const AuthButton: React.FC = () => {
 
 const Navbar: React.FC = () => {
   return (
-    <header className="sticky top-0 bg-white">
+    <header className="sticky top-0 bg-white z-50">
       <nav className="flex flex-row justify-center w-full p-2 border-gray-200 flex-nowrap border-2">
           <div className="flex flex-row justify-between w-full">
             
