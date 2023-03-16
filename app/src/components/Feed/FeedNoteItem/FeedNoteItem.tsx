@@ -11,7 +11,7 @@ const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) =>
     const year = date.getFullYear();
     const hour = date.getHours() % 12 || 12;
     const minute = date.getMinutes();
-    const amOrPm = date.getHours() >= 12 ? 'pm' : 'am';
+    const amOrPm = date.getHours() >= 12 ? 'PM' : 'AM';
 
     const timeStr = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year.toString()} • ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
 
