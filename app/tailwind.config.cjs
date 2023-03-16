@@ -20,8 +20,7 @@ module.exports = {
     },
   },
   plugins: [
-    require('./tailwind/percentageProperty.cjs'),
-    require("daisyui")
+    require('./tailwind/percentageProperty.cjs')
   ],
   darkMode: 'class'
 }
