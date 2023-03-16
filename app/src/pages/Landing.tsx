@@ -68,6 +68,52 @@ const Landing: React.FC = () => {
           </section>
 
           {/* FAQ */}
+          <section className="flex flex-col gap-10 justify-center sm:flex-row">
+            <div className="">
+              <h1 className="text-3xl">Your questions,<br />answered</h1>
+            </div>
+            <div className="flex flex-col gap-2">
+              {/* FAQ 1 */}
+              <details className="border-b-2 duration-300">
+                <summary className="text-xl cursor-pointer">Is this the right app for you?</summary>
+                <div className="py-6 border-gray-400 text-sm">
+                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
+                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                </div>
+              </details>
+              {/* FAQ 2 */}
+              <details className="border-b-2 duration-300">
+                <summary className="text-xl cursor-pointer">Do I have to write everyday?</summary>
+                <div className="py-6 border-gray-400 text-sm">
+                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
+                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                </div>
+              </details>
+              {/* FAQ 3 */}
+              <details className="border-b-2 duration-300">
+                <summary className="text-xl cursor-pointer">What is the ideal way to interact with the app?</summary>
+                <div className="py-6 border-gray-400 text-sm">
+                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
+                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                </div>
+              </details>
+              {/* FAQ 4 */}
+              <details className="border-b-2 duration-300">
+                <summary className="text-xl cursor-pointer">Is it free?</summary>
+                <div className="py-6 border-gray-400 text-sm">
+                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
+                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                </div>
+              </details>
+              {/* FAQ 5 */}
+              <details className="border-b-2 duration-300">
+                <summary className="text-xl cursor-pointer">Why did we build this?</summary>
+                <div className="py-6 border-gray-400 text-sm">
+                  <p>Test smaller text.</p>
+                </div>
+              </details>
+            </div>
+          </section>
 
           {/* Testimonials */}
 
