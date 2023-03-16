@@ -1,12 +1,13 @@
 import { BsFillEmojiSmileFill } from "react-icons/bs";
 import Navbar from "../components/Navbar/Navbar";
 import PeopleOnPhone from "../assets/TwoPeoplePhone.png";
+import { SocialIcon } from 'react-social-icons';
 
 const Landing: React.FC = () => {
 
   return (
     <div>
-      <div className="">
+      <div className="relative">
         <Navbar />
 
         {/* Main Content */}
@@ -72,12 +73,27 @@ const Landing: React.FC = () => {
 
           {/* Meet the team */}
 
-          {/* Footer */}
-          <hr className="w-full h-px border border-gray-200 rounded"/>
-          {/* <section>
-
-          </section> */}
         </div>
+
+        <hr className="w-full h-px border border-gray-200 rounded"/>
+
+        {/* Footer */}
+        <section className="flex flex-col gap-4 p-8">
+          <div className="flex gap-2 justify-center">
+            <h1 className="hover:underline">© 2023 Gratitude Notes, Inc.</h1>
+            <a href="#" className="hover:underline">Terms</a>
+            <a href="#" className="hover:underline">Privacy</a>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex gap-2 justify-center">
+            <SocialIcon url="https://twitter.com" style={{ height: 25, width: 25 }} bgColor="#000000"/>
+            <SocialIcon url="https://instagram.com" style={{ height: 25, width: 25 }} bgColor="#000000"/>
+            <SocialIcon url="https://github.com" style={{ height: 25, width: 25 }} bgColor="#000000"/>
+            <SocialIcon url="https://discord.com" style={{ height: 25, width: 25 }} bgColor="#000000"/>
+            <SocialIcon url="https://linkedin.com" style={{ height: 25, width: 25 }} bgColor="#000000"/>
+          </div>
+        </section>
       </div>
     </div>
   )
