@@ -72,10 +72,11 @@ const Landing: React.FC = () => {
 
           {/* Meet the team */}
 
-          {/* Call to Action? */}
-
           {/* Footer */}
+          <hr className="w-full h-px border border-gray-200 rounded"/>
+          {/* <section>
 
+          </section> */}
         </div>
       </div>
     </div>
