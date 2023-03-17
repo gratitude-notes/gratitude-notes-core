@@ -5,6 +5,7 @@ import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
+import WriteNoteFAB from "../components/WriteNoteFAB";
 
 const Dashboard: React.FC = () => { 
   const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
@@ -22,7 +23,7 @@ const Dashboard: React.FC = () => {
 
         <div className="h-full flex flex-col gap-2 pt-2">
           <WeekCard />
-          <div className="h-full flex lg:px-40 xl:px-64">
+          <div className="relative h-full flex lg:px-40 xl:px-64">
             <LeftSidebar />
             <FeedList />
             <RightSidebar />
@@ -30,9 +31,11 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      <button onClick={handleFAB} className="fixed bottom-2 right-2 text-white bg-black rounded-full p-2">
+      <WriteNoteFAB />
+
+      {/* <button onClick={handleFAB} className="fixed bottom-2 right-2 text-white bg-black rounded-full p-2">
         Write note
-      </button>
+      </button> */}
 
       <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
     </div>

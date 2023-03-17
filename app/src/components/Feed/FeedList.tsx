@@ -1,4 +1,5 @@
 import useNoteData from "../../hooks/useNoteData";
+import WriteNoteFAB from "../WriteNoteFAB";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 
 const FeedList: React.FC = () => {
