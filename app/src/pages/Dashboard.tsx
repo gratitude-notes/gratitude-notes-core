@@ -1,7 +1,7 @@
 import FeedList from "../components/Feed/FeedList";
-import LeftSidebar from "../components/LeftSidebar";
+import LeftSidebar from "../components/LeftSidebar/LeftSidebar";
 import WriteNoteModal from "../components/WriteNoteModal";
-import RightSidebar from "../components/RightSidebar";
+import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
 
         <div className="h-full flex flex-col gap-2 pt-2">
           <WeekCard />
-          <div className="h-full flex sm:px-10 xl:px-20">
+          <div className="h-full flex lg:px-40 xl:px-64">
             <LeftSidebar />
             <FeedList />
             <RightSidebar />
