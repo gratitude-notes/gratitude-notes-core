@@ -6,6 +6,7 @@ import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
 import WriteNoteFAB from "../components/WriteNoteFAB";
+import { BsPencil } from "react-icons/bs";
 
 const Dashboard: React.FC = () => { 
   const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
@@ -31,7 +32,10 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      <WriteNoteFAB />
+      {/* WRITE NOTE FAB (Small screens only) */}
+      <button className="absolute bottom-3 right-3 sm:hidden bg-black rounded-full p-4">
+            <BsPencil size={25} color="white"/>
+      </button>
 
       {/* <button onClick={handleFAB} className="fixed bottom-2 right-2 text-white bg-black rounded-full p-2">
         Write note
