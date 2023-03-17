@@ -1,13 +1,14 @@
+import Editor from "./Editor";
 
-interface MyInterface {
-    visibility: "visible" | "hidden",
+interface WriteNoteModalState {
+    setVisible: "visible" | "hidden",
     handleChange: () => void
 }
 
-const WriteNoteModal: React.FC<MyInterface> = ({visibility, handleChange}) => {
+const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange}) => {
 
     return (
-        <div className={`${visibility} fixed top-0 w-screen h-screen bg-white`}>
+        <div className={`${setVisible} z-50 fixed top-0 w-screen h-screen bg-white`}>
             <div className="flex flex-col">
                 <div className="h-20">
                     <button onClick={handleChange} type="button" className="absolute top-3 left-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
@@ -19,8 +20,7 @@ const WriteNoteModal: React.FC<MyInterface> = ({visibility, handleChange}) => {
                     </button>
                 </div>
 
-                <textarea id="message" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-
+                <Editor />
             </div>
             
         

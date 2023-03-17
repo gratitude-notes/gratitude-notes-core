@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
         Write note
       </button>
 
-      <WriteNoteModal visibility={modalVisible} handleChange={handleFAB}/>
+      <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
     </div>
   );
 }
