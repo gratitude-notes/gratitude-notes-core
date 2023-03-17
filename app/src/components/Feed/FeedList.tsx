@@ -6,7 +6,7 @@ const FeedList: React.FC = () => {
   const { notes } = useNoteData();
 
   return (
-    <ol className="w-full">
+    <ol className="w-full overflow-y-scroll">
       {notes?.map((bullet, index) => (
         <FeedNoteItem key={index} {...bullet} />
       ))}

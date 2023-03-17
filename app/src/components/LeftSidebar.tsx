@@ -2,7 +2,7 @@
 
 const LeftSidebar: React.FC = () => {  
     return (
-      <div className="hidden h-screen w-1/4 bg-red-700">
+      <div className="flex border border-gray-400 w-0 md:w-20 xl:w-96">
 
       </div>
     )

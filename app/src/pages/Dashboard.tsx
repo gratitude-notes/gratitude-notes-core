@@ -20,9 +20,9 @@ const Dashboard: React.FC = () => {
       <div className="overflow-y-scroll h-screen w-screen flex flex-col">
         <Navbar />
 
-        <div className="p-2">
+        <div className="h-full flex flex-col gap-2 pt-2">
           <WeekCard />
-          <div className="flex">
+          <div className="h-full flex md:px-10 xl:px-20">
             <LeftSidebar />
             <FeedList />
             <RightSidebar />
