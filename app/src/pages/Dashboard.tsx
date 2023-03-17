@@ -32,13 +32,9 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* WRITE NOTE FAB (Small screens only) */}
-      <button className="absolute bottom-3 right-3 sm:hidden bg-black rounded-full p-4">
-            <BsPencil size={25} color="white"/>
+      <button onClick={handleFAB} className="absolute bottom-3 right-3 sm:hidden bg-black rounded-full p-4">
+        <BsPencil size={25} color="white"/>
       </button>
-
-      {/* <button onClick={handleFAB} className="fixed bottom-2 right-2 text-white bg-black rounded-full p-2">
-        Write note
-      </button> */}
 
       <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
     </div>
