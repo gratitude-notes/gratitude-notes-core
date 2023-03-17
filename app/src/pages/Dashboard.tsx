@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
 
         <div className="h-full flex flex-col gap-2 pt-2">
           <WeekCard />
-          <div className="h-full flex md:px-10 xl:px-20">
+          <div className="h-full flex sm:px-10 xl:px-20">
             <LeftSidebar />
             <FeedList />
             <RightSidebar />
