@@ -1,4 +1,5 @@
 import LeftSidebarItem from "./LeftSidebarItem";
+import LeftSidebarWriteNote from "./LeftSidebarWriteNote";
 
 
 const LeftSidebar: React.FC = () => {
@@ -8,6 +9,7 @@ const LeftSidebar: React.FC = () => {
         <LeftSidebarItem icon={"BsHouseDoor"} title={"Home"}/>
         <LeftSidebarItem icon={"BsSearch"} title={"Search"}/>
         <LeftSidebarItem icon={"BsBell"} title={"Notifications"}/>
+        <LeftSidebarWriteNote />
       </div>
     )
   }
