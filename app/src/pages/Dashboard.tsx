@@ -5,7 +5,6 @@ import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
-import WriteNoteFAB from "../components/WriteNoteFAB";
 import { BsPencil } from "react-icons/bs";
 
 const Dashboard: React.FC = () => { 
