@@ -7,7 +7,7 @@ const Landing: React.FC = () => {
 
   return (
     <div>
-      <div className="relative bg-white z-0 dark:bg-gray-800">
+      <div className="relative overflow-hidden bg-white z-0 dark:bg-gray-800">
         <Navbar />
 
         {/* Main Content */}

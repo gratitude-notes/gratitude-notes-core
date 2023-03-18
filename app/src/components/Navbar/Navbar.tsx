@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
     <header className="sticky top-0 bg-white z-40 shadow-lg dark:bg-gray-800">
       <nav className="flex flex-row justify-center p-4 flex-nowrap">
 
-        <div className="flex flex-row w-full justify-start">
+        <div className="flex flex-row justify-start">
           {/* GN logo */}
           <button className="">
             <div className="[&>svg]:w-11 fill-cyan-500">

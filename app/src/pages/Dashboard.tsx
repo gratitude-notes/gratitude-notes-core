@@ -18,17 +18,25 @@ const Dashboard: React.FC = () => {
   
   return (
     <div ref={ref}>
-      <div className="relative overflow-y-scroll h-screen w-screen flex flex-col bg-white dark:bg-gray-800">
+      <div className="h-screen w-screen flex flex-col gap-2 bg-white dark:bg-gray-800">
         <Navbar />
+        
+        <WeekCard />
 
-        <div className="h-full flex flex-col gap-2 pt-2">
-          <WeekCard />
-          <div className="relative h-full flex lg:px-40 xl:px-64">
+        <div className="overflow-hidden relative flex lg:px-40 xl:px-64">
             <LeftSidebar handleWriteNoteModal={handleFAB}/>
             <FeedList />
             <RightSidebar />
           </div>
-        </div>
+
+        {/* <div className="flex flex-col gap-2 pt-2">
+          <WeekCard />
+          <div className="relative flex lg:px-40 xl:px-64">
+            <LeftSidebar handleWriteNoteModal={handleFAB}/>
+            <FeedList />
+            <RightSidebar />
+          </div>
+        </div> */}
 
         <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
       </div>
