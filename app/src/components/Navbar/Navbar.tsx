@@ -18,7 +18,10 @@ const AuthButton: React.FC = () => {
   }
   else {
     return (
-      <SignInButton />
+      <>
+        <SignInButton />
+        <ThemeButton />
+      </>
     )
   }
 }

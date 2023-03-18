@@ -7,8 +7,13 @@ const Landing: React.FC = () => {
 
   return (
     <div>
-      <div className="relative">
+      <div className="relative dark:bg-gray-800">
         <Navbar />
+
+        {/* TEST */}
+        {/* <button onClick={handleThemeSwitch} className="bg-green-200 p-4 rounded-3xl">
+          Dark Mode
+        </button> */}
 
         {/* Main Content */}
         <div className="max-w-3xl flex flex-col gap-20 p-8 m-auto">
