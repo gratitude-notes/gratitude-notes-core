@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
   
   return (
     <div ref={ref}>
-      <div className="relative overflow-y-scroll h-screen w-screen flex flex-col">
+      <div className="relative overflow-y-scroll h-screen w-screen flex flex-col bg-white dark:bg-gray-800">
         <Navbar />
 
         <div className="h-full flex flex-col gap-2 pt-2">
@@ -34,7 +34,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* WRITE NOTE FAB (Small screens only) */}
-      <button onClick={handleFAB} className="absolute bottom-3 right-3 sm:hidden bg-black rounded-full p-4">
+      <button onClick={handleFAB} className="absolute bottom-3 right-3 sm:hidden bg-cyan-500 rounded-full p-4">
         <BsPencil size={25} color="white"/>
       </button>
     </div>

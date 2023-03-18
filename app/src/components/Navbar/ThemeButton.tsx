@@ -26,10 +26,10 @@ const ThemeButton: React.FC = () => {
 
     return (
         <div>
-            <button onClick={handleThemeSwitch} className="inline-flex px-2 py-2 items-center ml-2 bg-white rounded-lg hover:bg-neutral-200">
+            <button onClick={handleThemeSwitch} className="px-3 py-2">
                 {theme === 'light'
-                    ? <BsMoon size={20}/>
-                    : <BsBrightnessHigh size={20}/>
+                    ? <BsMoon color={'#06b6d4'} size={20}/>
+                    : <BsBrightnessHigh color={'#06b6d4'} size={20}/>
                 }
             </button>
         </div>

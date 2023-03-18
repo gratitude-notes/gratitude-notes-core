@@ -17,7 +17,7 @@ const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) =>
 
     return (
         <ul className="">
-            <div className="min-w-full border-t border-b sm:border border-gray-400 hover:bg-gray-100">
+            <div className="min-w-full border-t border-b sm:border border-gray-400 hover:cursor-pointer">
                 {/* Header */}
                 <div className="relative">
                     <div className="absolute top-2 right-2">
@@ -28,7 +28,7 @@ const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) =>
                 {/* Main Content */}
                 <div className="px-6 pt-6">
                     <div>
-                        <p className="text-gray-700 break-words dark:text-gray-400">{note}</p>
+                        <p className="break-words dark:text-white">{note}</p>
                     </div>
                     <div className="py-2">
                         <KeyWordItem {...{keywords}} />

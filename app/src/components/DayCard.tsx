@@ -71,7 +71,7 @@ const DayCardPoint: React.FC<Point> = ({ date, time, score }) => {
   let pointBackgroundColor = getPointBackgroundColor(score)
 
   return (
-    <div className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px] border border-black`}></div>
+    <div className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px]`}></div>
   );
 }
 
@@ -87,7 +87,7 @@ const DayCard: React.FC<DayCardData> = ({date, noteData }) => {
 
   return (
     <div className="relative border border-gray-400">
-      <h1 className="p-1 text-right text-sm">{date.split(" ")[1].replace(',', '')}</h1>
+      <h1 className="p-1 text-right text-sm dark:text-white">{date.split(" ")[1].replace(',', '')}</h1>
       <div className="relative mx-[6px] mb-1 w-20 h-16">
         <hr className="absolute top-50% left-0 right-0"/>
         {noteData.map((singleNoteData: { time: string, score: number }, key) => {

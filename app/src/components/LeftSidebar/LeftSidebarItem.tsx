@@ -8,7 +8,7 @@ type SidebarItem = {
 const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title}) => {  
     return (
         <div className="hidden sm:flex gap-4 mx-auto">
-            <div className="my-auto">
+            <div className="my-auto dark:text-white">
                 {
                     {
                         'BsSearch': <BsSearch size={20}/>,
@@ -18,7 +18,7 @@ const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title}) => {
                 }
             </div>
             <div className="hidden lg:flex">
-                <h1 className="text-xl">{title}</h1>
+                <h1 className="text-xl dark:text-white">{title}</h1>
             </div>
         </div>
     )
