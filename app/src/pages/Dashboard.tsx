@@ -29,15 +29,6 @@ const Dashboard: React.FC = () => {
             <RightSidebar />
           </div>
 
-        {/* <div className="flex flex-col gap-2 pt-2">
-          <WeekCard />
-          <div className="relative flex lg:px-40 xl:px-64">
-            <LeftSidebar handleWriteNoteModal={handleFAB}/>
-            <FeedList />
-            <RightSidebar />
-          </div>
-        </div> */}
-
         <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
       </div>
 
