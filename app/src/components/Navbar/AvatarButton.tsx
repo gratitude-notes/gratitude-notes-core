@@ -1,4 +1,6 @@
 import useComponentVisible from '../../hooks/useComponentVisible';
+import { signOut } from "@firebase/auth";
+import { fb_auth } from "../../lib/Firebase";
 
 const AvatarButton: React.FC = () => {
     const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
@@ -8,6 +10,10 @@ const AvatarButton: React.FC = () => {
     }
 
     const dropdownVisbile = (isComponentVisible) ? "visible" : "hidden";
+
+    const handleClick = () => {
+        signOut(fb_auth);
+    }
 
     return (
         <div ref={ref}>
@@ -24,7 +30,7 @@ const AvatarButton: React.FC = () => {
                     <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
                         Settings
                     </button>              
-                    <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
+                    <button onClick={handleClick} className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
                         Sign Out
                     </button>
                 </div>
