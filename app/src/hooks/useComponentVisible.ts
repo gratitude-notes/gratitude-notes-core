@@ -17,7 +17,7 @@ const useComponentVisible = (initialVisible: boolean) => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside, true);
         }
-    });
+    }, []);
 
     return { ref, isComponentVisible, setComponentVisible };
 }

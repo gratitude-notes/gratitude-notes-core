@@ -1,32 +1,18 @@
 import { BsBrightnessHigh, BsMoon } from 'react-icons/bs'
-import { useState, useEffect } from 'react';
+import useTheme from '../../hooks/useTheme';
 
 const ThemeButton: React.FC = () => {
-    const [theme, setTheme] = useState('');
+    const { theme, setTheme, setThemeHandler, themeHandler } = useTheme();
 
-    useEffect(() => {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches){
-        setTheme('dark');
-        } else {
-        setTheme('light');
-        }
-    }, []);
-
-    useEffect(() => {
-        if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        } else {
-        document.documentElement.classList.remove('dark');
-        }
-    }, [theme]);
-
-    const handleThemeSwitch = () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-    };
+    const handleThemeButton = () => {
+        setThemeHandler("user");
+        const updateTheme = (theme === "dark") ? "light" : "dark"
+        setTheme(updateTheme);
+    }
 
     return (
         <div>
-            <button onClick={handleThemeSwitch} className="px-3 py-2">
+            <button onClick={handleThemeButton} className="px-3 py-2">
                 {theme === 'light'
                     ? <BsMoon color={'#06b6d4'} size={20}/>
                     : <BsBrightnessHigh color={'#06b6d4'} size={20}/>
