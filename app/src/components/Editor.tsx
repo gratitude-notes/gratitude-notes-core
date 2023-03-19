@@ -10,7 +10,8 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
 import { mergeRegister } from '@lexical/utils';
 import clsx from 'clsx';
-import { FaBold, FaItalic } from 'react-icons/fa'
+import { FaBold, FaItalic, FaUnderline } from 'react-icons/fa'
+import { setPersistence } from 'firebase/auth';
 
 const onChange = (editorState: EditorState) => {
     editorState.read(() => {
@@ -25,12 +26,14 @@ const Toolbar = () => {
     const [editor] = useLexicalComposerContext()
     const [isBold, setIsBold] = useState(false)
     const [isItalic, setIsItalic] = useState(false)
+    const [isUnderline, setIsUnderline] = useState(false)
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection()
         if ($isRangeSelection(selection)) {
             setIsBold(selection.hasFormat('bold'))
             setIsItalic(selection.hasFormat('italic'))
+            setIsUnderline(selection.hasFormat('underline'))
         }
         
     }, [editor])
@@ -69,6 +72,17 @@ const Toolbar = () => {
             >
                 <FaItalic size={20} className="text-black"/>
             </button>
+            <button 
+                className={clsx(
+                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
+                    isUnderline ? 'bg-neutral-300' : 'bg-transparent'
+                )}
+                onClick={() => {
+                    editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
+                }}
+            >
+                <FaUnderline size={20} className="text-black"/>
+            </button>
         </div>
     )
 }
@@ -78,7 +92,12 @@ const Editor: React.FC = () => {
     const initialConfig = {
         namespace: "noteEditor",
         theme: {
-            paragraph: "mb-1 text-blue-500" // Done for example purposes
+            paragraph: "mb-1 text-green-500", // Done for example purposes
+            text: {
+                underline: "underline",
+                bold: "font-semibold",
+                italic: "italic"
+            }
         },
         onError(error: Error) {
             throw error;
