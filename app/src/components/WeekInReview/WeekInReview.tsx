@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import WordCloud from 'react-d3-cloud';
 import KeywordItem from '../Feed/FeedNoteItem/KeyWordItem';
 
@@ -15,7 +15,8 @@ const WeekInReview: React.FC = () => {
     { text: 'ROFL', value: 300 },
     { text: 'Impressive', value: 650 },
     { text: 'Outstanding', value: 775 },
-    { text: 'Thanks', value: 900 }
+    { text: 'Thanks', value: 900 },
+    
   ]
 
   const exampleKeywords = [
@@ -27,26 +28,35 @@ const WeekInReview: React.FC = () => {
   ]
 
   return (
-      <div className="w-screen h-screen bg-black">
+      <div className="w-screen h-screen bg-black items-center">
         {/* MODAL */}
-        <div className="relative m-auto h-screen max-w-xl bg-white">
-          <button className="absolute top-2 right-2 h-8 bg-black text-white rounded-lg">
+        <div className="relative m-auto h-screen max-w-xl bg-white items-center">
+          <button className="absolute top-2 left-5 h-8 px-3 bg-black text-white rounded-full">
             Close me
           </button>
 
           {/* MAIN CONTENT */}
-          <div className="pt-20 h-full flex flex-col gap-4 items-center">
-            <h1 className="text-3xl">Week in Review</h1>
-            {/* WORD CLOUD */}
-            <div className="w-full h-full border-4 border-black rounded-t-3xl">
-              <WordCloud data={data} width={200} height={200} padding={0} rotate={0}/>
-
-              {/* KEYWORD STUFF */}
-              <div className="px-2">
-                <KeywordItem keywords={exampleKeywords}/>
+          <div className="pt-20 h-wrap flex flex-col gap-4 items-center">
+            {/* HEADER */}
+            <div className="w-full h-wrap border-t-4 border-r-4 border-l-4 border-neutral-900 bg-neutral-900 rounded-t-3xl">
+              <h1 className="text-3xl text-center text-white">Week in Review</h1>
+              {/* WORD CLOUD */}
+              <div className="w-full h-wrap-10 border-t-4 border-r-4 border-l-4 border-neutral-900 bg-white rounded-t-3xl -top-6">
+                <WordCloud data={data} width={200} height={200} padding={0} font={"tahoma"} spiral={"rectangular"}/>
               </div>
             </div>
+            
           </div>
+
+          {/* KEYWORD HEADER */}
+          <div className="relative border-t border-r border-l border-neutral-800 bg-neutral-800 rounded-t-3xl -top-6 w-full h-full">
+            <h1 className="text-xl text-white text-left-10 px-5 py-2">Most Frequent Topics</h1>
+            {/* KEYWORD STUFF */}
+            <div className="absolute px-4 py-2 border-t-4 border-r-4 border-l-4 border-neutral-600 bg-neutral-600 rounded-t-3xl w-full h-full">
+              <KeywordItem keywords={exampleKeywords}/>
+            </div>
+          </div>
+          
         </div>
       </div>
   );
