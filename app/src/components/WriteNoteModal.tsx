@@ -1,5 +1,6 @@
+import { useRef } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import Editor from "./Editor2/Editor";
+import Editor from "./Editor/Editor";
 
 interface WriteNoteModalState {
     setVisible: "visible" | "hidden",
@@ -7,6 +8,12 @@ interface WriteNoteModalState {
 }
 
 const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange}) => {
+    // const editorRef: any = useRef();
+    
+    // if (editorRef.current !== undefined && editorRef.current !== null) {
+    //       const latestEditorState = editorRef.current.getEditorState();
+    //       console.log(latestEditorState);
+    // }
 
     return (
         <>
