@@ -1,4 +1,4 @@
-import { $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
+import { $createParagraphNode, createCommand, $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL,  COMMAND_PRIORITY_LOW, DEPRECATED_$isGridSelection, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND, NodeKey } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -7,13 +7,13 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { HeadingNode } from '@lexical/rich-text';
 import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
-import { ListItemNode, ListNode } from '@lexical/list';
+import { ListItemNode, ListNode, INSERT_UNORDERED_LIST_COMMAND, insertList, REMOVE_LIST_COMMAND, removeList, $isListNode } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
 import { mergeRegister } from '@lexical/utils';
 import clsx from 'clsx';
-import { FaBold, FaItalic, FaRedo, FaUnderline, FaUndo } from 'react-icons/fa';
+import { FaBold, FaItalic, FaRedo, FaUnderline, FaUndo, FaListUl } from 'react-icons/fa';
 import React from 'react';
 
 // TODO: Add types.
@@ -30,6 +30,20 @@ import React from 'react';
 //   return null;
 // });
 
+const blockTypeToBlockName = {
+    bullet: 'Bulleted List',
+    h1: 'Heading 1',
+    h2: 'Heading 2',
+    h3: 'Heading 3',
+    h4: 'Heading 4',
+    h5: 'Heading 5',
+    h6: 'Heading 6',
+    paragraph: 'Normal',
+    quote: 'Quote',
+  };
+
+
+
 const Toolbar = () => {
     
     const [editor] = useLexicalComposerContext()
@@ -38,6 +52,12 @@ const Toolbar = () => {
     const [isUnderline, setIsUnderline] = useState(false)
     const [canUndo, setCanUndo] = useState(false)
     const [canRedo, setCanRedo] = useState(false)
+    const [isList, setIsList] = useState(false)
+    const [blockType, setBlockType] =
+    useState<keyof typeof blockTypeToBlockName>('paragraph');
+  const [selectedElementKey, setSelectedElementKey] = useState<NodeKey | null>(
+    null,
+  );
     
 
     const updateToolbar = useCallback(() => {
@@ -73,6 +93,22 @@ const Toolbar = () => {
                 },
                 COMMAND_PRIORITY_CRITICAL
             ),
+            editor.registerCommand(
+                INSERT_UNORDERED_LIST_COMMAND,
+                () => {
+                  insertList(editor, 'bullet');
+                  return true;
+                },
+                COMMAND_PRIORITY_LOW,
+            ),
+            editor.registerCommand(
+                REMOVE_LIST_COMMAND,
+                () => {
+                  removeList(editor);
+                  return true;
+                },
+                COMMAND_PRIORITY_LOW,
+              ),
         );
     }, [editor, updateToolbar])
 
@@ -135,9 +171,28 @@ const Toolbar = () => {
             >
                 <FaUnderline size={20} className="text-black"/>
             </button>
+            <button
+                className={clsx(
+                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
+                    isList ? "disabled: opacity-50 pointer-events-none" : ""
+                )}
+                onClick={() => {
+                    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+                }}
+            >
+                <FaListUl size={20} className="text-black"/>
+            </button>
         </div>
     )
 }
+
+// const formatBulletList = () => {
+//     if (blockType !== 'bullet') {
+//       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+//     } else {
+//       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+//     }
+//   };
 
 const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
         const initialConfig = {
@@ -177,6 +232,7 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                     <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
                     <ListPlugin />
                     <HistoryPlugin />
+                    {/* <ListMaxIndentLevelPlugin maxDepth={7}></ListMaxIndentLevelPlugin> */}
                 </LexicalComposer>
             </div>
         )
