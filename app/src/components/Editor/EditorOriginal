@@ -114,7 +114,7 @@ const Toolbar = () => {
 
 const Editor: React.FC = () => {
 
-    const {historyState} = useSharedHistoryContext();
+    //const {historyState} = useSharedHistoryContext();
     const {
       settings: {
         isCollab,
@@ -143,12 +143,12 @@ const Editor: React.FC = () => {
         },
     }
 
-    {(isCharLimit || isCharLimitUtf8) && (
-        <CharacterLimitPlugin
-          charset={isCharLimit ? 'UTF-16' : 'UTF-8'}
-          maxLength={40}
-        />
-      )}
+    // {(isCharLimit || isCharLimitUtf8) && (
+    //     <CharacterLimitPlugin
+    //       charset={isCharLimit ? 'UTF-16' : 'UTF-8'}
+    //       maxLength={40}
+    //     />
+    //   )}
 
     return (
         <div className="bg-white relative rounded-sm">
@@ -165,12 +165,14 @@ const Editor: React.FC = () => {
                     }
                     ErrorBoundary={LexicalErrorBoundary}
                 />
+                <ListPlugin />
+                <CheckListPlugin />
                 {/* <LocalStoragePlugin namespace={props.config.namespace} /> */}
                 {/* <MarkdownShortcutPlugin transformers={TRANSFORMERS} /> */}
                 <OnChangePlugin onChange={onChange}/>
-                <ListPlugin></ListPlugin>
+                {/* <ListPlugin></ListPlugin>
                 <HistoryPlugin />
-                <CheckListPlugin />
+                <CheckListPlugin /> */}
             </LexicalComposer>
         </div>
     ) 
