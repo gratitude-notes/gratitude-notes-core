@@ -1,5 +1,5 @@
 import { BsArrowLeft } from "react-icons/bs";
-import Editor from "./Editor";
+import Editor from "./Editor/Editor";
 
 interface WriteNoteModalState {
     setVisible: "visible" | "hidden",

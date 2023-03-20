@@ -1,4 +1,4 @@
-import { $getRoot, $getSelection, $isRangeSelection, EditorState, FORMAT_TEXT_COMMAND } from 'lexical';
+import { $createParagraphNode, $getRoot, $getSelection, $isRangeSelection, createCommand, EditorState, FORMAT_TEXT_COMMAND, LexicalCommand } from 'lexical';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -7,11 +7,36 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import {CharacterLimitPlugin} from '@lexical/react/LexicalCharacterLimitPlugin';
 import { useCallback, useEffect, useState } from 'react';
 import { mergeRegister } from '@lexical/utils';
 import clsx from 'clsx';
 import { FaBold, FaItalic, FaUnderline } from 'react-icons/fa'
+import { HeadingNode, QuoteNode } from "@lexical/rich-text";
+import { ListNode, ListItemNode } from "@lexical/list";
+import { LinkNode } from "@lexical/link";
+import { CodeNode } from "@lexical/code";
 import { setPersistence } from 'firebase/auth';
+import { TRANSFORMERS } from "@lexical/markdown";
+import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import {useSharedHistoryContext} from './SharedHistoryContext';
+import {useSettings} from './SettingsContext';
+import {ListPlugin} from '@lexical/react/LexicalListPlugin';
+import {CheckListPlugin} from '@lexical/react/LexicalCheckListPlugin';
+import {ClearEditorPlugin} from '@lexical/react/LexicalClearEditorPlugin';
+//import { FloatingMenuPlugin } from "./plugins/FloatingMenu";
+
+
+const EDITOR_NODES = [
+    HeadingNode,
+    LinkNode,
+    ListNode,
+    ListItemNode,
+    QuoteNode,
+  ];
+
+  
+
 
 const onChange = (editorState: EditorState) => {
     editorState.read(() => {
@@ -89,6 +114,20 @@ const Toolbar = () => {
 
 const Editor: React.FC = () => {
 
+    const {historyState} = useSharedHistoryContext();
+    const {
+      settings: {
+        isCollab,
+        isAutocomplete,
+        isMaxLength,
+        isCharLimit,
+        isCharLimitUtf8,
+        isRichText,
+        showTreeView,
+        showTableOfContents,
+      },
+    } = useSettings();
+
     const initialConfig = {
         namespace: "noteEditor",
         theme: {
@@ -103,6 +142,13 @@ const Editor: React.FC = () => {
             throw error;
         },
     }
+
+    {(isCharLimit || isCharLimitUtf8) && (
+        <CharacterLimitPlugin
+          charset={isCharLimit ? 'UTF-16' : 'UTF-8'}
+          maxLength={40}
+        />
+      )}
 
     return (
         <div className="bg-white relative rounded-sm">
@@ -119,11 +165,15 @@ const Editor: React.FC = () => {
                     }
                     ErrorBoundary={LexicalErrorBoundary}
                 />
+                {/* <LocalStoragePlugin namespace={props.config.namespace} /> */}
+                {/* <MarkdownShortcutPlugin transformers={TRANSFORMERS} /> */}
                 <OnChangePlugin onChange={onChange}/>
+                <ListPlugin></ListPlugin>
                 <HistoryPlugin />
+                <CheckListPlugin />
             </LexicalComposer>
         </div>
-    )
+    ) 
 }
 
 export default Editor;
