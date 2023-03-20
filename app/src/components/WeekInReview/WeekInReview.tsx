@@ -25,7 +25,11 @@ const WeekInReview: React.FC = () => {
     'Thanks',
     'Welcome',
     'Outstanding',
-    'Pleasure'
+    'Pleasure',
+    'Cucumber',
+    'Cheese',
+    'September',
+    'Pancreas'
   ]
 
   return (
@@ -49,16 +53,16 @@ const WeekInReview: React.FC = () => {
           </div>
 
           {/* KEYWORD HEADER */}
-          <div className="relative border-t border-r border-l border-neutral-800 bg-neutral-800 rounded-t-3xl -top-6 w-full h-1/6">
+          <div className="relative border border-neutral-800 bg-neutral-800 rounded-t-3xl -top-6 w-full h-1/4">
             <h1 className="text-xl text-white text-left-10 px-5 py-2">Most Frequent Topics</h1>
             {/* KEYWORD STUFF */}
-            <div className="absolute px-4 py-2 border-t-4 border-r-4 border-l-4 border-neutral-600 bg-neutral-600 rounded-t-3xl w-full h-full">
+            <div className="absolute px-4 py-2 border-t-4 border-b-100 border-y-4 border-neutral-600 bg-neutral-600 rounded-t-3xl w-full h-full">
               <KeywordItem keywords={exampleKeywords}/>
             </div>
           </div>
           
           {/* TOP WORDS HEADER */}
-          <div className="relative border-t border-r border-l border-neutral-800 bg-neutral-800 rounded-t-3xl -top-6 w-full h-full">
+          <div className="relative border-t border-r border-l border-neutral-800 bg-neutral-800 rounded-t-3xl -top-12 w-full h-full">
             <h1 className="text-xl text-white text-left-10 px-5 py-2">Top Words This Week</h1>
             {/* TOP WORDS STUFF */}
             <div className="absolute px-4 py-2 border-t-4 border-r-4 border-l-4 border-neutral-600 bg-neutral-600 rounded-t-3xl w-full h-full">
