@@ -171,7 +171,8 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                         <div className="relative">
                             <RichTextPlugin 
                                 contentEditable={
-                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none" />
+                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none
+                                                                scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
                                 }
                                 placeholder={
                                     <div className="absolute top-0 left-0 text-gray-400 pointer-events-none">
