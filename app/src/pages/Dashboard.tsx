@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
   
   return (
     <div ref={ref}>
-      <div className="h-screen w-screen pt-20 flex flex-col gap-2 bg-white dark:bg-gray-800">
+      <div className="h-screen w-screen flex flex-col gap-2 bg-white dark:bg-gray-800">
         <Navbar />
         
         <WeekCard />
