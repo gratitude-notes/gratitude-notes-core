@@ -20,7 +20,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('./tailwind/percentageProperty.cjs')
+    require('./tailwind/percentageProperty.cjs'),
+    require('tailwind-scrollbar')
   ],
   darkMode: 'class'
 }
