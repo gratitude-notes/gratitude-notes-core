@@ -182,8 +182,8 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                                 ErrorBoundary={LexicalErrorBoundary}
                             />
                             <hr />
-                            <div className="text-black dark:text-white">
-                                <span>Characters remaining </span><CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
+                            <div className="absolute right-0 text-gray-400">
+                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} /><span> / 300</span>
                             </div>
                         </div>
                     </div>

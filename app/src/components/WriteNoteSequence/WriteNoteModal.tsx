@@ -22,7 +22,7 @@ const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange
                             dark:bg-gray-800`}>
                 <div className="">
                     {/* HEADER */}
-                    <div className="relative flex justify-between p-1 text-black dark:text-white">
+                    <div className="relative flex justify-between p-2 text-black dark:text-white">
                         <button onClick={handleChange} className="px-2">
                             <BsArrowLeft size={20}/>
                         </button>
