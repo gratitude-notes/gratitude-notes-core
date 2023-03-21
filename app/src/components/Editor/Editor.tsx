@@ -1,4 +1,4 @@
-import { $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
+import { $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -7,14 +7,14 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { HeadingNode } from '@lexical/rich-text';
 import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
-import { ListItemNode, ListNode } from '@lexical/list';
+import { insertList, INSERT_UNORDERED_LIST_COMMAND, ListItemNode, ListNode, removeList, REMOVE_LIST_COMMAND } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
 import { mergeRegister } from '@lexical/utils';
 import clsx from 'clsx';
 import { BiUndo, BiRedo } from 'react-icons/bi';
-import { RiBold, RiItalic, RiUnderline } from 'react-icons/ri';
+import { RiBold, RiItalic, RiUnderline, RiListUnordered } from 'react-icons/ri';
 import React from 'react';
 
 // TODO: Add types.
@@ -39,6 +39,7 @@ const Toolbar = () => {
     const [isUnderline, setIsUnderline] = useState(false)
     const [canUndo, setCanUndo] = useState(false)
     const [canRedo, setCanRedo] = useState(false)
+    const [isList, setIsList] = useState(false)
     
 
     const updateToolbar = useCallback(() => {
@@ -73,6 +74,22 @@ const Toolbar = () => {
                     return false;
                 },
                 COMMAND_PRIORITY_CRITICAL
+            ),
+            editor.registerCommand(
+                INSERT_UNORDERED_LIST_COMMAND,
+                () => {
+                  insertList(editor, 'bullet');
+                  return true;
+                },
+                COMMAND_PRIORITY_LOW,
+            ),
+            editor.registerCommand(
+                REMOVE_LIST_COMMAND,
+                () => {
+                  removeList(editor);
+                  return true;
+                },
+                COMMAND_PRIORITY_LOW,
             ),
         );
     }, [editor, updateToolbar])
@@ -140,6 +157,22 @@ const Toolbar = () => {
             >
                 <RiUnderline size={25} className="text-black dark:text-white"/>
             </button>
+            <button 
+                className={clsx(
+                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
+                    isList ? 'bg-neutral-300' : 'bg-transparent'
+                )}
+                onClick={() => {
+                    //if (blockType !== 'bullet') {
+                        editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+                    //   } else {
+                    //     editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+                    //   }
+                }}
+            >
+                <RiListUnordered size={20} className="text-black"/>
+            </button>
+
         </div>
     )
 }
