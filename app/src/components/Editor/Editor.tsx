@@ -13,7 +13,8 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
 import { mergeRegister } from '@lexical/utils';
 import clsx from 'clsx';
-import { FaBold, FaItalic, FaRedo, FaUnderline, FaUndo } from 'react-icons/fa';
+import { BiUndo, BiRedo } from 'react-icons/bi';
+import { RiBold, RiItalic, RiUnderline } from 'react-icons/ri';
 import React from 'react';
 
 // TODO: Add types.
@@ -77,63 +78,67 @@ const Toolbar = () => {
     }, [editor, updateToolbar])
 
     return (
-        <div className="sticky z-50 h-10 w-fit left-1/2 transform -translate-x-1/2 px-2 py-2 bg-slate-200 rounded-lg mb-4 gap-x-2 flex items-center">
+        <div className="flex gap-2 mx-auto">
             <button
                 disabled={!canUndo}
                 className={clsx(
-                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
+                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
                     !canUndo ? "disabled: opacity-50 pointer-events-none" : ""
                 )}
                 onClick={() => {
                     editor.dispatchCommand(UNDO_COMMAND, undefined)
                 }}
             >
-                <FaUndo size={20} className="text-black"/>
+                <BiUndo size={25} className="text-black dark:text-white"/>
             </button>
             <button
                 disabled={!canRedo}
                 className={clsx(
-                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
+                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
                     !canRedo ? "disabled: opacity-50 pointer-events-none" : ""
                 )}
                 onClick={() => {
                     editor.dispatchCommand(REDO_COMMAND, undefined)
                 }}
             >
-                <FaRedo size={20} className="text-black"/>
+                <BiRedo size={25} className="text-black dark:text-white"/>
             </button>
+            
+            {/* DIVIDER */}
+            <div className="bg-black dark:bg-white w-[0.5px]"></div>
+
             <button 
                 className={clsx(
-                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
-                    isBold ? 'bg-neutral-300' : 'bg-transparent'
+                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
+                    isBold ? 'bg-gray-400' : 'bg-transparent'
                 )}
                 onClick={() => {
                     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
                 }}
             >
-                <FaBold size={20} className="text-black"/>
+                <RiBold size={25} className="text-black dark:text-white"/>
             </button>
             <button 
                 className={clsx(
-                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
-                    isItalic ? 'bg-neutral-300' : 'bg-transparent'
+                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
+                    isItalic ? 'bg-gray-400' : 'bg-transparent'
                 )}
                 onClick={() => {
                     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
                 }}
             >
-                <FaItalic size={20} className="text-black"/>
+                <RiItalic size={25} className="text-black dark:text-white"/>
             </button>
             <button 
                 className={clsx(
-                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
-                    isUnderline ? 'bg-neutral-300' : 'bg-transparent'
+                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
+                    isUnderline ? 'bg-gray-400' : 'bg-transparent'
                 )}
                 onClick={() => {
                     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
                 }}
             >
-                <FaUnderline size={20} className="text-black"/>
+                <RiUnderline size={25} className="text-black dark:text-white"/>
             </button>
         </div>
     )
@@ -143,10 +148,10 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
         const initialConfig = {
             namespace: "noteEditor",
             theme: {
-                paragraph: "mb-1 text-green-500", // Done for example purposes
+                paragraph: "text-black dark:text-white", // Change text color based on color theme
                 text: {
                     underline: "underline",
-                    bold: "font-semibold",
+                    bold: "font-bold",
                     italic: "italic"
                 }
             },
@@ -156,25 +161,33 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
             },
         }
 
-
-
         return (
-            <div className="bg-white relative rounded-sm">
+            <div className="bg-white dark:bg-gray-800">
                 <LexicalComposer {...{initialConfig}}>
-                    <Toolbar />
-                    <RichTextPlugin 
-                        contentEditable={
-                            <ContentEditable className="h-[450px] justify-center outline-none py-[15px] px-2.5 resize-none overflow-hidden text-ellipsis" />
-                        }
-                        placeholder={
-                            <div className="absolute top-[70px] left-[10px] pointer-events-none select-none text-gray-500">
-                                Write your thoughts here...
+                    {/* EDITOR */}
+                    <div className="flex flex-col gap-2 px-4 py-2">
+                        <Toolbar />
+                        {/* EDITOR INNER */}
+                        <div className="relative">
+                            <RichTextPlugin 
+                                contentEditable={
+                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none
+                                                                scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
+                                }
+                                placeholder={
+                                    <div className="absolute top-0 left-0 text-gray-400 pointer-events-none">
+                                        Write your thoughts here...
+                                    </div>
+                                }
+                                ErrorBoundary={LexicalErrorBoundary}
+                            />
+                            <hr />
+                            <div className="absolute right-0 text-gray-400">
+                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} /><span> / 300</span>
                             </div>
-                        }
-                        ErrorBoundary={LexicalErrorBoundary}
-                    />
+                        </div>
+                    </div>
                     {/* <EditorCapturePlugin {...{ref}} /> */}
-                    <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
                     <ListPlugin />
                     <HistoryPlugin />
                 </LexicalComposer>

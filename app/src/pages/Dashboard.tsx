@@ -1,6 +1,6 @@
 import FeedList from "../components/Feed/FeedList";
 import LeftSidebar from "../components/LeftSidebar/LeftSidebar";
-import WriteNoteModal from "../components/WriteNoteModal";
+import WriteNoteModal from "../components/WriteNoteSequence/WriteNoteModal";
 import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
@@ -27,7 +27,7 @@ const Dashboard: React.FC = () => {
             <LeftSidebar handleWriteNoteModal={handleFAB}/>
             <FeedList />
             <RightSidebar />
-          </div>
+        </div>
 
         <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
       </div>

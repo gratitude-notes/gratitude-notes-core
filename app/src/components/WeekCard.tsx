@@ -182,7 +182,9 @@ const WeekCard: React.FC = () => {
   
     return (
         <div>
-            <div className="flex flex-row overflow-x-scroll md:justify-center">
+            <div className="flex flex-row overflow-x-scroll md:justify-center
+                            md:scrollbar-none
+                            scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
                 {data.map((singleDayData, key) => {
                     return (
                         <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData} />
