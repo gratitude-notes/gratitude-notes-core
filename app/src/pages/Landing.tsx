@@ -11,7 +11,7 @@ const Landing: React.FC = () => {
         <Navbar />
 
         {/* Main Content */}
-        <div className="max-w-3xl flex flex-col gap-20 px-8 pb-8 pt-16 m-auto">
+        <div className="max-w-3xl flex flex-col gap-20 px-8 pb-8 pt-32 m-auto">
 
           {/* Hero Section */}
           <section className="flex flex-col gap-4">
