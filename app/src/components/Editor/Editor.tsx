@@ -1,13 +1,15 @@
-import { $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
+import { $createParagraphNode, $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin';
+import { $setBlocksType } from '@lexical/selection';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { HeadingNode } from '@lexical/rich-text';
+import { HeadingNode, HeadingTagType, $createHeadingNode } from '@lexical/rich-text';
 import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
-import { insertList, INSERT_UNORDERED_LIST_COMMAND, ListItemNode, ListNode, removeList, REMOVE_LIST_COMMAND } from '@lexical/list';
+import { INSERT_UNORDERED_LIST_COMMAND, ListItemNode, ListNode, REMOVE_LIST_COMMAND } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
@@ -31,6 +33,50 @@ import React from 'react';
 //   return null;
 // });
 
+const blockTypeToBlockName = {
+    bullet: 'Bulleted List',
+    h1: 'Heading 1',
+    h2: 'Heading 2',
+    paragraph: 'Normal'
+};
+
+const BlockFormatDropDown = ({editor, blockType} : {editor: LexicalEditor, blockType: keyof typeof blockTypeToBlockName}): JSX.Element => {
+    const formatParagraph = () => {
+        editor.update(() => {
+          const selection = $getSelection();
+          if (
+            $isRangeSelection(selection)
+          ) {
+            $setBlocksType(selection, () => $createParagraphNode());
+          }
+        });
+      };
+
+    const formatHeading = (headingSize: HeadingTagType) => {
+        if (blockType !== headingSize) {
+          editor.update(() => {
+            const selection = $getSelection();
+                if ($isRangeSelection(selection)) {
+                    $setBlocksType(selection, () => $createHeadingNode(headingSize));
+                }
+            });
+        }
+      };
+
+    const formatBulletList = () => {
+        if (blockType !== 'bullet') {
+          editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+        } else {
+          editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+        }
+    };
+
+    return (
+        // Code for Dropdown
+        <div></div>
+    )
+}
+
 const Toolbar = () => {
     
     const [editor] = useLexicalComposerContext()
@@ -39,7 +85,7 @@ const Toolbar = () => {
     const [isUnderline, setIsUnderline] = useState(false)
     const [canUndo, setCanUndo] = useState(false)
     const [canRedo, setCanRedo] = useState(false)
-    const [isList, setIsList] = useState(false)
+    const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph');
     
 
     const updateToolbar = useCallback(() => {
@@ -74,28 +120,16 @@ const Toolbar = () => {
                     return false;
                 },
                 COMMAND_PRIORITY_CRITICAL
-            ),
-            editor.registerCommand(
-                INSERT_UNORDERED_LIST_COMMAND,
-                () => {
-                  insertList(editor, 'bullet');
-                  return true;
-                },
-                COMMAND_PRIORITY_LOW,
-            ),
-            editor.registerCommand(
-                REMOVE_LIST_COMMAND,
-                () => {
-                  removeList(editor);
-                  return true;
-                },
-                COMMAND_PRIORITY_LOW,
-            ),
+            )
         );
     }, [editor, updateToolbar])
 
     return (
         <div className="flex gap-2 mx-auto">
+            <BlockFormatDropDown
+                blockType={blockType}
+                editor={editor}
+            />
             <button
                 disabled={!canUndo}
                 className={clsx(
@@ -157,22 +191,6 @@ const Toolbar = () => {
             >
                 <RiUnderline size={25} className="text-black dark:text-white"/>
             </button>
-            <button 
-                className={clsx(
-                    "p-2 hover:bg-neutral-300 transition-colors duration-100 ease-in",
-                    isList ? 'bg-neutral-300' : 'bg-transparent'
-                )}
-                onClick={() => {
-                    //if (blockType !== 'bullet') {
-                        editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
-                    //   } else {
-                    //     editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
-                    //   }
-                }}
-            >
-                <RiListUnordered size={20} className="text-black"/>
-            </button>
-
         </div>
     )
 }
