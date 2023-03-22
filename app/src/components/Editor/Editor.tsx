@@ -43,12 +43,10 @@ const blockTypeToBlockName = {
 const BlockFormatDropDown = ({editor, blockType} : {editor: LexicalEditor, blockType: keyof typeof blockTypeToBlockName}): JSX.Element => {
     const formatParagraph = () => {
         editor.update(() => {
-          const selection = $getSelection();
-          if (
-            $isRangeSelection(selection)
-          ) {
-            $setBlocksType(selection, () => $createParagraphNode());
-          }
+            const selection = $getSelection();
+            if ($isRangeSelection(selection)) {
+                $setBlocksType(selection, () => $createParagraphNode());
+            }
         });
       };
 
@@ -72,8 +70,10 @@ const BlockFormatDropDown = ({editor, blockType} : {editor: LexicalEditor, block
     };
 
     return (
-        // Code for Dropdown
-        <div></div>
+        <button onClick={formatBulletList}
+    >
+        <RiListUnordered size={25} className="text-black dark:text-white"/>
+    </button>
     )
 }
 
@@ -204,6 +204,14 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                     underline: "underline",
                     bold: "font-bold",
                     italic: "italic"
+                },
+                list: {
+                    ul: "ml-4 list-disc text-black dark:text-white",
+                    listitem: "mt-1 mb-1 ml-6 mr-6"
+                },
+                heading: {
+                    h1: "",
+                    h2: "",
                 }
             },
             nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
