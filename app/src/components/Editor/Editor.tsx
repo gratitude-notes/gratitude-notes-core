@@ -183,7 +183,7 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                             />
                             <hr />
                             <div className="absolute right-0 text-gray-400">
-                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} /><span> / 300</span>
+                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
                             </div>
                         </div>
                     </div>
