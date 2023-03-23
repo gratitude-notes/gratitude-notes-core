@@ -78,7 +78,7 @@ const Toolbar = () => {
     }, [editor, updateToolbar])
 
     return (
-        <div className="flex gap-2 mx-auto">
+        <div className="flex gap-2 justify-center">
             <button
                 disabled={!canUndo}
                 className={clsx(
@@ -162,16 +162,18 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
         }
 
         return (
-            <div className="bg-white dark:bg-gray-800">
+            <div className="h-full bg-white dark:bg-gray-800">
                 <LexicalComposer {...{initialConfig}}>
                     {/* EDITOR */}
-                    <div className="flex flex-col gap-2 px-4 py-2">
-                        <Toolbar />
+                    <div className="h-full flex flex-col px-4">
+                        <div className="h-[7.5%]">
+                            <Toolbar />
+                        </div>
                         {/* EDITOR INNER */}
-                        <div className="relative">
+                        <div className="h-[85%] relative">
                             <RichTextPlugin 
                                 contentEditable={
-                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none
+                                    <ContentEditable className="h-full overflow-y-scroll outline-none
                                                                 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
                                 }
                                 placeholder={
