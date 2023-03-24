@@ -2,10 +2,11 @@ import { BsSearch, BsBell, BsHouseDoor } from 'react-icons/bs';
 
 type SidebarItem = {
     icon: string,
-    title: string
+    title: string,
+    handleClick: () => void
 }
 
-const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title}) => {  
+const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title, handleClick}) => {  
 
     const renderIcon = () => {
         switch(icon) {
@@ -16,7 +17,8 @@ const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title}) => {
     }
 
     return (
-        <div className="hidden sm:flex gap-4 mx-auto">
+        <div onClick={handleClick}
+            className="cursor-pointer hidden sm:flex gap-4 mx-auto">
             <div className="my-auto dark:text-white">
                 {renderIcon()}
             </div>
