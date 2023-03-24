@@ -20,8 +20,8 @@ const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) =
                 listitem: "mt-1 mb-1 ml-6 mr-6"
             },
             heading: {
-                h1: "",
-                h2: "",
+                h1: "text-4xl text-black dark:text-white",
+                h2: "text-2xl text-black dark:text-white"
             }
         },
         editable: false,

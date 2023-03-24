@@ -20,6 +20,7 @@ import { BiUndo, BiRedo, BiChevronDown, BiHeading } from 'react-icons/bi';
 import { RiBold, RiItalic, RiUnderline, RiListUnordered } from 'react-icons/ri';
 import React from 'react';
 import { BsTextParagraph } from 'react-icons/bs';
+import useComponentVisible from '../../hooks/useComponentVisible';
 
 // TODO: Add types.
 // const EditorCapturePlugin = React.forwardRef((props: any, ref: any) => {
@@ -79,26 +80,69 @@ const BlockFormatPane = ({editor, blockType} : {editor: LexicalEditor, blockType
         }
     };
 
+    // DROPDOWN CONTROL
+    const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
+
+    const handleDropdown = () => {
+        (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+    }
+
+    const dropdownVisbile = (isComponentVisible) ? "visible" : "hidden";
+
+    const [currentDropdown, setCurrentDropdown] = useState("Normal");
+
+    const handleCurrentDropdown = (item: string) => {
+        setCurrentDropdown(item);
+    }
+
+    const renderIcon = () => {
+        switch(currentDropdown) {
+            case "Normal": return <BsTextParagraph size={25}/>;
+            case "Heading 1": return <BiHeading size={25}/>;
+            case "Heading 2": return <BiHeading size={25}/>;
+            case "Bullet List": return <RiListUnordered size={25}/>;
+        }
+    }
+
     return (
-        <div className="inline-flex">
-            <button
-                onClick={formatBulletList}
-                className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in"
-            >
-                <RiListUnordered size={25} className="mr-1"/>
-            </button>
-            <button
-                onClick={() => {formatHeading('h1')}}
-                className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in"
-            >
-                <BiHeading size={25} className="mr-1"/>
-            </button>
-            <button
-                onClick={formatParagraph}
-                className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in"
-            >
-                <BsTextParagraph size={25} className="mr-1"/>
-            </button>
+        <div ref={ref} className="relative flex justify-center items-center cursor-pointer text-black dark:text-white
+                                hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+            <div onClick={handleDropdown} className="flex gap-2 p-1">   
+                {renderIcon()}
+                <span>{currentDropdown}</span>
+                <BiChevronDown size={25}/>
+            </div>
+
+            {/* Dropdown Menu */}
+            <div className={`${dropdownVisbile} absolute top-full w-52 left-0 z-50`}>
+                <div className="flex flex-col gap-1 bg-white dark:bg-gray-800 rounded-md pt-1 text-black dark:text-white shadow-lg shadow-gray-900">
+                    <div onClick={() => {formatParagraph(); handleDropdown(); handleCurrentDropdown("Normal");}}
+                        className="flex gap-2 cursor-pointer p-1
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <BsTextParagraph size={25}/>
+                        <span>Normal</span>
+                    </div>
+                    <div onClick={() => {formatHeading('h1'); handleDropdown(); handleCurrentDropdown("Heading 1")}}
+                        className="flex gap-2 cursor-pointer p-1
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <BiHeading size={25}/>
+                        <span>Heading 1</span>
+                    </div>
+                    <div onClick={() => {formatHeading('h2'); handleDropdown(); handleCurrentDropdown("Heading 2")}}
+                        className="flex gap-2 cursor-pointer p-1
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <BiHeading size={25}/>
+                        <span>Heading 2</span>
+                    </div>
+                    <div onClick={() => {formatBulletList(); handleDropdown(); handleCurrentDropdown("Bullet List")}}
+                        className="flex gap-2 cursor-pointer p-1
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <RiListUnordered size={25}/>
+                        <span>Bullet List</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     )
 }
@@ -213,6 +257,14 @@ const Toolbar = () => {
             {/* DIVIDER */}
             <div className="bg-black dark:bg-white w-[0.5px]"></div>
 
+            <BlockFormatPane
+                blockType={blockType}
+                editor={editor}
+            />
+
+            {/* DIVIDER */}
+            <div className="bg-black dark:bg-white w-[0.5px]"></div>
+
             <button 
                 className={clsx(
                     "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in",
@@ -246,15 +298,7 @@ const Toolbar = () => {
             >
                 <RiUnderline size={25} className="text-black dark:text-white"/>
             </button>
-            
-            {/* DIVIDER */}
-            <div className="bg-black dark:bg-white w-[0.5px]"></div>
-
-            <BlockFormatPane
-                blockType={blockType}
-                editor={editor}
-            />
-
+        
         </div>
     )
 }
@@ -275,6 +319,7 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                 },
                 heading: {
                     h1: "text-4xl text-black dark:text-white",
+                    h2: "text-2xl text-black dark:text-white"
                 }
             },
             nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
