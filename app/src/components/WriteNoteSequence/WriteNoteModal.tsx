@@ -18,7 +18,7 @@ const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange
     return (
         <>
             <div className={`${setVisible} z-50 absolute h-screen w-screen bg-white
-                            sm:h-[80%] sm:w-[520px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
+                            sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
                             dark:bg-gray-800`}>
                 {/* WRITE h-50% */}
                 <div className="h-1/2">
@@ -39,7 +39,7 @@ const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange
                 </div>
 
                 {/* IMAGES h-20% */}
-                <div className="h-1/5 w-full p-4">
+                <div className="h-1/5 w-full px-4 pt-8">
                     {/* IMAGES INNER DIV */}
                     <div className="h-full flex flex-row gap-2 overflow-x-scroll sm:justify-center sm:scrollbar-none
                                     scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">

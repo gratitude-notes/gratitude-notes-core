@@ -184,11 +184,11 @@ const Toolbar = () => {
     }, [editor, updateToolbar])
 
     return (
-        <div className="flex gap-2 mx-auto">
+        <div className="flex gap-2 justify-center">
             <button
                 disabled={!canUndo}
                 className={clsx(
-                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in",
                     !canUndo ? "disabled: opacity-50 pointer-events-none" : ""
                 )}
                 onClick={() => {
@@ -200,7 +200,7 @@ const Toolbar = () => {
             <button
                 disabled={!canRedo}
                 className={clsx(
-                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in",
                     !canRedo ? "disabled: opacity-50 pointer-events-none" : ""
                 )}
                 onClick={() => {
@@ -215,7 +215,7 @@ const Toolbar = () => {
 
             <button 
                 className={clsx(
-                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in",
                     isBold ? 'bg-gray-300 dark:bg-gray-600' : 'bg-transparent'
                 )}
                 onClick={() => {
@@ -226,7 +226,7 @@ const Toolbar = () => {
             </button>
             <button 
                 className={clsx(
-                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in",
                     isItalic ? 'bg-gray-300 dark:bg-gray-600' : 'bg-transparent'
                 )}
                 onClick={() => {
@@ -237,7 +237,7 @@ const Toolbar = () => {
             </button>
             <button 
                 className={clsx(
-                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in",
                     isUnderline ? 'bg-gray-300 dark:bg-gray-600' : 'bg-transparent'
                 )}
                 onClick={() => {
@@ -284,19 +284,22 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
         }
 
         return (
-            <div className="bg-white dark:bg-gray-800">
+            <div className="h-full bg-white dark:bg-gray-800">
                 <LexicalComposer {...{initialConfig}}>
                     {/* EDITOR */}
-                    <div className="flex flex-col gap-3 px-4 py-2">
-                        <Toolbar />
+                    <div className="h-full flex flex-col px-4">
+                        <div className="h-[7.5%]">
+                            <Toolbar />
+                        </div>
                         {/* EDITOR INNER */}
-                        <div className="relative">
+                        <div className="h-[85%] relative">
                             <RichTextPlugin 
                                 contentEditable={
-                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none rounded-md p-1" />
+                                    <ContentEditable className="h-full overflow-y-scroll outline-none mt-4
+                                                                scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
                                 }
                                 placeholder={
-                                    <div className="absolute top-0 left-0 text-gray-400 pointer-events-none p-1">
+                                    <div className="absolute top-4 left-0 text-gray-400 pointer-events-none">
                                         Write your thoughts here...
                                     </div>
                                 }
