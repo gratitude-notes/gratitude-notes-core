@@ -117,25 +117,25 @@ const BlockFormatPane = ({editor, blockType} : {editor: LexicalEditor, blockType
             <div className={`${dropdownVisbile} absolute top-full w-52 left-0 z-50`}>
                 <div className="flex flex-col gap-1 bg-white dark:bg-gray-800 rounded-md pt-1 text-black dark:text-white shadow-lg shadow-gray-900">
                     <div onClick={() => {formatParagraph(); handleDropdown(); handleCurrentDropdown("Normal");}}
-                        className="flex gap-2 cursor-pointer p-1
+                        className="flex gap-2 cursor-pointer p-2
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
                         <BsTextParagraph size={25}/>
                         <span>Normal</span>
                     </div>
                     <div onClick={() => {formatHeading('h1'); handleDropdown(); handleCurrentDropdown("Heading 1")}}
-                        className="flex gap-2 cursor-pointer p-1
+                        className="flex gap-2 cursor-pointer p-2
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
                         <BiHeading size={25}/>
                         <span>Heading 1</span>
                     </div>
                     <div onClick={() => {formatHeading('h2'); handleDropdown(); handleCurrentDropdown("Heading 2")}}
-                        className="flex gap-2 cursor-pointer p-1
+                        className="flex gap-2 cursor-pointer p-2
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
                         <BiHeading size={25}/>
                         <span>Heading 2</span>
                     </div>
                     <div onClick={() => {formatBulletList(); handleDropdown(); handleCurrentDropdown("Bullet List")}}
-                        className="flex gap-2 cursor-pointer p-1
+                        className="flex gap-2 cursor-pointer p-2
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
                         <RiListUnordered size={25}/>
                         <span>Bullet List</span>

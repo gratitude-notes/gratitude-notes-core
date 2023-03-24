@@ -9,16 +9,16 @@ const AuthButton: React.FC = () => {
   if (session?.user) {
     return (
       <>
-        <AvatarButton />
         <ThemeButton />
+        <AvatarButton />
       </>
     )
   }
   else {
     return (
       <>
-        <SignInButton />
         <ThemeButton />
+        <SignInButton />
       </>
     )
   }
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* END BUTTONS */}
-        <div className="flex flex-row w-full gap-4 justify-end">
+        <div className="flex w-full gap-4 justify-end items-center">
           <AuthButton />
         </div>
 
