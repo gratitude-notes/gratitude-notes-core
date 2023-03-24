@@ -1,9 +1,10 @@
-import { $createParagraphNode, $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
+import { $createParagraphNode, $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, EditorState, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { $setBlocksType } from '@lexical/selection';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { HeadingNode, HeadingTagType, $createHeadingNode } from '@lexical/rich-text';
@@ -15,7 +16,7 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
 import { mergeRegister } from '@lexical/utils';
 import clsx from 'clsx';
-import { BiUndo, BiRedo } from 'react-icons/bi';
+import { BiUndo, BiRedo, BiChevronDown } from 'react-icons/bi';
 import { RiBold, RiItalic, RiUnderline, RiListUnordered } from 'react-icons/ri';
 import React from 'react';
 
@@ -70,10 +71,13 @@ const BlockFormatDropDown = ({editor, blockType} : {editor: LexicalEditor, block
     };
 
     return (
-        <button onClick={formatBulletList}
-    >
-        <RiListUnordered size={25} className="text-black dark:text-white"/>
-    </button>
+        <div>
+            <button className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in">
+                <RiListUnordered size={25} className="mr-1"/>
+                <span>Bullet List</span> 
+                <BiChevronDown size={25} />
+            </button>
+        </div>
     )
 }
 
@@ -126,14 +130,10 @@ const Toolbar = () => {
 
     return (
         <div className="flex gap-2 mx-auto">
-            <BlockFormatDropDown
-                blockType={blockType}
-                editor={editor}
-            />
             <button
                 disabled={!canUndo}
                 className={clsx(
-                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
                     !canUndo ? "disabled: opacity-50 pointer-events-none" : ""
                 )}
                 onClick={() => {
@@ -145,7 +145,7 @@ const Toolbar = () => {
             <button
                 disabled={!canRedo}
                 className={clsx(
-                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
                     !canRedo ? "disabled: opacity-50 pointer-events-none" : ""
                 )}
                 onClick={() => {
@@ -160,8 +160,8 @@ const Toolbar = () => {
 
             <button 
                 className={clsx(
-                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
-                    isBold ? 'bg-gray-400' : 'bg-transparent'
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    isBold ? 'bg-gray-300 dark:bg-gray-600' : 'bg-transparent'
                 )}
                 onClick={() => {
                     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
@@ -171,8 +171,8 @@ const Toolbar = () => {
             </button>
             <button 
                 className={clsx(
-                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
-                    isItalic ? 'bg-gray-400' : 'bg-transparent'
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    isItalic ? 'bg-gray-300 dark:bg-gray-600' : 'bg-transparent'
                 )}
                 onClick={() => {
                     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
@@ -182,8 +182,8 @@ const Toolbar = () => {
             </button>
             <button 
                 className={clsx(
-                    "hover:bg-gray-400 rounded-md transition-colors duration-100 ease-in",
-                    isUnderline ? 'bg-gray-400' : 'bg-transparent'
+                    "hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in p-0.5",
+                    isUnderline ? 'bg-gray-300 dark:bg-gray-600' : 'bg-transparent'
                 )}
                 onClick={() => {
                     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
@@ -191,6 +191,15 @@ const Toolbar = () => {
             >
                 <RiUnderline size={25} className="text-black dark:text-white"/>
             </button>
+            
+            {/* DIVIDER */}
+            <div className="bg-black dark:bg-white w-[0.5px]"></div>
+
+            <BlockFormatDropDown
+                blockType={blockType}
+                editor={editor}
+            />
+
         </div>
     )
 }
@@ -224,31 +233,31 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
             <div className="bg-white dark:bg-gray-800">
                 <LexicalComposer {...{initialConfig}}>
                     {/* EDITOR */}
-                    <div className="flex flex-col gap-2 px-4 py-2">
+                    <div className="flex flex-col gap-3 px-4 py-2">
                         <Toolbar />
                         {/* EDITOR INNER */}
                         <div className="relative">
                             <RichTextPlugin 
                                 contentEditable={
-                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none
-                                                                scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
+                                    <ContentEditable className="min-h-[100px] max-h-[255px] overflow-y-scroll outline-none rounded-md p-1" />
                                 }
                                 placeholder={
-                                    <div className="absolute top-0 left-0 text-gray-400 pointer-events-none">
+                                    <div className="absolute top-0 left-0 text-gray-400 pointer-events-none p-1">
                                         Write your thoughts here...
                                     </div>
                                 }
                                 ErrorBoundary={LexicalErrorBoundary}
                             />
-                            <hr />
+                            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600"/>
                             <div className="absolute right-0 text-gray-400">
-                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} /><span> / 300</span>
+                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
                             </div>
                         </div>
                     </div>
                     {/* <EditorCapturePlugin {...{ref}} /> */}
                     <ListPlugin />
                     <HistoryPlugin />
+                    <OnChangePlugin onChange={(editorState: EditorState, editor: LexicalEditor) => console.log(JSON.stringify(editor.getEditorState())) } />
                 </LexicalComposer>
             </div>
         )

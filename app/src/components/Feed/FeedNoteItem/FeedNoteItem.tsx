@@ -3,6 +3,8 @@ import DotMenu from "./DotMenu";
 import {  } from "@firebase/firestore";
 import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
+import Editor from "../../Editor/Editor";
+import Reader from "./Reader";
 
 const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) => {
     const date = timestamp.toDate();
@@ -29,6 +31,7 @@ const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) =>
                 <div className="px-6 pt-6">
                     <div>
                         <p className="break-words dark:text-white">{note}</p>
+                        {/* <Reader noteJSON={note}/> */}
                     </div>
                     <div className="py-2">
                         <KeyWordItem {...{keywords}} />
