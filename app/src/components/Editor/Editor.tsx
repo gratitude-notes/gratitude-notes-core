@@ -1,4 +1,4 @@
-import { $createParagraphNode, $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, EditorState, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND } from 'lexical';
+import { $createParagraphNode, $getSelection, $isRangeSelection, CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, COMMAND_PRIORITY_LOW, EditorState, FORMAT_TEXT_COMMAND, LexicalEditor, REDO_COMMAND, UNDO_COMMAND, $isRootOrShadowRoot, NodeKey } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -7,18 +7,19 @@ import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { $setBlocksType } from '@lexical/selection';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { HeadingNode, HeadingTagType, $createHeadingNode } from '@lexical/rich-text';
+import { HeadingNode, HeadingTagType, $createHeadingNode, $isHeadingNode } from '@lexical/rich-text';
 import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
-import { INSERT_UNORDERED_LIST_COMMAND, ListItemNode, ListNode, REMOVE_LIST_COMMAND } from '@lexical/list';
+import { $isListNode, INSERT_UNORDERED_LIST_COMMAND, ListItemNode, ListNode, REMOVE_LIST_COMMAND } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { useCallback, useEffect, useState } from 'react';
-import { mergeRegister } from '@lexical/utils';
+import { mergeRegister, $findMatchingParent, $getNearestNodeOfType } from '@lexical/utils';
 import clsx from 'clsx';
-import { BiUndo, BiRedo, BiChevronDown } from 'react-icons/bi';
+import { BiUndo, BiRedo, BiChevronDown, BiHeading } from 'react-icons/bi';
 import { RiBold, RiItalic, RiUnderline, RiListUnordered } from 'react-icons/ri';
 import React from 'react';
+import { BsTextParagraph } from 'react-icons/bs';
 
 // TODO: Add types.
 // const EditorCapturePlugin = React.forwardRef((props: any, ref: any) => {
@@ -36,12 +37,20 @@ import React from 'react';
 
 const blockTypeToBlockName = {
     bullet: 'Bulleted List',
+    check: 'Check List',
+    code: 'Code Block',
     h1: 'Heading 1',
     h2: 'Heading 2',
-    paragraph: 'Normal'
+    h3: 'Heading 3',
+    h4: 'Heading 4',
+    h5: 'Heading 5',
+    h6: 'Heading 6',
+    number: 'Numbered List',
+    paragraph: 'Normal',
+    quote: 'Quote',
 };
 
-const BlockFormatDropDown = ({editor, blockType} : {editor: LexicalEditor, blockType: keyof typeof blockTypeToBlockName}): JSX.Element => {
+const BlockFormatPane = ({editor, blockType} : {editor: LexicalEditor, blockType: keyof typeof blockTypeToBlockName}): JSX.Element => {
     const formatParagraph = () => {
         editor.update(() => {
             const selection = $getSelection();
@@ -60,22 +69,35 @@ const BlockFormatDropDown = ({editor, blockType} : {editor: LexicalEditor, block
                 }
             });
         }
-      };
+    };
 
     const formatBulletList = () => {
         if (blockType !== 'bullet') {
-          editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+            editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
         } else {
-          editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+            editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
         }
     };
 
     return (
-        <div>
-            <button className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in">
+        <div className="inline-flex">
+            <button
+                onClick={formatBulletList}
+                className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in"
+            >
                 <RiListUnordered size={25} className="mr-1"/>
-                <span>Bullet List</span> 
-                <BiChevronDown size={25} />
+            </button>
+            <button
+                onClick={() => {formatHeading('h1')}}
+                className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in"
+            >
+                <BiHeading size={25} className="mr-1"/>
+            </button>
+            <button
+                onClick={formatParagraph}
+                className="flex flex-row justify-center items-center text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-600 p-1 rounded-md transition-colors duration-100 ease-in"
+            >
+                <BsTextParagraph size={25} className="mr-1"/>
             </button>
         </div>
     )
@@ -89,15 +111,48 @@ const Toolbar = () => {
     const [isUnderline, setIsUnderline] = useState(false)
     const [canUndo, setCanUndo] = useState(false)
     const [canRedo, setCanRedo] = useState(false)
+    const [selectedElementKey, setSelectedElementKey] = useState<NodeKey | null>(null);
     const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph');
     
 
     const updateToolbar = useCallback(() => {
         const selection = $getSelection()
         if ($isRangeSelection(selection)) {
-            setIsBold(selection.hasFormat('bold'))
-            setIsItalic(selection.hasFormat('italic'))
-            setIsUnderline(selection.hasFormat('underline'))
+
+            const anchorNode = selection.anchor.getNode();
+            let element =
+              anchorNode.getKey() === 'root'
+                ? anchorNode
+                : $findMatchingParent(anchorNode, (e) => {
+                    const parent = e.getParent();
+                    return parent !== null && $isRootOrShadowRoot(parent);
+                  });
+
+            if (element === null) {
+                element = anchorNode.getTopLevelElementOrThrow();
+            }
+
+            const elementKey = element.getKey();
+            const elementDOM = editor.getElementByKey
+
+            setIsBold(selection.hasFormat('bold'));
+            setIsItalic(selection.hasFormat('italic'));
+            setIsUnderline(selection.hasFormat('underline'));
+            
+            if (elementDOM !== null) {
+                setSelectedElementKey(elementKey);
+                if($isListNode(element)) {
+                    const parentList = $getNearestNodeOfType<ListNode>(anchorNode, ListNode);
+                    const type = parentList ? parentList.getListType() : element.getListType();
+                    setBlockType(type);
+                } else {
+                    const type = $isHeadingNode(element) ? element.getTag() : element.getType();
+
+                    if (type in blockTypeToBlockName) {
+                        setBlockType(type as keyof typeof blockTypeToBlockName);
+                    }
+                }
+            }
         }
         
     }, [editor])
@@ -106,8 +161,8 @@ const Toolbar = () => {
         return mergeRegister(
             editor.registerUpdateListener(({editorState}) => {
                 editorState.read(() => {
-                    updateToolbar()
-                })
+                    updateToolbar();
+                });
             }),
             editor.registerCommand<boolean>(
                 CAN_UNDO_COMMAND,
@@ -195,7 +250,7 @@ const Toolbar = () => {
             {/* DIVIDER */}
             <div className="bg-black dark:bg-white w-[0.5px]"></div>
 
-            <BlockFormatDropDown
+            <BlockFormatPane
                 blockType={blockType}
                 editor={editor}
             />
@@ -219,8 +274,7 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                     listitem: "mt-1 mb-1 ml-6 mr-6"
                 },
                 heading: {
-                    h1: "",
-                    h2: "",
+                    h1: "text-4xl text-black dark:text-white",
                 }
             },
             nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
@@ -257,7 +311,7 @@ const Editor: React.FC = React.forwardRef((props: any, ref: any) => {
                     {/* <EditorCapturePlugin {...{ref}} /> */}
                     <ListPlugin />
                     <HistoryPlugin />
-                    <OnChangePlugin onChange={(editorState: EditorState, editor: LexicalEditor) => console.log(JSON.stringify(editor.getEditorState())) } />
+                    {/* <OnChangePlugin onChange={(editorState: EditorState, editor: LexicalEditor) => console.log(JSON.stringify(editor.getEditorState())) } /> */}
                 </LexicalComposer>
             </div>
         )

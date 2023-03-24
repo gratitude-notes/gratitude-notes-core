@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { BsPencil } from "react-icons/bs";
 
 const Dashboard: React.FC = () => { 
-  const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
+  const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);
 
   const handleFAB = () => {
       (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
