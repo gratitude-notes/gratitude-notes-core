@@ -180,6 +180,7 @@ const data = [
 ]
 
 import { Timestamp } from "@firebase/firestore";
+import dayjs from "dayjs";
 
 type CalendarBullet = {
     score: number,
@@ -200,6 +201,11 @@ const WeekCard: React.FC = () => {
     }
 
     console.log(calendarBullets);
+
+    console.log(dayjs().startOf('week'));
+
+    let dayArray: any = [];
+    
   
     return (
         <div>
