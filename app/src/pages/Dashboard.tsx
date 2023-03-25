@@ -5,37 +5,72 @@ import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
-import { BsPencil } from "react-icons/bs";
+import FooterNavbar from "../components/FooterNavbar/FooterNavbar";
+import SettingsModal from "../components/SettingsModal/SettingsModal";
+import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
+import SearchModal from "../components/SearchModal/SearchModal";
 
 const Dashboard: React.FC = () => { 
-  const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
 
-  const handleFAB = () => {
-      (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+  const searchModalVisible = useComponentVisible(false);
+  const settingsModalVisible = useComponentVisible(false);
+  const weekInReviewModalVisible = useComponentVisible(false);
+  const writeModalVisible = useComponentVisible(false);
+  
+  const handleWriteButton = () => {
+    (writeModalVisible.isComponentVisible) ? writeModalVisible.setComponentVisible(false) : writeModalVisible.setComponentVisible(true);
   }
 
-  const modalVisible = (isComponentVisible) ? "visible" : "hidden";
+  const handleSettingsButton = () => {
+    (settingsModalVisible.isComponentVisible) ? settingsModalVisible.setComponentVisible(false) : settingsModalVisible.setComponentVisible(true);
+  }
+
+  const handleWeekInReviewButton = () => {
+    (weekInReviewModalVisible.isComponentVisible) ? weekInReviewModalVisible.setComponentVisible(false) : weekInReviewModalVisible.setComponentVisible(true);
+  }
+
+  const handleSearchButton = () => {
+    (searchModalVisible.isComponentVisible) ? searchModalVisible.setComponentVisible(false) : searchModalVisible.setComponentVisible(true);
+  }
   
   return (
-    <div ref={ref}>
-      <div className="h-screen w-screen flex flex-col gap-2 bg-white dark:bg-gray-800">
+    <div>
+      <div className="h-screen w-screen flex flex-col bg-white dark:bg-gray-800">
         <Navbar />
         
-        <WeekCard />
+        <div className="py-2">
+          <WeekCard />
+        </div>
 
         <div className="overflow-hidden relative flex lg:px-40 xl:px-64">
-            <LeftSidebar handleWriteNoteModal={handleFAB}/>
+            <LeftSidebar handleSearchModal={handleSearchButton}
+                         handleWriteNoteModal={handleWriteButton}
+                         handleWeekInReviewModal={() => {}}
+            />
             <FeedList />
             <RightSidebar />
         </div>
 
-        <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
+        <SearchModal visible={searchModalVisible} handleChange={handleSearchButton} />
+        <WriteNoteModal visible={writeModalVisible} handleChange={handleWriteButton} />
+        <SettingsModal visible={settingsModalVisible} handleChange={handleSettingsButton}/>
+        <WeekInReviewModal visible={weekInReviewModalVisible} handleChange={handleWeekInReviewButton}/>
+        
+
+        {/* FOOTER NAVBAR (Small screens only) */}
+        <div className="z-50 sm:hidden">
+          <FooterNavbar handleSearchModal={handleSearchButton}
+                        handleWriteNoteModal={handleWriteButton}
+                        handleSettingsModal={handleSettingsButton}
+                        handleWeekInReviewModal={handleWeekInReviewButton}/>
+        </div>
+
       </div>
 
       {/* WRITE NOTE FAB (Small screens only) */}
-      <button onClick={handleFAB} className="absolute bottom-3 right-3 sm:hidden bg-cyan-500 rounded-full p-4">
+      {/* <button onClick={handleWriteButton} className="absolute bottom-[84px] right-[16px] sm:hidden bg-cyan-500 rounded-full p-4">
         <BsPencil size={25} color="white"/>
-      </button>
+      </button> */}
     </div>
   );
 }

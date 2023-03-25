@@ -2,20 +2,25 @@ import { BsSearch, BsBell, BsHouseDoor } from 'react-icons/bs';
 
 type SidebarItem = {
     icon: string,
-    title: string
+    title: string,
+    handleClick: () => void
 }
 
-const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title}) => {  
+const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title, handleClick}) => {  
+
+    const renderIcon = () => {
+        switch(icon) {
+            case "BsSearch": return <BsSearch size={20}/>;
+            case "BsBell": return <BsBell size={20}/>;
+            case "BsHouseDoor": return <BsHouseDoor size={20}/>;
+        }
+    }
+
     return (
-        <div className="hidden sm:flex gap-4 mx-auto">
+        <div onClick={handleClick}
+            className="cursor-pointer hidden sm:flex gap-4 mx-auto">
             <div className="my-auto dark:text-white">
-                {
-                    {
-                        'BsSearch': <BsSearch size={20}/>,
-                        'BsBell': <BsBell size={20}/>,
-                        'BsHouseDoor': <BsHouseDoor size={20}/>
-                    }[icon]
-                }
+                {renderIcon()}
             </div>
             <div className="hidden lg:flex">
                 <h1 className="text-xl dark:text-white">{title}</h1>

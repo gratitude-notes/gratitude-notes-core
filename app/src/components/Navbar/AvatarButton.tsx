@@ -19,27 +19,32 @@ const AvatarButton: React.FC = () => {
     }
 
     return (
-        <div ref={ref}>
-            <div id="avatarButton" onClick={handleDropdown} className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+        <div ref={ref} className="relative text-black dark:text-white">
+            <div id="avatarButton" onClick={handleDropdown} className="relative cursor-pointer w-10 h-10 overflow-hidden rounded-full">
                 <img src={`${session?.user?.photoURL}`} alt="" />
             </div>
 
             {/* Dropdown Menu */}
-            <div className={`${dropdownVisbile} absolute right-12 top-11 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}>
-                <div className="py-1" role="none">
-                    <h1 className='inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2'>
-                        Welcome, <br></br>
-                        {`${session?.user?.displayName}`}
-                    </h1>
-                    <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                        Dashboard
-                    </button>
-                    <button className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                        Settings
-                    </button>              
-                    <button onClick={handleClick} className="hover:bg-neutral-200 w-full inline-flex text-gray-700 px-4 py-2 text-sm gap-x-2">
-                        Sign Out
-                    </button>
+            <div className={`${dropdownVisbile} absolute top-full right-0 z-50`}>
+                <div className="flex flex-col gap-1 bg-white dark:bg-gray-800 rounded-md text-black dark:text-white shadow-lg shadow-gray-900">
+                    <div className="whitespace-nowrap border-b border-gray-400 px-2 py-2 text-sm">
+                        Welcome, <br /> {`${session?.user?.displayName}`}
+                    </div>
+                    <div onClick={() => console.log("Settings clicked in Avatar menu.")}
+                        className="flex gap-2 cursor-pointer p-2 text-sm
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <span>Settings</span>
+                    </div>
+                    <div onClick={() => console.log("Dashboard clicked in Avatar menu.")}
+                        className="flex gap-2 cursor-pointer p-2 text-sm
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <span>Dashboard</span>
+                    </div>  
+                    <div onClick={handleClick}
+                        className="flex gap-2 cursor-pointer p-2 text-sm
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <span>Sign Out</span>
+                    </div>          
                 </div>
             </div>
 
