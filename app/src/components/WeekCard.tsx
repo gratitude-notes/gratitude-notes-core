@@ -202,11 +202,14 @@ const WeekCard: React.FC = () => {
 
     console.log(calendarBullets);
 
-    console.log(dayjs().startOf('week'));
+    let weekCardDates: number[] = [];
 
-    let dayArray: any = [];
+    for(let i = 0; i < 7; i++) {
+        let temp = dayjs().startOf('week').add(i, 'days');
+        weekCardDates.push(temp.date());
+    }
     
-  
+    
     return (
         <div>
             <div className="flex flex-row overflow-x-scroll md:justify-center
