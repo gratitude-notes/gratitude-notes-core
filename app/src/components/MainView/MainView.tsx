@@ -13,7 +13,6 @@ export const MainView: React.FC = () => {
                 path="/"
                 element={(session?.user) ? <Dashboard /> : <Landing />}
             />
-            <Route path="/wordcloud" element={<WeekInReview />} />
         </Routes>
     )
 }

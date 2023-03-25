@@ -1,6 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 
-const useComponentVisible = (initialVisible: boolean) => {
+export interface ComponentVisbilityProps {
+    ref: RefObject<HTMLDivElement>,
+    isComponentVisible: boolean,
+    setComponentVisible: Dispatch<SetStateAction<boolean>>
+}
+
+const useComponentVisible = (initialVisible: boolean): ComponentVisbilityProps => {
     const [isComponentVisible, setComponentVisible] = useState(initialVisible);
     const ref = useRef<HTMLDivElement>(null);
 

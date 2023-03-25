@@ -1,15 +1,19 @@
 import { BsArrowLeft } from "react-icons/bs";
+import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 
 interface SearchModalState {
-    setVisible: "visible" | "hidden",
+    visible: ComponentVisbilityProps,
     handleChange: () => void
 }
 
-const SearchModal: React.FC<SearchModalState> = ({setVisible, handleChange}) => {
+const SearchModal: React.FC<SearchModalState> = ({visible, handleChange}) => {
+    const isDivVisibleTag = (visible.isComponentVisible) ? "visible" : "hidden";
 
     return (
         <>
-            <div className={`${setVisible} absolute z-50 h-screen w-screen bg-white
+            <div
+                ref={visible.ref} 
+                className={`${isDivVisibleTag} absolute z-50 h-screen w-screen bg-white
                             sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
                             dark:bg-gray-800`}>
                 {/* HEADER */}
@@ -23,7 +27,7 @@ const SearchModal: React.FC<SearchModalState> = ({setVisible, handleChange}) => 
 
     
             {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
-            <div className={`${setVisible} absolute -z-50 sm:z-40 h-screen w-screen bg-black opacity-40`} />
+            <div className={`${isDivVisibleTag} absolute -z-50 sm:z-40 h-screen w-screen bg-black opacity-40`} />
         </>
     );
 }

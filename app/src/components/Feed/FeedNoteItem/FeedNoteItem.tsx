@@ -1,9 +1,7 @@
 import { NoteBullet } from "../../../hooks/useNoteData";
 import DotMenu from "./DotMenu";
-import {  } from "@firebase/firestore";
 import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
-import Editor from "../../Editor/Editor";
 import Reader from "./Reader";
 
 const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) => {

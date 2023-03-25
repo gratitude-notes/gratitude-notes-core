@@ -1,13 +1,13 @@
-import { useRef } from "react";
 import { BsArrowLeft } from "react-icons/bs";
+import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 import Editor from "../Editor/Editor";
 
 interface WriteNoteModalState {
-    setVisible: "visible" | "hidden",
+    visible: ComponentVisbilityProps,
     handleChange: () => void
 }
 
-const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange}) => {
+const WriteNoteModal: React.FC<WriteNoteModalState> = ({visible, handleChange}) => {
     // const editorRef: any = useRef();
     
     // if (editorRef.current !== undefined && editorRef.current !== null) {
@@ -15,11 +15,16 @@ const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange
     //       console.log(latestEditorState);
     // }
 
+    const isDivVisibleTag = (visible.isComponentVisible) ? "visible" : "hidden";
+
     return (
         <>
-            <div className={`${setVisible} z-50 absolute h-screen w-screen bg-white
+            <div 
+                ref={visible.ref} 
+                className={`${isDivVisibleTag} z-50 absolute h-screen w-screen bg-white
                             sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
-                            dark:bg-gray-800`}>
+                            dark:bg-gray-800`}
+            >
                 {/* WRITE h-50% */}
                 <div className="h-1/2">
                     {/* HEADER */}
@@ -71,7 +76,7 @@ const WriteNoteModal: React.FC<WriteNoteModalState> = ({setVisible, handleChange
 
     
             {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
-            <div className={`${setVisible} absolute z-40 h-screen w-screen bg-black opacity-40`} />
+            <div className={`${isDivVisibleTag} absolute z-40 h-screen w-screen bg-black opacity-40`} />
         </>
     );
 }

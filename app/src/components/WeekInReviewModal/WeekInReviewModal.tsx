@@ -1,13 +1,16 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
+import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 
 interface WeekInReviewModalState {
-  setVisible: "visible" | "hidden",
+  visible: ComponentVisbilityProps,
   handleChange: () => void
 }
 
-const WeekInReview: React.FC<WeekInReviewModalState> = ({setVisible, handleChange}) => {  
+const WeekInReview: React.FC<WeekInReviewModalState> = ({visible, handleChange}) => {  
+
+  const isDivVisibleTag = (visible.isComponentVisible) ? "visible" : "hidden";
 
   const data = [
       { text: 'Hey', value: 1000 },
@@ -19,7 +22,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({setVisible, handleChang
 
   return (
     <>
-            <div className={`${setVisible} absolute z-50 h-screen w-screen bg-white
+            <div className={`${isDivVisibleTag} absolute z-50 h-screen w-screen bg-white
                             sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
                             dark:bg-gray-800`}>
                 {/* HEADER */}
@@ -35,7 +38,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({setVisible, handleChang
 
     
             {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
-            <div className={`${setVisible} absolute -z-50 sm:z-40 h-screen w-screen bg-black opacity-40`} />
+            <div className={`${isDivVisibleTag} absolute -z-50 sm:z-40 h-screen w-screen bg-black opacity-40`} />
         </>
   );
 }

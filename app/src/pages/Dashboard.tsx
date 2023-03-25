@@ -11,31 +11,30 @@ import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal
 import SearchModal from "../components/SearchModal/SearchModal";
 
 const Dashboard: React.FC = () => { 
-  const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);
 
-  const handleFAB = () => {
-    (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+  const searchModalVisible = useComponentVisible(false);
+  const settingsModalVisible = useComponentVisible(false);
+  const weekInReviewModalVisible = useComponentVisible(false);
+  const writeModalVisible = useComponentVisible(false);
+  
+  const handleWriteButton = () => {
+    (writeModalVisible.isComponentVisible) ? writeModalVisible.setComponentVisible(false) : writeModalVisible.setComponentVisible(true);
   }
 
   const handleSettingsButton = () => {
-    (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+    (settingsModalVisible.isComponentVisible) ? settingsModalVisible.setComponentVisible(false) : settingsModalVisible.setComponentVisible(true);
   }
 
   const handleWeekInReviewButton = () => {
-    (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+    (weekInReviewModalVisible.isComponentVisible) ? weekInReviewModalVisible.setComponentVisible(false) : weekInReviewModalVisible.setComponentVisible(true);
   }
 
   const handleSearchButton = () => {
-    (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+    (searchModalVisible.isComponentVisible) ? searchModalVisible.setComponentVisible(false) : searchModalVisible.setComponentVisible(true);
   }
-
-  const modalVisible = (isComponentVisible) ? "visible" : "hidden";
-  const settingsModalVisible = (isComponentVisible) ? "visible" : "hidden";
-  const weekInReviewModalVisible = (isComponentVisible) ? "visible" : "hidden";
-  const searchModalVisible = (isComponentVisible) ? "visible" : "hidden";
   
   return (
-    <div ref={ref}>
+    <div>
       <div className="h-screen w-screen flex flex-col bg-white dark:bg-gray-800">
         <Navbar />
         
@@ -45,25 +44,23 @@ const Dashboard: React.FC = () => {
 
         <div className="overflow-hidden relative flex lg:px-40 xl:px-64">
             <LeftSidebar handleSearchModal={handleSearchButton}
-                        handleWriteNoteModal={handleFAB}
-                        handleWeekInReviewModal={handleWeekInReviewButton}/>
+                         handleWriteNoteModal={handleWriteButton}
+                         handleWeekInReviewModal={() => {}}
+            />
             <FeedList />
             <RightSidebar />
         </div>
 
-        {/* <SearchModal setVisible={searchModalVisible} handleChange={handleSearchButton}/> */}
-
-        <WriteNoteModal setVisible={modalVisible} handleChange={handleFAB}/>
-        
-        {/* <SettingsModal setVisible={settingsModalVisible} handleChange={handleSettingsButton}/> */}
-
-        {/* <WeekInReviewModal setVisible={weekInReviewModalVisible} handleChange={handleWeekInReviewButton}/> */}
+        <SearchModal visible={searchModalVisible} handleChange={handleSearchButton} />
+        <WriteNoteModal visible={writeModalVisible} handleChange={handleWriteButton} />
+        <SettingsModal visible={settingsModalVisible} handleChange={handleSettingsButton}/>
+        <WeekInReviewModal visible={weekInReviewModalVisible} handleChange={handleWeekInReviewButton}/>
         
 
         {/* FOOTER NAVBAR (Small screens only) */}
         <div className="z-50 sm:hidden">
           <FooterNavbar handleSearchModal={handleSearchButton}
-                        handleWriteNoteModal={handleFAB}
+                        handleWriteNoteModal={handleWriteButton}
                         handleSettingsModal={handleSettingsButton}
                         handleWeekInReviewModal={handleWeekInReviewButton}/>
         </div>
@@ -71,7 +68,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* WRITE NOTE FAB (Small screens only) */}
-      {/* <button onClick={handleFAB} className="absolute bottom-[84px] right-[16px] sm:hidden bg-cyan-500 rounded-full p-4">
+      {/* <button onClick={handleWriteButton} className="absolute bottom-[84px] right-[16px] sm:hidden bg-cyan-500 rounded-full p-4">
         <BsPencil size={25} color="white"/>
       </button> */}
     </div>
