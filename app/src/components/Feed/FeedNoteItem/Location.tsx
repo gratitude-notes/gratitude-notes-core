@@ -1,88 +1,38 @@
-// import { useState } from 'react';
-// import { BsHeart, BsHeartFill } from 'react-icons/bs';
-
-// const Location: React.FC = () => {
-//   const [isFilled, setIsFilled] = useState(false);
-
-// //   const handleWriteButton = () => {
-// //     (writeModalVisible.isComponentVisible) ? writeModalVisible.setComponentVisible(false) : writeModalVisible.setComponentVisible(true);
-// //   }
-
-//   //This is a built in feature in most browsers 
-//     const locate = () => {
-//         if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(position);
-//         } else {
-//         console.log("Geolocation is not supported by this browser.");
-//         }
-//     }
-  
-//   const position = (pos: { coords: { latitude: any; longitude: any; }; }) => {
-//     const lat = pos.coords.latitude;
-//     const lon = pos.coords.longitude;
-//     console.log("Latitude: " + lat + ", Longitude: " + lon);
-//     Address(lat, lon);
-//   }
-
-// //Api call is done only after we know the lat and lon
-//   async function Address(lat: any, lon: any) {
-//     const response = await fetch(
-//       `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
-//     );
-//     console.log(" response" + response)
-//   };
-
-//   return (
-//     <>
-//       {isFilled ? (
-//         <button
-//           className="text-white font-bold"
-//           onClick={() => setIsFilled(false)}
-//         >
-//           <BsHeartFill className="inline-block fill-pink-600" />
-//         </button>
-//       ) : (
-//         <button
-//           className="text-pink-500 font-bold"
-//           onClick={() => setIsFilled(true)}
-//         >
-//           {!isFilled && <BsHeart className="inline-block" />}
-//         </button>
-//       )}
-//     </>
-//   );
-// }
-
-// export default Location;
-
 import { useEffect, useState } from 'react';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 const Location: React.FC = () => {
-  const [isFilled, setIsFilled] = useState(false);
+  
+  const [address, setAddress] = useState('');
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
-        address(position.coords.latitude, position.coords.longitude)
+        getAddress(position.coords.latitude, position.coords.longitude)
 
     })
   })
 
   //Api call is done only after we know the lat and lon
-  async function address(lat: any, lon: any) {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
-    );
-    console.log(" response" + response)
+  async function getAddress(lat: any, lon: any) {
+    var requestOptions = {
+        method: 'GET',
+      };
+      
+      fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=2ac0437264654f16bdf7539671e4986e`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            //console.log(result.features[0].properties.city, result.features[0].properties.state_code)
+            setAddress(`${result.features[0].properties.city}, ${result.features[0].properties.state_code}`);
+        })
+        .catch(error => console.log('error', error));
   };
 
 
   return (
     <>
-      <div>
-        <h1></h1>
+      <div className='absolute bottom-4 right-0'>
+        <h1 className='text-gray-400'>{address}</h1>
       </div>
     </>
   );
