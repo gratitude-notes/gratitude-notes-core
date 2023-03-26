@@ -1,3 +1,4 @@
+import useNoteData from "../hooks/useNoteData";
 import DayCard from "./DayCard";
 
 const data = [
@@ -178,8 +179,37 @@ const data = [
     }
 ]
 
+import { Timestamp } from "@firebase/firestore";
+import dayjs from "dayjs";
+
+type CalendarBullet = {
+    score: number,
+    timestamp: Timestamp
+}
+
 const WeekCard: React.FC = () => {
-  
+    const { notes } = useNoteData();
+    let calendarBullets: CalendarBullet[] = [];
+
+    if (notes) {
+        calendarBullets = notes.map((noteBullet) => {
+            return {
+              score: noteBullet.score,
+              timestamp: noteBullet.timestamp
+            }
+        })
+    }
+
+    console.log(calendarBullets);
+
+    let weekCardDates: number[] = [];
+
+    for(let i = 0; i < 7; i++) {
+        let temp = dayjs().startOf('week').add(i, 'days');
+        weekCardDates.push(temp.date());
+    }
+    
+    
     return (
         <div>
             <div className="flex flex-row overflow-x-scroll md:justify-center

@@ -22,7 +22,8 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({visible, handleChange})
 
   return (
     <>
-            <div className={`${isDivVisibleTag} absolute z-50 h-screen w-screen bg-white
+            <div  ref={visible.ref}
+                  className={`${isDivVisibleTag} absolute z-50 h-screen w-screen bg-white
                             sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
                             dark:bg-gray-800`}>
                 {/* HEADER */}
