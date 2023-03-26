@@ -47,7 +47,7 @@ const DeleteAccountModal: React.FC = () => {
 
               <div className="mt-5 sm:mt-6">
                 <button
-                  className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
+                  className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-500 bg-red-100 border border-transparent rounded-md hover:bg-red-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
                   onClick={handleDeleteAccount}
                 >
                   Delete Account

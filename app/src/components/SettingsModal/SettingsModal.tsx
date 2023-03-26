@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 import DeleteAccountModal from "./DeleteAccountModal";
+import SettingsProfile from "./SettingsProfile";
 
 interface SettingsModalState {
     visible: ComponentVisbilityProps,
@@ -48,8 +49,11 @@ const SettingsModal: React.FC<SettingsModalState> = ({visible, handleChange}) =>
                     </button>
                 </div>
                 <div className="h-[87.5%] justify-center">
-                    <h1 className="font-bold; text-center text-white">Settings</h1>
-                    <div className="justify-center align-text: text-center">
+                    <h1 className="font-bold font-size: 1.25rem line-height: 1.75rem; text-center text-white">Settings</h1>
+                    <div className="justify-center align-text: text-center py-1">
+                        <SettingsProfile></SettingsProfile>
+                    </div>
+                    <div className="justify-center align-text: text-center py-1">
                         
                         <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" value="" className="sr-only peer" checked={locationSharingEnabled} onChange={handleToggleLocationSharing}/>
@@ -58,12 +62,9 @@ const SettingsModal: React.FC<SettingsModalState> = ({visible, handleChange}) =>
                         </label>
 
                     </div>
-                    <DeleteAccountModal></DeleteAccountModal>
-                    {/* <div className="justify-center align-text: text-center">
-                        <button onClick={handleOpenDeleteAccountModal} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white ">Delete Account</button>
-                    </div> */}
-
-                    
+                    <div className="justify-center align-text: text-center py-1">
+                        <DeleteAccountModal></DeleteAccountModal>
+                    </div>    
                 </div>
             </div>
 
