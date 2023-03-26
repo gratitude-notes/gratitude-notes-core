@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
         <div className="overflow-hidden relative flex lg:px-40 xl:px-64">
             <LeftSidebar handleSearchModal={handleSearchButton}
                          handleWriteNoteModal={handleWriteButton}
-                         handleWeekInReviewModal={handleWeekInReviewButton}
+                         handleWeekInReviewModal={handleWeekInReviewModal}
             />
             <FeedList />
             <RightSidebar />
