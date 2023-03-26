@@ -48,23 +48,22 @@ useEffect(() => {
     <>
       {show && (
         <div className="fixed bottom-0 right-0 m-4">
-          <div className="bg-blue-100 text-gray-800 py-4 px-6 rounded-md shadow-md">
+          <div className="bg-cyan-300 text-gray-800 py-4 px-6 rounded-md shadow-md">
             <h2 className="text-lg font-bold mb-2 flex items-center">
               <BsFillCalendarWeekFill className="mr-2" />
               Week in Review
             </h2>
-            <span className="mb-0">Your week in review is ready. </span>
             <p className="mb-4"> Would you like to view your week in review?</p>
             <div className="flex justify-center space-x-4">
             <button
                 onClick={handleLater}
-                className="px-7 py-2 bg-gray-500 text-white rounded-md shadow-md"
+                className="px-7 py-2 bg-gray-700 text-white rounded-md shadow-md"
               >
                 Later
               </button>
               <button
                 onClick={handleView}
-                className="px-7 py-2 bg-blue-500 text-white rounded-md shadow-md"
+                className="px-7 py-2 bg-cyan-500 text-white rounded-md shadow-md"
               >
                 View
               </button>

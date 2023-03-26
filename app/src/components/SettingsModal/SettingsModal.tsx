@@ -4,6 +4,7 @@ import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 import DeleteAccountModal from "./DeleteAccountModal";
 import SettingsProfile from "./SettingsProfile";
 
+
 interface SettingsModalState {
     visible: ComponentVisbilityProps,
     handleChange: () => void,
@@ -15,8 +16,6 @@ const SettingsModal: React.FC<SettingsModalState> = ({visible, handleChange}) =>
 
     const [locationSharingEnabled, setLocationSharingEnabled] = useState(false);
 
-    const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
-
     function handleToggleLocationSharing() {
         setLocationSharingEnabled(!locationSharingEnabled);
         if (locationSharingEnabled) {
@@ -26,13 +25,6 @@ const SettingsModal: React.FC<SettingsModalState> = ({visible, handleChange}) =>
           }
       }
 
-      function handleOpenDeleteAccountModal() {
-        setShowDeleteAccountModal(true);
-      }
-    
-      function handleCloseDeleteAccountModal() {
-        setShowDeleteAccountModal(false);
-      }
 
     return (
         <>
@@ -43,6 +35,7 @@ const SettingsModal: React.FC<SettingsModalState> = ({visible, handleChange}) =>
                             dark:bg-gray-800`}
             >
                 {/* HEADER */}
+                
                 <div className="flex content-center justify-between p-4 text-black dark:text-white">
                     <button onClick={handleChange}>
                         <BsArrowLeft size={20}/>
@@ -67,7 +60,7 @@ const SettingsModal: React.FC<SettingsModalState> = ({visible, handleChange}) =>
                     </div>    
                 </div>
             </div>
-
+            
     
             {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
             <div className={`${isDivVisibleTag} absolute -z-50 sm:z-40 h-screen w-screen bg-black opacity-40`} />
