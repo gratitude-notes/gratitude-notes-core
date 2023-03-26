@@ -5,7 +5,7 @@ import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 
 interface WeekInReviewModalState {
   visible: ComponentVisbilityProps,
-  handleChange: () => void
+  handleChange: () => void,
 }
 
 const WeekInReview: React.FC<WeekInReviewModalState> = ({visible, handleChange}) => {  

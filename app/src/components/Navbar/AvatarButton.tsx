@@ -2,6 +2,7 @@ import useComponentVisible from '../../hooks/useComponentVisible';
 import { signOut } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 import { useSession } from '../../lib/Session';
+import SettingsModal from '../SettingsModal/SettingsModal';
 
 
 const AvatarButton: React.FC = () => {
@@ -14,8 +15,20 @@ const AvatarButton: React.FC = () => {
 
     const dropdownVisbile = (isComponentVisible) ? "visible" : "hidden";
 
+    const handleSettingsButton = () => {
+        (settingsModalVisible.isComponentVisible) ? settingsModalVisible.setComponentVisible(false) : settingsModalVisible.setComponentVisible(true);
+    }
+
+
+    const settingsModalVisible = useComponentVisible(false);
+
     const handleClick = () => {
         signOut(fb_auth);
+    }
+
+    const handleSettingsClick = () => {
+        console.log("Settings clicked");
+        
     }
 
     return (
@@ -30,7 +43,7 @@ const AvatarButton: React.FC = () => {
                     <div className="whitespace-nowrap border-b border-gray-400 px-2 py-2 text-sm">
                         Welcome, <br /> {`${session?.user?.displayName}`}
                     </div>
-                    <div onClick={() => console.log("Settings clicked in Avatar menu.")}
+                    <div onClick={handleSettingsClick}
                         className="flex gap-2 cursor-pointer p-2 text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
                         <span>Settings</span>
