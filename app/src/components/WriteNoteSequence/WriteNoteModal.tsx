@@ -1,6 +1,6 @@
-import { BsArrowLeft } from "react-icons/bs";
+
 import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
-import Editor from "../Editor/Editor";
+import WriteNoteForm from "../Editor/WriteNoteForm";
 
 interface WriteNoteModalState {
     visible: ComponentVisbilityProps,
@@ -8,12 +8,6 @@ interface WriteNoteModalState {
 }
 
 const WriteNoteModal: React.FC<WriteNoteModalState> = ({visible, handleChange}) => {
-    // const editorRef: any = useRef();
-    
-    // if (editorRef.current !== undefined && editorRef.current !== null) {
-    //       const latestEditorState = editorRef.current.getEditorState();
-    //       console.log(latestEditorState);
-    // }
 
     const isDivVisibleTag = (visible.isComponentVisible) ? "visible" : "hidden";
 
@@ -27,20 +21,8 @@ const WriteNoteModal: React.FC<WriteNoteModalState> = ({visible, handleChange}) 
             >
                 {/* WRITE h-50% */}
                 <div className="h-1/2">
-                    {/* HEADER */}
-                    <div className="h-[12.5%] flex justify-between p-2 text-black dark:text-white">
-                        <button onClick={handleChange} className="px-2">
-                            <BsArrowLeft size={20}/>
-                        </button>
-                        <button onClick={handleChange} className="font-bold text-white bg-cyan-500 rounded-full px-6">
-                            Write
-                        </button>
-                    </div>
-
                     {/* MAIN CONTENT */}
-                    <div className="h-[87.5%]">
-                        <Editor />
-                    </div>
+                    <WriteNoteForm {...{handleChange}}/>
                 </div>
 
                 {/* IMAGES h-20% */}
