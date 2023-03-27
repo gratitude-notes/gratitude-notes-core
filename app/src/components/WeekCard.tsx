@@ -1,6 +1,7 @@
 import DayCard from "./DayCard";
 import { Timestamp } from "@firebase/firestore";
 import dayjs from "dayjs";
+import useCurrentWeekPointBullets from "../hooks/useCurrentWeekPointBullets";
 
 const data = [
     {
@@ -182,11 +183,6 @@ const data = [
 
 
 
-type CalendarBullet = {
-    score: number,
-    timestamp: Timestamp
-}
-
 const WeekCard: React.FC = () => {
     // const { notes } = useNoteData();
     // let calendarBullets: CalendarBullet[] = [];
@@ -208,6 +204,9 @@ const WeekCard: React.FC = () => {
         let temp = dayjs().startOf('week').add(i, 'days');
         weekCardDates.push(temp.date());
     }
+
+    const currentWeekPointBullets = useCurrentWeekPointBullets();
+    console.log(currentWeekPointBullets)
     
     
     return (
