@@ -53,7 +53,7 @@ const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) =
             <RichTextPlugin 
                 contentEditable={
                     <ContentEditable className={
-                        clsx("min-h-[100px] max-h-[255px] outline-none rounded-md p-1", (isLoading) ? "hidden" : "visible")
+                        clsx("outline-none rounded-md p-1", (isLoading) ? "hidden" : "visible")
                     } />
                 }
                 placeholder={
