@@ -13,41 +13,56 @@ import React, { useRef } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { EditorState } from 'lexical';
+import { addDoc, collection, Timestamp } from '@firebase/firestore';
+import { NoteBullet } from '../../hooks/useUserBullets';
+import { useSession } from '../../lib/Session';
+import { fb_firestore } from '../../lib/Firebase';
 
 interface FormHandlerProps {
     handleChange: () => void
 }
 
+const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[]): NoteBullet => {
+    return { bulletJSON, score, timestamp, keywords }
+}
+
 const WriteNoteForm: React.FC<FormHandlerProps> = ({handleChange}) => {
-        const initialConfig = {
-            namespace: "noteEditor",
-            theme: {
-                paragraph: "text-black dark:text-white", // Change text color based on color theme
-                text: {
-                    underline: "underline",
-                    bold: "font-bold",
-                    italic: "italic"
-                },
-                list: {
-                    ul: "ml-4 list-disc text-black dark:text-white",
-                    listitem: "mt-1 mb-1 ml-6 mr-6"
-                },
-                heading: {
-                    h1: "text-4xl text-black dark:text-white",
-                    h2: "text-2xl text-black dark:text-white"
-                }
+    const initialConfig = {
+        namespace: "noteEditor",
+        theme: {
+            paragraph: "text-black dark:text-white", // Change text color based on color theme
+            text: {
+                underline: "underline",
+                bold: "font-bold",
+                italic: "italic"
             },
-            nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
-            onError(error: Error) {
-                throw error;
+            list: {
+                ul: "ml-4 list-disc text-black dark:text-white",
+                listitem: "mt-1 mb-1 ml-6 mr-6"
             },
-        }
+            heading: {
+                h1: "text-4xl text-black dark:text-white",
+                h2: "text-2xl text-black dark:text-white"
+            },
+            characterLimit: 'bg-red-400'
+        },
+        nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
+        onError(error: Error) {
+            throw error;
+        },
+    }
 
-        const editorStateRef = useRef<EditorState>();
+    const session = useSession();
+    const editorStateRef = useRef<EditorState>();
 
-        const onSubmit = () => {
-            console.log(JSON.stringify(editorStateRef.current))
+    const onSubmit = () => {
+        const newBullet = composeBullet(JSON.stringify(editorStateRef.current), 5, Timestamp.now(), []);
+        if (session && session.user) {
+            const bulletCollectionRef = collection(fb_firestore, "users", session.user.uid, "notes");
+            addDoc(bulletCollectionRef, newBullet)
         }
+        handleChange();
+    }
         
     return (
         <>

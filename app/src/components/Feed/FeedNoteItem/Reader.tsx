@@ -2,8 +2,22 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
+import { ListItemNode, ListNode } from '@lexical/list';
+import { OverflowNode } from '@lexical/overflow';
+import { HeadingNode } from '@lexical/rich-text';
 import clsx from "clsx";
 import { useState } from "react";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+
+const OnLoadPlugin = ({noteJSON, isLoading} : {noteJSON: string, isLoading: boolean}): null => {
+    if (!isLoading) {
+        const [editor] = useLexicalComposerContext();
+        const readerState = editor.parseEditorState(noteJSON);
+        editor.setEditorState(readerState);
+    }
+
+    return null;
+}
 
 const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) => {
     const initialConfig = {
@@ -24,9 +38,8 @@ const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) =
                 h2: "text-2xl text-black dark:text-white"
             }
         },
+        nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
         editable: false,
-        editorState: (noteJSON) ? noteJSON : null,
-        
         onError(error: Error) {
             throw error;
         },
@@ -36,10 +49,10 @@ const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) =
 
     return (
         <LexicalComposer {...{initialConfig}}>
-             <RichTextPlugin 
+            <RichTextPlugin 
                 contentEditable={
                     <ContentEditable className={
-                        clsx("min-h-[100px] max-h-[255px] overflow-y-scroll outline-none rounded-md p-1", (isLoading) ? "hidden" : "visible")
+                        clsx("min-h-[100px] max-h-[255px] outline-none rounded-md p-1", (isLoading) ? "hidden" : "visible")
                     } />
                 }
                 placeholder={
@@ -51,6 +64,7 @@ const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) =
                 }
                 ErrorBoundary={LexicalErrorBoundary}
             />
+            <OnLoadPlugin {...{isLoading, noteJSON}} />
         </LexicalComposer>
     )
 }
