@@ -41,6 +41,8 @@ const useUserBullets = () => {
         if (!snapshot.empty) {
             const userNoteDocs: QueryDocumentSnapshot<DocumentData>[] = snapshot.docs;
             composeUserNotes(userNoteDocs);
+        } else {
+            setUserBullets({bullets: null})
         }
     }
 
