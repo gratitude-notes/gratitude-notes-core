@@ -38,7 +38,6 @@ const Dashboard: React.FC = () => {
   const handleNotification = () => {
     (notificationVisible.isComponentVisible) ? notificationVisible.setComponentVisible(false) : notificationVisible.setComponentVisible(true);
   }
-
   
   return (
     <div>

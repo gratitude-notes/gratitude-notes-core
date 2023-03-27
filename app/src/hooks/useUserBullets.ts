@@ -3,30 +3,38 @@ import { useSession } from "../lib/Session";
 import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
-type NoteData = {
-    notes: NoteBullet[] | null
+type Bullets = {
+    bullets: NoteBullet[] | null
 }
 
 export type NoteBullet = {
     score: number,
     timestamp: Timestamp,
-    note: string,
+    bulletJSON: string,
     keywords: string[]
 }
 
-const useNoteData = () => {
+const useUserBullets = () => {
     const session = useSession();
-    const [noteData, setNoteData] = useState<NoteData>({notes: null});
+    const [userBullets, setUserBullets] = useState<Bullets>({bullets: null});
 
     const composeUserNotes = (documents: QueryDocumentSnapshot<DocumentData>[]) => {
-        let collectionNotes: NoteBullet[] = [];
+        let collectionBullets: NoteBullet[] = [];
 
         documents.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
-            const docNotes: NoteBullet[] = doc.data().bullets;
-            collectionNotes = collectionNotes.concat(docNotes);
+            const bulletDocData: DocumentData = doc.data();
+
+            const composedBullet: NoteBullet = {
+                bulletJSON: bulletDocData.bulletJSON,
+                keywords: bulletDocData.keywords,
+                score: bulletDocData.score,
+                timestamp: bulletDocData.timestamp
+            }
+            
+            collectionBullets.push(composedBullet)
         })
 
-        setNoteData({notes: collectionNotes});
+        setUserBullets({bullets: collectionBullets});
     }
 
     const handleData = (snapshot: QuerySnapshot<DocumentData>) => {
@@ -48,7 +56,7 @@ const useNoteData = () => {
         }
     }, [session?.user])
     
-    return noteData;
+    return userBullets;
 }
 
-export default useNoteData;
+export default useUserBullets;

@@ -1,10 +1,10 @@
-import { NoteBullet } from "../../../hooks/useNoteData";
+import { NoteBullet } from "../../../hooks/useUserBullets";
 import DotMenu from "./DotMenu";
 import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
 import Reader from "./Reader";
 
-const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) => {
+const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
     const day = date.getDate();
@@ -14,7 +14,6 @@ const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) =>
     const amOrPm = date.getHours() >= 12 ? 'PM' : 'AM';
 
     const timeStr = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year.toString()} • ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
-
     return (
         <ul className="">
             <div className="min-w-full border-t border-b sm:border border-gray-400 hover:cursor-pointer">
@@ -28,8 +27,7 @@ const NoteItem: React.FC<NoteBullet> = ({ note, keywords, score, timestamp }) =>
                 {/* Main Content */}
                 <div className="px-6 pt-6">
                     <div>
-                        <p className="break-words dark:text-white">{note}</p>
-                        {/* <Reader noteJSON={note}/> */}
+                        <Reader noteJSON={bulletJSON}/>
                     </div>
                     <div className="py-2">
                         <KeyWordItem {...{keywords}} />

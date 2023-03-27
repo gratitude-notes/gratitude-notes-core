@@ -1,5 +1,6 @@
-import useNoteData from "../hooks/useNoteData";
 import DayCard from "./DayCard";
+import { Timestamp } from "@firebase/firestore";
+import dayjs from "dayjs";
 
 const data = [
     {
@@ -179,8 +180,7 @@ const data = [
     }
 ]
 
-import { Timestamp } from "@firebase/firestore";
-import dayjs from "dayjs";
+
 
 type CalendarBullet = {
     score: number,
@@ -188,19 +188,19 @@ type CalendarBullet = {
 }
 
 const WeekCard: React.FC = () => {
-    const { notes } = useNoteData();
-    let calendarBullets: CalendarBullet[] = [];
+    // const { notes } = useNoteData();
+    // let calendarBullets: CalendarBullet[] = [];
 
-    if (notes) {
-        calendarBullets = notes.map((noteBullet) => {
-            return {
-              score: noteBullet.score,
-              timestamp: noteBullet.timestamp
-            }
-        })
-    }
+    // if (notes) {
+    //     calendarBullets = notes.map((noteBullet) => {
+    //         return {
+    //           score: noteBullet.score,
+    //           timestamp: noteBullet.timestamp
+    //         }
+    //     })
+    // }
 
-    console.log(calendarBullets);
+    // console.log(calendarBullets);
 
     let weekCardDates: number[] = [];
 
