@@ -3,6 +3,7 @@ import DotMenu from "./DotMenu";
 import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
 import Reader from "./Reader";
+import Location from "./Location"
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp }) => {
     const date = timestamp.toDate();
@@ -40,6 +41,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                         <LikeButton />
                     </div>
                     <div className="absolute bottom-2 right-2">
+                        <Location></Location>
                         <time className="text-sm text-gray-400">{timeStr}</time>
                     </div>
                 </div>

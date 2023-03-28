@@ -6,14 +6,15 @@ import { ListItemNode, ListNode } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
 import { HeadingNode } from '@lexical/rich-text';
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 const OnLoadPlugin = ({noteJSON, isLoading} : {noteJSON: string, isLoading: boolean}): null => {
     if (!isLoading) {
         const [editor] = useLexicalComposerContext();
         const readerState = editor.parseEditorState(noteJSON);
-        editor.setEditorState(readerState);
+        
+        useEffect(() => editor.setEditorState(readerState), [noteJSON])
     }
 
     return null;
@@ -52,7 +53,7 @@ const Reader: React.FC<{noteJSON: string}> = ({noteJSON} : {noteJSON: string}) =
             <RichTextPlugin 
                 contentEditable={
                     <ContentEditable className={
-                        clsx("min-h-[100px] max-h-[255px] outline-none rounded-md p-1", (isLoading) ? "hidden" : "visible")
+                        clsx("outline-none rounded-md p-1", (isLoading) ? "hidden" : "visible")
                     } />
                 }
                 placeholder={
