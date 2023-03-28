@@ -31,9 +31,7 @@ const Location: React.FC = () => {
 
   return (
     <>
-      <div className='absolute bottom-4 right-0'>
-        <h1 className='text-gray-400'>{address}</h1>
-      </div>
+      <h1 className='text-sm text-gray-400'>{address}</h1>
     </>
   );
 }

@@ -4,28 +4,35 @@ import { BsThreeDots } from 'react-icons/bs'
 const DotMenu: React.FC = () => {  
         const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
 
-        const handleThemeButton = () => {
+        const handleDropdownButton = () => {
             (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
         }
 
-        const twVisible = (isComponentVisible) ? "visible" : "invisible";
+        const twVisible = (isComponentVisible) ? "visible" : "hidden";
 
         return (
-            <div ref={ref} >
-                <button onClick={handleThemeButton} className="rounded-lg hover:bg-cyan-100 dark:text-gray-400">
-                    <BsThreeDots size={20}/>
-                </button>
+            <div ref={ref} className="absolute top-1 right-1">
+                {(isComponentVisible)
+                    ?
+                    <button onClick={handleDropdownButton} className="text-cyan-500">
+                        <BsThreeDots size={20}/>
+                    </button>
+                    :
+                    <button onClick={handleDropdownButton} className="dark:text-gray-400">
+                        <BsThreeDots size={20}/>
+                    </button>
+                }
 
                 {/* Dropdown Menu */}
-                <div className={`${twVisible} absolute right-0 z-40 bg-white shadow-xl rounded-xl border border-black dark:bg-gray-800`}>
-                    <div className="py-1" role="none">
-                        <button className="hover:cursor-pointer w-full inline-flex px-4 py-2 text-sm gap-x-2 dark:text-white">
+                <div className={`${twVisible} absolute top-4 right-0 z-40 rounded-lg bg-gray-200 dark:bg-gray-600`}>
+                    <div className="flex flex-col gap-1 px-2">
+                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
                             Edit
                         </button>
-                        <button className="hover:cursor-pointer w-full inline-flex px-4 py-2 text-sm gap-x-2 dark:text-white">
+                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
                             Delete
                         </button>
-                        <button className="hover:cursor-pointer w-full inline-flex px-4 py-2 text-sm gap-x-2 dark:text-white">
+                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
                             Share
                         </button>
                     </div>

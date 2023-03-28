@@ -40,13 +40,41 @@ const Dashboard: React.FC = () => {
   }
   
   return (
-    <div>
+    <div className="flex flex-col h-screen w-screen bg-white dark:bg-gray-800">
+      {/* Navbar at the top */}
+      <Navbar />
+
+      <WeekCard />
+
+      <div className="flex flex-grow overflow-y-auto lg:px-40 xl:px-64">
+        <LeftSidebar handleSearchModal={handleSearchButton}
+                          handleWriteNoteModal={handleWriteButton}
+                          handleWeekInReviewModal={handleWeekInReviewModal}/>
+        <div className="flex-grow">
+          <FeedList />
+        </div>
+        <RightSidebar />
+      </div>
+
+      {/* Navbar at bottom, only visible on small screens */}
+      <FooterNavbar handleSearchModal={handleSearchButton}
+                    handleWriteNoteModal={handleWriteButton}
+                    handleSettingsModal={handleSettingsButton}
+                    handleWeekInReviewModal={handleWeekInReviewModal}/>
+    </div>
+  );
+}
+
+export default Dashboard;
+
+
+{/* <div>
       <div className="h-screen w-screen flex flex-col bg-white dark:bg-gray-800">
         <Navbar />
         
         <div className="py-2">
           <WeekCard />
-        </div>
+        </div> 
 
         <div className="overflow-hidden relative flex lg:px-40 xl:px-64">
             <LeftSidebar handleSearchModal={handleSearchButton}
@@ -65,7 +93,7 @@ const Dashboard: React.FC = () => {
         
         
 
-        {/* FOOTER NAVBAR (Small screens only) */}
+        FOOTER NAVBAR (Small screens only)
         <div className="z-50 sm:hidden">
           <FooterNavbar handleSearchModal={handleSearchButton}
                         handleWriteNoteModal={handleWriteButton}
@@ -75,12 +103,8 @@ const Dashboard: React.FC = () => {
 
       </div>
 
-      {/* WRITE NOTE FAB (Small screens only) */}
-      {/* <button onClick={handleWriteButton} className="absolute bottom-[84px] right-[16px] sm:hidden bg-cyan-500 rounded-full p-4">
+      WRITE NOTE FAB (Small screens only)
+      <button onClick={handleWriteButton} className="absolute bottom-[84px] right-[16px] sm:hidden bg-cyan-500 rounded-full p-4">
         <BsPencil size={25} color="white"/>
-      </button> */}
-    </div>
-  );
-}
-
-export default Dashboard;
+      </button>
+    </div> */}

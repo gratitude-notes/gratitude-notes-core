@@ -20,23 +20,23 @@ const LikeButton: React.FC<{isFavorited: boolean, bulletDocID?: string}> = ({isF
   }
 
   return (
-    <>
+    <div className="">
       {isFilled ? (
         <button
           className="text-white font-bold"
           onClick={onClickLikeButton}
         >
-          <BsHeartFill className="inline-block fill-pink-600" />
+          <BsHeartFill className="inline-block fill-pink-600" size={17} />
         </button>
       ) : (
         <button
           className="text-pink-500 font-bold"
           onClick={onClickLikeButton}
         >
-          {!isFilled && <BsHeart className="inline-block" />}
+          {!isFilled && <BsHeart className="inline-block" size={17} />}
         </button>
       )}
-    </>
+    </div>
   );
 }
 
