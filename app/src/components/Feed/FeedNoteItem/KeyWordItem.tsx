@@ -1,9 +1,4 @@
-interface Keyword {
-    keywords: string[];
-}
-
-
-const KeyWordItem: React.FC<Keyword> = ({keywords}) => {  
+const KeyWordItem: React.FC<{keywords : string[]}> = ({keywords} : {keywords : string[]}) => {  
     
     return (
         <ul className="mb-1">

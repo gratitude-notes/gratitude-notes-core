@@ -11,7 +11,9 @@ export type NoteBullet = {
     score: number,
     timestamp: Timestamp,
     bulletJSON: string,
-    keywords: string[]
+    keywords: string[],
+    isFavorited: boolean
+    bulletDocID?: string,
 }
 
 const useUserBullets = () => {
@@ -28,7 +30,9 @@ const useUserBullets = () => {
                 bulletJSON: bulletDocData.bulletJSON,
                 keywords: bulletDocData.keywords,
                 score: bulletDocData.score,
-                timestamp: bulletDocData.timestamp
+                timestamp: bulletDocData.timestamp,
+                isFavorited: bulletDocData.isFavorited,
+                bulletDocID: bulletDocData.bulletDocID,
             }
             
             collectionBullets.push(composedBullet)
