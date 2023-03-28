@@ -40,21 +40,34 @@ const Dashboard: React.FC = () => {
   }
   
   return (
+
     <div className="flex flex-col h-screen w-screen bg-white dark:bg-gray-800">
       {/* Navbar at the top */}
       <Navbar />
 
       <WeekCard />
 
-      <div className="flex flex-grow overflow-y-auto lg:px-40 xl:px-64">
-        <LeftSidebar handleSearchModal={handleSearchButton}
-                          handleWriteNoteModal={handleWriteButton}
-                          handleWeekInReviewModal={handleWeekInReviewModal}/>
-        <div className="flex-grow">
+      <div className="flex flex-grow overflow-y-auto
+                      scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
+        <div className="fixed h-full sm:w-[50px] md:w-[300px] sm:border-r border-gray-400">
+          <LeftSidebar handleSearchModal={handleSearchButton}
+                      handleWriteNoteModal={handleWriteButton}
+                      handleWeekInReviewModal={handleWeekInReviewModal}/>
+        </div>
+        <div className="w-full sm:pl-[50px] md:pl-[300px] xl:pl-[400px] md:pr-[100px]">
           <FeedList />
         </div>
-        <RightSidebar />
+        <div className="xl:w-[300px]">
+          <RightSidebar />
+        </div>
       </div>
+
+      {/* <SearchModal visible={searchModalVisible} handleChange={handleSearchButton} /> */}
+      <WriteNoteModal visible={writeModalVisible} handleChange={handleWriteButton} />
+      {/* <SettingsModal visible={settingsModalVisible} handleChange={handleSettingsButton}/>
+      <WeekInReviewModal visible={weekInReviewModalVisible} handleChange={handleWeekInReviewModal}/>
+      <WebNotification visible={notificationVisible} handleChange={handleNotification} /> */}
+
 
       {/* Navbar at bottom, only visible on small screens */}
       <FooterNavbar handleSearchModal={handleSearchButton}
@@ -62,6 +75,7 @@ const Dashboard: React.FC = () => {
                     handleSettingsModal={handleSettingsButton}
                     handleWeekInReviewModal={handleWeekInReviewModal}/>
     </div>
+
   );
 }
 

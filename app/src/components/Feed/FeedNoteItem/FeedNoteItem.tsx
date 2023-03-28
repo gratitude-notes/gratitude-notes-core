@@ -17,7 +17,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
     const timeStr = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year.toString()} • ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
     return (
         <ul>
-            <div className="relative border-t border-b sm:border border-gray-400">
+            <div className="relative border-b border-gray-400">
                 <DotMenu />
                 <div className="flex flex-col p-4">
                     <Reader noteJSON={bulletJSON}/>

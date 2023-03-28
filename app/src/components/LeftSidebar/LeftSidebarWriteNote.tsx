@@ -9,10 +9,10 @@ const LeftSidebarWriteNote: React.FC<WriteNoteModalChange> = ({handleWriteNoteMo
     return (
         <>
             <div className="hidden sm:flex mx-auto">
-                <button onClick={() => handleWriteNoteModal()} className="hidden lg:inline w-40 rounded-full p-2 font-bold text-white bg-cyan-500">
+                <button onClick={() => handleWriteNoteModal()} className="hidden md:inline w-40 rounded-full p-2 font-bold text-white bg-cyan-500">
                     Write
                 </button>
-                <button onClick={() => handleWriteNoteModal()} className="hidden sm:flex lg:hidden rounded-full p-2 bg-cyan-500">
+                <button onClick={() => handleWriteNoteModal()} className="hidden sm:flex md:hidden rounded-full p-2 bg-cyan-500">
                     <BsPencil size={20} color="white"/>
                 </button>
             </div>

@@ -11,7 +11,7 @@ const FooterNavbar: React.FC<FooterNavbarHandlers> = ({handleSearchModal, handle
     return (
         <footer>
             <nav>
-                <div className="sm:hidden flex justify-between items-center h-14 px-8
+                <div className="h-14 sm:hidden flex justify-between items-center px-6
                             border-t border-gray-400 text-black dark:text-white bg-white dark:bg-gray-800">
                     <div onClick={() => console.log('Home clicked in Footer Navbar.')}
                         className="cursor-pointer">
@@ -27,7 +27,7 @@ const FooterNavbar: React.FC<FooterNavbarHandlers> = ({handleSearchModal, handle
                     </div>
                     <div onClick={handleWeekInReviewModal}
                         className="cursor-pointer">
-                        <FooterNavbarItem icon={"BsBell"}/>
+                        <FooterNavbarItem icon={"BsCalendarWeek"}/>
                     </div>
                     <div onClick={handleSettingsModal}
                         className="cursor-pointer">

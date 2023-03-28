@@ -211,7 +211,7 @@ const WeekCard: React.FC = () => {
     
     
     return (
-        <div>
+        <div className="my-4">
             <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">

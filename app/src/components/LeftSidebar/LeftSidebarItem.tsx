@@ -1,4 +1,4 @@
-import { BsSearch, BsBell, BsHouseDoor } from 'react-icons/bs';
+import { BsSearch, BsCalendarWeek, BsHouseDoor } from 'react-icons/bs';
 
 type SidebarItem = {
     icon: string,
@@ -11,7 +11,7 @@ const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title, handleClick}) => {
     const renderIcon = () => {
         switch(icon) {
             case "BsSearch": return <BsSearch size={20}/>;
-            case "BsBell": return <BsBell size={20}/>;
+            case "BsCalendarWeek": return <BsCalendarWeek size={20}/>;
             case "BsHouseDoor": return <BsHouseDoor size={20}/>;
         }
     }
@@ -22,8 +22,8 @@ const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title, handleClick}) => {
             <div className="my-auto dark:text-white">
                 {renderIcon()}
             </div>
-            <div className="hidden lg:flex">
-                <h1 className="text-xl dark:text-white">{title}</h1>
+            <div className="hidden md:flex">
+                <h1 className="whitespace-nowrap text-xl dark:text-white">{title}</h1>
             </div>
         </div>
     )
