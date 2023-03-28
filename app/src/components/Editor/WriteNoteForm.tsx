@@ -13,7 +13,7 @@ import React, { useRef } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { EditorState } from 'lexical';
-import { addDoc, collection, Timestamp } from '@firebase/firestore';
+import { addDoc, collection, Timestamp, setDoc } from '@firebase/firestore';
 import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore } from '../../lib/Firebase';
@@ -22,8 +22,8 @@ interface FormHandlerProps {
     handleChange: () => void
 }
 
-const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[]): NoteBullet => {
-    return { bulletJSON, score, timestamp, keywords }
+const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[], isFavorited: boolean): NoteBullet => {
+    return { bulletJSON, score, timestamp, keywords, isFavorited }
 }
 
 const WriteNoteForm: React.FC<FormHandlerProps> = ({handleChange}) => {
@@ -55,11 +55,12 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({handleChange}) => {
     const session = useSession();
     const editorStateRef = useRef<EditorState>();
 
-    const onSubmit = () => {
-        const newBullet = composeBullet(JSON.stringify(editorStateRef.current), 5, Timestamp.now(), []);
+    const onSubmit = async () => {
+        const newBullet = composeBullet(JSON.stringify(editorStateRef.current), 5, Timestamp.now(), [], false);
         if (session && session.user) {
             const bulletCollectionRef = collection(fb_firestore, "users", session.user.uid, "notes");
-            addDoc(bulletCollectionRef, newBullet)
+            const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
+            await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
         }
         handleChange();
     }

@@ -5,7 +5,7 @@ import LikeButton from "./LikeButton";
 import Reader from "./Reader";
 import Location from "./Location"
 
-const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp }) => {
+const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
     const day = date.getDate();
@@ -38,7 +38,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                 {/* Footer */}
                 <div className="relative px-6 pt-2 pb-6">
                     <div className="absolute bottom-2 left-6">
-                        <LikeButton />
+                        <LikeButton {...{isFavorited, bulletDocID}} />
                     </div>
                     <div className="absolute bottom-2 right-2">
                         <Location></Location>
