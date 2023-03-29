@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
               <div className="w-full sm:pl-[50px] md:pl-[300px] xl:pl-[400px] md:pr-[100px]">
                 <FeedList />
               </div>
-              <div className="xl:w-[300px]">
+              <div className="xl:w-[400px]">
                 <RightSidebar />
               </div>
             </div>

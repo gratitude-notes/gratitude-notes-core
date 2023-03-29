@@ -1,9 +1,10 @@
+import Searchbar from "../Searchbar";
 
 
 const RightSidebar: React.FC = () => {  
     return (
       <div className="hidden xl:inline">
-        Search button
+        <Searchbar />
       </div>
     )
   }
