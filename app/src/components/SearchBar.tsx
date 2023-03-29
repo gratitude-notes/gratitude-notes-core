@@ -4,11 +4,12 @@ import useComponentVisible from "../hooks/useComponentVisible";
 
 const Searchbar: React.FC = () => {  
 
-    const [currentSearch, setCurrentSearch] = useState("Search by");
+    const [currentSearchCatergory, setCurrentSearchCatergory] = useState("Search by");
+    const [search, setSearch] = useState('');
 
     const updateCurrentSearch = (current: string) => {
-        if ((current === "Favorites") || (current === "Keywords") || (current === "Scores")) setCurrentSearch(current);
-        else setCurrentSearch("Search by");
+        if ((current === "Favorites") || (current === "Keywords") || (current === "Scores")) setCurrentSearchCatergory(current);
+        else setCurrentSearchCatergory("Search by");
     }
 
     const searchDropdownVisible = useComponentVisible(false);
@@ -21,18 +22,36 @@ const Searchbar: React.FC = () => {
     
     const handleSearchButton = () => {
 
-        setCurrentSearch("Search by");
+        setCurrentSearchCatergory("Search by");
     }
 
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+          console.log('✅ Enter key pressed');
+        }
+    
+        // 👇️ access input value from state
+        console.log(search);
+    
+        // 👇️ access input value from event object
+        // console.log(event.target.value)
+      };
+
+    const searchInputState = (currentSearchCatergory === "Search by") ? true : false;
+
     return (
-        <div ref={searchDropdownVisible.ref} className="relative">
-            <form className="py-1 border border-gray-400 rounded-lg px-2 sm:px-0 flex flex-wrap gap-2 items-center text-md font-semibold text-black dark:text-white">
-                <div onClick={handleSearchDropdown} className="cursor-pointer flex gap-2 items-center">
-                    <div>{currentSearch}</div>
+        <div ref={searchDropdownVisible.ref} className="relative px-2 xl:px-0">
+            <form className="p-1 flex flex-wrap border border-gray-400 dark:border-gray-600 rounded-lg xl:border-0 items-center text-md font-semibold text-black dark:text-white">
+                <div onClick={handleSearchDropdown} className="gap-2 flex hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md cursor-pointer items-center">
+                    <div>{currentSearchCatergory}</div>
                     <BsChevronDown />
                 </div>
-                <input className="flex-grow" type="search" name="search" placeholder={`Search${(currentSearch === "Search by") ? "" : " " + currentSearch}...`}/>
-                <BsSearch onClick={handleSearchButton} className="cursor-pointer" size={20}/>
+
+                <input className="flex-grow px-1 border border-gray-400 dark:border-gray-600 text-black rounded-lg" type="search" name="search"
+                        placeholder={`Search${(currentSearchCatergory === "Search by") ? "" : " " + currentSearchCatergory}...`}
+                        disabled={(searchInputState === true) ? true : false}
+                        onChange={event => setSearch(event.target.value)}
+                        onKeyDown={handleKeyDown}/>
             </form>
 
             {/* Dropdown Menu */}
