@@ -27,21 +27,16 @@ const Searchbar: React.FC = () => {
 
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
-          console.log('✅ Enter key pressed');
+          console.log("Enter key pressed");
+          console.log("Search", search);
         }
-    
-        // 👇️ access input value from state
-        console.log(search);
-    
-        // 👇️ access input value from event object
-        // console.log(event.target.value)
       };
 
     const searchInputState = (currentSearchCatergory === "Search by") ? true : false;
 
     return (
         <div ref={searchDropdownVisible.ref} className="relative px-2 xl:px-0">
-            <form className="p-1 flex flex-wrap border border-gray-400 dark:border-gray-600 rounded-lg xl:border-0 items-center text-md font-semibold text-black dark:text-white">
+            <form className="p-1 gap-2 flex flex-wrap border border-gray-400 dark:border-gray-600 rounded-lg xl:border-0 items-center text-md font-semibold text-black dark:text-white">
                 <div onClick={handleSearchDropdown} className="gap-2 flex hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md cursor-pointer items-center">
                     <div>{currentSearchCatergory}</div>
                     <BsChevronDown />
