@@ -1,4 +1,5 @@
 import useUserBullets, { NoteBullet } from "../../hooks/useUserBullets";
+import SearchBar from "../SearchBar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 
 const FeedList: React.FC = () => {

@@ -2,9 +2,10 @@ import FooterNavbarItem from './FooterNavbarItem';
 
 type FooterNavbarType =  {
     updateViewState: (state: string) => void
+    currentState: string
 }
 
-const FooterNavbar: React.FC<FooterNavbarType> = ({updateViewState}) => {
+const FooterNavbar: React.FC<FooterNavbarType> = ({updateViewState, currentState}) => {
     return (
         <footer>
             <nav>
@@ -12,19 +13,19 @@ const FooterNavbar: React.FC<FooterNavbarType> = ({updateViewState}) => {
                             border-t border-gray-400 text-black dark:text-white bg-white dark:bg-gray-800">
                     <div onClick={() => updateViewState("Home")}
                         className="cursor-pointer">
-                        <FooterNavbarItem icon={"BsHouseDoorFill"}/>
+                        {(currentState === "Home") ? <FooterNavbarItem icon={"BsHouseDoorFill"}/> : <FooterNavbarItem icon={"BsHouseDoor"}/>}    
                     </div>
                     <div onClick={() => updateViewState("Write")}
                         className="cursor-pointer">
-                            <FooterNavbarItem icon={"BsPlusSquare"}/>
+                        {(currentState === "Write") ? <FooterNavbarItem icon={"BsPlusSquareFill"}/> : <FooterNavbarItem icon={"BsPlusSquare"}/>}    
                     </div>
                     <div onClick={() => updateViewState("Week Review")}
                         className="cursor-pointer">
-                        <FooterNavbarItem icon={"BsCalendarWeek"}/>
+                        {(currentState === "Week Review") ? <FooterNavbarItem icon={"BsCalendarWeekFill"}/> : <FooterNavbarItem icon={"BsCalendarWeek"}/>}
                     </div>
                     <div onClick={() => updateViewState("Settings")}
                         className="cursor-pointer">
-                        <FooterNavbarItem icon={"BsGear"}/>
+                        {(currentState === "Settings") ? <FooterNavbarItem icon={"BsGearFill"}/> : <FooterNavbarItem icon={"BsGear"}/>}
                     </div>
                 </div>
             </nav>

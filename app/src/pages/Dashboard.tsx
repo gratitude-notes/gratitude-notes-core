@@ -14,9 +14,14 @@ import { useEffect, useState } from "react";
 const Dashboard: React.FC = () => { 
 
   const [viewState, setViewState] = useState("Home");
+  const notificationVisible = useComponentVisible(false);
 
   const updateViewState = (state: string) => {
     (viewState === state) ? setViewState("Home") : setViewState(state);
+  }
+
+  const handleNotification = () => {
+    (notificationVisible.isComponentVisible) ? notificationVisible.setComponentVisible(false) : notificationVisible.setComponentVisible(true);
   }
 
   const renderCurrent = () => {
@@ -46,14 +51,14 @@ const Dashboard: React.FC = () => {
     }
   }
 
-  console.log(viewState)
-
   return (
     <div className="flex flex-col h-screen w-screen bg-white dark:bg-gray-800">
       {renderCurrent()}
 
       {/* Navbar at bottom, only visible on small screens */}
-      <FooterNavbar updateViewState={updateViewState}/>
+      <FooterNavbar updateViewState={updateViewState} currentState={viewState}/>
+
+      <WebNotification updateViewState={updateViewState}/>
     </div>
 
   );
