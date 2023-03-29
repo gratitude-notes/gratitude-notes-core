@@ -1,18 +1,22 @@
 import { BsPencil } from 'react-icons/bs';
 import useComponentVisible from '../../hooks/useComponentVisible';
 
-interface WriteNoteModalChange {
-    handleWriteNoteModal: () => void
-  }
+// type WriteNoteModalChange = {
+//     handleWriteNoteModal: (state: string) => void
+//   }
 
-const LeftSidebarWriteNote: React.FC<WriteNoteModalChange> = ({handleWriteNoteModal}) => {  
+type WriteNoteModalType = {
+    updateViewState: (state: string) => void
+}
+
+const LeftSidebarWriteNote: React.FC<WriteNoteModalType> = ({updateViewState}) => {  
     return (
         <>
             <div className="hidden sm:flex mx-auto">
-                <button onClick={() => handleWriteNoteModal()} className="hidden md:inline w-40 rounded-full p-2 font-bold text-white bg-cyan-500">
+                <button onClick={() => updateViewState("Write")} className="hidden md:inline w-40 rounded-full p-2 font-bold text-white bg-cyan-500">
                     Write
                 </button>
-                <button onClick={() => handleWriteNoteModal()} className="hidden sm:flex md:hidden rounded-full p-2 bg-cyan-500">
+                <button onClick={() => updateViewState("Write")} className="hidden sm:flex md:hidden rounded-full p-2 bg-cyan-500">
                     <BsPencil size={20} color="white"/>
                 </button>
             </div>

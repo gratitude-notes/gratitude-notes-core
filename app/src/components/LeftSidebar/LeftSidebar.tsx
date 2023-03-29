@@ -1,19 +1,18 @@
 import LeftSidebarItem from "./LeftSidebarItem";
 import LeftSidebarWriteNote from "./LeftSidebarWriteNote";
 
-interface LeftSidebarHandlers {
-  handleSearchModal: () => void,
-  handleWriteNoteModal: () => void,
-  handleWeekInReviewModal: () => void
+type LeftSidebarHandlers = {
+  updateViewState: (state: string) => void
 }
 
-const LeftSidebar: React.FC<LeftSidebarHandlers> = ({handleSearchModal, handleWriteNoteModal, handleWeekInReviewModal}) => {
+
+const LeftSidebar: React.FC<LeftSidebarHandlers> = ({updateViewState}) => {
     return (
       <div className="flex flex-col gap-8 pt-8">
-        <LeftSidebarItem icon={"BsHouseDoor"} title={"Home"} handleClick={() => console.log("Home clicked on Left Sidebar.")}/>
-        <LeftSidebarItem icon={"BsSearch"} title={"Search"} handleClick={handleSearchModal}/>
-        <LeftSidebarItem icon={"BsCalendarWeek"} title={"Week Review"} handleClick={handleWeekInReviewModal}/>
-        <LeftSidebarWriteNote handleWriteNoteModal={handleWriteNoteModal}/>
+        <LeftSidebarItem icon={"BsHouseDoor"} title={"Home"} updateViewState={updateViewState}/>
+        <LeftSidebarItem icon={"BsCalendarWeek"} title={"Week Review"} updateViewState={updateViewState}/>
+        <LeftSidebarItem icon={"BsGear"} title={"Settings"} updateViewState={updateViewState}/>
+        <LeftSidebarWriteNote updateViewState={updateViewState}/>
       </div>
     )
   }

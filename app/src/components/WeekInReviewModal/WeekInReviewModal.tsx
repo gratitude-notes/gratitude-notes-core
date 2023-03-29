@@ -3,14 +3,11 @@ import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 
-interface WeekInReviewModalState {
-  visible: ComponentVisbilityProps,
-  handleChange: () => void,
+type WeekInReviewModalState = {
+  updateViewState: (state: string) => void
 }
 
-const WeekInReview: React.FC<WeekInReviewModalState> = ({visible, handleChange}) => {  
-
-  const isDivVisibleTag = (visible.isComponentVisible) ? "visible" : "hidden";
+const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {  
 
   const data = [
       { text: 'Hey', value: 1000 },
@@ -21,26 +18,16 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({visible, handleChange})
   ]
 
   return (
-    <>
-            <div  ref={visible.ref}
-                  className={`${isDivVisibleTag} absolute z-50 h-screen w-screen bg-white
-                            sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
-                            dark:bg-gray-800`}>
-                {/* HEADER */}
-                <div className="flex justify-between p-4 text-black dark:text-white">
-                    <button onClick={handleChange}>
-                        <BsArrowLeft size={20}/>
-                    </button>
-                    <h1>Week In Review Page</h1>
-                </div>
-
-                <WordCloud data={data} />
-            </div>
-
-    
-            {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
-            <div className={`${isDivVisibleTag} absolute -z-50 sm:z-40 h-screen w-screen bg-black opacity-40`} />
-        </>
+    <div className={`md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow`}>
+      <div className="h-14 py-2 px-4 text-black dark:text-white">
+        <button onClick={() => updateViewState("Home")}><BsArrowLeft size={20}/></button>
+      </div>
+      
+      <div className="text-2xl text-black dark:text-white text-center">
+        Week Review Page
+      </div>
+      {/* <WordCloud data={data} /> */}
+    </div>
   );
 }
 

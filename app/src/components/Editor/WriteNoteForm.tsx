@@ -18,15 +18,16 @@ import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore } from '../../lib/Firebase';
 
-interface FormHandlerProps {
-    handleChange: () => void
+
+type FormHandlerProps = {
+    updateViewState: (state: string) => void
 }
 
 const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[], isFavorited: boolean): NoteBullet => {
     return { bulletJSON, score, timestamp, keywords, isFavorited }
 }
 
-const WriteNoteForm: React.FC<FormHandlerProps> = ({handleChange}) => {
+const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     const initialConfig = {
         namespace: "noteEditor",
         theme: {
@@ -62,54 +63,41 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({handleChange}) => {
             const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
             await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
         }
-        handleChange();
+        updateViewState("Home");
     }
         
     return (
-        <>
-            {/* HEADER */}
-            <div className="h-[12.5%] flex justify-between p-2 text-black dark:text-white">
-                <button onClick={handleChange} className="px-2">
-                    <BsArrowLeft size={20}/>
-                </button>
-                <button onClick={onSubmit} className="font-bold text-white bg-cyan-500 rounded-full px-6">
-                    Write
-                </button>
+        <div className="flex flex-col text-black dark:text-white">
+            <div className="h-14 flex justify-between py-2 px-4 text-black dark:text-white">
+                <button onClick={() => updateViewState("Home")} className=""><BsArrowLeft size={20}/></button>
+                <button onClick={onSubmit} className="font-bold text-white bg-cyan-500 rounded-full px-6">Write</button>
             </div>
-
-            {/* EDITOR */}
-            <div className="bg-white dark:bg-gray-800 h-[87.5%]">
-                <LexicalComposer {...{initialConfig}}>
-                    <div className="h-full flex flex-col px-4">
-                        <div className="h-[7.5%]">
-                            <EditorToolbar />
-                        </div>
-                        {/* EDITOR INNER */}
-                        <div className="h-[85%] relative">
-                            <RichTextPlugin 
-                                contentEditable={
-                                    <ContentEditable className="h-full overflow-y-scroll outline-none mt-4
-                                                                scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
-                                }
-                                placeholder={
-                                    <div className="absolute top-4 left-0 text-gray-400 pointer-events-none">
-                                        Write your thoughts here...
-                                    </div>
-                                }
-                                ErrorBoundary={LexicalErrorBoundary}
-                            />
-                            <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600"/>
-                            <div className="absolute right-0 text-gray-400">
-                                <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
-                            </div>
+            <div className="px-2 flex-grow bg-white dark:bg-gray-800">
+                 <LexicalComposer {...{initialConfig}}>
+                    <EditorToolbar />
+                    <div className="relative">
+                        <RichTextPlugin 
+                                    contentEditable={
+                                        <ContentEditable className="min-h-[100px] max-h-[200px] overflow-y-scroll outline-none
+                                                                    scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
+                                    }
+                                    placeholder={
+                                        <div className="absolute top-0 text-gray-400 pointer-events-none">
+                                            Write your thoughts here...
+                                        </div>
+                                    }
+                                    ErrorBoundary={LexicalErrorBoundary}/>
+                        <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600"/>
+                        <div className="absolute right-0 text-gray-400">
+                            <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
                         </div>
                     </div>
                     <ListPlugin />
                     <HistoryPlugin />
                     <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
-                </LexicalComposer>
+                 </LexicalComposer>
             </div>
-        </>
+        </div>
     )
 }
 

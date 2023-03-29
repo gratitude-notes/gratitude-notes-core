@@ -1,97 +1,54 @@
 
+import { useEffect, useState } from "react";
 import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 import WriteNoteForm from "../Editor/WriteNoteForm";
 
-interface WriteNoteModalState {
-    visible: ComponentVisbilityProps,
-    handleChange: () => void
+// interface WriteNoteModalState {
+//     visible: ComponentVisbilityProps,
+//     handleChange: () => void
+// }
+
+type WriteNoteModalState = {
+    updateViewState: (state: string) => void
 }
 
-const WriteNoteModal: React.FC<WriteNoteModalState> = ({visible, handleChange}) => {
+const WriteNoteModal: React.FC<WriteNoteModalState> = ({updateViewState}) => {
 
-    const isDivVisibleTag = (visible.isComponentVisible) ? "visible" : "hidden";
+    return (    
+        <div className={`md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow`}>
+            {/* WRITE NOTE */}
+            <WriteNoteForm {...{updateViewState}}/>
 
-    return (
-        <>
-            <div 
-                ref={visible.ref} 
-                className={`${isDivVisibleTag} z-50 absolute h-screen w-screen bg-white
-                            sm:h-[80%] sm:w-[550px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
-                            dark:bg-gray-800`}
-            >
-                {/* WRITE h-50% */}
-                <div className="h-1/2">
-                    {/* MAIN CONTENT */}
-                    <WriteNoteForm {...{handleChange}}/>
-                </div>
-
-                {/* IMAGES h-20% */}
-                <div className="h-1/5 w-full px-4 pt-8">
-                    {/* IMAGES INNER DIV */}
-                    <div className="h-full flex flex-row gap-2 overflow-x-scroll sm:justify-center sm:scrollbar-none
-                                    scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-                        {/* IMAGE 1 */}
-                        <div className="aspect-square rounded-xl flex justify-center items-center border-2 border-black">
-                            Image 1
-                        </div>
-                        {/* IMAGE 2 */}
-                        <div className="aspect-square rounded-xl flex justify-center items-center border-2 border-black">
-                            Image 2
-                        </div>
-                        {/* IMAGE 3 */}
-                        <div className="aspect-square rounded-xl flex justify-center items-center border-2 border-black">
-                            Image 3
-                        </div>
-                        {/* IMAGE 4 */}
-                        <div className="aspect-square rounded-xl flex justify-center items-center border-2 border-black">
-                            Image 4
-                        </div>
+            {/* IMAGES */}
+            <div className="px-2">
+                {/* IMAGES INNER DIV */}
+                <div className="flex gap-2 overflow-x-scroll sm:justify-center sm:scrollbar-none
+                                scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
+                    {/* IMAGE 1 */}
+                    <div className="w-20 aspect-square rounded-xl flex justify-center items-center border-2 border-black bg-pink-200">
+                        Image 1
+                    </div>
+                    {/* IMAGE 2 */}
+                    <div className="w-20 aspect-square rounded-xl flex justify-center items-center border-2 border-black bg-pink-200">
+                        Image 2
+                    </div>
+                    {/* IMAGE 3 */}
+                    <div className="w-20 aspect-square rounded-xl flex justify-center items-center border-2 border-black bg-pink-200">
+                        Image 3
+                    </div>
+                    {/* IMAGE 4 */}
+                    <div className="w-20 aspect-square rounded-xl flex justify-center items-center border-2 border-black bg-pink-200">
+                        Image 4
                     </div>
                 </div>
-
-                {/* SCORE h-30% */}
-                {/* <div className="h-[30%] border border-red-500 flex justify-center">
-                    <input type="range" min="-5" max="5"
-                            className="w-1/2 cursor-pointer"/>
-                </div> */}
             </div>
-
-    
-            {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
-            <div className={`${isDivVisibleTag} absolute z-40 h-screen w-screen bg-black opacity-40`} />
-        </>
+        
+            {/* SCORE */}
+            <div className="flex justify-center">
+                <input type="range" min="-5" max="5" className="w-1/2 cursor-pointer"/>
+            </div> 
+        </div>
     );
 }
 
 export default WriteNoteModal;
-
-
-// POTENTIAL MOBILE DESIGN WITH SCORE
-// <>
-//             <div className={`${setVisible} flex z-50 absolute h-screen w-screen bg-white border border-orange-400
-//                             sm:h-[400px] sm:w-[520px] sm:rounded-3xl sm:top-20 sm:left-0 sm:right-0 sm:mx-auto
-//                             dark:bg-gray-800`}>
-//                 {/* WRITE */}
-//                 <div className="flex-[5] border border-red-400">
-//                     {/* HEADER */}
-//                     <div className="relative flex justify-between p-2 text-black dark:text-white">
-//                         <button onClick={handleChange} className="px-2">
-//                             <BsArrowLeft size={20}/>
-//                         </button>
-//                         <button onClick={handleChange} className="font-bold text-white bg-cyan-500 rounded-full px-6 py-2">
-//                             Write
-//                         </button>
-//                     </div>
-//                     {/* MAIN CONTENT */}
-//                     <Editor />
-//                 </div>
-//                 {/* SCORE */}
-//                 <div className="flex-1 bg-black">
-// 
-//                 </div>
-//             </div>
-// 
-//     
-//             {/* TRANSPARENT BACKGROUND ON LARGE SCREENS */}
-//             <div className={`${setVisible} absolute z-40 h-screen w-screen bg-black opacity-40`} />
-// </>

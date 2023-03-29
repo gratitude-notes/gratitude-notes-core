@@ -6,8 +6,8 @@ const Location: React.FC = () => {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
+        // console.log("Latitude is :", position.coords.latitude);
+        // console.log("Longitude is :", position.coords.longitude);
         getAddress(position.coords.latitude, position.coords.longitude)
 
     })
