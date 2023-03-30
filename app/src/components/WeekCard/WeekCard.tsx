@@ -230,9 +230,9 @@ const WeekCard: React.FC = () => {
     }
     
     return (
-        <div ref={infoVisible.ref} className="mt-4 mb-6 flex flex-col">
+        <div ref={infoVisible.ref} className="my-2 flex flex-col">
             {/* WEEKCARD */}
-            <div className="flex flex-row overflow-x-scroll justify-center
+            <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
                 {data.map((singleDayData, key) => {
@@ -244,10 +244,9 @@ const WeekCard: React.FC = () => {
             </div>
 
             {/* DAYCARD POINT INFORMATION */}
-            <div className={`${infoDisplayStatus} flex h-fit w-fit mx-auto text-black dark:text-white`}>
-                <h1>Info time: {infoTime} | Info score: {infoScore}</h1>
+            <div className={`${infoDisplayStatus} flex h-fit items-center w-fit mx-auto text-black dark:text-white`}>
+                <h1 className="font-semibold text-sm text-gray-400">Info time: {infoTime} | Info score: {infoScore}</h1>
             </div>
-
         </div>
     );
 }
