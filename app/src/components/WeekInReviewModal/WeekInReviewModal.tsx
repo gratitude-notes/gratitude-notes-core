@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
@@ -8,7 +8,13 @@ type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
 }
 
-const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {  
+const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
+  
+  const ref = useRef<null | HTMLDivElement>(null); 
+
+  const handleClick = () => {
+    ref.current?.scrollIntoView({behavior: 'smooth'});
+  }
 
   const data = [
       { text: 'Hey', value: 1000 },
@@ -19,14 +25,26 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
   ]
 
   return (
-    <div className={`md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow`}>
-      <div className="h-14 py-2 px-4 text-black dark:text-white">
+    <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto`}>
+      {/* HEADER */}
+      <div className="flex justify-between text-black dark:text-white">
         <button onClick={() => updateViewState("Home")}><BsArrowLeft size={20}/></button>
+        <h1 className="text-xl font-bold text-black dark:text-white justify-end">Your Week in Review</h1>
       </div>
       
-      <div className="text-2xl text-black dark:text-white text-center">
-        Week Review Page
+      {/* OVERFLOW DIV */}
+      <div className="h-full overflow-y-auto
+                      scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
+        
+        <div className="h-full bg-red-500">
+          <h1>MAP</h1>
+          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
+        </div>
+        <div ref={ref} className="h-full bg-blue-500">
+          <h1>DETAILED INFO ABOUT USERS WEEK</h1>
+        </div>
       </div>
+
       {/* <WordCloud data={data} /> */}
     </div>
   );
