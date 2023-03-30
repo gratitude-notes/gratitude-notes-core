@@ -3,6 +3,7 @@ import { signOut } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 import { useSession } from '../../lib/Session';
 import SettingsModal from '../SettingsModal/SettingsModal';
+import { BsGearFill } from 'react-icons/bs';
 
 
 const AvatarButton: React.FC = () => {
@@ -46,13 +47,9 @@ const AvatarButton: React.FC = () => {
                     <div onClick={handleSettingsClick}
                         className="flex gap-2 cursor-pointer p-2 text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <BsGearFill size={20}/>                            
                         <span>Settings</span>
                     </div>
-                    <div onClick={() => console.log("Dashboard clicked in Avatar menu.")}
-                        className="flex gap-2 cursor-pointer p-2 text-sm
-                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
-                        <span>Dashboard</span>
-                    </div>  
                     <div onClick={handleClick}
                         className="flex gap-2 cursor-pointer p-2 text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">

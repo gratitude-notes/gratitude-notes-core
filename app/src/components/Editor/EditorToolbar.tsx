@@ -106,7 +106,7 @@ const EditorToolbar = () => {
     }, [editor, updateToolbar])
 
     return (
-        <div className="flex gap-2 justify-center">
+        <div className="flex flex-wrap gap-2 justify-center">
             <button
                 disabled={!canUndo}
                 className={clsx(

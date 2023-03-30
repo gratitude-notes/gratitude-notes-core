@@ -1,11 +1,11 @@
 const KeyWordItem: React.FC<{keywords : string[]}> = ({keywords} : {keywords : string[]}) => {  
     
     return (
-        <ul className="mb-1">
+        <div>
             {keywords.map((keyword: string, index) => (
-                <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-cyan-500 mr-1">#{keyword}</span>
+                <div key={index} className="hover:cursor-pointer inline-block bg-gray-200 rounded-full m-0.5 px-2 py-0.5 text-sm font-semibold text-cyan-500">#{keyword}</div>
             ))}
-        </ul>
+        </div>
     )
   }
   
