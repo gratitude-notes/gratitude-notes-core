@@ -3,7 +3,7 @@ import LeftSidebar from "../components/LeftSidebar/LeftSidebar";
 import WriteNoteModal from "../components/WriteNoteSequence/WriteNoteModal";
 import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
-import WeekCard from "../components/WeekCard";
+import WeekCard from "../components/WeekCard/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
 import FooterNavbar from "../components/FooterNavbar/FooterNavbar";
 import SettingsModal from "../components/SettingsModal/SettingsModal";
