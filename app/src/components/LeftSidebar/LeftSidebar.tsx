@@ -1,8 +1,9 @@
+import { ViewState } from "../../pages/Dashboard";
 import LeftSidebarItem from "./LeftSidebarItem";
 import LeftSidebarWriteNote from "./LeftSidebarWriteNote";
 
 type LeftSidebarHandlers = {
-  updateViewState: (state: string) => void
+  updateViewState: (state: ViewState) => void
 }
 
 

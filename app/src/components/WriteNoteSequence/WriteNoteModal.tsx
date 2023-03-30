@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
+import { ViewState } from "../../pages/Dashboard";
 import WriteNoteForm from "../Editor/WriteNoteForm";
 
 // interface WriteNoteModalState {
@@ -9,7 +10,7 @@ import WriteNoteForm from "../Editor/WriteNoteForm";
 // }
 
 type WriteNoteModalState = {
-    updateViewState: (state: string) => void
+    updateViewState: (state: ViewState) => void
 }
 
 const WriteNoteModal: React.FC<WriteNoteModalState> = ({updateViewState}) => {

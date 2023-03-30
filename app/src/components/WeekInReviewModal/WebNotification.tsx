@@ -2,9 +2,10 @@ import React, { useRef } from 'react';
 import { BsFillCalendarWeekFill } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { useState, useEffect } from "react";
+import { ViewState } from '../../pages/Dashboard';
 
 type NotificationState = {
-  updateViewState: (state: string) => void
+  updateViewState: (state: ViewState) => void
 }
 
 const WebNotification: React.FC<NotificationState> = ({ updateViewState }) => {

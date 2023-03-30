@@ -17,10 +17,11 @@ import { addDoc, collection, Timestamp, setDoc } from '@firebase/firestore';
 import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore } from '../../lib/Firebase';
+import { ViewState } from '../../pages/Dashboard';
 
 
 type FormHandlerProps = {
-    updateViewState: (state: string) => void
+    updateViewState: (state: ViewState) => void
 }
 
 const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[], isFavorited: boolean): NoteBullet => {

@@ -1,12 +1,13 @@
 import { BsPencil } from 'react-icons/bs';
 import useComponentVisible from '../../hooks/useComponentVisible';
+import { ViewState } from '../../pages/Dashboard';
 
 // type WriteNoteModalChange = {
 //     handleWriteNoteModal: (state: string) => void
 //   }
 
 type WriteNoteModalType = {
-    updateViewState: (state: string) => void
+    updateViewState: (state: ViewState) => void
 }
 
 const LeftSidebarWriteNote: React.FC<WriteNoteModalType> = ({updateViewState}) => {  

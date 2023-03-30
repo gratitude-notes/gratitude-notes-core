@@ -11,12 +11,15 @@ import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal
 import WebNotification from "../components/WeekInReviewModal/WebNotification"
 import { useEffect, useState } from "react";
 
+const screens = ["Home", "Write", "Settings", "Week Review"] as const;
+export type ViewState = typeof screens[number];
+
 const Dashboard: React.FC = () => { 
 
-  const [viewState, setViewState] = useState("Home");
+  const [viewState, setViewState] = useState<ViewState>("Home");
   const notificationVisible = useComponentVisible(false);
 
-  const updateViewState = (state: string) => {
+  const updateViewState = (state: ViewState) => {
     (viewState === state) ? setViewState("Home") : setViewState(state);
   }
 
@@ -37,7 +40,7 @@ const Dashboard: React.FC = () => {
             <div className="flex flex-grow overflow-y-auto
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
               <div className="fixed h-full sm:w-[50px] md:w-[300px] sm:border-r border-gray-400">
-                <LeftSidebar updateViewState={updateViewState}/>
+                <LeftSidebar updateViewState={updateViewState} />
               </div>
               <div className="w-full sm:pl-[50px] md:pl-[300px] xl:pl-[400px] md:pr-[100px]">
                 <FeedList />

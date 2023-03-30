@@ -2,9 +2,10 @@ import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
+import { ViewState } from '../../pages/Dashboard';
 
 type WeekInReviewModalState = {
-  updateViewState: (state: string) => void
+  updateViewState: (state: ViewState) => void
 }
 
 const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {  

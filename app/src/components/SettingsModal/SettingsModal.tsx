@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
+import { ViewState } from "../../pages/Dashboard";
 import DeleteAccountModal from "./DeleteAccountModal";
 import SettingsProfile from "./SettingsProfile";
 
 
 type SettingsModalState = {
-    updateViewState: (state: string) => void
+    updateViewState: (state: ViewState) => void
 }
 
 const SettingsModal: React.FC<SettingsModalState> = ({updateViewState}) => {

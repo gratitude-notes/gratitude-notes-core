@@ -1,7 +1,8 @@
+import { ViewState } from '../../pages/Dashboard';
 import FooterNavbarItem from './FooterNavbarItem';
 
 type FooterNavbarType =  {
-    updateViewState: (state: string) => void
+    updateViewState: (state: ViewState) => void
     currentState: string
 }
 

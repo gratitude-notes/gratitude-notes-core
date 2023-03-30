@@ -1,9 +1,10 @@
 import { BsGear, BsCalendarWeek, BsHouseDoor } from 'react-icons/bs';
+import { ViewState } from '../../pages/Dashboard';
 
 type SidebarItem = {
     icon: string,
-    title: string,
-    updateViewState: (state: string) => void
+    title: ViewState,
+    updateViewState: (state: ViewState) => void
 }
 
 const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title, updateViewState}) => {  
