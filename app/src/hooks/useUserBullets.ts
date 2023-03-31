@@ -14,6 +14,7 @@ export type NoteBullet = {
     keywords: string[],
     isFavorited: boolean
     bulletDocID?: string,
+    images: string[]
 }
 
 const useUserBullets = () => {
@@ -33,6 +34,7 @@ const useUserBullets = () => {
                 timestamp: bulletDocData.timestamp,
                 isFavorited: bulletDocData.isFavorited,
                 bulletDocID: bulletDocData.bulletDocID,
+                images: bulletDocData.images
             }
             
             collectionBullets.push(composedBullet)

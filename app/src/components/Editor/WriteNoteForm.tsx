@@ -24,8 +24,8 @@ type FormHandlerProps = {
     updateViewState: (state: ViewState) => void
 }
 
-const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[], isFavorited: boolean): NoteBullet => {
-    return { bulletJSON, score, timestamp, keywords, isFavorited }
+const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[], isFavorited: boolean, images: string[]): NoteBullet => {
+    return { bulletJSON, score, timestamp, keywords, isFavorited, images }
 }
 
 const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
@@ -58,7 +58,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     const editorStateRef = useRef<EditorState>();
 
     const onSubmit = async () => {
-        const newBullet = composeBullet(JSON.stringify(editorStateRef.current), 5, Timestamp.now(), [], false);
+        const newBullet = composeBullet(JSON.stringify(editorStateRef.current), 5, Timestamp.now(), [], false, []);
         if (session && session.user) {
             const bulletCollectionRef = collection(fb_firestore, "users", session.user.uid, "notes");
             const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
