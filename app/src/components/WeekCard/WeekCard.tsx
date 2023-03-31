@@ -1,6 +1,9 @@
 import DayCard from "./DayCard";
 import { Timestamp } from "@firebase/firestore";
 import dayjs from "dayjs";
+import useComponentVisible from "../../hooks/useComponentVisible";
+import { RiTimeLine } from "react-icons/ri";
+import { useState } from "react";
 
 const data = [
     {
@@ -208,18 +211,41 @@ const WeekCard: React.FC = () => {
         let temp = dayjs().startOf('week').add(i, 'days');
         weekCardDates.push(temp.date());
     }
-    
+
+    const infoVisible = useComponentVisible(false);
+    const infoDisplayStatus = (infoVisible.isComponentVisible) ? "visible" : "invisible";
+    const [infoTime, setInfoTime] = useState("");
+    const [infoScore, setInfoScore] = useState(-100);
+
+    const handleMouseOn = (time: string, score: number) => {
+        setInfoTime(time);
+        setInfoScore(score);
+        infoVisible.setComponentVisible(true);
+    }
+
+    const handleMouseOut = () => {
+        infoVisible.setComponentVisible(false);
+        setInfoTime("");
+        setInfoScore(-100);
+    }
     
     return (
-        <div className="my-4">
+        <div ref={infoVisible.ref} className="my-2 flex flex-col">
+            {/* WEEKCARD */}
             <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
                 {data.map((singleDayData, key) => {
                     return (
-                        <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData} />
+                        <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData}
+                                handleMouseOn={handleMouseOn} handleMouseOut={handleMouseOut}/>
                     );
                 })}
+            </div>
+
+            {/* DAYCARD POINT INFORMATION */}
+            <div className={`${infoDisplayStatus} flex h-fit items-center w-fit mx-auto text-black dark:text-white`}>
+                <h1 className="font-semibold text-sm text-gray-400">Info time: {infoTime} | Info score: {infoScore}</h1>
             </div>
         </div>
     );

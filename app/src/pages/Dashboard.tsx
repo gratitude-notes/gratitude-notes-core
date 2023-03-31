@@ -3,7 +3,7 @@ import LeftSidebar from "../components/LeftSidebar/LeftSidebar";
 import WriteNoteModal from "../components/WriteNoteSequence/WriteNoteModal";
 import RightSidebar from "../components/RightSidebar/RightSidebar";
 import useComponentVisible from "../hooks/useComponentVisible";
-import WeekCard from "../components/WeekCard";
+import WeekCard from "../components/WeekCard/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
 import FooterNavbar from "../components/FooterNavbar/FooterNavbar";
 import SettingsModal from "../components/SettingsModal/SettingsModal";
@@ -39,13 +39,21 @@ const Dashboard: React.FC = () => {
 
             <div className="flex flex-grow overflow-y-auto
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-              <div className="fixed h-full sm:w-[50px] md:w-[300px] sm:border-r border-gray-400">
+              <div className="fixed h-full border-gray-400
+                              sm:w-[50px] sm:border-r
+                              md:w-[300px]">
                 <LeftSidebar updateViewState={updateViewState} />
               </div>
-              <div className="w-full sm:pl-[50px] md:pl-[300px] xl:pl-[400px] md:pr-[100px]">
+              <div className="w-full
+                              sm:pl-[50px]
+                              md:pl-[300px]
+                              lg:pl-[400px] lg:pr-[100px]
+                              xl:pl-[300px] xl:pr-[0px]
+                              2xl:pl-[450px] 2xl:pr-[150px]">
                 <FeedList />
               </div>
-              <div className="xl:w-[400px]">
+              <div className="xl:pr-[100px] xl:w-[400px]
+                              2xl:pr-[200px]">
                 <RightSidebar />
               </div>
             </div>
