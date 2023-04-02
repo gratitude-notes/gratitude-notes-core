@@ -18,6 +18,7 @@ import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
+import FileUploader from './DragDrop';
 
 
 type FormHandlerProps = {
@@ -94,6 +95,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                         </div>
                     </div>
                     <ListPlugin />
+                    <FileUploader></FileUploader>
                     <HistoryPlugin />
                     <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
                  </LexicalComposer>
