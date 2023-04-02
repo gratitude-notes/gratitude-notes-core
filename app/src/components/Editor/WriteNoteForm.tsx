@@ -95,7 +95,9 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                         </div>
                     </div>
                     <ListPlugin />
-                    <FileUploader></FileUploader>
+                    <div my-7 mx-3>
+                        <FileUploader></FileUploader>
+                    </div>
                     <HistoryPlugin />
                     <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
                  </LexicalComposer>
