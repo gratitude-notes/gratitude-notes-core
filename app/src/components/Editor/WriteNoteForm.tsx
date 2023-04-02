@@ -21,6 +21,7 @@ import { ViewState } from '../../pages/Dashboard';
 import FileUploader from './DragDrop';
 
 
+
 type FormHandlerProps = {
     updateViewState: (state: ViewState) => void
 }
@@ -95,7 +96,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                         </div>
                     </div>
                     <ListPlugin />
-                    <div my-7 mx-3>
+                    <div>
                         <FileUploader></FileUploader>
                     </div>
                     <HistoryPlugin />
