@@ -26,7 +26,9 @@ const useProfileData = () => {
     }
 
     const handleData = (snapshot: DocumentSnapshot<DocumentData>) => {
-        if (!snapshot.exists()) { createProfileData }
+        if (!snapshot.exists()) {
+            Promise.resolve(createProfileData)
+        }
         else {
             setProfileData({data: snapshot.data()})
         }
@@ -38,7 +40,7 @@ const useProfileData = () => {
 
     useEffect(() => {
         if (session?.user) {
-            const ref = doc(fb_firestore, "users", session.user.uid)
+            const ref = doc(fb_firestore, "users", session.user.uid);
             const unsubscribe = onSnapshot(ref, handleData, handleError);
             return unsubscribe;
         }

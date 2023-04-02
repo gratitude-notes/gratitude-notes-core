@@ -10,12 +10,13 @@ import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
 import WebNotification from "../components/WeekInReviewModal/WebNotification"
 import { useEffect, useState } from "react";
+import useProfileData from "../hooks/useProfileData";
 
 const screens = ["Home", "Write", "Settings", "Week Review"] as const;
 export type ViewState = typeof screens[number];
 
 const Dashboard: React.FC = () => { 
-
+  const currentUserProfileData = useProfileData();
   const [viewState, setViewState] = useState<ViewState>("Home");
   const notificationVisible = useComponentVisible(false);
 
