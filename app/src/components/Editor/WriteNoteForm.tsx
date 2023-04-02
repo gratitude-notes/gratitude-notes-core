@@ -13,7 +13,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { EditorState } from 'lexical';
-import { addDoc, collection, Timestamp, setDoc } from '@firebase/firestore';
+import { addDoc, collection, Timestamp, setDoc, updateDoc } from '@firebase/firestore';
 import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore } from '../../lib/Firebase';
@@ -38,6 +38,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const storage = getStorage();
     const session = useSession();
+    const bulletId = 
 
     useEffect(() => {
         const previews = files.map((file) =>
@@ -88,38 +89,80 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
             const bulletCollectionRef = collection(fb_firestore, "users", session.user.uid, "notes");
             const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
             await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
+            
+            
+            // files.forEach(async (file) => {
+            //     await uploadFilesToFirebase(file, newBulletDocRef);
+            // });
+            const downloadURLs = await Promise.all(files.map(async (file) => uploadFilesToFirebase(file, newBulletDocRef)))
+
+            // Update the document with the array of URLs
+            await updateDoc(newBulletDocRef, { images: downloadURLs });
             console.log(bulletCollectionRef);
-            files.forEach(uploadFilesToFirebase)
+            
             
         }
         updateViewState("Home");
     }
 
-    const uploadFilesToFirebase = async (file: File) => {
-        try {
-          console.log(session)
-          //const user = session? user
-          const user = session ? session.user : null;
-          //const storageRef = ref(storage, `/users/${user?.uid}`);
-          const storageRef = ref(storage, `/users/${user?.uid}/noteid1/${file.name}`);
-          const uploadTask = uploadBytesResumable(storageRef, file);
+    // const uploadFilesToFirebase = async (file: File, newBulletDocRef: any) => {
+    //     try {
+    //       console.log(session)
+    //       //const user = session? user
+    //       const user = session ? session.user : null;
+    //       //const storageRef = ref(storage, `/users/${user?.uid}`);
+    //       const storageRef = ref(storage, `/users/${user?.uid}/${newBulletDocRef.id}/${file.name}`);
+    //       const uploadTask = uploadBytesResumable(storageRef, file);
     
-          uploadTask.on('state_changed',
-            (snapshot) => {
-              // Handle the progress of the upload
-            },
-            (error) => {
-              console.error("Error uploading file:", error);
-            },
-            async () => {
-              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-              console.log("File uploaded to Firebase Storage:", file.name, "URL:", downloadURL);
-            }
-          );
+    //       uploadTask.on('state_changed',
+    //         (snapshot) => {
+    //           // Handle the progress of the upload
+    //         },
+    //         (error) => {
+    //           console.error("Error uploading files:", error);
+    //         },
+    //         async () => {
+    //           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+    //           console.log("File uploaded to Firebase Storage:", file.name, "URL:", downloadURL);
+    //           resolve(downloadURL);
+    //         }
+    //       );
+    //     } catch (error) {
+    //       console.error("Error uploading file:", error);
+    //     }
+    //   };
+
+    const uploadFilesToFirebase = async (file: File, newBulletDocRef: any) => {
+        try {
+          console.log(session);
+          const user = session ? session.user : null;
+          const storageRef = ref(storage, `/users/${user?.uid}/${newBulletDocRef.id}/${file.name}`);
+          const uploadTask = uploadBytesResumable(storageRef, file);
+      
+          return new Promise<string>((resolve, reject) => {
+            uploadTask.on(
+              "state_changed",
+              (snapshot) => {
+                // Handle the progress of the upload
+              },
+              (error) => {
+                console.error("Error uploading files:", error);
+                reject(error);
+              },
+              async () => {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                console.log("File uploaded to Firebase Storage:", file.name, "URL:", downloadURL);
+                resolve(downloadURL);
+              }
+            );
+          });
         } catch (error) {
           console.error("Error uploading file:", error);
+          throw error;
         }
       };
+      
     
     
       const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -241,3 +284,4 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
 }
 
 export default WriteNoteForm;
+
