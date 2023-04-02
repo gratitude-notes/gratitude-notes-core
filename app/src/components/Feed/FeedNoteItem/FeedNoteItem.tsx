@@ -24,13 +24,10 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <Reader noteJSON={bulletJSON}/>
 
                     {/* IMAGES */}
-                    <div className="flex flex-wrap gap-1 justify-center">
+                    <div className="w-[304px] gap-1 flex flex-wrap mx-auto">
                         {images.map((image: string, index: number) => (
-                            <div key={index}
-                                className="w-[200px] bg-black rounded-xl border border-gray-300 dark:border-gray-600">
-                                <img src={image} key={index} 
-                                     className="aspect-square object-scale-down rounded-xl relative"/>
-                            </div>
+                            <img src={image} key={index} 
+                                 className="w-[150px] aspect-square object-cover rounded-xl"/>
                         ))}
                     </div>
 
@@ -51,3 +48,14 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
   }
   
   export default NoteItem;
+
+{/* IMAGES */}
+{/* <div className="flex flex-wrap gap-1 justify-center">
+    {images.map((image: string, index: number) => (
+        <div key={index}
+            className="w-[200px] bg-black rounded-xl border border-gray-300 dark:border-gray-600">
+            <img src={image} key={index} 
+                 className="aspect-square object-scale-down rounded-xl relative"/>
+        </div>
+    ))}
+</div> */}
