@@ -9,7 +9,7 @@ import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { ListItemNode, ListNode } from '@lexical/list';
 import { OverflowNode } from '@lexical/overflow';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { EditorState } from 'lexical';
@@ -20,7 +20,7 @@ import { fb_firestore, fb_storage } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
 import EditorImageDropzone from './EditorImageDropzone';
 import toast from 'react-hot-toast';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 
 type FormHandlerProps = {
@@ -71,15 +71,10 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         const bulletCollectionRef = collection(fb_firestore, "users", session.user.uid, "notes");
         const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
         await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
-        //console.log(images)
-        const downloadURLs = await Promise.all(localImages.map(async (localImage) => uploadImage(localImage, newBulletDocRef.id)))
-
-        //const imageDestinationURLs = await uploadImages(localImages, newBulletDocRef.id);
-        //console.log(imageDestinationURLs);
-        // // Update the document with the array of URLs
+        
+        const downloadURLs = await uploadImages(newBulletDocRef.id);        
         await updateDoc(newBulletDocRef, { images: downloadURLs });
-        // Update the document with the array of URLs
-        //await updateDoc(newBulletDocRef, { images: downloadURLs }, {merge: true});
+
         toast.success("Note Submitted!");
       }
     } catch(error) {
@@ -88,6 +83,13 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     }
 
     updateViewState("Home");
+  }
+
+  const uploadImages = async (documentID: string) => {
+    const uploadTasks = localImages.map(localImage => uploadImage(localImage, documentID))
+    const imageURLs = await Promise.all(uploadTasks);
+
+    return imageURLs;
   }
 
   const uploadImage = async (imageFile: File, documentID: string) => {

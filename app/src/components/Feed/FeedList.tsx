@@ -1,10 +1,10 @@
 import useUserBullets, { NoteBullet } from "../../hooks/useUserBullets";
+// @ts-ignore
 import Searchbar from "../Searchbar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 
 const FeedList: React.FC = () => {
   const { bullets } = useUserBullets();
-  console.log(bullets)
 
   return (
     <ol className="bg-white dark:bg-gray-800
