@@ -77,9 +77,9 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         //const imageDestinationURLs = await uploadImages(localImages, newBulletDocRef.id);
         //console.log(imageDestinationURLs);
         // // Update the document with the array of URLs
-        // await setDoc(newBulletDocRef, { images: downloadURLs }, { merge: true });
+        await setDoc(newBulletDocRef, { images: downloadURLs }, { merge: true });
         // Update the document with the array of URLs
-        await updateDoc(newBulletDocRef, { images: downloadURLs });
+        //await updateDoc(newBulletDocRef, { images: downloadURLs }, {merge: true});
         toast.success("Note Submitted!");
       }
     } catch(error) {
