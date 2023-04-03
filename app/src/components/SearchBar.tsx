@@ -21,7 +21,6 @@ const Searchbar: React.FC = () => {
     const searchDropdownState = (searchDropdownVisible.isComponentVisible) ? "visible" : "hidden";
     
     const handleSearchButton = () => {
-
         setCurrentSearchCatergory("Search by");
     }
 
