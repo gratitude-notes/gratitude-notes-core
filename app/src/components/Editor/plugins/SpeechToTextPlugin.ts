@@ -40,7 +40,7 @@ const SpeechToTextPlugin = (): null => {
                 const { transcript } = resultItem.item(0);
 
                 if (!resultItem.isFinal) {
-                return;
+                    return;
                 }
 
                 editor.update(() => {
