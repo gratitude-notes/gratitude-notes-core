@@ -22,6 +22,7 @@ import EditorImageDropzone from './EditorImageDropzone';
 import toast from 'react-hot-toast';
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
 
 
@@ -137,7 +138,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                       
                   </div>
                   <SpeechToTextPlugin />
-                  
+                  <AutoFocusPlugin />
                   <ListPlugin />
                   <HistoryPlugin />
                   <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />

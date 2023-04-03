@@ -18,9 +18,12 @@ const SpeechToTextButton: React.FC = () => {
 
     return (
         <div>
-            <button onClick={toggleSpeechToText}>
-                <BiMicrophone size={20} className={"bg-black"} />
-            </button>
+            {
+                SUPPORT_SPEECH_RECOGNITION && 
+                <button onClick={toggleSpeechToText}>
+                    <BiMicrophone size={20} className={"bg-black"} />
+                </button>
+            }
         </div>
     )
 }
