@@ -8,6 +8,33 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import useComponentVisible from "../../../hooks/useComponentVisible";
+import { useRef, useState } from "react";
+
+interface ArrowProps {
+    className?: string;
+    style?: React.CSSProperties;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+  }
+  
+// const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
+//     return (
+//       <div
+//         className={`${className}`}
+//         style={{ ...style, display: "block", background: "red", color: "white" }}
+//         onClick={onClick}
+//       />
+//     );
+// }
+
+// const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
+//     return (
+//         <div
+//             className={`${className}`}
+//             onClick={onClick}
+//       />
+//     );
+// };
+  
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
     const date = timestamp.toDate();
@@ -22,16 +49,29 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
 
     const imagesSlider = useComponentVisible(false);    // if false, images slider not active, if true, images slider active
     
-    const handleImagesSlider = () => {
-        (imagesSlider.isComponentVisible) ? imagesSlider.setComponentVisible(false) : imagesSlider.setComponentVisible(true);
+    const handleImagesSlider = (index: number) => {
+        if (imagesSlider.isComponentVisible) {
+            setInitialSlideIndex(0);
+            imagesSlider.setComponentVisible(false);
+        } else {
+            setInitialSlideIndex(index);
+            imagesSlider.setComponentVisible(true);
+        }
     }
+
+    const [initialSlideIndex, setInitialSlideIndex] = useState(0);
     
     const settings = {
         dots: true,
-        infinite: true,
+        infinite: false,
+        draggable: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        className: "rounded-xl",
+        initialSlide: initialSlideIndex,
+        // nextArrow: <NextArrow />,
+        // prevArrow: <PrevArrow />
     };
     
     return (
@@ -48,8 +88,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                             ?
                                 // IMAGES SLIDER ACTIVE
                                 <div className="w-[300px] h-[300px] mx-auto">
-                                    <Slider className="rounded-xl"
-                                        {...settings}>
+                                    <Slider {...settings}>
                                         {images.map((image: string, index: number) => (
                                             <div key={index}
                                                 className="w-[300px] bg-black rounded-xl">
@@ -63,7 +102,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                                 // IMAGES SLIDER NOT ACTIVE
                                 <div className="w-[300px] gap-1 flex flex-wrap mx-auto">
                                     {images.map((image: string, index: number) => (
-                                        <img onClick={handleImagesSlider}
+                                        <img onClick={() => handleImagesSlider(index)}
                                              src={image} key={index} 
                                              className="mx-auto cursor-pointer w-[148px] aspect-square object-cover rounded-xl"/>
                                     ))}
