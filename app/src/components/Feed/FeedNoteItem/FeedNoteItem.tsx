@@ -61,7 +61,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                                 </div>
                             :
                                 // IMAGES SLIDER NOT ACTIVE
-                                <div className="w-[300px] gap-1 flex flex-wrap mx-auto outline outline-black">
+                                <div className="w-[300px] gap-1 flex flex-wrap mx-auto">
                                     {images.map((image: string, index: number) => (
                                         <img onClick={handleImagesSlider}
                                              src={image} key={index} 
