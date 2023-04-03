@@ -22,7 +22,7 @@ const SpeechToTextButton: React.FC = () => {
             {
                 SUPPORT_SPEECH_RECOGNITION && 
                 <button onClick={toggleSpeechToText}>
-                    <BiMicrophone size={20} className={clsx(isSpeechToText ? "bg-black" : "bg-red-300")} />
+                    <BiMicrophone size={20} className={clsx(!isSpeechToText ? "bg-black" : "bg-red-300")} />
                 </button>
             }
         </div>
