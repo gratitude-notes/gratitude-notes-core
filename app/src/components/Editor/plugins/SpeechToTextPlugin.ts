@@ -1,5 +1,4 @@
 import type { LexicalCommand, LexicalEditor, RangeSelection } from "lexical";
-
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getSelection, $isRangeSelection, COMMAND_PRIORITY_EDITOR, createCommand, REDO_COMMAND, UNDO_COMMAND } from "lexical";
 import { useEffect, useRef, useState } from "react";
@@ -20,74 +19,71 @@ const VOICE_COMMANDS: Readonly<Record<string,(arg0: { editor: LexicalEditor; sel
 
 export const SUPPORT_SPEECH_RECOGNITION: boolean = "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
 
-function SpeechToTextPlugin(): null {
+const SpeechToTextPlugin = (): null => {
   const [editor] = useLexicalComposerContext();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   
   // @ts-ignore
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
   const recognition = useRef<typeof SpeechRecognition | null>(null);
 
   useEffect(() => {
-    if (isEnabled && recognition.current === null) {
+        if (isEnabled && recognition.current === null) {
 
-      recognition.current = new SpeechRecognition();
-      recognition.current.continuous = true;
-      recognition.current.interimResults = true;
-      recognition.current.addEventListener("result", (event: typeof SpeechRecognition) => {
+            recognition.current = new SpeechRecognition();
+            recognition.current.continuous = true;
+            recognition.current.interimResults = true;
 
-        const resultItem = event.results.item(event.resultIndex);
-        const { transcript } = resultItem.item(0);
+            recognition.current.addEventListener("result", (event: typeof SpeechRecognition) => {
 
-        if (!resultItem.isFinal) {
-          return;
+                const resultItem = event.results.item(event.resultIndex);
+                const { transcript } = resultItem.item(0);
+
+                if (!resultItem.isFinal) {
+                return;
+                }
+
+                editor.update(() => {
+                    const selection = $getSelection();
+
+                    if ($isRangeSelection(selection)) {
+                        const command = VOICE_COMMANDS[transcript.toLowerCase().trim()];
+
+                        if (command) {
+                            command({editor, selection});
+                        } else if (transcript.match(/\s*\n\s*/)) {
+                            selection.insertParagraph();
+                        } else {
+                            selection.insertText(transcript);
+                        }
+                    }
+                });
+            });
         }
 
-        editor.update(() => {
-          const selection = $getSelection();
-
-          if ($isRangeSelection(selection)) {
-            const command = VOICE_COMMANDS[transcript.toLowerCase().trim()];
-
-            if (command) {
-              command({editor, selection});
-            } else if (transcript.match(/\s*\n\s*/)) {
-              selection.insertParagraph();
+        if (recognition.current) {
+            if (isEnabled) {
+                recognition.current.start();
             } else {
-              selection.insertText(transcript);
+                recognition.current.stop();
             }
-          }
-        });
-      });
-    }
+        }
 
-    if (recognition.current) {
-      if (isEnabled) {
-        recognition.current.start();
-      } else {
-        recognition.current.stop();
-      }
-    }
+        return () => {
+            if (recognition.current !== null) {
+                recognition.current.stop();
+            }
+        };
+    }, [SpeechRecognition, editor, isEnabled]);
 
-    return () => {
-      if (recognition.current !== null) {
-        recognition.current.stop();
-      }
-    };
-  }, [SpeechRecognition, editor, isEnabled]);
+    useEffect(() => {
+        return editor.registerCommand(SPEECH_TO_TEXT_COMMAND, (isEnabled: boolean) => {
+            setIsEnabled(isEnabled);
+            return true;
+        }, COMMAND_PRIORITY_EDITOR);
+    }, [editor]);
 
-  useEffect(() => {
-    return editor.registerCommand(SPEECH_TO_TEXT_COMMAND, (_isEnabled: boolean) => {
-        setIsEnabled(_isEnabled);
-        return true;
-    }, 
-    COMMAND_PRIORITY_EDITOR
-    );
-
-  }, [editor]);
-
-  return null;
+    return null;
 }
 
 export default (SUPPORT_SPEECH_RECOGNITION ? SpeechToTextPlugin: () => null) as () => null;

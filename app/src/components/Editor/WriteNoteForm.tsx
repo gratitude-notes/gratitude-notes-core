@@ -118,16 +118,16 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                   <EditorToolbar />
                   <div className="relative">
                       <RichTextPlugin 
-                                  contentEditable={
-                                      <ContentEditable className="min-h-[100px] max-h-[200px] overflow-y-scroll outline-none
-                                                                  scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
-                                  }
-                                  placeholder={
-                                      <div className="absolute top-0 text-gray-400 pointer-events-none">
-                                          Write your thoughts here...
-                                      </div>
-                                  }
-                                  ErrorBoundary={LexicalErrorBoundary}/>
+                            contentEditable={
+                                <ContentEditable className="min-h-[100px] max-h-[200px] overflow-y-scroll outline-none
+                                                            scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
+                            }
+                            placeholder={
+                                <div className="absolute top-0 text-gray-400 pointer-events-none">
+                                    Write your thoughts here...
+                                </div>
+                            }
+                            ErrorBoundary={LexicalErrorBoundary}/>
                       <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600"/>
                       <div className="absolute right-0 text-gray-400">
                           <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
