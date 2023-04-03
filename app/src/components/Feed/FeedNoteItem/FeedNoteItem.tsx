@@ -7,6 +7,7 @@ import Location from "./Location";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import useComponentVisible from "../../../hooks/useComponentVisible";
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
     const date = timestamp.toDate();
@@ -19,6 +20,12 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
 
     const timeStr = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year.toString()} • ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
 
+    const imagesSlider = useComponentVisible(false);    // if false, images slider not active, if true, images slider active
+    
+    const handleImagesSlider = () => {
+        (imagesSlider.isComponentVisible) ? imagesSlider.setComponentVisible(false) : imagesSlider.setComponentVisible(true);
+    }
+    
     const settings = {
         dots: true,
         infinite: true,
@@ -35,20 +42,34 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <Reader noteJSON={bulletJSON}/>
 
                     {/* IMAGES */}
-                    {/* <div className="w-[304px] gap-1 flex flex-wrap mx-auto">
-                        {images.map((image: string, index: number) => (
-                            <img src={image} key={index} 
-                                 className="w-[150px] aspect-square object-cover rounded-xl"/>
-                        ))}
-                    </div> */}
-                    <Slider {...settings}>
-                        <div>
-                            <h1>img 1</h1>
-                        </div>
-                        <div>
-                            <h1>img 2</h1>
-                        </div>
-                    </Slider>
+                    <div ref={imagesSlider.ref}
+                        className="w-[300px] mx-auto my-2">
+                        {(imagesSlider.isComponentVisible)
+                            ?
+                                // IMAGES SLIDER ACTIVE
+                                <div className="w-[300px] h-[300px] mx-auto">
+                                    <Slider className="rounded-xl"
+                                        {...settings}>
+                                        {images.map((image: string, index: number) => (
+                                            <div key={index}
+                                                className="w-[300px] bg-black rounded-xl">
+                                                <img src={image} key={index} 
+                                                    className="aspect-square object-scale-down rounded-xl"/>
+                                            </div>
+                                        ))}
+                                    </Slider>
+                                </div>
+                            :
+                                // IMAGES SLIDER NOT ACTIVE
+                                <div className="w-[300px] gap-1 flex flex-wrap mx-auto">
+                                    {images.map((image: string, index: number) => (
+                                        <img onClick={handleImagesSlider}
+                                             src={image} key={index} 
+                                             className="cursor-pointer w-[148px] aspect-square object-cover rounded-xl"/>
+                                    ))}
+                                </div>
+                    }
+                    </div>    
 
                     <div className="flex flex-col">
                         <KeyWordItem {...{keywords}} />
@@ -67,14 +88,3 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
   }
   
   export default NoteItem;
-
-{/* IMAGES */}
-{/* <div className="flex flex-wrap gap-1 justify-center">
-    {images.map((image: string, index: number) => (
-        <div key={index}
-            className="w-[200px] bg-black rounded-xl border border-gray-300 dark:border-gray-600">
-            <img src={image} key={index} 
-                 className="aspect-square object-scale-down rounded-xl relative"/>
-        </div>
-    ))}
-</div> */}
