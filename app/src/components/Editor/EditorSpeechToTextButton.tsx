@@ -1,4 +1,5 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import clsx from "clsx";
 import { useState } from "react";
 import { BiMicrophone } from "react-icons/bi";
 
@@ -21,7 +22,7 @@ const SpeechToTextButton: React.FC = () => {
             {
                 SUPPORT_SPEECH_RECOGNITION && 
                 <button onClick={toggleSpeechToText}>
-                    <BiMicrophone size={20} className={"bg-black"} />
+                    <BiMicrophone size={20} className={clsx(!isSpeechToText ? "bg-black" : "bg-red-300")} />
                 </button>
             }
         </div>
