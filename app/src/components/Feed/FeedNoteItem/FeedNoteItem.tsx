@@ -4,6 +4,9 @@ import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
 import Reader from "./Reader";
 import Location from "./Location";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
     const date = timestamp.toDate();
@@ -16,6 +19,14 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
 
     const timeStr = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year.toString()} • ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+    
     return (
         <ul>
             <div className="relative border-b border-gray-400">
@@ -24,12 +35,20 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <Reader noteJSON={bulletJSON}/>
 
                     {/* IMAGES */}
-                    <div className="w-[304px] gap-1 flex flex-wrap mx-auto">
+                    {/* <div className="w-[304px] gap-1 flex flex-wrap mx-auto">
                         {images.map((image: string, index: number) => (
                             <img src={image} key={index} 
                                  className="w-[150px] aspect-square object-cover rounded-xl"/>
                         ))}
-                    </div>
+                    </div> */}
+                    <Slider {...settings}>
+                        <div>
+                            <h1>img 1</h1>
+                        </div>
+                        <div>
+                            <h1>img 2</h1>
+                        </div>
+                    </Slider>
 
                     <div className="flex flex-col">
                         <KeyWordItem {...{keywords}} />
