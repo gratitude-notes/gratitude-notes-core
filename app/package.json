@@ -27,6 +27,7 @@
     "react-icons": "^4.8.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.8.2",
+    "react-slick": "^0.29.0",
     "react-social-icons": "^5.15.0"
   },
   "devDependencies": {

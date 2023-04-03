@@ -34,7 +34,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <div className="flex flex-col">
                         <KeyWordItem {...{keywords}} />
                         <div className="pt-2 flex justify-between items-center">
-                            <LikeButton {...{isFavorited, bulletDocID}} />
+                            <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
                             <div className="flex flex-col text-right">
                                 <time className="text-sm text-gray-400">{timeStr}</time>
                                 <Location />

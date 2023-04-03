@@ -13,7 +13,7 @@ export type NoteBullet = {
     bulletJSON: string,
     keywords: string[],
     isFavorited: boolean
-    bulletDocID?: string,
+    bulletDocID: string,
     images: string[]
 }
 
