@@ -1,4 +1,5 @@
 import useUserBullets, { NoteBullet } from "../../hooks/useUserBullets";
+// @ts-ignore
 import Searchbar from "../Searchbar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 
