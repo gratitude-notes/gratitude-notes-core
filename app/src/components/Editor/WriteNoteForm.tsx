@@ -72,12 +72,12 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
         await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
         //console.log(images)
-        //const downloadURLs = await Promise.all(localImages.map(async (localImage) => uploadImage(localImage, newBulletDocRef)))
+        const downloadURLs = await Promise.all(localImages.map(async (localImage) => uploadImage(localImage, newBulletDocRef.id)))
 
-        const imageDestinationURLs = await uploadImages(localImages, newBulletDocRef.id);
+        //const imageDestinationURLs = await uploadImages(localImages, newBulletDocRef.id);
         //console.log(imageDestinationURLs);
         // // Update the document with the array of URLs
-        await setDoc(newBulletDocRef, { images: imageDestinationURLs }, { merge: true });
+        await updateDoc(newBulletDocRef, { images: downloadURLs });
         // Update the document with the array of URLs
         //await updateDoc(newBulletDocRef, { images: downloadURLs }, {merge: true});
         toast.success("Note Submitted!");
@@ -90,18 +90,48 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     updateViewState("Home");
   }
 
-  const uploadImages = async (imageFiles: File[], documentID: string) => {
-    const imageDestinationURLs: string[] = [];
+  // const uploadFilesToStorage = async (file: File, newBulletDocRef: any) => {
+  //   try {
+  //     console.log(session);
+  //     const user = session ? session.user : null;
+  //     const storageRef = ref(storage, `/users/${user?.uid}/${newBulletDocRef.id}/${file.name}`);
+  //     const uploadTask = uploadBytesResumable(storageRef, file);
+  
+  //     return new Promise<string>((resolve, reject) => {
+  //       uploadTask.on(
+  //         "state_changed",
+  //         (snapshot) => {
+  //           // Handle the progress of the upload
+  //         },
+  //         (error) => {
+  //           console.error("Error uploading files:", error);
+  //           reject(error);
+  //         },
+  //         async () => {
+  //           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+  //           console.log("File uploaded to Firebase Storage:", file.name, "URL:", downloadURL);
+  //           resolve(downloadURL);
+  //         }
+  //       );
+  //     });
+  //   } catch (error) {
+  //     console.error("Error uploading file:", error);
+  //     throw error;
+  //   }
+  // };
 
-    localImages.forEach(async (image) => {
-      const imageDestinationURL = await uploadImage(image, documentID);
-      if (imageDestinationURL) {
-        imageDestinationURLs.push(imageDestinationURL);
-      }
-    });
+  // const uploadImages = async (imageFiles: File[], documentID: string) => {
+  //   const imageDestinationURLs: string[] = [];
 
-    return imageDestinationURLs;
-  };
+  //   localImages.forEach(async (image) => {
+  //     const imageDestinationURL = await uploadImage(image, documentID);
+  //     if (imageDestinationURL) {
+  //       imageDestinationURLs.push(imageDestinationURL);
+  //     }
+  //   });
+
+  //   return imageDestinationURLs;
+  // };
 
   const uploadImage = async (imageFile: File, documentID: string) => {
     try {

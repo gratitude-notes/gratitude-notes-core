@@ -24,7 +24,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <Reader noteJSON={bulletJSON}/>
 
                     {/* IMAGES */}
-                    {/* <div className="flex flex-wrap gap-1 justify-center">
+                    <div className="flex flex-wrap gap-1 justify-center">
                         {images.map((image: string, index: number) => (
                             <div key={index}
                                 className="w-[200px] bg-black rounded-xl border border-gray-300 dark:border-gray-600">
@@ -32,7 +32,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                                      className="aspect-square object-scale-down rounded-xl relative"/>
                             </div>
                         ))}
-                    </div> */}
+                    </div>
 
                     <div className="flex flex-col">
                         <KeyWordItem {...{keywords}} />
