@@ -4,7 +4,12 @@ import { setDoc, doc } from '@firebase/firestore';
 import { fb_firestore } from '../../../lib/Firebase';
 import { useSession } from '../../../lib/Session';
 
-const LikeButton: React.FC<{isFavorited: boolean, bulletDocID?: string}> = ({isFavorited, bulletDocID} : {isFavorited: boolean, bulletDocID?: string}) => {
+type likeButtonProps = {
+  isFavorited: boolean;
+  bulletDocID: string;
+}
+
+const LikeButton: React.FC<likeButtonProps> = ({isFavorited, bulletDocID}) => {
   const session = useSession();
   const [isFilled, setIsFilled] = useState(isFavorited);
 
