@@ -19,9 +19,8 @@ import { useSession } from '../../lib/Session';
 import { fb_firestore, fb_storage } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
 import EditorImageDropzone from './EditorImageDropzone';
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import toast from 'react-hot-toast';
-
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
 
 
 type FormHandlerProps = {
@@ -35,6 +34,7 @@ const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, 
 const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const session = useSession();
   const [localImages, setLocalImages] = useState<File[]>([]);
+  const storage = getStorage();
 
   const initialConfig = {
       namespace: "noteEditor",
@@ -71,11 +71,15 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         const bulletCollectionRef = collection(fb_firestore, "users", session.user.uid, "notes");
         const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
         await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
+        //console.log(images)
+        const downloadURLs = await Promise.all(localImages.map(async (localImage) => uploadFilesToStorage(localImage, newBulletDocRef)))
 
-        // const imageDestinationURLs = await uploadImages(localImages, newBulletDocRef.id);
-        // console.log(imageDestinationURLs);
+        //const imageDestinationURLs = await uploadImages(localImages, newBulletDocRef.id);
+        //console.log(imageDestinationURLs);
         // // Update the document with the array of URLs
         // await setDoc(newBulletDocRef, { images: downloadURLs }, { merge: true });
+        // Update the document with the array of URLs
+        await updateDoc(newBulletDocRef, { images: downloadURLs });
         toast.success("Note Submitted!");
       }
     } catch(error) {
@@ -85,6 +89,36 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
 
     updateViewState("Home");
   }
+
+  const uploadFilesToStorage = async (file: File, newBulletDocRef: any) => {
+    try {
+      console.log(session);
+      const user = session ? session.user : null;
+      const storageRef = ref(storage, `/users/${user?.uid}/${newBulletDocRef.id}/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+  
+      return new Promise<string>((resolve, reject) => {
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            // Handle the progress of the upload
+          },
+          (error) => {
+            console.error("Error uploading files:", error);
+            reject(error);
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            console.log("File uploaded to Firebase Storage:", file.name, "URL:", downloadURL);
+            resolve(downloadURL);
+          }
+        );
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      throw error;
+    }
+  };
 
   const uploadImages = async (imageFiles: File[], documentID: string) => {
     const imageDestinationURLs: string[] = [];
