@@ -21,6 +21,7 @@ import { ViewState } from '../../pages/Dashboard';
 import EditorImageDropzone from './EditorImageDropzone';
 import toast from 'react-hot-toast';
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 
 
 type FormHandlerProps = {
@@ -134,6 +135,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                   </div>
                   <ListPlugin />
                   <HistoryPlugin />
+                  <SpeechToTextPlugin />
                   <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
                 </LexicalComposer>
           </div>
