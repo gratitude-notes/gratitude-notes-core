@@ -25,9 +25,9 @@ const useProfileData = () => {
         }
     }
 
-    const handleData = (snapshot: DocumentSnapshot<DocumentData>) => {
+    const handleData = async (snapshot: DocumentSnapshot<DocumentData>) => {
         if (!snapshot.exists()) {
-            Promise.resolve(createProfileData)
+            await createProfileData();
         }
         else {
             setProfileData({data: snapshot.data()})
