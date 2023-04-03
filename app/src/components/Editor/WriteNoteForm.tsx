@@ -21,6 +21,9 @@ import { ViewState } from '../../pages/Dashboard';
 import EditorImageDropzone from './EditorImageDropzone';
 import toast from 'react-hot-toast';
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
+import EditorSpeechToTextButton from './EditorSpeechToTextButton';
 
 
 type FormHandlerProps = {
@@ -53,7 +56,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
               h1: "text-4xl text-black dark:text-white",
               h2: "text-2xl text-black dark:text-white"
           },
-          characterLimit: 'bg-red-400'
+          characterLimit: 'bg-red-400',
       },
       nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
       onError(error: Error) {
@@ -116,22 +119,26 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                 <LexicalComposer {...{initialConfig}}>
                   <EditorToolbar />
                   <div className="relative">
-                      <RichTextPlugin 
-                                  contentEditable={
-                                      <ContentEditable className="min-h-[100px] max-h-[200px] overflow-y-scroll outline-none
-                                                                  scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
-                                  }
-                                  placeholder={
-                                      <div className="absolute top-0 text-gray-400 pointer-events-none">
-                                          Write your thoughts here...
-                                      </div>
-                                  }
-                                  ErrorBoundary={LexicalErrorBoundary}/>
-                      <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600"/>
-                      <div className="absolute right-0 text-gray-400">
-                          <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
-                      </div>
+                        <RichTextPlugin 
+                            contentEditable={
+                                <ContentEditable className="min-h-[100px] max-h-[200px] overflow-y-scroll outline-none
+                                                            scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700" />
+                            }
+                            placeholder={
+                                <div className="absolute top-0 text-gray-400 pointer-events-none">
+                                    Write your thoughts here...
+                                </div>
+                            }
+                            ErrorBoundary={LexicalErrorBoundary}/>
+                        <EditorSpeechToTextButton />
+                        <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600"/>
+                        <div className="absolute right-0 text-gray-400">
+                            <CharacterLimitPlugin charset={"UTF-8"} maxLength={300} />
+                        </div>
+                      
                   </div>
+                  <SpeechToTextPlugin />
+                  <AutoFocusPlugin />
                   <ListPlugin />
                   <HistoryPlugin />
                   <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
