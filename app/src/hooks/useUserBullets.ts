@@ -16,6 +16,8 @@ export type NoteBullet = {
     bulletDocID?: string,
     images: string[],
     bulletTextContent: string
+    bulletLongitude?: number,
+    bulletLatitude?: number
 }
 
 const useUserBullets = () => {

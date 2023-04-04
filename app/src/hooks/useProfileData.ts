@@ -7,15 +7,23 @@ type ProfileData = {
     data: DocumentData | null
 }
 
+type UserProfile = {
+    settings: {
+        theme: "light" | "dark"
+        trackLocation: boolean
+    }
+}
+
 // Custom hook to read auth record and user profile
 const useProfileData = () => {
     const session = useSession();
     const [profileData, setProfileData] = useState<ProfileData>({data: null});
 
     const createProfileData = async () => {
-        const initialProfileData = {
+        const initialProfileData: UserProfile = {
             settings: {
-                theme: "light"
+                theme: "light",
+                trackLocation: false,
             }
         }
 
