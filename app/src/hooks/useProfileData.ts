@@ -3,9 +3,10 @@ import { useSession } from "../lib/Session";
 import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
-type UserSettings = {
+export type UserSettings = {
     theme: "light" | "dark",
-    geolocation: boolean
+    geolocation: boolean,
+    analysis: boolean
 }
 
 type UserProfile = {
@@ -18,7 +19,6 @@ const useProfileData = () => {
     const [profileData, setProfileData] = useState<UserProfile>(null);
 
     const composeUserProfile = (userProfileData: DocumentData) => {
-        console.log(userProfileData);
         const currentUserProfile: UserProfile = {
             settings: userProfileData.settings
         }
@@ -31,6 +31,7 @@ const useProfileData = () => {
             settings: {
                 theme: "light",
                 geolocation: false,
+                analysis: false
             }
         }
 

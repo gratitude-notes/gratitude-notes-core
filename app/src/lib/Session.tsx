@@ -16,7 +16,7 @@ export const useSession = () => {
     }
 }
 
-export const SessionWrapper = ({ children } : { children: JSX.Element[] }) => {
+export const SessionWrapper = ({ children } : { children: JSX.Element }) => {
     const [session, setSession] = useState<Session | undefined>();
 
     const onChange = () => {

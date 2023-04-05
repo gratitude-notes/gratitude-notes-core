@@ -20,7 +20,7 @@ import { fb_firestore, fb_storage } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
 import EditorImageDropzone from './EditorImageDropzone';
 import toast from 'react-hot-toast';
-import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
@@ -33,7 +33,6 @@ type FormHandlerProps = {
 const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const session = useSession();
   const [localImages, setLocalImages] = useState<File[]>([]);
-  const storage = getStorage();
 
   const initialConfig = {
       namespace: "noteEditor",
