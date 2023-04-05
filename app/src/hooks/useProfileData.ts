@@ -18,11 +18,9 @@ const useProfileData = () => {
     const [profileData, setProfileData] = useState<UserProfile>(null);
 
     const composeUserProfile = (userProfileData: DocumentData) => {
+        console.log(userProfileData);
         const currentUserProfile: UserProfile = {
-            settings: {
-                theme: userProfileData.theme,
-                geolocation: userProfileData.geolocation
-            }
+            settings: userProfileData.settings
         }
 
         return currentUserProfile;

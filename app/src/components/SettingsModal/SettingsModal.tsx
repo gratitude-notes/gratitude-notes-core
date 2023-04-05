@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 import { ViewState } from "../../pages/Dashboard";
 import DeleteAccountModal from "./DeleteAccountModal";
 import SettingsProfile from "./SettingsProfile";
