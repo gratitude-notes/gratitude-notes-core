@@ -3,27 +3,36 @@ import { useSession } from "../lib/Session";
 import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
-type ProfileData = {
-    data: DocumentData | null
+type UserSettings = {
+    theme: "light" | "dark",
+    geolocation: boolean
 }
 
 type UserProfile = {
-    settings: {
-        theme: "light" | "dark"
-        trackLocation: boolean
-    }
-}
+    settings: UserSettings
+} | null;
 
 // Custom hook to read auth record and user profile
 const useProfileData = () => {
     const session = useSession();
-    const [profileData, setProfileData] = useState<ProfileData>({data: null});
+    const [profileData, setProfileData] = useState<UserProfile>(null);
+
+    const composeUserProfile = (userProfileData: DocumentData) => {
+        const currentUserProfile: UserProfile = {
+            settings: {
+                theme: userProfileData.theme,
+                geolocation: userProfileData.geolocation
+            }
+        }
+
+        return currentUserProfile;
+    }
 
     const createProfileData = async () => {
         const initialProfileData: UserProfile = {
             settings: {
                 theme: "light",
-                trackLocation: false,
+                geolocation: false,
             }
         }
 
@@ -38,7 +47,9 @@ const useProfileData = () => {
             await createProfileData();
         }
         else {
-            setProfileData({data: snapshot.data()})
+            const userProfileDoc = snapshot.data();
+            const userProfile = composeUserProfile(userProfileDoc);
+            setProfileData(userProfile)
         }
     }
 
