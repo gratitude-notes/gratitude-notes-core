@@ -152,6 +152,11 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                   <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
                 </LexicalComposer>
           </div>
+          {/* SCORE */}
+          <div className="flex justify-center pt-6">
+            <input type="range" min="-5" max="5" className="w-1/2 cursor-pointer"/>
+          </div> 
+
           <EditorImageDropzone {...{localImages, setLocalImages}} />
       </div>
   )
