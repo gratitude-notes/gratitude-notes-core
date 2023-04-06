@@ -4,12 +4,12 @@ import { setDoc, doc } from '@firebase/firestore';
 import { fb_firestore } from '../../../lib/Firebase';
 import { useSession } from '../../../lib/Session';
 
-type likeButtonProps = {
+type LikeButtonProps = {
   isFavorited: boolean;
-  bulletDocID: string;
+  bulletDocID: string | undefined;
 }
 
-const LikeButton: React.FC<likeButtonProps> = ({isFavorited, bulletDocID}) => {
+const LikeButton: React.FC<LikeButtonProps> = ({isFavorited, bulletDocID}) => {
   const session = useSession();
   const [isFilled, setIsFilled] = useState(isFavorited);
 
@@ -25,8 +25,9 @@ const LikeButton: React.FC<likeButtonProps> = ({isFavorited, bulletDocID}) => {
   }
 
   return (
-    <div className="">
-      {isFilled ? (
+    <>
+      {isFilled ? 
+      (
         <button
           className="text-white font-bold"
           onClick={onClickLikeButton}
@@ -41,7 +42,7 @@ const LikeButton: React.FC<likeButtonProps> = ({isFavorited, bulletDocID}) => {
           {!isFilled && <BsHeart className="inline-block" size={17} />}
         </button>
       )}
-    </div>
+    </>
   );
 }
 

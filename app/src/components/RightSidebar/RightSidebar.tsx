@@ -1,5 +1,4 @@
-import Searchbar from "../Searchbar";
-
+import Searchbar from "../SearchBar";
 
 const RightSidebar: React.FC = () => {  
     return (
