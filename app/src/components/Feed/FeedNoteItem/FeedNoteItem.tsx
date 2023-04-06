@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useComponentVisible from "../../../hooks/useComponentVisible";
 import { useRef, useState } from "react";
+import "./FeedNoteItem.css";
 
 interface ArrowProps {
     className?: string;
@@ -16,24 +17,23 @@ interface ArrowProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
   }
   
-// const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-//     return (
-//       <div
-//         className={`${className}`}
-//         style={{ ...style, display: "block", background: "red", color: "white" }}
-//         onClick={onClick}
-//       />
-//     );
-// }
+const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
+    return (
+      <div
+        className={`${className}`}
+        onClick={onClick}
+      />
+    );
+}
 
-// const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
-//     return (
-//         <div
-//             className={`${className}`}
-//             onClick={onClick}
-//       />
-//     );
-// };
+const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
+    return (
+        <div
+            className={`${className}`}
+            onClick={onClick}
+      />
+    );
+};
   
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
@@ -70,8 +70,8 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
         slidesToScroll: 1,
         className: "rounded-xl",
         initialSlide: initialSlideIndex,
-        // nextArrow: <NextArrow />,
-        // prevArrow: <PrevArrow />
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />
     };
     
     return (

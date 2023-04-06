@@ -10,7 +10,7 @@ const FeedList: React.FC = () => {
                   scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
       {/* SEARCH FOR MOBILE */}
       <div className="xl:hidden">
-        <Searchbar />
+        <SearchBar />
       </div>
 
       {/* BULLETS LIST */}
