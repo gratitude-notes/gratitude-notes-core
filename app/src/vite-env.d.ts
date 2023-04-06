@@ -7,6 +7,7 @@ interface ImportMetaEnv {
     readonly VITE_FB_STORAGE_BUCKET: string,
     readonly VITE_FB_MSG_SENDER_ID: string,
     readonly VITE_FB_APP_ID: string
+    readonly VITE_GCP_MAPS_API_KEY: string,
 }
 
 interface ImportMeta {
