@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import clsx from "clsx";
 import { useState } from "react";
-import { BiMicrophone } from "react-icons/bi";
+import { BsMic, BsMicFill } from "react-icons/bs";
+import Soundwave from "../../assets/Soundwave.gif";
 
 import {
     SUPPORT_SPEECH_RECOGNITION,
@@ -22,7 +22,13 @@ const SpeechToTextButton: React.FC = () => {
             {
                 SUPPORT_SPEECH_RECOGNITION && 
                 <button onClick={toggleSpeechToText}>
-                    <BiMicrophone size={20} className={clsx(!isSpeechToText ? "bg-black" : "bg-red-300")} />
+                    {(isSpeechToText) ?
+                        <div className="relative">
+                            <BsMicFill size={20}/>
+                            <img className="absolute inset-0 opacity-75" src={Soundwave} alt="recording in progress..."/>
+                        </div>
+                    :
+                        <BsMic size={20} /> }
                 </button>
             }
         </div>
