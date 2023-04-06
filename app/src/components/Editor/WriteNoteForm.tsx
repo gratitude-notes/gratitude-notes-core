@@ -12,7 +12,7 @@ import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import React, { useRef, useState } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
-import { EditorState } from 'lexical';
+import { $getRoot, EditorState } from 'lexical';
 import { addDoc, collection, Timestamp, setDoc, updateDoc } from '@firebase/firestore';
 import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
@@ -20,7 +20,7 @@ import { fb_firestore, fb_storage } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
 import EditorImageDropzone from './EditorImageDropzone';
 import toast from 'react-hot-toast';
-import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
@@ -30,14 +30,9 @@ type FormHandlerProps = {
     updateViewState: (state: ViewState) => void
 }
 
-const composeBullet = (bulletJSON: string, score: number, timestamp: Timestamp, keywords: string[], isFavorited: boolean, images: string[]): NoteBullet => {
-    return { bulletJSON, score, timestamp, keywords, isFavorited, images }
-}
-
 const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const session = useSession();
   const [localImages, setLocalImages] = useState<File[]>([]);
-  const storage = getStorage();
 
   const initialConfig = {
       namespace: "noteEditor",
@@ -67,7 +62,20 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const editorStateRef = useRef<EditorState>();
 
   const onSubmit = async () => {
-    const newBullet = composeBullet(JSON.stringify(editorStateRef.current), 5, Timestamp.now(), [], false, []);
+
+    const editorTextContent = editorStateRef.current?.read(() => {
+      return $getRoot().getTextContent();
+    });
+
+    const newBullet: NoteBullet = {
+      bulletJSON: JSON.stringify(editorStateRef.current),
+      score: 5,
+      timestamp: Timestamp.now(),
+      images: [],
+      keywords: [],
+      isFavorited: false,
+      bulletTextContent: editorTextContent ? editorTextContent : "",
+    }
     
     try {
       if (session && session.user) {

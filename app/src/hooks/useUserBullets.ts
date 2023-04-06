@@ -13,8 +13,11 @@ export type NoteBullet = {
     bulletJSON: string,
     keywords: string[],
     isFavorited: boolean
-    bulletDocID: string,
-    images: string[]
+    bulletDocID?: string,
+    images: string[],
+    bulletTextContent: string
+    bulletLongitude?: number,
+    bulletLatitude?: number
 }
 
 const useUserBullets = () => {
@@ -27,17 +30,18 @@ const useUserBullets = () => {
         documents.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
             const bulletDocData: DocumentData = doc.data();
 
-            const composedBullet: NoteBullet = {
+            const composeNewBullet: NoteBullet = {
                 bulletJSON: bulletDocData.bulletJSON,
                 keywords: bulletDocData.keywords,
                 score: bulletDocData.score,
                 timestamp: bulletDocData.timestamp,
                 isFavorited: bulletDocData.isFavorited,
                 bulletDocID: bulletDocData.bulletDocID,
-                images: bulletDocData.images
+                images: bulletDocData.images,
+                bulletTextContent: bulletDocData.bulletTextContent
             }
             
-            collectionBullets.push(composedBullet)
+            collectionBullets.push(composeNewBullet)
         })
 
         setUserBullets({bullets: collectionBullets});
