@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useState } from "react";
-import { BsMic, BsMicFill } from "react-icons/bs";
+import { BsMicMute, BsMicFill } from "react-icons/bs";
 import Soundwave from "../../assets/Soundwave.gif";
 
 import {
@@ -28,7 +28,7 @@ const SpeechToTextButton: React.FC = () => {
                             <img className="absolute inset-0 opacity-75" src={Soundwave} alt="recording in progress..."/>
                         </div>
                     :
-                        <BsMic size={20} /> }
+                        <BsMicMute size={20} /> }
                 </button>
             }
         </div>
