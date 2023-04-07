@@ -9,7 +9,6 @@ type EmojiScorePickerProps = {
   getEmojiScore: (score: number) => void;
 }
 
-
 const EmojiScorePicker: React.FC<EmojiScorePickerProps> = ({getEmojiScore}) => {
 
   const [emojiScore, setEmojiScore] = useState<number | null>(null);
@@ -28,13 +27,11 @@ const EmojiScorePicker: React.FC<EmojiScorePickerProps> = ({getEmojiScore}) => {
         <img className="w-[30px] mx-auto" src={SadEmoji} alt="sad emoji..."/>
         <h1 className={`${(emojiScore === -2) ? 'opacity-100' : 'opacity-0'} text-xs text-center`}>Sad</h1>
       </div>
-
       <div onClick={() => handleEmojiClick(-1)}
           className={`${(emojiScore === -1) ? 'opacity-100' : 'opacity-20'} aspect-square cursor-pointer`}>
         <img className="w-[30px] mx-auto" src={SlightlySadEmoji} alt="slightly sad emoji..."/>
         <h1 className={`${(emojiScore === -1) ? 'opacity-100' : 'opacity-0'} text-xs text-center`}>Slightly<br/>Sad</h1>
       </div>
-
       <div onClick={() => handleEmojiClick(0)}
           className={`${(emojiScore === 0) ? 'opacity-100' : 'opacity-20'} aspect-square cursor-pointer`}>
         <img className="w-[30px] mx-auto" src={NeutralEmoji} alt="neutral emoji..."/>
