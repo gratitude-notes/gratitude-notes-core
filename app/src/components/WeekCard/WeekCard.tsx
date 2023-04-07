@@ -2,7 +2,6 @@ import DayCard from "./DayCard";
 import { Timestamp } from "@firebase/firestore";
 import dayjs from "dayjs";
 import useComponentVisible from "../../hooks/useComponentVisible";
-import { RiTimeLine } from "react-icons/ri";
 import { useState } from "react";
 
 const data = [
