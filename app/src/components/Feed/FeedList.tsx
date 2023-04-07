@@ -5,6 +5,7 @@ import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 import useComponentVisible from "../../hooks/useComponentVisible";
 import { BsQuestion } from "react-icons/bs";
 import SearchGuide from "./SearchGuide";
+import { BiDotsVertical } from "react-icons/bi";
 
 const FeedList: React.FC = () => {
   const { bullets } = useUserBullets();
@@ -57,7 +58,7 @@ const FeedList: React.FC = () => {
         case "date": return bulletDate?.includes(searchValue);
         case "year": return bulletYear?.includes(searchValue);
         case "score": return bulletScore?.includes(searchValue);
-        
+
         // General searching
         default: {
           return  bulletTextContent.includes(searchKey) ||
@@ -111,12 +112,19 @@ const FeedList: React.FC = () => {
             ))}
           </>
         :
-          <>
-            {/* QUERIED LIST */}
-            {search.bulletsList?.map((bullet: NoteBullet, index: number) => (
-              <FeedNoteItem key={index} {...bullet} />
-            ))}
-          </>
+          (search.bulletsList?.length === 0)
+              ?
+                <div className="text-center dark:text-white pt-10 px-2">
+                  <h1 className="font-bold">Nothing matches this search criteria.</h1>
+                  <h1>Continue searching if you are trying to do an advanced search or try a new search.</h1>
+                </div>
+              :
+                <>
+                  {/* QUERIED LIST */}
+                  {search.bulletsList?.map((bullet: NoteBullet, index: number) => (
+                    <FeedNoteItem key={index} {...bullet} />
+                  ))}
+                </>
       }
 
     </ol>
