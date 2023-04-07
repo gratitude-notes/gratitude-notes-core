@@ -52,11 +52,11 @@ const ImageViewer: React.FC<ImageViewerProps> = ({displaySlider, images}) => {
 
     if (displaySlider.isComponentVisible) {
         return (
-            <div className="mx-auto">
+            <div className="w-[300px] h-[300px] mx-auto">
                 <Slider {...settings}>
                     {images.map((image: string, index: number) => (
-                        <div key={index} className="outline-none">
-                           <img src={image} key={index} className="mx-auto object-scale-down rounded-xl"/>
+                        <div key={index} className="w-[300px] aspect-square bg-black rounded-xl">
+                           <img src={image} key={index} className="w-[300px] aspect-square object-contain rounded-xl"/>
                         </div>
                     ))}
                 </Slider>
