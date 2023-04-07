@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy } from '@firebase/firestore';
+import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
 type Bullets = {
@@ -63,8 +63,7 @@ const useUserBullets = () => {
     useEffect(() => {
         if (session?.user) {
             const ref = collection(fb_firestore, "users", session.user.uid, "notes");
-            const q = query(ref, orderBy('timestamp', 'desc'))
-            const unsubscribe = onSnapshot(q, handleData, handleError);
+            const unsubscribe = onSnapshot(ref, handleData, handleError);
             return unsubscribe;
         }
     }, [session?.user])
