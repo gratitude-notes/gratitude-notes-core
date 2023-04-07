@@ -7,8 +7,6 @@ import ImageViewer from "./ImageViewer";
 import Location from "./Location";
 import useComponentVisible from "../../../hooks/useComponentVisible";
 
-
-
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
