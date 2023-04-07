@@ -11,7 +11,7 @@ const DotMenu: React.FC = () => {
         const twVisible = (isComponentVisible) ? "visible" : "hidden";
 
         return (
-            <div ref={ref} className="absolute top-1 right-1">
+            <div ref={ref} className="absolute top-1 right-4">
                 {(isComponentVisible)
                     ?
                     <button onClick={handleDropdownButton} className="text-cyan-500">
