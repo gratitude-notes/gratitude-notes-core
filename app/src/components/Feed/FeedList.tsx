@@ -37,10 +37,11 @@ const FeedList: React.FC = () => {
   monthMap.set(11, "december");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchQuery = e.target.value.toLowerCase();
+    const searchKey = searchQuery.split(":")[0].toLowerCase();    // ex -> score:-2, searchKey = 'score'
+    const searchValue = searchQuery.split(":")[1];  // ex -> score:-2, searchValue = 2
+
     const results = bullets?.filter((bullet: NoteBullet) => {
-      if (e.target.value === "") return bullets;
-      
-      const value = e.target.value.toLowerCase();
       const bulletTextContent = bullet.bulletTextContent.toLowerCase();
       const bulletDay = dayMap.get(bullet.timestamp.toDate().getDay());
       const bulletMonth = monthMap.get(bullet.timestamp.toDate().getMonth());
@@ -48,12 +49,25 @@ const FeedList: React.FC = () => {
       const bulletYear = bullet.timestamp.toDate().getFullYear().toString();
       const bulletScore = bullet.score?.toString();
 
-      return  bulletTextContent.includes(value) ||
-              bulletDay?.includes(value) ||
-              bulletMonth?.includes(value) ||
-              bulletDate?.includes(value) ||
-              bulletYear?.includes(value) ||
-              bulletScore?.includes(value);
+      switch (searchKey) {
+        // Advanced searching
+        case "content": return bulletTextContent.includes(searchValue);
+        case "day": return bulletDay?.includes(searchValue);
+        case "month": return bulletMonth?.includes(searchValue);
+        case "date": return bulletDate?.includes(searchValue);
+        case "year": return bulletYear?.includes(searchValue);
+        case "score": return bulletScore?.includes(searchValue);
+        
+        // General searching
+        default: {
+          return  bulletTextContent.includes(searchKey) ||
+                  bulletDay?.includes(searchKey) ||
+                  bulletMonth?.includes(searchKey) ||
+                  bulletDate?.includes(searchKey) ||
+                  bulletYear?.includes(searchKey) ||
+                  bulletScore?.includes(searchKey);
+        }
+      }
     })
     setSearch(() => ({
       query: e.target.value,
