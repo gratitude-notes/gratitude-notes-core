@@ -24,6 +24,7 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
+import EmojiPicker from './EmojiScorePicker';
 
 
 type FormHandlerProps = {
@@ -33,6 +34,7 @@ type FormHandlerProps = {
 const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const session = useSession();
   const [localImages, setLocalImages] = useState<File[]>([]);
+  const [emojiScore, setEmojiScore] = useState<number | null>(null);
 
   const initialConfig = {
       namespace: "noteEditor",
@@ -69,7 +71,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
 
     const newBullet: NoteBullet = {
       bulletJSON: JSON.stringify(editorStateRef.current),
-      score: 5,
+      score: emojiScore,
       timestamp: Timestamp.now(),
       images: [],
       keywords: [],
@@ -94,6 +96,10 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     }
 
     updateViewState("Home");
+  }
+
+  const getEmojiScore = (score: number) => {
+    (emojiScore !== score) ? setEmojiScore(score) : "";
   }
 
   const uploadImages = async (documentID: string) => {
@@ -152,11 +158,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
                   <OnChangePlugin onChange={(editorState: EditorState) => editorStateRef.current = editorState } />
                 </LexicalComposer>
           </div>
-          {/* SCORE */}
-          <div className="flex justify-center pt-6">
-            <input type="range" min="-5" max="5" className="w-1/2 cursor-pointer"/>
-          </div> 
-
+          <EmojiPicker getEmojiScore={getEmojiScore}/>
           <EditorImageDropzone {...{localImages, setLocalImages}} />
       </div>
   )

@@ -8,7 +8,7 @@ type Bullets = {
 }
 
 export type NoteBullet = {
-    score: number,
+    score: number | null,
     timestamp: Timestamp,
     bulletJSON: string,
     keywords: string[],

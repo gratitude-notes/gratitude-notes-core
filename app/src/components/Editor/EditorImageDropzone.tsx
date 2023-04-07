@@ -60,7 +60,7 @@ const EditorImageDropzone: React.FC<{localImages: File[], setLocalImages: React.
   return (
     <>
       {/* IMAGE DROPZONE */}
-      <div className="bg-white dark:bg-gray-800 rounded w-9/12 mx-auto mt-5 shadow-lg shadow-gray-400 dark:shadow-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded w-9/12 mx-auto shadow-lg shadow-gray-400 dark:shadow-gray-900">
         <div className="relative flex flex-col px-2 text-gray-400 border border-black dark:border-gray-600 rounded">
           <input
             accept="image/*"
