@@ -36,11 +36,11 @@ const SearchGuide: React.FC = () => {
                             <h1>1</h1>
                             <h1>2</h1>
                             <h1 className="font-bold">Emoji</h1>
-                            <img className="w-[20px] mx-auto" src={SadEmoji} alt="sad emoji..."/>
-                            <img className="w-[20px] mx-auto" src={SlightlySadEmoji} alt="slightly sad emoji..."/>
-                            <img className="w-[20px] mx-auto" src={NeutralEmoji} alt="neutral emoji..."/>
-                            <img className="w-[20px] mx-auto" src={SlightlyHappyEmoji} alt="slightly happy emoji..."/>
-                            <img className="w-[20px] mx-auto" src={HappyEmoji} alt="happy emoji..."/>
+                            <img className="w-[25px] mx-auto" src={SadEmoji} alt="sad emoji..."/>
+                            <img className="w-[25px] mx-auto" src={SlightlySadEmoji} alt="slightly sad emoji..."/>
+                            <img className="w-[25px] mx-auto" src={NeutralEmoji} alt="neutral emoji..."/>
+                            <img className="w-[25px] mx-auto" src={SlightlyHappyEmoji} alt="slightly happy emoji..."/>
+                            <img className="w-[25px] mx-auto" src={HappyEmoji} alt="happy emoji..."/>
                         </div>
                     </div>
                 </div>
