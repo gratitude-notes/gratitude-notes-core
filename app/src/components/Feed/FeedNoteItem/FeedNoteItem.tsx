@@ -28,13 +28,13 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                 <Reader noteJSON={bulletJSON}/>
 
                 {/* IMAGES */}
-                <div ref={displaySlider.ref} className="w-[300px] mx-auto my-2">
+                <div ref={displaySlider.ref} className="w-[300px] mx-auto">
                     <ImageViewer {...{displaySlider, images}} />
                 </div>
 
                 <div className="flex flex-col">
                     <KeyWordItem {...{keywords}} />
-                    <div className="pt-2 flex justify-between">
+                    <div className="flex justify-between">
                         <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
                         <div className="flex flex-col text-right">
                             <EmojiScore emojiScore={score}/>
