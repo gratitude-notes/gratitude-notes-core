@@ -1,16 +1,35 @@
 import React, { useRef } from 'react';
-import { BsFillCalendarWeekFill } from 'react-icons/bs';
-import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { useState, useEffect } from "react";
-import { ViewState } from '../../pages/Dashboard';
+import useUserBullets from '../../hooks/useUserBullets';
 
-type NotificationState = {
-  updateViewState: (state: ViewState) => void
-}
 
 const Streaks: React.FC = () => {
-  const [show, setShow] = useState(false);
-  const today = new Date();
+
+  const userBullets = useUserBullets();
+  const lastBullet = userBullets.bullets && userBullets.bullets.length > 0 ? userBullets.bullets[0] : null;
+  const lastConsecitiveDays: number = (lastBullet?.consecutiveDays ?? 0);
+  const lastNoteTimestamp: number = lastBullet?.lastNoteTimestamp ?? 0;
+  console.log(lastBullet?.lastNoteTimestamp, "last Note")
+  console.log(lastBullet?.consecutiveDays, "consecuctiveDays")
+  const currentNoteTimestamp = Date.now();
+
+  console.log(currentNoteTimestamp, lastNoteTimestamp, compareTimestamps(currentNoteTimestamp, lastNoteTimestamp)); 
+  const streakNumber: number = compareTimestamps(currentNoteTimestamp, lastNoteTimestamp);
+
+  function compareTimestamps(timestamp1: number, timestamp2: number): number {
+    // Calculate the difference in time (milliseconds)
+    const timeDiff = Math.abs(timestamp2 - timestamp1);
+    // Convert the time difference to days
+    const dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+  
+    if (dayDiff === 0) {
+      return lastConsecitiveDays;
+    } else if (dayDiff === 1) {
+      return lastConsecitiveDays + 1;
+    } else {
+      return 1;
+    }
+  }
 
 
   return (
@@ -19,7 +38,7 @@ const Streaks: React.FC = () => {
           <h2 className="content-center items-center text-center">Streaks</h2>
           <div className="content-center items-center text-center">
             <span role="img" aria-label="fire emoji" className='text-6xl content-center items-center text-center'>🔥</span>
-            <p>5 days</p>
+            <p>{streakNumber} Day{streakNumber > 1 ? "s" : ""}</p>
           </div>
         </div>
     </>

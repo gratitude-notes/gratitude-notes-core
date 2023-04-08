@@ -39,9 +39,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
 
   const userBullets = useUserBullets();
   const lastBullet = userBullets.bullets && userBullets.bullets.length > 0 ? userBullets.bullets[0] : null;
-  console.log(lastBullet)
   const lastConsecitiveDays: number = (lastBullet?.consecutiveDays ?? 0);
-  //const [lastNoteTimestamp, setLastNoteTimeStamp] = useState<number>(lastBullet?.lastNoteTimestamp ?? 0);
   const lastNoteTimestamp: number = lastBullet?.lastNoteTimestamp ?? 0;
   console.log(lastBullet?.lastNoteTimestamp, "last Note")
   console.log(lastBullet?.consecutiveDays, "consecuctiveDays")
@@ -82,8 +80,6 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
       return $getRoot().getTextContent();
     });
 
-    const dateTimestamp = Date.now();
-
     const newBullet: NoteBullet = {
       bulletJSON: JSON.stringify(editorStateRef.current),
       score: emojiScore,
@@ -106,12 +102,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         const downloadURLs = await uploadImages(newBulletDocRef.id);   
 
         toast.success("Note Submitted!");
-        //console.log("lastdays")
-        //console.log(lastConsecitiveDays)
 
-        let consecutive = lastConsecitiveDays;
-        //console.log(consecutive)
-        console.log(currentNoteTimestamp, lastNoteTimestamp, compareTimestamps(currentNoteTimestamp, lastNoteTimestamp)); 
         const streakNumber: number = compareTimestamps(currentNoteTimestamp, lastNoteTimestamp);
 
         await updateDoc(newBulletDocRef, { 
