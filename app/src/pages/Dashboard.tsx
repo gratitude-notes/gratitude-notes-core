@@ -11,7 +11,7 @@ import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal
 import WebNotification from "../components/WeekInReviewModal/WebNotification"
 import { useEffect, useState } from "react";
 import { useSettings } from "../lib/Settings";
-import Map from "../components/WeekInReviewModal/Map";
+import Map from "../components/WeekInReviewModal/MapComponents/Map";
 
 const screens = ["Home", "Write", "Settings", "Week Review"] as const;
 export type ViewState = typeof screens[number];

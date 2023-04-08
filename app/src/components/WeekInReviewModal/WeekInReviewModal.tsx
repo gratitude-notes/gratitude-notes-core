@@ -3,7 +3,7 @@ import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { ViewState } from '../../pages/Dashboard';
-import Map from './Map'
+import Map from './MapComponents/Map'
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
