@@ -11,6 +11,7 @@ import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal
 import WebNotification from "../components/WeekInReviewModal/WebNotification"
 import { useEffect, useState } from "react";
 import { useSettings } from "../lib/Settings";
+import Map from "../components/WeekInReviewModal/Map";
 
 const screens = ["Home", "Write", "Settings", "Week Review"] as const;
 export type ViewState = typeof screens[number];
@@ -67,6 +68,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="flex flex-col h-screen w-screen bg-white dark:bg-gray-800">
       {renderCurrent()}
+
 
       {/* Navbar at bottom, only visible on small screens */}
       <FooterNavbar updateViewState={updateViewState} currentState={viewState}/>

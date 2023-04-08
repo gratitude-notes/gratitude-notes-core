@@ -3,6 +3,7 @@ import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { ViewState } from '../../pages/Dashboard';
+import Map from './Map'
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
@@ -24,6 +25,9 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       { text: 'duck', value: 500 }
   ]
 
+  const center = { lat: -34.397, lng: 150.644 };
+  const zoom = 4;
+
   return (
     <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto`}>
       {/* HEADER */}
@@ -35,10 +39,13 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       {/* OVERFLOW DIV */}
       <div className="h-full overflow-y-auto
                       scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
+        {/* <Map></Map> */}
         
-        <div className="h-full bg-red-500">
+        <div className="h-full">
           <h1>MAP</h1>
           <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
+          <Map/>
+
         </div>
         <div ref={ref} className="h-full bg-blue-500">
           <h1>DETAILED INFO ABOUT USERS WEEK</h1>
