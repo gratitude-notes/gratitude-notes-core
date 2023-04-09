@@ -101,12 +101,7 @@ const FeedList: React.FC = () => {
       </div>
 
       {/* SEARCH GUIDE */}
-      {(searchGuideVisible.isComponentVisible)
-        ?
-          <SearchGuide />
-        :
-          <></>
-      }
+      {(searchGuideVisible.isComponentVisible) ? <SearchGuide /> : <></> }
 
       {(search.query === "")
         ?
