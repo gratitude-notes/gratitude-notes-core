@@ -2,11 +2,14 @@ import useComponentVisible from '../../hooks/useComponentVisible';
 import { signOut } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 import { useSession } from '../../lib/Session';
-import SettingsModal from '../SettingsModal/SettingsModal';
-import { BsGearFill } from 'react-icons/bs';
+import { BsGear } from 'react-icons/bs';
+import { ViewState } from '../../pages/Dashboard';
 
+type AvatarButtonProps = {
+    updateViewState: (state: ViewState) => void;
+}
 
-const AvatarButton: React.FC = () => {
+const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
     const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
     const session = useSession();
 
@@ -16,20 +19,8 @@ const AvatarButton: React.FC = () => {
 
     const dropdownVisbile = (isComponentVisible) ? "visible" : "hidden";
 
-    const handleSettingsButton = () => {
-        (settingsModalVisible.isComponentVisible) ? settingsModalVisible.setComponentVisible(false) : settingsModalVisible.setComponentVisible(true);
-    }
-
-
-    const settingsModalVisible = useComponentVisible(false);
-
     const handleClick = () => {
         signOut(fb_auth);
-    }
-
-    const handleSettingsClick = () => {
-        console.log("Settings clicked");
-        
     }
 
     return (
@@ -44,10 +35,10 @@ const AvatarButton: React.FC = () => {
                     <div className="whitespace-nowrap border-b border-gray-400 px-2 py-2 text-sm">
                         Welcome, <br /> {`${session?.user?.displayName}`}
                     </div>
-                    <div onClick={handleSettingsClick}
+                    <div onClick={() => updateViewState("Settings")}
                         className="flex gap-2 cursor-pointer p-2 text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
-                        <BsGearFill size={20}/>                            
+                        <BsGear size={20}/>                            
                         <span>Settings</span>
                     </div>
                     <div onClick={handleClick}

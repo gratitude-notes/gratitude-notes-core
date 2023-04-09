@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
         case "Week Review": return <WeekInReviewModal updateViewState={updateViewState}/>;
         default: return (
           <>
-            <Navbar />
+            <Navbar updateViewState={updateViewState}/>
             <WeekCard />
 
             <div className="flex flex-grow overflow-y-auto
