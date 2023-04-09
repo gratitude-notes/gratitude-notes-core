@@ -1,11 +1,15 @@
 import useComponentVisible from '../../../hooks/useComponentVisible';
-import { BsThreeDots } from 'react-icons/bs'
+import { BsThreeDots, BsTrash } from 'react-icons/bs'
 
 const DotMenu: React.FC = () => {  
         const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
 
         const handleDropdownButton = () => {
             (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
+        }
+
+        const handleDelete = () => {
+            console.log("Delete clicked on a FeedNoteItem")
         }
 
         const twVisible = (isComponentVisible) ? "visible" : "hidden";
@@ -24,17 +28,13 @@ const DotMenu: React.FC = () => {
                 }
 
                 {/* Dropdown Menu */}
-                <div className={`${twVisible} absolute top-4 right-0 z-40 rounded-lg bg-gray-200 dark:bg-gray-600`}>
-                    <div className="flex flex-col gap-1 px-2">
-                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
-                            Edit
-                        </button>
-                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
-                            Delete
-                        </button>
-                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
-                            Share
-                        </button>
+                <div className={`${twVisible} absolute top-4 right-0 z-40 rounded-lg bg-gray-200 dark:bg-gray-600 dark:text-white`}>
+                    <div className="flex flex-col gap-1 p-2">
+                        <div onClick={handleDelete}
+                            className="flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
+                            <h1 className="text-sm">Delete</h1>
+                            <BsTrash size={17}/>
+                        </div>
                     </div>
                 </div>
             </div>
