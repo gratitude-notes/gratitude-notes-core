@@ -4,6 +4,7 @@ import { fb_auth } from "../../lib/Firebase";
 import { useSession } from '../../lib/Session';
 import { BsGear } from 'react-icons/bs';
 import { ViewState } from '../../pages/Dashboard';
+import { BiLogOutCircle } from 'react-icons/bi';
 
 type AvatarButtonProps = {
     updateViewState: (state: ViewState) => void;
@@ -44,6 +45,7 @@ const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
                     <div onClick={handleClick}
                         className="flex gap-2 cursor-pointer p-2 text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <BiLogOutCircle size={20}/>
                         <span>Sign Out</span>
                     </div>          
                 </div>
