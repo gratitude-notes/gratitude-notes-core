@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot } from '@firebase/firestore';
+import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
 type Bullets = {
@@ -8,13 +8,16 @@ type Bullets = {
 }
 
 export type NoteBullet = {
-    score: number,
+    score: number | null,
     timestamp: Timestamp,
     bulletJSON: string,
     keywords: string[],
     isFavorited: boolean
     bulletDocID?: string,
-    images: string[]
+    images: string[],
+    bulletTextContent: string
+    bulletLongitude?: number,
+    bulletLatitude?: number
 }
 
 const useUserBullets = () => {
@@ -27,17 +30,18 @@ const useUserBullets = () => {
         documents.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
             const bulletDocData: DocumentData = doc.data();
 
-            const composedBullet: NoteBullet = {
+            const composeNewBullet: NoteBullet = {
                 bulletJSON: bulletDocData.bulletJSON,
                 keywords: bulletDocData.keywords,
                 score: bulletDocData.score,
                 timestamp: bulletDocData.timestamp,
                 isFavorited: bulletDocData.isFavorited,
                 bulletDocID: bulletDocData.bulletDocID,
-                images: bulletDocData.images
+                images: bulletDocData.images,
+                bulletTextContent: bulletDocData.bulletTextContent
             }
             
-            collectionBullets.push(composedBullet)
+            collectionBullets.push(composeNewBullet)
         })
 
         setUserBullets({bullets: collectionBullets});
@@ -59,7 +63,8 @@ const useUserBullets = () => {
     useEffect(() => {
         if (session?.user) {
             const ref = collection(fb_firestore, "users", session.user.uid, "notes");
-            const unsubscribe = onSnapshot(ref, handleData, handleError);
+            const q = query(ref, orderBy('timestamp', 'desc'))
+            const unsubscribe = onSnapshot(q, handleData, handleError);
             return unsubscribe;
         }
     }, [session?.user])

@@ -15,18 +15,14 @@ const Location: React.FC = () => {
 
   //Api call is done only after we know the lat and lon
   async function getAddress(lat: any, lon: any) {
-    var requestOptions = {
+      let requestOptions = {
         method: 'GET',
       };
       
-      fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=2ac0437264654f16bdf7539671e4986e`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            //console.log(result.features[0].properties.city, result.features[0].properties.state_code)
-            setAddress(`${result.features[0].properties.city}, ${result.features[0].properties.state_code}`);
-        })
-        .catch(error => console.log('error', error));
-  };
+      const response = await fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=2ac0437264654f16bdf7539671e4986e`, requestOptions);
+      const { features } = await response.json();
+      setAddress(`${features[0].properties.city}, ${features[0].properties.state_code}`)
+  }
 
 
   return (

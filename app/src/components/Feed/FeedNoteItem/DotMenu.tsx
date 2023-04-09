@@ -1,5 +1,5 @@
 import useComponentVisible from '../../../hooks/useComponentVisible';
-import { BsThreeDots } from 'react-icons/bs'
+import { BsShare, BsThreeDots, BsTrash } from 'react-icons/bs'
 
 const DotMenu: React.FC = () => {  
         const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
@@ -8,10 +8,14 @@ const DotMenu: React.FC = () => {
             (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
         }
 
+        const handleDelete = () => {
+            console.log("Delete clicked on a FeedNoteItem")
+        }
+
         const twVisible = (isComponentVisible) ? "visible" : "hidden";
 
         return (
-            <div ref={ref} className="absolute top-1 right-1">
+            <div ref={ref} className="absolute top-1 right-4">
                 {(isComponentVisible)
                     ?
                     <button onClick={handleDropdownButton} className="text-cyan-500">
@@ -24,17 +28,18 @@ const DotMenu: React.FC = () => {
                 }
 
                 {/* Dropdown Menu */}
-                <div className={`${twVisible} absolute top-4 right-0 z-40 rounded-lg bg-gray-200 dark:bg-gray-600`}>
-                    <div className="flex flex-col gap-1 px-2">
-                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
-                            Edit
-                        </button>
-                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
-                            Delete
-                        </button>
-                        <button className="text-left hover:text-gray-500 dark:hover:text-gray-300 dark:text-white">
-                            Share
-                        </button>
+                <div className={`${twVisible} absolute top-4 right-0 z-50 rounded-lg border border-gray-400 dark:border-gray-600`}>
+                    <div className="flex flex-col gap-1 bg-gray-200 dark:bg-gray-900 rounded-lg text-black dark:text-white">
+                        <div onClick={handleDelete}
+                            className="px-2 py-[2px] flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
+                            <h1 className="text-sm">Delete</h1>
+                            <BsTrash size={17}/>
+                        </div>
+                        <div onClick={handleDelete}
+                            className="px-2 py-[2px] flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
+                            <h1 className="text-sm">Share?</h1>
+                            <BsShare size={17}/>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -10,13 +10,14 @@ import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
 import WebNotification from "../components/WeekInReviewModal/WebNotification"
 import { useEffect, useState } from "react";
-import useProfileData from "../hooks/useProfileData";
+import { useSettings } from "../lib/Settings";
 
 const screens = ["Home", "Write", "Settings", "Week Review"] as const;
 export type ViewState = typeof screens[number];
 
-const Dashboard: React.FC = () => { 
-  const currentUserProfileData = useProfileData();
+const Dashboard: React.FC = () => {
+  const currentUserSettings = useSettings();
+  
   const [viewState, setViewState] = useState<ViewState>("Home");
   const notificationVisible = useComponentVisible(false);
 
@@ -35,7 +36,7 @@ const Dashboard: React.FC = () => {
         case "Week Review": return <WeekInReviewModal updateViewState={updateViewState}/>;
         default: return (
           <>
-            <Navbar />
+            <Navbar updateViewState={updateViewState}/>
             <WeekCard />
 
             <div className="flex flex-grow overflow-y-auto

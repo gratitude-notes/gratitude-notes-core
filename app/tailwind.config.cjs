@@ -16,6 +16,9 @@ module.exports = {
       fontFamily: {
         myRoboto: ["Roboto", "sans-serif"],
         myClimateCrisis: ["Climate Crisis", "cursive"]
+      },
+      colors: {
+        'turquoise-surf': '#00BCD4'
       }
     },
   },

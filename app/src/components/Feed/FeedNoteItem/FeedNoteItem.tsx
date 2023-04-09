@@ -3,7 +3,10 @@ import DotMenu from "./DotMenu";
 import KeyWordItem from "./KeyWordItem";
 import LikeButton from "./LikeButton";
 import Reader from "./Reader";
+import ImageViewer from "./ImageViewer";
 import Location from "./Location";
+import useComponentVisible from "../../../hooks/useComponentVisible";
+import EmojiScore from "./EmojiScore";
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
     const date = timestamp.toDate();
@@ -16,46 +19,33 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
 
     const timeStr = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year.toString()} • ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
 
+    const displaySlider = useComponentVisible(false);    // if false, images slider not active, if true, images slider active
+    
     return (
-        <ul>
-            <div className="relative border-b border-gray-400">
-                <DotMenu />
-                <div className="flex flex-col p-4">
-                    <Reader noteJSON={bulletJSON}/>
+        <div className="relative border-b border-gray-400">
+            <DotMenu />
+            <div className="flex flex-col p-4">
+                <Reader noteJSON={bulletJSON}/>
 
-                    {/* IMAGES */}
-                    <div className="w-[304px] gap-1 flex flex-wrap mx-auto">
-                        {images.map((image: string, index: number) => (
-                            <img src={image} key={index} 
-                                 className="w-[150px] aspect-square object-cover rounded-xl"/>
-                        ))}
-                    </div>
-
-                    <div className="flex flex-col">
-                        <KeyWordItem {...{keywords}} />
-                        <div className="pt-2 flex justify-between items-center">
-                            <LikeButton {...{isFavorited, bulletDocID}} />
-                            <div className="flex flex-col text-right">
-                                <time className="text-sm text-gray-400">{timeStr}</time>
-                                <Location />
-                            </div>
-                        </div>
-                    </div>  
+                {/* IMAGES */}
+                <div ref={displaySlider.ref} className="w-[300px] mx-auto">
+                    <ImageViewer {...{displaySlider, images}} />
                 </div>
+
+                <div className="flex flex-col">
+                    <KeyWordItem {...{keywords}} />
+                    <div className="flex justify-between">
+                        <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
+                        <div className="flex flex-col text-right">
+                            <EmojiScore emojiScore={score}/>
+                            <time className="text-sm text-gray-400">{timeStr}</time>
+                            <Location />
+                        </div>
+                    </div>
+                </div>  
             </div>
-        </ul>
+        </div>
     )
   }
   
   export default NoteItem;
-
-{/* IMAGES */}
-{/* <div className="flex flex-wrap gap-1 justify-center">
-    {images.map((image: string, index: number) => (
-        <div key={index}
-            className="w-[200px] bg-black rounded-xl border border-gray-300 dark:border-gray-600">
-            <img src={image} key={index} 
-                 className="aspect-square object-scale-down rounded-xl relative"/>
-        </div>
-    ))}
-</div> */}

@@ -2,15 +2,20 @@ import { useSession } from "../../lib/Session";
 import ThemeButton from "./ThemeButton";
 import AvatarButton from "./AvatarButton";
 import SignInButton from "./SignInButton";
+import { ViewState } from "../../pages/Dashboard";
 
-const AuthButton: React.FC = () => {
+type AuthButtonProps = {
+  updateViewState: (state: ViewState) => void;
+}
+
+const AuthButton: React.FC<AuthButtonProps> = ({updateViewState}) => {
   const session = useSession();  
 
   if (session?.user) {
     return (
       <>
         <ThemeButton />
-        <AvatarButton />
+        <AvatarButton updateViewState={updateViewState}/>
       </>
     )
   }
@@ -24,7 +29,11 @@ const AuthButton: React.FC = () => {
   }
 }
 
-const Navbar: React.FC = () => {
+type NavbarProps = {
+  updateViewState: (state: ViewState) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({updateViewState}) => {
   return (
     <header>
       <nav>
@@ -41,7 +50,7 @@ const Navbar: React.FC = () => {
           </button>
           {/* END BUTTONS */}
           <div className="flex w-full gap-4 justify-end items-center">
-            <AuthButton />
+            <AuthButton updateViewState={updateViewState}/>
           </div>
         </div>
       </nav>
@@ -50,14 +59,3 @@ const Navbar: React.FC = () => {
 }
   
 export default Navbar;
-
-// <header className="bg-white z-40 shadow-md shadow-gray-400 dark:shadow-gray-900  dark:bg-gray-800">
-// <nav className="flex flex-row justify-center p-4 flex-nowrap">
-
-//   <div className="flex justify-start">
-//   </div>
-
-//   {/* END BUTTONS */}
-//   <div className="flex w-full gap-4 justify-end items-center">
-//     <AuthButton />
-//   </div>

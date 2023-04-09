@@ -6,3 +6,11 @@
     font-family: "Open Sans";
     src: url("../fonts/OpenSans-Regular.ttf")
 }
+
+.slick-prev:before {
+    @apply text-black dark:text-white text-xl
+}
+
+.slick-next:before {
+    @apply text-black dark:text-white text-xl
+}

@@ -7,11 +7,7 @@ const SignInButton = () => {
         provider.addScope('https://www.googleapis.com/auth/userinfo.email');
         
         await signInWithRedirect(fb_auth, provider);
-        
-        const result = await getRedirectResult(fb_auth);
-        if (result?.user) {
-          console.log(result.user);
-        }
+        await getRedirectResult(fb_auth);
     }
 
     return (
