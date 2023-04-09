@@ -1,5 +1,5 @@
 import useComponentVisible from '../../../hooks/useComponentVisible';
-import { BsThreeDots, BsTrash } from 'react-icons/bs'
+import { BsShare, BsThreeDots, BsTrash } from 'react-icons/bs'
 
 const DotMenu: React.FC = () => {  
         const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
@@ -28,12 +28,17 @@ const DotMenu: React.FC = () => {
                 }
 
                 {/* Dropdown Menu */}
-                <div className={`${twVisible} absolute top-4 right-0 z-40 rounded-lg bg-gray-200 dark:bg-gray-600 dark:text-white`}>
-                    <div className="flex flex-col gap-1 p-2">
+                <div className={`${twVisible} absolute top-4 right-0 z-50 rounded-lg border border-gray-400 dark:border-gray-600`}>
+                    <div className="flex flex-col gap-1 bg-gray-200 dark:bg-gray-900 rounded-lg text-black dark:text-white">
                         <div onClick={handleDelete}
-                            className="flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
+                            className="px-2 py-[2px] flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
                             <h1 className="text-sm">Delete</h1>
                             <BsTrash size={17}/>
+                        </div>
+                        <div onClick={handleDelete}
+                            className="px-2 py-[2px] flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
+                            <h1 className="text-sm">Share?</h1>
+                            <BsShare size={17}/>
                         </div>
                     </div>
                 </div>
