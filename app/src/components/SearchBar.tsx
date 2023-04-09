@@ -1,9 +1,10 @@
 
 type SearchbarProps = {
+    searchCategory: string;
     handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Searchbar: React.FC<SearchbarProps> = ({handleSearchChange}) => {  
+const Searchbar: React.FC<SearchbarProps> = ({searchCategory, handleSearchChange}) => {  
 
     return (
         <input className="w-full px-2 py-1
@@ -12,7 +13,7 @@ const Searchbar: React.FC<SearchbarProps> = ({handleSearchChange}) => {
                         focus:border-none focus:outline-2 focus:outline-cyan-500
                         text-black dark:text-white 
                         rounded-lg"
-                        type="search"placeholder="Search" onChange={handleSearchChange}/>
+                        type="search"placeholder={`Search by ${searchCategory.toLowerCase()}`} onChange={handleSearchChange}/>
     );
 }
 

@@ -6,6 +6,7 @@ import useComponentVisible from "../../hooks/useComponentVisible";
 import { BsQuestion } from "react-icons/bs";
 import SearchGuide from "./SearchGuide";
 import { BiDotsVertical } from "react-icons/bi";
+import SearchDropdown from "./SearchDropdown";
 
 const FeedList: React.FC = () => {
   const { bullets } = useUserBullets();
@@ -13,6 +14,7 @@ const FeedList: React.FC = () => {
     query: "",
     bulletsList: bullets
   });
+  const [searchCategory, setSearchCategory] = useState("All");
 
   const dayMap = new Map<Number, string>();
   dayMap.set(0, "sunday");
@@ -39,8 +41,6 @@ const FeedList: React.FC = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value.toLowerCase();
-    const searchKey = searchQuery.split(":")[0].toLowerCase();    // ex -> score:-2, searchKey = 'score'
-    const searchValue = searchQuery.split(":")[1];  // ex -> score:-2, searchValue = 2
 
     const results = bullets?.filter((bullet: NoteBullet) => {
       const bulletTextContent = bullet.bulletTextContent.toLowerCase();
@@ -50,23 +50,23 @@ const FeedList: React.FC = () => {
       const bulletYear = bullet.timestamp.toDate().getFullYear().toString();
       const bulletScore = bullet.score?.toString();
 
-      switch (searchKey) {
+      switch (searchCategory.toLowerCase()) {
         // Advanced searching
-        case "content": return bulletTextContent.includes(searchValue);
-        case "day": return bulletDay?.includes(searchValue);
-        case "month": return bulletMonth?.includes(searchValue);
-        case "date": return bulletDate?.includes(searchValue);
-        case "year": return bulletYear?.includes(searchValue);
-        case "score": return bulletScore?.includes(searchValue);
+        case "content": return bulletTextContent.includes(searchQuery);
+        case "day": return bulletDay?.includes(searchQuery);
+        case "month": return bulletMonth?.includes(searchQuery);
+        case "date": return bulletDate?.includes(searchQuery);
+        case "year": return bulletYear?.includes(searchQuery);
+        case "score": return bulletScore === searchQuery;
 
-        // General searching
+        // General searching (All)
         default: {
-          return  bulletTextContent.includes(searchKey) ||
-                  bulletDay?.includes(searchKey) ||
-                  bulletMonth?.includes(searchKey) ||
-                  bulletDate?.includes(searchKey) ||
-                  bulletYear?.includes(searchKey) ||
-                  bulletScore?.includes(searchKey);
+          return  bulletTextContent.includes(searchQuery) ||
+                  bulletDay?.includes(searchQuery) ||
+                  bulletMonth?.includes(searchQuery) ||
+                  bulletDate?.includes(searchQuery) ||
+                  bulletYear?.includes(searchQuery) ||
+                  bulletScore === searchQuery;
         }
       }
     })
@@ -74,6 +74,10 @@ const FeedList: React.FC = () => {
       query: e.target.value,
       bulletsList: results || []
     }));
+  }
+
+  const handleSearchCategoryChange = (category: string) => {
+    setSearchCategory(category);
   }
 
   const searchGuideVisible = useComponentVisible(false);
@@ -86,8 +90,9 @@ const FeedList: React.FC = () => {
     <ol className="bg-white dark:bg-gray-800
                   scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
       {/* SEARCH */}
-      <div ref={searchGuideVisible.ref} className="flex gap-2 px-2 pt-1">
-        <SearchBar handleSearchChange={handleSearchChange}/>
+      <div ref={searchGuideVisible.ref} className="flex gap-1 px-2 pt-1">
+        <SearchDropdown handleSearchCategoryChange={handleSearchCategoryChange}/>
+        <SearchBar searchCategory={searchCategory} handleSearchChange={handleSearchChange}/>
         <button onClick={handleSearchHowTo}
                 className={`${searchGuideVisible.isComponentVisible ? "bg-gray-200 dark:bg-gray-900 outline outline-1 outline-gray-400" : ""}
                 hover:outline hover:outline-1 hover:outline-gray-400 rounded-lg dark:text-white`}>

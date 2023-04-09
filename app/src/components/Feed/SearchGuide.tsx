@@ -7,8 +7,28 @@ import HappyEmoji from "../../assets/emojis/happy_emoji.png";
 const SearchGuide: React.FC = () => {  
 
     return (
-        <div className={`bg-gray-200 dark:bg-gray-900 rounded-lg mx-2 mt-1`}>
-            <div className="px-3 dark:text-white">
+        <div className={`bg-gray-200 dark:bg-gray-900 rounded-lg mx-2 mt-1 w-[50%] ml-auto`}>
+            <div className="px-3 py-1 text-sm grid grid-cols-6 grid-rows-2 gap-2 text-center dark:text-white">
+                <h1 className="font-bold">Score</h1>
+                <h1>-2</h1>
+                <h1>-1</h1>
+                <h1>0</h1>
+                <h1>1</h1>
+                <h1>2</h1>
+                <h1 className="font-bold">Emoji</h1>
+                <img className="w-[25px] mx-auto" src={SadEmoji} alt="sad emoji..."/>
+                <img className="w-[25px] mx-auto" src={SlightlySadEmoji} alt="slightly sad emoji..."/>
+                <img className="w-[25px] mx-auto" src={NeutralEmoji} alt="neutral emoji..."/>
+                <img className="w-[25px] mx-auto" src={SlightlyHappyEmoji} alt="slightly happy emoji..."/>
+                <img className="w-[25px] mx-auto" src={HappyEmoji} alt="happy emoji..."/>
+            </div>
+        </div>
+    );
+}
+
+export default SearchGuide;
+
+{/* <div className="px-3 dark:text-white">
                 <h1 className="text-lg text-center">How to search:</h1>
                 <hr className="border border-gray-400 dark:border-gray-600"/>
                 <div className="py-1">
@@ -45,9 +65,4 @@ const SearchGuide: React.FC = () => {
                     </div>
                 </div>
                 
-            </div>
-        </div>
-    );
-}
-
-export default SearchGuide;
+            </div> */}
