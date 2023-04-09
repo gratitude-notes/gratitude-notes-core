@@ -9,11 +9,8 @@ const Streaks: React.FC = () => {
   const lastBullet = userBullets.bullets && userBullets.bullets.length > 0 ? userBullets.bullets[0] : null;
   const lastConsecitiveDays: number = (lastBullet?.consecutiveDays ?? 0);
   const lastNoteTimestamp: number = lastBullet?.lastNoteTimestamp ?? 0;
-  console.log(lastBullet?.lastNoteTimestamp, "last Note")
-  console.log(lastBullet?.consecutiveDays, "consecuctiveDays")
   const currentNoteTimestamp = Date.now();
 
-  console.log(currentNoteTimestamp, lastNoteTimestamp, compareTimestamps(currentNoteTimestamp, lastNoteTimestamp)); 
   const streakNumber: number = compareTimestamps(currentNoteTimestamp, lastNoteTimestamp);
 
   function compareTimestamps(timestamp1: number, timestamp2: number): number {

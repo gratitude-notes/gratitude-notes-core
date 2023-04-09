@@ -4,6 +4,7 @@ import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapsh
 import { fb_firestore } from "../lib/Firebase";
 
 type Bullets = {
+    [x: string]: any;
     bullets: NoteBullet[] | null
 }
 
