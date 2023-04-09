@@ -5,6 +5,7 @@ import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { ViewState } from '../../pages/Dashboard';
 import Map from './MapComponents/Map'
 import Streaks from './Streaks';
+import StreakDisplay from './StreakDisplay';
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
@@ -51,7 +52,9 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
         <div ref={ref} className="h-full bg-blue-500">
           <h1>DETAILED INFO ABOUT USERS WEEK</h1>
           <Streaks></Streaks>
+          <StreakDisplay></StreakDisplay>
         </div>
+        
       </div>
 
       {/* <WordCloud data={data} /> */}
