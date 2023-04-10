@@ -168,7 +168,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
   const fetchLocationName = async (latitude: number, longitude: number) => {
     const repsonse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&result_type=locality&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`);
     const data = await repsonse.json();
-    const formatted_address = data.results[0].formatted_address;
+    const formatted_address = data.plus_code.compound_code.split(' ').slice(1).join(' ');
     
     return formatted_address;
   }
