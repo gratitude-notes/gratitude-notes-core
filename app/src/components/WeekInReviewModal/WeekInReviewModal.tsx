@@ -3,6 +3,7 @@ import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { ViewState } from '../../pages/Dashboard';
+import Streaks from './Streaks';
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
@@ -42,6 +43,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
         </div>
         <div ref={ref} className="h-full bg-blue-500">
           <h1>DETAILED INFO ABOUT USERS WEEK</h1>
+          <Streaks></Streaks>
         </div>
       </div>
 

@@ -13,8 +13,8 @@ import React, { useRef, useState } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { $getRoot, EditorState } from 'lexical';
-import { addDoc, collection, Timestamp, setDoc, updateDoc } from '@firebase/firestore';
-import { NoteBullet } from '../../hooks/useUserBullets';
+import { addDoc, collection, Timestamp, setDoc, updateDoc, getDoc } from '@firebase/firestore';
+import useUserBullets, { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore, fb_storage } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
@@ -35,6 +35,15 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const session = useSession();
   const [localImages, setLocalImages] = useState<File[]>([]);
   const [emojiScore, setEmojiScore] = useState<number | null>(null);
+
+  const userBullets = useUserBullets();
+  const lastBullet = userBullets.bullets && userBullets.bullets.length > 0 ? userBullets.bullets[0] : null;
+  const lastConsecitiveDays: number = (lastBullet?.consecutiveDays ?? 0);
+  const lastNoteTimestamp: number = lastBullet?.lastNoteTimestamp ?? 0;
+  console.log(lastBullet?.lastNoteTimestamp, "last Note")
+  console.log(lastBullet?.consecutiveDays, "consecuctiveDays")
+
+  const currentNoteTimestamp = Date.now();
 
   const initialConfig = {
       namespace: "noteEditor",
@@ -77,6 +86,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
       keywords: [],
       isFavorited: false,
       bulletTextContent: editorTextContent ? editorTextContent : "",
+      lastNoteTimestamp: currentNoteTimestamp
     }
     
     try {
@@ -86,9 +96,17 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
         
         const downloadURLs = await uploadImages(newBulletDocRef.id);        
-        await updateDoc(newBulletDocRef, { images: downloadURLs });
+        //await updateDoc(newBulletDocRef, { images: downloadURLs });
 
         toast.success("Note Submitted!");
+
+        const streakNumber: number = compareTimestamps(currentNoteTimestamp, lastNoteTimestamp);
+
+        await updateDoc(newBulletDocRef, { 
+          images: downloadURLs,
+          consecutiveDays: streakNumber
+         });
+
       }
     } catch(error) {
       console.log(error);
@@ -96,6 +114,21 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     }
 
     updateViewState("Home");
+  }
+
+  function compareTimestamps(timestamp1: number, timestamp2: number): number {
+    // Calculate the difference in time (milliseconds)
+    const timeDiff = Math.abs(timestamp2 - timestamp1);
+    // Convert the time difference to days
+    const dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+
+    if (dayDiff === 0) {
+      return lastConsecitiveDays;
+    } else if (dayDiff === 1) {
+      return lastConsecitiveDays + 1;
+    } else {
+      return 1;
+    }
   }
 
   const getEmojiScore = (score: number) => {
