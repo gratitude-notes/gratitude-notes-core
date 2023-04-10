@@ -8,7 +8,7 @@ import Location from "./Location";
 import useComponentVisible from "../../../hooks/useComponentVisible";
 import EmojiScore from "./EmojiScore";
 
-const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
+const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images, bulletAddress }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
     const day = date.getDate();
@@ -39,7 +39,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                         <div className="flex flex-col text-right">
                             <EmojiScore emojiScore={score}/>
                             <time className="text-sm text-gray-400">{timeStr}</time>
-                            <Location />
+                            <Location address={bulletAddress}/>
                         </div>
                     </div>
                 </div>  

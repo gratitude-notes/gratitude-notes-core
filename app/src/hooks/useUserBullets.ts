@@ -16,8 +16,9 @@ export type NoteBullet = {
     bulletDocID?: string,
     images: string[],
     bulletTextContent: string
-    bulletLongitude?: number,
-    bulletLatitude?: number
+    bulletLongitude: number  | null,
+    bulletLatitude: number | null,
+    bulletAddress: string | null
 }
 
 const useUserBullets = () => {
@@ -38,7 +39,10 @@ const useUserBullets = () => {
                 isFavorited: bulletDocData.isFavorited,
                 bulletDocID: bulletDocData.bulletDocID,
                 images: bulletDocData.images,
-                bulletTextContent: bulletDocData.bulletTextContent
+                bulletTextContent: bulletDocData.bulletTextContent,
+                bulletLongitude: bulletDocData.bulletLongitude,
+                bulletLatitude: bulletDocData.bulletLatitude,
+                bulletAddress: bulletDocData.bulletAddress
             }
             
             collectionBullets.push(composeNewBullet)
