@@ -7,6 +7,8 @@ import ImageViewer from "./ImageViewer";
 import Location from "./Location";
 import useComponentVisible from "../../../hooks/useComponentVisible";
 import EmojiScore from "./EmojiScore";
+import ToggleOnBoardButton from "./ToggleOnBoardButton";
+import ShareButton from "./ShareButton";
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images }) => {
     const date = timestamp.toDate();
@@ -34,8 +36,10 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
 
                 <div className="flex flex-col">
                     <KeyWordItem {...{keywords}} />
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-black dark:text-white">
                         <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
+                        <ShareButton bulletDocID={bulletDocID} />
+                        <ToggleOnBoardButton isOnPublicBoard={isFavorited} bulletDocID={bulletDocID} />
                         <div className="flex flex-col text-right">
                             <EmojiScore emojiScore={score}/>
                             <time className="text-sm text-gray-400">{timeStr}</time>

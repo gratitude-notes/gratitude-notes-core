@@ -5,16 +5,21 @@ import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 import useComponentVisible from "../../hooks/useComponentVisible";
 import { BsQuestion } from "react-icons/bs";
 import SearchGuide from "./SearchGuide";
-import { BiDotsVertical } from "react-icons/bi";
 import SearchDropdown from "./SearchDropdown";
+import FeedSelector from "./FeedSelector";
 
 const FeedList: React.FC = () => {
-  const { bullets } = useUserBullets();
+  const [feedSelection, setFeedSelection] = useState("Personal"); // personal, favorite, public
+  const { bullets } = useUserBullets(feedSelection);
+  const [searchCategory, setSearchCategory] = useState("All");
   const [search, setSearch] = useState({
     query: "",
     bulletsList: bullets
   });
-  const [searchCategory, setSearchCategory] = useState("All");
+
+  const handleFeedSelectorChange = (selection: string) => {
+    setFeedSelection(selection);
+  }
 
   const dayMap = new Map<Number, string>();
   dayMap.set(0, "sunday");
@@ -89,16 +94,24 @@ const FeedList: React.FC = () => {
   return (
     <ol className="bg-white dark:bg-gray-800
                   scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-      {/* SEARCH */}
-      <div ref={searchGuideVisible.ref} className="flex gap-1 px-2 pt-1">
-        <SearchDropdown handleSearchCategoryChange={handleSearchCategoryChange}/>
-        <SearchBar searchCategory={searchCategory} handleSearchChange={handleSearchChange}/>
-        <button onClick={handleSearchHowTo}
-                className={`${searchGuideVisible.isComponentVisible ? "bg-gray-200 dark:bg-gray-900 outline outline-1 outline-gray-400" : ""}
-                hover:outline hover:outline-1 hover:outline-gray-400 rounded-lg dark:text-white`}>
-          <BsQuestion size={27}/>
-        </button>
+      
+      <div className="sticky top-0 pb-1 bg-white dark:bg-gray-800 z-50 border-b border-black dark:border-gray-400">
+        {/* FEED SELECTOR */}
+        <FeedSelector feedSelection={feedSelection} handleFeedSelectorChange={handleFeedSelectorChange}/>
+
+        {/* SEARCH */}
+        <div ref={searchGuideVisible.ref} className="flex gap-1 px-2 pt-1">
+          <SearchDropdown handleSearchCategoryChange={handleSearchCategoryChange}/>
+          <SearchBar searchCategory={searchCategory} handleSearchChange={handleSearchChange}/>
+          <button onClick={handleSearchHowTo}
+                  className={`${searchGuideVisible.isComponentVisible ? "bg-gray-200 dark:bg-gray-900 outline outline-1 outline-gray-400" : ""}
+                  hover:outline hover:outline-1 hover:outline-gray-400 rounded-lg dark:text-white`}>
+            <BsQuestion size={27}/>
+          </button>
+        </div>
       </div>
+
+      
 
       {/* SEARCH GUIDE */}
       {(searchGuideVisible.isComponentVisible) ? <SearchGuide /> : <></> }

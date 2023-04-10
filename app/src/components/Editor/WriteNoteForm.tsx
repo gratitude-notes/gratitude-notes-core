@@ -76,6 +76,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
       images: [],
       keywords: [],
       isFavorited: false,
+      isPublic: false,
       bulletTextContent: editorTextContent ? editorTextContent : "",
     }
     
