@@ -10,7 +10,7 @@ import EmojiScore from "./EmojiScore";
 
 const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images, bulletAddress }) => {
     const date = timestamp.toDate();
-    const month = date.getMonth() + 1
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     const year = date.getFullYear();
     const hour = date.getHours() % 12 || 12;
@@ -23,7 +23,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
     
     return (
         <div className="relative border-b border-gray-400">
-            <DotMenu />
+            <DotMenu bulletDocID={bulletDocID} />
             <div className="flex flex-col p-4">
                 <Reader noteJSON={bulletJSON}/>
 
