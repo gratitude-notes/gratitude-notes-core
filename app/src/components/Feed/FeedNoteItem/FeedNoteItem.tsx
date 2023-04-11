@@ -7,10 +7,10 @@ import ImageViewer from "./ImageViewer";
 import Location from "./Location";
 import useComponentVisible from "../../../hooks/useComponentVisible";
 import EmojiScore from "./EmojiScore";
-import ToggleOnBoardButton from "./ToggleOnBoardButton";
 import ShareButton from "./ShareButton";
+import PublicBoardButton from "./PublicBoardButton";
 
-const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, bulletDocID, images, bulletAddress }) => {
+const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, isPublic, bulletDocID, images, bulletAddress }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
     const day = date.getDate();
@@ -26,7 +26,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
     return (
         <div className="relative border-b border-gray-400">
             <DotMenu />
-            <div className="flex flex-col p-4">
+            <div className="flex flex-col px-4 py-2">
                 <Reader noteJSON={bulletJSON}/>
 
                 {/* IMAGES */}
@@ -37,9 +37,11 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                 <div className="flex flex-col">
                     <KeyWordItem {...{keywords}} />
                     <div className="flex justify-between text-black dark:text-white">
-                        <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
-                        <ShareButton bulletDocID={bulletDocID} />
-                        <ToggleOnBoardButton isOnPublicBoard={isFavorited} bulletDocID={bulletDocID} />
+                        <div className="flex gap-4 sm:gap-10 items-end text-gray-600 dark:text-gray-200">
+                            <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
+                            <ShareButton bulletDocID={bulletDocID} />
+                            <PublicBoardButton isPublic={isPublic} bulletDocID={bulletDocID} />
+                        </div>
                         <div className="flex flex-col text-right">
                             <EmojiScore emojiScore={score}/>
                             <time className="text-sm text-gray-400">{timeStr}</time>

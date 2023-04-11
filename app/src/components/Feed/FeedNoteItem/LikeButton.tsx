@@ -26,22 +26,18 @@ const LikeButton: React.FC<LikeButtonProps> = ({isFavorited, bulletDocID}) => {
 
   return (
     <>
-      {isFilled ? 
-      (
-        <button
-          className="text-white font-bold mt-auto"
-          onClick={onClickLikeButton}
-        >
-          <BsHeartFill className="inline-block fill-pink-600" size={17} />
+      {isFilled 
+        ? 
+          <button className="hover:bg-pink-700 hover:bg-opacity-20 p-2 hover:rounded-full"
+                onClick={onClickLikeButton}>
+            <BsHeartFill className="text-pink-500" size={15} />
+          </button>
+        : 
+        <button className="hover:bg-pink-700 hover:bg-opacity-20 hover:text-pink-500 p-2 hover:rounded-full"
+                onClick={onClickLikeButton}>
+          <BsHeart size={15} />
         </button>
-      ) : (
-        <button
-          className="text-pink-500 font-bold mt-auto"
-          onClick={onClickLikeButton}
-        >
-          {!isFilled && <BsHeart className="inline-block" size={17} />}
-        </button>
-      )}
+      }
     </>
   );
 }

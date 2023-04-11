@@ -3,22 +3,28 @@ import { BsGlobe } from 'react-icons/bs';
 import { setDoc, doc, Firestore } from '@firebase/firestore';
 import { fb_firestore } from '../../../lib/Firebase';
 import { useSession } from '../../../lib/Session';
-import { MdOutlineDashboardCustomize } from 'react-icons/md';
 import toast from 'react-hot-toast';
-import { PublicNoteBullet } from '../../../hooks/useUserPublicBullets';
+import { BiLockAlt } from 'react-icons/bi';
 
-type AddToBoardButtonProps = {
-  isOnPublicBoard: boolean;
+type PublicBoardButtonProps = {
+  isPublic: boolean;
   bulletDocID: string | undefined;
 }
 
-const AddToBoardButton: React.FC<AddToBoardButtonProps> = ({isOnPublicBoard, bulletDocID}) => {
+const PublicBoardButton: React.FC<PublicBoardButtonProps> = ({isPublic, bulletDocID}) => {
   const session = useSession();
-  const [isFilled, setIsFilled] = useState(isOnPublicBoard);
+  const [isFilled, setIsFilled] = useState(isPublic);
 
-  // useEffect(() => {
-  //   setIsFilled(isOnPublicBoard);
-  // }, [isOnPublicBoard])
+  useEffect(() => {
+    setIsFilled(isPublic);
+  }, [isPublic])
+
+  const onClickPublicBoardButton = () => {
+    if (bulletDocID && session && session.user) {
+      const publicBoardDocRef = doc(fb_firestore, "users", session.user.uid, "notes", bulletDocID);
+      setDoc(publicBoardDocRef, {isPublic: !isPublic}, {merge: true})
+    }
+  }
 
   // const onClickAddToBoardButton = async () => {
   //   const newPublicBullet: PublicNoteBullet = {
@@ -65,24 +71,21 @@ const AddToBoardButton: React.FC<AddToBoardButtonProps> = ({isOnPublicBoard, bul
 
   return (
     <>
-      {isFilled ? 
-      (
-        <button
-          className="mt-auto"
-        >
-          <BsGlobe size={17} />
-        </button>
-      ) : (
-        <button
-          
-          className="mt-auto"
-        >
-          {!isFilled && <MdOutlineDashboardCustomize size={17} />}
-        </button>
-      )}
+      {isFilled
+        ? 
+          <button className="hover:bg-cyan-700 hover:bg-opacity-20 hover:text-cyan-500 p-2 hover:rounded-full"
+                onClick={onClickPublicBoardButton}>
+            <BiLockAlt size={17} />
+          </button>
+        :
+          <button className="hover:bg-cyan-700 hover:bg-opacity-20 hover:text-cyan-500 p-2 hover:rounded-full"
+                onClick={onClickPublicBoardButton}>
+            <BsGlobe size={15} />
+          </button>
+      }
     </>
   );
 }
 
-export default AddToBoardButton;
+export default PublicBoardButton;
 
