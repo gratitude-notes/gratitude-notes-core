@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSession } from "../lib/Session";
 import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
@@ -23,7 +22,6 @@ export type PublicNoteBullet = {
 }
 
 const useUserPublicBullets = (userID: string | undefined) => {
-    // const session = useSession();
     const [userPublicBullets, setUserPublicBullets] = useState<PublicBullets>({publicBullets: null});
 
     const composeUserPublicNotes = (documents: QueryDocumentSnapshot<DocumentData>[]) => {
