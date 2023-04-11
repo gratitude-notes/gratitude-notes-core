@@ -16,9 +16,10 @@ export type NoteBullet = {
     isPublic: boolean,
     bulletDocID?: string,
     images: string[],
-    bulletTextContent: string,
-    bulletLongitude?: number,
-    bulletLatitude?: number,
+    bulletTextContent: string
+    bulletLongitude: number  | null,
+    bulletLatitude: number | null,
+    bulletAddress: string | null
 }
 
 const useUserBullets = (feedQuery: string) => {
@@ -40,7 +41,10 @@ const useUserBullets = (feedQuery: string) => {
                 isPublic: bulletDocData.isPublic,
                 bulletDocID: bulletDocData.bulletDocID,
                 images: bulletDocData.images,
-                bulletTextContent: bulletDocData.bulletTextContent
+                bulletTextContent: bulletDocData.bulletTextContent,
+                bulletLongitude: bulletDocData.bulletLongitude,
+                bulletLatitude: bulletDocData.bulletLatitude,
+                bulletAddress: bulletDocData.bulletAddress
             }
             
             collectionBullets.push(composeNewBullet)
