@@ -95,7 +95,7 @@ const FeedList: React.FC = () => {
     <ol className="bg-white dark:bg-gray-800
                   scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
       
-      <div className="sticky top-0 pb-1 bg-white dark:bg-gray-800 z-40 border-b border-black dark:border-gray-400">
+      <div className="sticky -top-[1px] pb-1 bg-white dark:bg-gray-800 z-40 border-b border-black dark:border-gray-400">
         {/* FEED SELECTOR */}
         <FeedSelector feedSelection={feedSelection} handleFeedSelectorChange={handleFeedSelectorChange}/>
 

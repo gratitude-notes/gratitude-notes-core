@@ -2,7 +2,7 @@ import DayCard from "./DayCard";
 import { Timestamp } from "@firebase/firestore";
 import dayjs from "dayjs";
 import useComponentVisible from "../../hooks/useComponentVisible";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const data = [
     {
@@ -189,6 +189,10 @@ type CalendarBullet = {
     timestamp: Timestamp
 }
 
+type WeekCardProps = {
+    isWeekCardVisible: boolean
+}
+
 const WeekCard: React.FC = () => {
     // const { notes } = useNoteData();
     // let calendarBullets: CalendarBullet[] = [];
@@ -229,7 +233,9 @@ const WeekCard: React.FC = () => {
     }
     
     return (
-        <div ref={infoVisible.ref} className="my-2 flex flex-col">
+        // <div ref={infoVisible.ref} className={`${isWeekCardVisible ? "visible opacity-100" : "invisible opacity-0"}
+        //                                     my-2 flex flex-col transition-all duration-500`}>
+        <div ref={infoVisible.ref} className={`my-2 flex flex-col transition-all duration-500`}>
             {/* WEEKCARD */}
             <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
