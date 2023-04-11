@@ -96,8 +96,9 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       bulletTextContent: editorTextContent,
       ...bulletLatLong,
       bulletAddress
+      isPublic: false,
     };
-
+    
     try {
       if (session && session.user) {
         const bulletCollectionRef = collection(fb_firestore, 'users', session.user.uid, 'notes');

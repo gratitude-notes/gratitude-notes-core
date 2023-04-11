@@ -2,9 +2,10 @@ import useComponentVisible from '../../hooks/useComponentVisible';
 import { signOut } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 import { useSession } from '../../lib/Session';
-import { BsGear } from 'react-icons/bs';
+import { BsGear, BsGlobe, BsPencil } from 'react-icons/bs';
 import { ViewState } from '../../pages/Dashboard';
 import { BiLogOutCircle } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 type AvatarButtonProps = {
     updateViewState: (state: ViewState) => void;
@@ -13,6 +14,7 @@ type AvatarButtonProps = {
 const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
     const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
     const session = useSession();
+    const sessionUid = session?.user?.uid;
 
     const handleDropdown = () => {
         (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
@@ -35,6 +37,17 @@ const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
                 <div className="flex flex-col gap-1 bg-white dark:bg-gray-800 rounded-md text-black dark:text-white shadow-lg shadow-gray-900">
                     <div className="whitespace-nowrap border-b border-gray-400 px-2 py-2 text-sm">
                         Welcome, <br /> {`${session?.user?.displayName}`}
+                    </div>
+                    <div onClick={() => updateViewState("Edit Public Board")}
+                        className="flex gap-2 cursor-pointer p-2 text-sm
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <BsPencil size={20}/>                            
+                        <span>Edit Board</span>
+                    </div>
+                    <div
+                        className="flex gap-2 cursor-pointer p-2 text-sm
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                        <Link to={`/users/${sessionUid}/public`}><BsGlobe size={20}/><span>View Board</span></Link>
                     </div>
                     <div onClick={() => updateViewState("Settings")}
                         className="flex gap-2 cursor-pointer p-2 text-sm

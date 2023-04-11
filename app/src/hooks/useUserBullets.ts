@@ -12,7 +12,8 @@ export type NoteBullet = {
     timestamp: Timestamp,
     bulletJSON: string,
     keywords: string[],
-    isFavorited: boolean
+    isFavorited: boolean,
+    isPublic: boolean,
     bulletDocID?: string,
     images: string[],
     bulletTextContent: string
@@ -21,7 +22,7 @@ export type NoteBullet = {
     bulletAddress: string | null
 }
 
-const useUserBullets = () => {
+const useUserBullets = (feedQuery: string) => {
     const session = useSession();
     const [userBullets, setUserBullets] = useState<Bullets>({bullets: null});
 
@@ -37,6 +38,7 @@ const useUserBullets = () => {
                 score: bulletDocData.score,
                 timestamp: bulletDocData.timestamp,
                 isFavorited: bulletDocData.isFavorited,
+                isPublic: bulletDocData.isPublic,
                 bulletDocID: bulletDocData.bulletDocID,
                 images: bulletDocData.images,
                 bulletTextContent: bulletDocData.bulletTextContent,
@@ -67,11 +69,24 @@ const useUserBullets = () => {
     useEffect(() => {
         if (session?.user) {
             const ref = collection(fb_firestore, "users", session.user.uid, "notes");
-            const q = query(ref, orderBy('timestamp', 'desc'))
-            const unsubscribe = onSnapshot(q, handleData, handleError);
-            return unsubscribe;
-        }
-    }, [session?.user])
+            let q;
+                  
+            if (feedQuery === "Personal") {
+              q = query(ref, orderBy('timestamp', 'desc'));
+            }
+            else if (feedQuery === "Favorites") {
+              q = query(ref, orderBy('timestamp', 'desc'), where("isFavorited", "==", true));
+            }
+            else if (feedQuery === "Public") {
+              q = query(ref, orderBy('timestamp', 'desc'), where("isPublic", "==", true));
+            }
+        
+            if (q) {
+              const unsubscribe = onSnapshot(q, handleData, handleError);
+              return unsubscribe;
+            }
+          }
+    }, [session?.user, feedQuery])
     
     return userBullets;
 }
