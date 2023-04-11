@@ -2,12 +2,10 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { HeadingNode } from '@lexical/rich-text';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { ListItemNode, ListNode } from '@lexical/list';
-import { OverflowNode } from '@lexical/overflow';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import React, { useRef, useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -63,7 +61,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       },
       characterLimit: 'bg-red-400',
     },
-    nodes: [ListNode, ListItemNode, HeadingNode, OverflowNode],
+    nodes: [ListNode, ListItemNode, HeadingNode],
     onError(error: Error) {
       throw error;
     },
@@ -83,8 +81,15 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
 
     const bulletLatLong = await getBulletLatLong();
     let bulletAddress = null;
-    if (bulletLatLong.bulletLatitude && bulletLatLong.bulletLongitude)
-      bulletAddress = await fetchLocationName(bulletLatLong.bulletLatitude, bulletLatLong.bulletLongitude);
+
+    // Freezes Note Submission due to desync of geolocation permissions on-device & in-app.
+    // This check works as when the in-app perms allow for geolocation, then bulletLatLong should be populated, and if otherwise, then a desync has occured
+    if (settings?.geolocation) {
+      if (bulletLatLong?.bulletLatitude && bulletLatLong?.bulletLongitude)
+        bulletAddress = await fetchLocationName(bulletLatLong.bulletLatitude, bulletLatLong.bulletLongitude);
+      else
+        return;
+    }
 
     const newBullet: NoteBullet = {
       bulletJSON: JSON.stringify(editorStateRef.current),
@@ -149,25 +154,35 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
   };
 
   const getBulletLatLong = async () => {
-    if (settings && settings.geolocation && navigator && navigator.geolocation) {
+    if (!settings?.geolocation || !navigator?.geolocation) {
+      return {
+        bulletLatitude: null,
+        bulletLongitude: null
+      };
+    }
+
+    try {
       const position = await new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
       });
-  
+
       return {
         bulletLatitude: position.coords.latitude,
         bulletLongitude: position.coords.longitude,
       }
-    } else {
+    } catch (error) {
+      if (error instanceof GeolocationPositionError)
+        toast.error("Please accept the geolocation request or deny geolocation in your settings.")
+      
       return {
         bulletLatitude: null,
         bulletLongitude: null,
-      }
+      };
     }
   };
 
   const fetchLocationName = async (latitude: number, longitude: number) => {
-    const repsonse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&result_type=locality&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`);
+    const repsonse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&result_type=locality&key=${import.meta.env.VITE_GCP_MAPS_API_KEY}`);
     const data = await repsonse.json();
     const formatted_address = data.plus_code.compound_code.split(' ').slice(1).join(' ');
     
@@ -206,9 +221,6 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
             />
             <EditorSpeechToTextButton />
             <hr className="h-px bg-gray-200 border-0 dark:bg-gray-600" />
-            <div className="absolute right-0 text-gray-400">
-              <CharacterLimitPlugin charset={'UTF-8'} maxLength={300} />
-            </div>
           </div>
           <SpeechToTextPlugin />
           <AutoFocusPlugin />

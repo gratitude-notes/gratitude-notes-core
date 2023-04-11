@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-
 type LocationProps = {
   address: string | null;
 }
+
 const Location: React.FC<LocationProps> = ({ address }) => {
   if (address) {
     return (
