@@ -1,12 +1,17 @@
 import { BsArrowLeft } from "react-icons/bs";
 import { useParams, Link } from "react-router-dom";
+import useUserPublicBullets, { PublicNoteBullet } from "../hooks/usePublicUserBullets";
+import PublicBoardNoteItem from "../components/Feed/FeedNoteItem/PublicBoardFeedNoteItem";
+import useTheme from "../hooks/useTheme";
 
 const UserPublicBoard: React.FC = () => {
     let params = useParams();
     const userID = params.userID;
+    const { publicBullets } = useUserPublicBullets(userID);
+    useTheme(); // listen to preferred theme on system
 
     return (
-        <div className={`dark:bg-gray-800 py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6`}>
+        <div className={`h-screen dark:bg-gray-800 py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6`}>
             {/* HEADER */}
             <div className="flex justify-between text-black dark:text-white">
                 <Link to="/"><BsArrowLeft size={20}/></Link>
@@ -14,10 +19,13 @@ const UserPublicBoard: React.FC = () => {
             </div>
 
             {/* OVERFLOW DIV */}
-            <div className="bg-red-500 h-[2000px] overflow-y-auto
-                            scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-                            
-            </div>
+            <ol className="bg-white dark:bg-gray-800
+                  scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
+                
+                {publicBullets?.map((bullet: PublicNoteBullet, index: number) => (
+                    <PublicBoardNoteItem key={index} {...bullet} />
+                ))}
+            </ol>
         </div>
     )
 }
