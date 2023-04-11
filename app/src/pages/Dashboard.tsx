@@ -11,7 +11,6 @@ import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal
 import WebNotification from "../components/WeekInReviewModal/WebNotification"
 import { useState } from "react";
 import { useSettings } from "../lib/Settings";
-import EditPublicBoard from "../components/EditPublicBoard/EditPublicBoard";
 import { useSession } from "../lib/Session";
 
 const screens = ["Home", "Write", "Settings", "Week Review", "Edit Public Board"] as const;
@@ -36,7 +35,6 @@ const Dashboard: React.FC = () => {
         case "Write": return <WriteNoteModal updateViewState={updateViewState} />;
         case "Settings": return <SettingsModal updateViewState={updateViewState}/>;
         case "Week Review": return <WeekInReviewModal updateViewState={updateViewState}/>;
-        case "Edit Public Board": return <EditPublicBoard updateViewState={updateViewState}/>;
         default: return (
           <>
             <Navbar updateViewState={updateViewState}/>

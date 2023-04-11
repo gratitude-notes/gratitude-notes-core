@@ -38,16 +38,13 @@ const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
                     <div className="whitespace-nowrap border-b border-gray-400 px-2 py-2 text-sm">
                         Welcome, <br /> {`${session?.user?.displayName}`}
                     </div>
-                    <div onClick={() => updateViewState("Edit Public Board")}
-                        className="flex gap-2 cursor-pointer p-2 text-sm
-                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
-                        <BsPencil size={20}/>                            
-                        <span>Edit Board</span>
-                    </div>
                     <div
                         className="flex gap-2 cursor-pointer p-2 text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
-                        <Link to={`/users/${sessionUid}/public`}><BsGlobe size={20}/><span>View Board</span></Link>
+                        <Link className="flex items-center space-x-2" to={`/users/${sessionUid}/public`}>
+                            <BsGlobe size={20} />
+                            <span className="whitespace-nowrap">View My Public Board</span>
+                        </Link>
                     </div>
                     <div onClick={() => updateViewState("Settings")}
                         className="flex gap-2 cursor-pointer p-2 text-sm
