@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import useUserBullets, { NoteBullet } from "../../hooks/useUserBullets";
 import SearchBar from "../SearchBar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
@@ -16,6 +16,12 @@ const FeedList: React.FC = () => {
     query: "",
     bulletsList: bullets
   });
+
+  const listRef: RefObject<HTMLOListElement> = useRef(null);
+
+  const handleTopOfList = () => {
+    listRef?.current?.scrollIntoView({ behavior: 'smooth' });
+  }
 
   const handleFeedSelectorChange = (selection: string) => {
     setFeedSelection(selection);
@@ -89,15 +95,16 @@ const FeedList: React.FC = () => {
 
   const handleSearchHowTo = () => {
     (searchGuideVisible.isComponentVisible) ? searchGuideVisible.setComponentVisible(false) : searchGuideVisible.setComponentVisible(true);
+    handleTopOfList();
   }
 
   return (
-    <ol className="bg-white dark:bg-gray-800
+    <ol ref={listRef} className="bg-white dark:bg-gray-800
                   scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
       
       <div className="sticky -top-[1px] pb-1 bg-white dark:bg-gray-800 z-40 border-b border-black dark:border-gray-400">
         {/* FEED SELECTOR */}
-        <FeedSelector feedSelection={feedSelection} handleFeedSelectorChange={handleFeedSelectorChange}/>
+        <FeedSelector handleTopOfList={handleTopOfList} feedSelection={feedSelection} handleFeedSelectorChange={handleFeedSelectorChange}/>
 
         {/* SEARCH */}
         <div ref={searchGuideVisible.ref} className="flex gap-1 px-2 pt-1">
