@@ -8,10 +8,8 @@ import Navbar from "../components/Navbar/Navbar";
 import FooterNavbar from "../components/FooterNavbar/FooterNavbar";
 import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
-import WebNotification from "../components/WeekInReviewModal/WebNotification"
-import { useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { useSettings } from "../lib/Settings";
-import EditPublicBoard from "../components/EditPublicBoard/EditPublicBoard";
 import { useSession } from "../lib/Session";
 
 const screens = ["Home", "Write", "Settings", "Week Review", "Edit Public Board"] as const;
@@ -21,28 +19,51 @@ const Dashboard: React.FC = () => {
   const currentUserSettings = useSettings();
   
   const [viewState, setViewState] = useState<ViewState>("Home");
-  const notificationVisible = useComponentVisible(false);
 
   const updateViewState = (state: ViewState) => {
     (viewState === state) ? setViewState("Home") : setViewState(state);
   }
 
-  const handleNotification = () => {
-    (notificationVisible.isComponentVisible) ? notificationVisible.setComponentVisible(false) : notificationVisible.setComponentVisible(true);
-  }
+  const feedListRef: RefObject<HTMLDivElement> = useRef(null);
+
+  const [isWeekCardVisible, setIsWeekCardVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const feedListNode = feedListRef.current;
+      if (feedListNode && feedListNode.scrollTop === 0) {
+        setIsWeekCardVisible(true);
+      } else {
+        setIsWeekCardVisible(false);
+      }
+    };
+    feedListRef?.current?.addEventListener("scroll", handleScroll);
+    return () => {
+      feedListRef?.current?.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const renderCurrent = () => {
     switch(viewState) {
         case "Write": return <WriteNoteModal updateViewState={updateViewState} />;
         case "Settings": return <SettingsModal updateViewState={updateViewState}/>;
         case "Week Review": return <WeekInReviewModal updateViewState={updateViewState}/>;
-        case "Edit Public Board": return <EditPublicBoard updateViewState={updateViewState}/>;
         default: return (
           <>
             <Navbar updateViewState={updateViewState}/>
-            <WeekCard />
+            
+            {/* SMALL AND MEDIUM SCREENS (WeekCard only visible at when at top) */}
+            <div className="visible md:hidden">
+              {isWeekCardVisible && <WeekCard />}
+            </div>
+            
+            {/* LARGE SCREENS AND ABOVE (WeekCard always visible) */}
+            <div className="hidden md:flex md:mx-auto">
+              <WeekCard />
+            </div>
+            
 
-            <div className="flex flex-grow overflow-y-auto
+            <div ref={feedListRef} className="flex flex-grow overflow-y-auto
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
               <div className="fixed h-full border-gray-400
                               sm:w-[50px] sm:border-r
@@ -55,7 +76,9 @@ const Dashboard: React.FC = () => {
                               lg:pl-[400px] lg:pr-[100px]
                               xl:pl-[300px] xl:pr-[0px]
                               2xl:pl-[450px] 2xl:pr-[150px]">
-                <FeedList />
+
+                <FeedList />             
+                
               </div>
               <div className="xl:pr-[100px] xl:w-[400px]
                               2xl:pr-[200px]">
@@ -73,8 +96,6 @@ const Dashboard: React.FC = () => {
 
       {/* Navbar at bottom, only visible on small screens */}
       <FooterNavbar updateViewState={updateViewState} currentState={viewState}/>
-
-      <WebNotification updateViewState={updateViewState}/>
     </div>
 
   );

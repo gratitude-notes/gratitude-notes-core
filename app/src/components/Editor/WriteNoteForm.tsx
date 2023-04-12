@@ -98,10 +98,10 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       images: [],
       keywords: [],
       isFavorited: false,
+      isPublic: false,
       bulletTextContent: editorTextContent,
       ...bulletLatLong,
-      bulletAddress
-      isPublic: false,
+      bulletAddress,
     };
     
     try {

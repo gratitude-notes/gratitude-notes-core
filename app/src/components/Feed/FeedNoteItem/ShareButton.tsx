@@ -21,12 +21,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({bulletDocID}) => {
 
   return (
     <>
-        <button
-          className="mt-auto"
-        >
-          <BsShare size={17} />
+        <button className="hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full">
+          <BsShare size={15} />
         </button>
-
     </>
   );
 }

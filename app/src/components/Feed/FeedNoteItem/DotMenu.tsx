@@ -12,6 +12,10 @@ const DotMenu: React.FC = () => {
             console.log("Delete clicked on a FeedNoteItem")
         }
 
+        const handleShare = () => {
+            console.log("Share clicked on a FeedNoteItem")
+        }
+
         const twVisible = (isComponentVisible) ? "visible" : "hidden";
 
         return (
@@ -35,9 +39,9 @@ const DotMenu: React.FC = () => {
                             <h1 className="text-sm">Delete</h1>
                             <BsTrash size={17}/>
                         </div>
-                        <div onClick={handleDelete}
+                        <div onClick={handleShare}
                             className="px-2 py-[2px] flex gap-2 hover:text-gray-500 dark:hover:text-gray-300 cursor-pointer items-center">
-                            <h1 className="text-sm">Share?</h1>
+                            <h1 className="text-sm">Share</h1>
                             <BsShare size={17}/>
                         </div>
                     </div>
