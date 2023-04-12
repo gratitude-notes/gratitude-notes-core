@@ -43,7 +43,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
         </div>
         <div ref={ref} className="h-full bg-blue-500">
           <h1>DETAILED INFO ABOUT USERS WEEK</h1>
-          <Streaks></Streaks>
+          {/* <Streaks></Streaks> */}
         </div>
       </div>
 

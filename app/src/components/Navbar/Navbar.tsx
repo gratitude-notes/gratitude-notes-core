@@ -3,6 +3,7 @@ import ThemeButton from "./ThemeButton";
 import AvatarButton from "./AvatarButton";
 import SignInButton from "./SignInButton";
 import { ViewState } from "../../pages/Dashboard";
+import Streaks from "../WeekInReviewModal/Streaks";
 
 type AuthButtonProps = {
   updateViewState: (state: ViewState) => void;
@@ -14,6 +15,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({updateViewState}) => {
   if (session?.user) {
     return (
       <>
+        <Streaks></Streaks>
         <ThemeButton />
         <AvatarButton updateViewState={updateViewState}/>
       </>
@@ -22,6 +24,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({updateViewState}) => {
   else {
     return (
       <>
+        <Streaks></Streaks>
         <ThemeButton />
         <SignInButton />
       </>

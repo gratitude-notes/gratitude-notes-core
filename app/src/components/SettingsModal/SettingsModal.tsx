@@ -31,6 +31,7 @@ const SettingsModal: React.FC<SettingsModalState> = ({updateViewState}) => {
         if (session && session.user && settings) {
             settings.geolocation = !isLocationSharing;
             const userProfileDocRef = doc(fb_firestore, "users", session.user.uid);
+            console.log(userProfileDocRef)
             await updateDoc(userProfileDocRef, { settings: settings})
         }
     }

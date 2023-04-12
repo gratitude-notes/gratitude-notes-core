@@ -1,43 +1,60 @@
-import React, { useRef } from 'react';
-import { useState, useEffect } from "react";
-import useUserBullets from '../../hooks/useUserBullets';
+import React, { useEffect, useState } from 'react';
+import StreakEmoji from "../../assets/emojis/fire_emoji.png";
+import useProfileData from '../../hooks/useProfileData';
+import { updateDoc, doc } from '@firebase/firestore';
+import { fb_firestore } from '../../lib/Firebase';
+import { useSession } from '../../lib/Session';
 
 
 const Streaks: React.FC = () => {
+  const session = useSession();
+  const userStreaks = useProfileData();
+  let streakCountDb: number = userStreaks?.streaks.streakCount ?? 0;
+  const lastNoteTimestamp: number = userStreaks?.streaks.lastTimeStamp ?? 0;
+  let [streakNumber, setStreakNumber] = useState<number>(streakCountDb);
 
-  const userBullets = useUserBullets();
-  const lastBullet = userBullets.bullets && userBullets.bullets.length > 0 ? userBullets.bullets[0] : null;
-  const lastConsecitiveDays: number = (lastBullet?.consecutiveDays ?? 0);
-  const lastNoteTimestamp: number = lastBullet?.lastNoteTimestamp ?? 0;
-  const currentNoteTimestamp = Date.now();
+  useEffect(() => {
+    const checkTimestamp = (timestamp: number): boolean => {
+      const dateToCheck = new Date(timestamp);
+      const today = new Date();
+      const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
 
-  const streakNumber: number = compareTimestamps(currentNoteTimestamp, lastNoteTimestamp);
+      if (dateToCheck.getFullYear() === today.getFullYear() && dateToCheck.getMonth() === today.getMonth() && dateToCheck.getDate() === today.getDate()
+      ) {
+        return true;
+      } else if ( dateToCheck.getFullYear() === yesterday.getFullYear() && dateToCheck.getMonth() === yesterday.getMonth() && dateToCheck.getDate() === yesterday.getDate() || lastNoteTimestamp === 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    };
 
-  function compareTimestamps(timestamp1: number, timestamp2: number): number {
-    // Calculate the difference in time (milliseconds)
-    const timeDiff = Math.abs(timestamp2 - timestamp1);
-    // Convert the time difference to days
-    const dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+    const timestampResult = checkTimestamp(lastNoteTimestamp);
 
-    if (dayDiff === 0) {
-      return lastConsecitiveDays;
-    } else if (dayDiff === 1) {
-      return lastConsecitiveDays + 1;
+    if (timestampResult === false) {
+      setStreakNumber(0);
+      if (session && session.user) {
+        const docRef = doc(fb_firestore, "users", session.user.uid);
+        updateDoc(docRef, {
+          streaks: {
+            streakCount: 0,
+            lastTimeStamp: lastNoteTimestamp,
+          },
+        });
+      }
     } else {
-      return 1;
+      setStreakNumber(streakCountDb);
     }
-  }
-
+  }, [userStreaks, session]);
 
   return (
     <>
-        <div className="content-center items-center text-center">
-          <h2 className="content-center items-center text-center">Streaks</h2>
-          <div className="content-center items-center text-center">
-            <span role="img" aria-label="fire emoji" className='text-6xl content-center items-center text-center'>🔥</span>
-            <p>{streakNumber} Day{streakNumber > 1 ? "s" : ""}</p>
-          </div>
+      {streakNumber > 0 ? (
+        <div className="content-center items-center text-center flex dark:text-white">
+          {streakNumber} <img className="w-[20px] ml-0" src={StreakEmoji} alt="" />  
         </div>
+      ) : null}
     </>
   );
 };

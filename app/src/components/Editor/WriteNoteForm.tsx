@@ -13,7 +13,7 @@ import React, { useRef, useState } from 'react';
 import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { $getRoot, EditorState } from 'lexical';
-import { addDoc, collection, Timestamp, setDoc, updateDoc, getDoc } from '@firebase/firestore';
+import { addDoc, collection, Timestamp, setDoc, updateDoc, doc } from '@firebase/firestore';
 import useUserBullets, { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore, fb_storage } from '../../lib/Firebase';
@@ -25,6 +25,8 @@ import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
 import EmojiPicker from './EmojiScorePicker';
+import useProfileData from '../../hooks/useProfileData';
+import Streaks from '../WeekInReviewModal/Streaks';
 
 
 type FormHandlerProps = {
@@ -36,14 +38,12 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   const [localImages, setLocalImages] = useState<File[]>([]);
   const [emojiScore, setEmojiScore] = useState<number | null>(null);
 
-  const userBullets = useUserBullets();
-  const lastBullet = userBullets.bullets && userBullets.bullets.length > 0 ? userBullets.bullets[0] : null;
-  const lastConsecitiveDays: number = (lastBullet?.consecutiveDays ?? 0);
-  const lastNoteTimestamp: number = lastBullet?.lastNoteTimestamp ?? 0;
-  console.log(lastBullet?.lastNoteTimestamp, "last Note")
-  console.log(lastBullet?.consecutiveDays, "consecuctiveDays")
+  const userStreaks = useProfileData();
 
+  const streakCountDb: number = userStreaks?.streaks.streakCount ?? 0;
+  let lastNoteTimestamp: number = userStreaks?.streaks.lastTimeStamp ?? 0;
   const currentNoteTimestamp = Date.now();
+
 
   const initialConfig = {
       namespace: "noteEditor",
@@ -86,7 +86,6 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
       keywords: [],
       isFavorited: false,
       bulletTextContent: editorTextContent ? editorTextContent : "",
-      lastNoteTimestamp: currentNoteTimestamp
     }
     
     try {
@@ -96,17 +95,21 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
         await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
         
         const downloadURLs = await uploadImages(newBulletDocRef.id);        
-        //await updateDoc(newBulletDocRef, { images: downloadURLs });
 
         toast.success("Note Submitted!");
 
-        const streakNumber: number = compareTimestamps(currentNoteTimestamp, lastNoteTimestamp);
-
         await updateDoc(newBulletDocRef, { 
-          images: downloadURLs,
-          consecutiveDays: streakNumber
+          images: downloadURLs
          });
 
+        const docRef = doc(fb_firestore, "users", session.user.uid);
+
+        await updateDoc(docRef, { 
+          streaks: {
+            streakCount: checkTimePeriod(lastNoteTimestamp),
+            lastTimeStamp: currentNoteTimestamp
+          }
+        });
       }
     } catch(error) {
       console.log(error);
@@ -116,20 +119,24 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
     updateViewState("Home");
   }
 
-  function compareTimestamps(timestamp1: number, timestamp2: number): number {
-    // Calculate the difference in time (milliseconds)
-    const timeDiff = Math.abs(timestamp2 - timestamp1);
-    // Convert the time difference to days
-    const dayDiff = Math.round(timeDiff / (1000 * 60 * 60 * 24));
 
-    if (dayDiff === 0) {
-      return lastConsecitiveDays;
-    } else if (dayDiff === 1) {
-      return lastConsecitiveDays + 1;
+  function checkTimePeriod(timestampToCheck: number): number{
+    const dateToCheck = new Date(timestampToCheck);
+    const today = new Date();
+    const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+
+    if (dateToCheck.getFullYear() === yesterday.getFullYear() && dateToCheck.getMonth() === yesterday.getMonth() && dateToCheck.getDate() === yesterday.getDate() || timestampToCheck === 0) {
+      //last time was yesterday
+      return streakCountDb + 1;
+    } 
+    else if (dateToCheck.getFullYear() === today.getFullYear() && dateToCheck.getMonth() === today.getMonth() && dateToCheck.getDate() === today.getDate()) {
+      //today
+      return streakCountDb;
     } else {
       return 1;
     }
   }
+  
 
   const getEmojiScore = (score: number) => {
     (emojiScore !== score) ? setEmojiScore(score) : "";
