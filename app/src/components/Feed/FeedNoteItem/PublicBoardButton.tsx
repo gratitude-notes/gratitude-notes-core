@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BsGlobe } from 'react-icons/bs';
-import { deleteDoc, updateDoc, getDoc, collection, addDoc, setDoc, doc, Firestore } from '@firebase/firestore';
+import { deleteDoc, updateDoc, getDoc, setDoc, doc } from '@firebase/firestore';
 import { fb_firestore } from '../../../lib/Firebase';
 import { useSession } from '../../../lib/Session';
 import toast from 'react-hot-toast';
@@ -31,11 +31,11 @@ const PublicBoardButton: React.FC<PublicBoardButtonProps> = ({isPublic, bulletDo
         const copyOfPersonalBullet = personalBulletsDocSnap.data();
         const publicBulletsDocRef = doc(fb_firestore, "users", session.user.uid, "public_notes", copyOfPersonalBullet?.bulletDocID);
         await setDoc(publicBulletsDocRef, copyOfPersonalBullet);
-        toast.success("Note Shown to World!");
+        toast.success("Note Published!");
       }
     } catch (error) {
       console.log(error);
-      toast.error('Error Showing Note to the World.');
+      toast.error('Error Publishing Note!');
     }
     setPublicConfirmationOpen(false);
   }
@@ -48,11 +48,11 @@ const PublicBoardButton: React.FC<PublicBoardButtonProps> = ({isPublic, bulletDo
 
         const publicNotesDocRef = doc(fb_firestore, "users", session.user.uid, "public_notes", bulletDocID);
         await deleteDoc(publicNotesDocRef);
-        toast.success("Your Note is now Private from the World.");
+        toast.success("Note Private!");
       }  
     } catch (error) {
       console.log(error);
-      toast.error('Error Privating Note from the World.');
+      toast.error('Error Privating Note!');
     }
     setPrivateConfirmationOpen(false);
   }
