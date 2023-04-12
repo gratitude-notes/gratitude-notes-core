@@ -1,5 +1,5 @@
 import { RefObject, useRef, useState } from "react";
-import useUserBullets, { NoteBullet } from "../../hooks/useUserBullets";
+import useUserBullets, { FeedViews, NoteBullet } from "../../hooks/useUserBullets";
 import SearchBar from "../SearchBar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 import useComponentVisible from "../../hooks/useComponentVisible";
@@ -9,7 +9,7 @@ import SearchDropdown from "./SearchDropdown";
 import FeedSelector from "./FeedSelector";
 
 const FeedList: React.FC = () => {
-  const [feedSelection, setFeedSelection] = useState("Personal"); // personal, favorite, public
+  const [feedSelection, setFeedSelection] = useState<FeedViews>("Personal"); // personal, favorite, public
   const { bullets } = useUserBullets(feedSelection);
   const [searchCategory, setSearchCategory] = useState("All");
   const [search, setSearch] = useState({
@@ -23,7 +23,7 @@ const FeedList: React.FC = () => {
     listRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  const handleFeedSelectorChange = (selection: string) => {
+  const handleFeedSelectorChange = (selection: FeedViews) => {
     setFeedSelection(selection);
   }
 

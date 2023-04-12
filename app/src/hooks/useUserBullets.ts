@@ -22,7 +22,9 @@ export type NoteBullet = {
     bulletAddress: string | null
 }
 
-const useUserBullets = (feedQuery: string) => {
+export type FeedViews = "Personal" | "Favorites" | "Public"
+
+const useUserBullets = (feedQuery: FeedViews) => {
     const session = useSession();
     const [userBullets, setUserBullets] = useState<Bullets>({bullets: null});
 

@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { FeedViews } from "../../hooks/useUserBullets";
 
 type FeedSelectorProps = {
     handleTopOfList: () => void,
-    feedSelection: string,
-    handleFeedSelectorChange: (selection: string) => void
+    feedSelection: FeedViews,
+    handleFeedSelectorChange: (selection: FeedViews) => void
 }
 
 const FeedSelector: React.FC<FeedSelectorProps> = ({handleTopOfList, feedSelection, handleFeedSelectorChange}) => {  
