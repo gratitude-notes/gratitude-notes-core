@@ -1,27 +1,23 @@
-import { useEffect, useState } from 'react';
 import { BsShare } from 'react-icons/bs';
-import { setDoc, doc } from '@firebase/firestore';
-import { fb_firestore } from '../../../lib/Firebase';
-import { useSession } from '../../../lib/Session';
-import { MdOutlineDashboardCustomize } from 'react-icons/md';
+import { Share } from '@capacitor/share'
 
 type ShareButtonProps = {
-  bulletDocID: string | undefined;
+  shareText: string
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({bulletDocID}) => {
-  const session = useSession();;
-
-  // const onClickLikeButton = () => {
-  //   if (bulletDocID && session && session.user) {
-  //     const likedDocRef = doc(fb_firestore, "users", session.user.uid, "notes", bulletDocID);
-  //     setDoc(likedDocRef, {isOnPublicBoard: !isOnPublicBoard}, {merge: true})
-  //   }
-  // }
+const ShareButton: React.FC<ShareButtonProps> = ({shareText}) => {
+  const onClickShareButton = async () => {
+    await Share.share({
+      title: 'Share your note with someone!',
+      text: shareText,
+      url: 'https://dosehappiness.com/',
+      dialogTitle: 'Share your note with someone!'
+    });
+  }
 
   return (
     <>
-        <button className="hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full">
+        <button onClick={onClickShareButton} className="hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full">
           <BsShare size={15} />
         </button>
     </>
