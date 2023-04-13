@@ -27,7 +27,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       {/* HEADER */}
       <div className="flex justify-between text-black dark:text-white">
         <button onClick={() => updateViewState("Home")}><BsArrowLeft size={20}/></button>
-        <h1 className="text-xl font-bold text-black dark:text-white justify-end">Your Week in Review</h1>
+        <h1 className="text-xl font-bold text-black dark:text-white justify-end">Your Weekly Dosage</h1>
       </div>
       
       {/* OVERFLOW DIV */}
