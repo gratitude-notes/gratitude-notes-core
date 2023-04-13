@@ -11,7 +11,7 @@ const UserPublicBoard: React.FC = () => {
     useTheme(); // listen to preferred theme on system
 
     return (
-        <div className={`min-h-screen h-max dark:bg-gray-800 py-2 flex flex-col gap-6`}>
+        <div className={`min-h-screen h-max dark:bg-gray-800 py-2 flex flex-col gap-6 select-none`}>
             {/* HEADER */}
             <div className="flex justify-between text-black dark:text-white px-4">
                 <Link to="/"><BsArrowLeft size={20}/></Link>

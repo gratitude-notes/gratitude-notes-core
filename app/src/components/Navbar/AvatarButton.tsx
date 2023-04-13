@@ -27,7 +27,7 @@ const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
     }
 
     return (
-        <div ref={ref} className="relative text-black dark:text-white">
+        <div ref={ref} className="relative text-black dark:text-white select-none">
             <div id="avatarButton" onClick={handleDropdown} className="relative cursor-pointer w-10 h-10 overflow-hidden rounded-full">
             <img src={`${session?.user?.photoURL}`} alt="user photoURL..." referrerPolicy="no-referrer" />
             </div>

@@ -19,7 +19,7 @@ const LeftSidebarItem: React.FC<SidebarItem> = ({icon, title, updateViewState}) 
 
     return (
         <div onClick={() => updateViewState(title)}
-            className="cursor-pointer hidden sm:flex gap-4 mx-auto">
+            className="cursor-pointer hidden sm:flex gap-4 mx-auto select-none">
             <div className="my-auto dark:text-white">
                 {renderIcon()}
             </div>

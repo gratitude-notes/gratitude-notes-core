@@ -12,7 +12,8 @@ const Searchbar: React.FC<SearchbarProps> = ({searchCategory, handleSearchChange
                         focus:bg-white focus:dark:bg-gray-800
                         focus:border-none focus:outline-2 focus:outline-cyan-500
                         text-black dark:text-white 
-                        rounded-lg"
+                        rounded-lg
+                        select-none"
                         type="search"placeholder={`Search by ${searchCategory.toLowerCase()}`} onChange={handleSearchChange}/>
     );
 }

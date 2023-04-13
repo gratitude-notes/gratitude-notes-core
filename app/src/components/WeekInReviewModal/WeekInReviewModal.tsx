@@ -1,9 +1,6 @@
 import React, { useRef } from 'react';
-import WordCloud from 'react-d3-cloud';
 import { BsArrowLeft } from 'react-icons/bs';
-import { ComponentVisbilityProps } from '../../hooks/useComponentVisible';
 import { ViewState } from '../../pages/Dashboard';
-import Streaks from './Streaks';
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
@@ -26,7 +23,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
   ]
 
   return (
-    <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto`}>
+    <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
       {/* HEADER */}
       <div className="flex justify-between text-black dark:text-white">
         <button onClick={() => updateViewState("Home")}><BsArrowLeft size={20}/></button>

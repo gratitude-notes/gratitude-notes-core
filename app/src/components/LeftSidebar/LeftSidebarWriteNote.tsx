@@ -13,7 +13,7 @@ type WriteNoteModalType = {
 const LeftSidebarWriteNote: React.FC<WriteNoteModalType> = ({updateViewState}) => {  
     return (
         <>
-            <div className="hidden sm:flex mx-auto">
+            <div className="hidden sm:flex mx-auto select-none">
                 <button onClick={() => updateViewState("Write")} className="hidden md:inline w-40 rounded-full p-2 font-bold text-white bg-cyan-500">
                     Write
                 </button>

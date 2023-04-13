@@ -6,9 +6,9 @@ import { SocialIcon } from 'react-social-icons';
 const Landing: React.FC = () => {
 
   return (
-    <div>
+    <div className="select-none">
       <div className="relative overflow-hidden bg-white z-0 dark:bg-gray-800">
-        <Navbar />
+        <Navbar updateViewState={() => {}}/>
 
         {/* Main Content */}
         <div className="max-w-3xl flex flex-col gap-20 px-8 pb-8 pt-20 m-auto">

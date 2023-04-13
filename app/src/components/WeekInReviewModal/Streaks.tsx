@@ -51,7 +51,7 @@ const Streaks: React.FC = () => {
   return (
     <>
       {streakNumber > 0 ? (
-        <div className="content-center items-center text-center flex dark:text-white">
+        <div className="content-center items-center text-center flex dark:text-white select-none">
           {streakNumber} <img className="w-[20px] ml-0" src={StreakEmoji} alt="" />  
         </div>
       ) : null}

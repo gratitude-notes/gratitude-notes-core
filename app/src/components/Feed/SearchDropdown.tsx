@@ -19,7 +19,7 @@ const SearchDropdown: React.FC<SearcDropdownProps> = ({handleSearchCategoryChang
 
     return (
         <div ref={dropdownVisible.ref}
-            className="relative flex justify-center items-center">
+            className="relative flex justify-center items-center select-none">
             <div onClick={handleDropdown}
                 className={`${dropdownVisible.isComponentVisible ? "bg-gray-200 dark:bg-gray-900 outline outline-1 outline-gray-400" : ""}
                             gap-2 px-3 py-1 flex items-center hover:outline hover:outline-1 hover:outline-gray-400 rounded-lg dark:text-white cursor-pointer`}>

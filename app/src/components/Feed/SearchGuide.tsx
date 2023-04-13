@@ -7,7 +7,7 @@ import HappyEmoji from "../../assets/emojis/happy_emoji.png";
 const SearchGuide: React.FC = () => {  
 
     return (
-        <div className={`bg-gray-200 dark:bg-gray-900 rounded-lg mx-2 mt-1`}>
+        <div className={`bg-gray-200 dark:bg-gray-900 rounded-lg mx-2 mt-1 select-none`}>
             <div className="px-3 dark:text-white">
                 <h1 className="text-lg text-center">How to search:</h1>
                 <hr className="border border-gray-400 dark:border-gray-600"/>
