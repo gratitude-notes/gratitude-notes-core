@@ -1,16 +1,13 @@
-import { NoteBullet } from "../../../hooks/useUserBullets";
-import DotMenu from "./DotMenu";
 import KeyWordItem from "./KeyWordItem";
-import LikeButton from "./LikeButton";
 import Reader from "./Reader";
 import ImageViewer from "./ImageViewer";
 import Location from "./Location";
 import useComponentVisible from "../../../hooks/useComponentVisible";
 import EmojiScore from "./EmojiScore";
 import ShareButton from "./ShareButton";
-import PublicBoardButton from "./PublicBoardButton";
+import { PublicNoteBullet } from "../../../hooks/usePublicUserBullets";
 
-const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, isPublic, bulletDocID, images, bulletAddress }) => {
+const PublicBoardNoteItem: React.FC<PublicNoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, isPublic, bulletDocID, images, bulletAddress }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
     const day = date.getDate();
@@ -25,7 +22,6 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
     
     return (
         <div className="relative border-b border-gray-400">
-            <DotMenu />
             <div className="flex flex-col px-4 py-2">
                 <Reader noteJSON={bulletJSON}/>
 
@@ -38,9 +34,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <KeyWordItem {...{keywords}} />
                     <div className="flex justify-between text-black dark:text-white">
                         <div className="flex gap-4 sm:gap-10 items-end text-gray-600 dark:text-gray-200">
-                            <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
                             <ShareButton bulletDocID={bulletDocID} />
-                            <PublicBoardButton isPublic={isPublic} bulletDocID={bulletDocID} />
                         </div>
                         <div className="flex flex-col text-right">
                             <EmojiScore emojiScore={score}/>
@@ -54,4 +48,4 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
     )
   }
   
-  export default NoteItem;
+  export default PublicBoardNoteItem;
