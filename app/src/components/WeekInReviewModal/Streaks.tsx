@@ -9,9 +9,9 @@ import { useSession } from '../../lib/Session';
 const Streaks: React.FC = () => {
   const session = useSession();
   const userStreaks = useProfileData();
-  let streakCountDB: number = userStreaks?.streaks.streakCount ?? 0;
+  const streakCountDB: number = userStreaks?.streaks.streakCount ?? 0;
   const lastNoteTimestamp: Timestamp = userStreaks?.streaks.lastTimeStamp ?? Timestamp.fromMillis(0);
-  let [streakNumber, setStreakNumber] = useState<number>(streakCountDB);
+  const [streakNumber, setStreakNumber] = useState<number>(streakCountDB);
 
   useEffect(() => {
     const checkTimestamp = (timestamp: Timestamp): boolean => {
