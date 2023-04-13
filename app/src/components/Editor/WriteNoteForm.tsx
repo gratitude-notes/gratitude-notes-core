@@ -14,7 +14,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import EditorToolbar from './EditorToolbar';
 import { $getRoot, EditorState } from 'lexical';
 import { addDoc, collection, Timestamp, setDoc, updateDoc, doc } from '@firebase/firestore';
-import useUserBullets, { NoteBullet } from '../../hooks/useUserBullets';
+import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore, fb_storage } from '../../lib/Firebase';
 import { ViewState } from '../../pages/Dashboard';
@@ -26,7 +26,6 @@ import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
 import EmojiPicker from './EmojiScorePicker';
 import useProfileData from '../../hooks/useProfileData';
-import Streaks from '../WeekInReviewModal/Streaks';
 
 
 type FormHandlerProps = {
@@ -40,9 +39,9 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
 
   const userStreaks = useProfileData();
 
-  const streakCountDb: number = userStreaks?.streaks.streakCount ?? 0;
-  let lastNoteTimestamp: number = userStreaks?.streaks.lastTimeStamp ?? 0;
-  const currentNoteTimestamp = Date.now();
+  const streakCountDB: number = userStreaks?.streaks.streakCount ?? 0;
+  let lastNoteTimestamp: Timestamp = userStreaks?.streaks.lastTimeStamp ?? Timestamp.fromMillis(0);
+  const currentNoteTimestamp = new Date();
 
 
   const initialConfig = {
@@ -120,18 +119,18 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({updateViewState}) => {
   }
 
 
-  function checkTimePeriod(timestampToCheck: number): number{
-    const dateToCheck = new Date(timestampToCheck);
+  const checkTimePeriod = (timestampToCheck: Timestamp): number => {
+    const dateToCheck = timestampToCheck.toDate();
     const today = new Date();
     const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
 
-    if (dateToCheck.getFullYear() === yesterday.getFullYear() && dateToCheck.getMonth() === yesterday.getMonth() && dateToCheck.getDate() === yesterday.getDate() || timestampToCheck === 0) {
+    if (dateToCheck.getFullYear() === yesterday.getFullYear() && dateToCheck.getMonth() === yesterday.getMonth() && dateToCheck.getDate() === yesterday.getDate() || timestampToCheck.isEqual(Timestamp.fromMillis(0))) {
       //last time was yesterday
-      return streakCountDb + 1;
+      return streakCountDB + 1;
     } 
     else if (dateToCheck.getFullYear() === today.getFullYear() && dateToCheck.getMonth() === today.getMonth() && dateToCheck.getDate() === today.getDate()) {
       //today
-      return streakCountDb;
+      return streakCountDB;
     } else {
       return 1;
     }

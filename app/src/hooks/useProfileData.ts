@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc } from '@firebase/firestore';
+import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc, Timestamp } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
 export type UserSettings = {
@@ -10,7 +10,7 @@ export type UserSettings = {
 }
 
 export type UserStreaks = {
-    lastTimeStamp: number,
+    lastTimeStamp: Timestamp,
     streakCount: number,
 }
 
@@ -41,7 +41,7 @@ const useProfileData = () => {
                 analysis: false
             },
             streaks: {
-                lastTimeStamp: 0,
+                lastTimeStamp: Timestamp.fromMillis(0),
                 streakCount: 0
             }
         }

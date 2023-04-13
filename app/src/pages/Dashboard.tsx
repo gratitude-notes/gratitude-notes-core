@@ -8,8 +8,7 @@ import Navbar from "../components/Navbar/Navbar";
 import FooterNavbar from "../components/FooterNavbar/FooterNavbar";
 import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
-import WebNotification from "../components/WeekInReviewModal/WebNotification"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSettings } from "../lib/Settings";
 
 const screens = ["Home", "Write", "Settings", "Week Review"] as const;
@@ -70,8 +69,6 @@ const Dashboard: React.FC = () => {
 
       {/* Navbar at bottom, only visible on small screens */}
       <FooterNavbar updateViewState={updateViewState} currentState={viewState}/>
-
-      <WebNotification updateViewState={updateViewState}/>
     </div>
 
   );

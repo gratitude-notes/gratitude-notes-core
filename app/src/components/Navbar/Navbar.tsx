@@ -15,7 +15,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({updateViewState}) => {
   if (session?.user) {
     return (
       <>
-        <Streaks></Streaks>
+        <Streaks />
         <ThemeButton />
         <AvatarButton updateViewState={updateViewState}/>
       </>
@@ -24,7 +24,6 @@ const AuthButton: React.FC<AuthButtonProps> = ({updateViewState}) => {
   else {
     return (
       <>
-        <Streaks></Streaks>
         <ThemeButton />
         <SignInButton />
       </>
