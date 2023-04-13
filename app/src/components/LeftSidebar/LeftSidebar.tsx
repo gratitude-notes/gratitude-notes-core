@@ -11,7 +11,7 @@ const LeftSidebar: React.FC<LeftSidebarHandlers> = ({updateViewState}) => {
     return (
       <div className="flex flex-col gap-8 pt-8">
         <LeftSidebarItem icon={"BsHouseDoor"} title={"Home"} updateViewState={updateViewState}/>
-        <LeftSidebarItem icon={"BsCalendarWeek"} title={"Week Review"} updateViewState={updateViewState}/>
+        <LeftSidebarItem icon={"BsCalendarWeek"} title={"Weekly Dosage"} updateViewState={updateViewState}/>
         <LeftSidebarItem icon={"BsGear"} title={"Settings"} updateViewState={updateViewState}/>
         <LeftSidebarWriteNote updateViewState={updateViewState}/>
       </div>
