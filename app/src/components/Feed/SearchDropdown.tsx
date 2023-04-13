@@ -71,6 +71,12 @@ const SearchDropdown: React.FC<SearcDropdownProps> = ({handleSearchCategoryChang
                                     cursor-pointer px-2 py-[2px] text-sm
                                     hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in`}>
                         Score
+                    </div>   
+                    <div onClick={() => {handleSearchCategoryChange("Location"); setDropdownCategory("Location");}}
+                        className={`${dropdownCategory === "Location" ? "hidden" : "visible"}
+                                    cursor-pointer px-2 py-[2px] text-sm
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in`}>
+                        Location
                     </div>      
                 </div>
             </div>    

@@ -60,6 +60,7 @@ const FeedList: React.FC = () => {
       const bulletDate = bullet.timestamp.toDate().getDate().toString();
       const bulletYear = bullet.timestamp.toDate().getFullYear().toString();
       const bulletScore = bullet.score?.toString();
+      const bulletAddress = bullet.bulletAddress?.toLowerCase();
 
       switch (searchCategory.toLowerCase()) {
         // Advanced searching
@@ -69,6 +70,7 @@ const FeedList: React.FC = () => {
         case "date": return bulletDate?.includes(searchQuery);
         case "year": return bulletYear?.includes(searchQuery);
         case "score": return bulletScore === searchQuery;
+        case "location": return bulletAddress?.includes(searchQuery);
 
         // General searching (All)
         default: {
@@ -77,7 +79,8 @@ const FeedList: React.FC = () => {
                   bulletMonth?.includes(searchQuery) ||
                   bulletDate?.includes(searchQuery) ||
                   bulletYear?.includes(searchQuery) ||
-                  bulletScore === searchQuery;
+                  bulletScore === searchQuery ||
+                  bulletAddress?.includes(searchQuery);
         }
       }
     })

@@ -20,9 +20,9 @@ const FooterNavbar: React.FC<FooterNavbarType> = ({updateViewState, currentState
                         className="cursor-pointer">
                         {(currentState === "Write") ? <FooterNavbarItem icon={"BsPlusSquareFill"}/> : <FooterNavbarItem icon={"BsPlusSquare"}/>}    
                     </div>
-                    <div onClick={() => updateViewState("Week Review")}
+                    <div onClick={() => updateViewState("Weekly Dosage")}
                         className="cursor-pointer">
-                        {(currentState === "Week Review") ? <FooterNavbarItem icon={"BsCalendarWeekFill"}/> : <FooterNavbarItem icon={"BsCalendarWeek"}/>}
+                        {(currentState === "Weekly Dosage") ? <FooterNavbarItem icon={"BsCalendarWeekFill"}/> : <FooterNavbarItem icon={"BsCalendarWeek"}/>}
                     </div>
                     <div onClick={() => updateViewState("Settings")}
                         className="cursor-pointer">
