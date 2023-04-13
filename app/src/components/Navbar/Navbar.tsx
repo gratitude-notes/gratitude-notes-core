@@ -4,6 +4,7 @@ import AvatarButton from "./AvatarButton";
 import SignInButton from "./SignInButton";
 import { ViewState } from "../../pages/Dashboard";
 import DOSE_logo_png from "../../assets/logo/DOSE_logo.png";
+import Streaks from "../WeekInReviewModal/Streaks";
 
 type AuthButtonProps = {
   updateViewState: (state: ViewState) => void;
@@ -15,6 +16,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({updateViewState}) => {
   if (session?.user) {
     return (
       <>
+        <Streaks />
         <ThemeButton />
         <AvatarButton updateViewState={updateViewState}/>
       </>

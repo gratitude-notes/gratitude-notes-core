@@ -11,13 +11,7 @@ import React, { useRef, useState } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 import EditorToolbar from './EditorToolbar';
 import { $getRoot, EditorState } from 'lexical';
-import {
-  addDoc,
-  collection,
-  Timestamp,
-  setDoc,
-  updateDoc,
-} from '@firebase/firestore';
+import { addDoc, collection, Timestamp, setDoc, updateDoc, doc } from '@firebase/firestore';
 import { NoteBullet } from '../../hooks/useUserBullets';
 import { useSession } from '../../lib/Session';
 import { fb_firestore, fb_storage } from '../../lib/Firebase';
@@ -29,7 +23,9 @@ import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import EditorSpeechToTextButton from './EditorSpeechToTextButton';
 import EmojiPicker from './EmojiScorePicker';
+import useProfileData from '../../hooks/useProfileData';
 import { useSettings } from '../../lib/Settings';
+
 
 type FormHandlerProps = {
   updateViewState: (state: ViewState) => void;
@@ -41,6 +37,13 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
 
   const [localImages, setLocalImages] = useState<File[]>([]);
   const [emojiScore, setEmojiScore] = useState<number | null>(null);
+
+  const userStreaks = useProfileData();
+
+  const streakCountDB: number = userStreaks?.streaks.streakCount ?? 0;
+  let lastNoteTimestamp: Timestamp = userStreaks?.streaks.lastTimeStamp ?? Timestamp.fromMillis(0);
+  const currentNoteTimestamp = new Date();
+
 
   const initialConfig = {
     namespace: 'noteEditor',
@@ -108,12 +111,22 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       if (session && session.user) {
         const bulletCollectionRef = collection(fb_firestore, 'users', session.user.uid, 'notes');
         const newBulletDocRef = await addDoc(bulletCollectionRef, newBullet);
-        await setDoc(newBulletDocRef, { bulletDocID: newBulletDocRef.id }, { merge: true });
 
-        const downloadURLs = await uploadImages(newBulletDocRef.id);
+        await setDoc(newBulletDocRef, {bulletDocID: newBulletDocRef.id}, {merge: true});
+        
+        const downloadURLs = await uploadImages(newBulletDocRef.id);        
         await updateDoc(newBulletDocRef, { images: downloadURLs });
+        
+        const docRef = doc(fb_firestore, "users", session.user.uid);
 
-        toast.success('Note Submitted!');
+        await updateDoc(docRef, { 
+          streaks: {
+            streakCount: checkTimePeriod(lastNoteTimestamp),
+            lastTimeStamp: currentNoteTimestamp
+          }
+        });
+        
+        toast.success("Note Submitted!");
       }
     } catch (error) {
       console.log(error);
@@ -122,6 +135,25 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
 
     updateViewState('Home');
   };
+
+
+  const checkTimePeriod = (timestampToCheck: Timestamp): number => {
+    const dateToCheck = timestampToCheck.toDate();
+    const today = new Date();
+    const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+
+    if (dateToCheck.getFullYear() === yesterday.getFullYear() && dateToCheck.getMonth() === yesterday.getMonth() && dateToCheck.getDate() === yesterday.getDate() || timestampToCheck.isEqual(Timestamp.fromMillis(0))) {
+      //last time was yesterday
+      return streakCountDB + 1;
+    } 
+    else if (dateToCheck.getFullYear() === today.getFullYear() && dateToCheck.getMonth() === today.getMonth() && dateToCheck.getDate() === today.getDate()) {
+      //today
+      return streakCountDB;
+    } else {
+      return 1;
+    }
+  }
+  
 
   const getEmojiScore = (score: number) => {
     emojiScore !== score ? setEmojiScore(score) : null;

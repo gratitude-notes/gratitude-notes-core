@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc } from '@firebase/firestore';
+import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc, Timestamp } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
 export type UserSettings = {
@@ -9,8 +9,14 @@ export type UserSettings = {
     analysis: boolean
 }
 
+export type UserStreaks = {
+    lastTimeStamp: Timestamp,
+    streakCount: number,
+}
+
 type UserProfile = {
-    settings: UserSettings
+    settings: UserSettings,
+    streaks: UserStreaks
 } | null;
 
 // Custom hook to read auth record and user profile
@@ -20,7 +26,8 @@ const useProfileData = () => {
 
     const composeUserProfile = (userProfileData: DocumentData) => {
         const currentUserProfile: UserProfile = {
-            settings: userProfileData.settings
+            settings: userProfileData.settings,
+            streaks: userProfileData.streaks
         }
 
         return currentUserProfile;
@@ -32,6 +39,10 @@ const useProfileData = () => {
                 theme: "light",
                 geolocation: false,
                 analysis: false
+            },
+            streaks: {
+                lastTimeStamp: Timestamp.fromMillis(0),
+                streakCount: 0
             }
         }
 
