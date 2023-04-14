@@ -1,5 +1,5 @@
 import { RefObject, useRef, useState } from "react";
-import useUserBullets, { FeedViews, NoteBullet } from "../../hooks/useUserBullets";
+import useUserBullets, { TQuery, NoteBullet } from "../../hooks/useUserBullets";
 import SearchBar from "../SearchBar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
 import useComponentVisible from "../../hooks/useComponentVisible";
@@ -9,7 +9,7 @@ import SearchDropdown from "./SearchDropdown";
 import FeedSelector from "./FeedSelector";
 
 const FeedList: React.FC = () => {
-  const [feedSelection, setFeedSelection] = useState<FeedViews>("Personal"); // personal, favorite, public
+  const [feedSelection, setFeedSelection] = useState<TQuery>("Personal");
   const { bullets } = useUserBullets(feedSelection);
   const [searchCategory, setSearchCategory] = useState("All");
   const [search, setSearch] = useState({
@@ -23,8 +23,8 @@ const FeedList: React.FC = () => {
     listRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  const handleFeedSelectorChange = (selection: FeedViews) => {
-    setFeedSelection(selection);
+  const handleFeedSelectorChange = (selection: TQuery) => {
+    setFeedSelection("PastWeek");
   }
 
   const dayMap = new Map<Number, string>();

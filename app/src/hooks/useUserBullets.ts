@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy } from '@firebase/firestore';
+import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy, CollectionReference } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
+import dayjs from "dayjs";
 
 type Bullets = {
     bullets: NoteBullet[] | null
@@ -22,9 +23,9 @@ export type NoteBullet = {
     bulletAddress: string | null
 }
 
-export type FeedViews = "Personal" | "Favorites" | "Public"
+export type TQuery = "Personal" | "Favorites" | "Public" | "PastWeek"
 
-const useUserBullets = (feedQuery: FeedViews) => {
+const useUserBullets = (feedQuery: TQuery) => {
     const session = useSession();
     const [userBullets, setUserBullets] = useState<Bullets>({bullets: null});
 
@@ -72,15 +73,23 @@ const useUserBullets = (feedQuery: FeedViews) => {
         if (session?.user) {
             const ref = collection(fb_firestore, "users", session.user.uid, "notes");
             let q;
-                  
-            if (feedQuery === "Personal") {
-              q = query(ref, orderBy('timestamp', 'desc'));
-            }
-            else if (feedQuery === "Favorites") {
-              q = query(ref, orderBy('timestamp', 'desc'), where("isFavorited", "==", true));
-            }
-            else if (feedQuery === "Public") {
-              q = query(ref, orderBy('timestamp', 'desc'), where("isPublic", "==", true));
+            
+            switch (feedQuery) {
+                case "Personal":
+                    q = query(ref, orderBy('timestamp', 'desc'));
+                    break;
+                case "Favorites":
+                    q = query(ref, orderBy('timestamp', 'desc'), where("isFavorited", "==", true));
+                    break;
+                case "Public":
+                    q = query(ref, orderBy('timestamp', 'desc'), where("isPublic", "==", true));
+                    break;
+                case "PastWeek":
+                    const startOfWeek = Timestamp.fromDate(dayjs().startOf('week').toDate())
+                    const endOfWeek = Timestamp.fromDate(dayjs().endOf('week').toDate())
+                    
+                    q = query(ref, orderBy('timestamp', 'desc'), where("timestamp", "<", endOfWeek), where("timestamp", ">", startOfWeek));
+                    break;
             }
         
             if (q) {
