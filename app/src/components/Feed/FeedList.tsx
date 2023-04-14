@@ -24,7 +24,7 @@ const FeedList: React.FC = () => {
   }
 
   const handleFeedSelectorChange = (selection: TQuery) => {
-    setFeedSelection("PastWeek");
+    setFeedSelection(selection);
   }
 
   const dayMap = new Map<Number, string>();
