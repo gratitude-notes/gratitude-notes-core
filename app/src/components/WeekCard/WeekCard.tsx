@@ -6,223 +6,20 @@ import useComponentVisible from "../../hooks/useComponentVisible";
 import { useState } from "react";
 import useUserBullets from "../../hooks/useUserBullets";
 
-const data = [
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -2
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-    {
-        "date": "February 22, 2023",
-        "noteData": [
-          {
-            "time": "11:59:00 PM",
-            "score": 2
-          },
-          {
-            "time": "1:45:30 AM",
-            "score": 0
-          },
-          {
-            "time": "12:15:00 AM",
-            "score": -1
-          },
-          {
-            "time": "3:00:15 PM",
-            "score": 1
-          },
-          {
-            "time": "9:30:45 PM",
-            "score": null
-          }
-        ]
-    },
-]
+export type TFilterBullet = { score: number | null, timestamp: Timestamp };
+export type TFilterBullets = TFilterBullet[] | undefined;
+
+export type TWeekday = "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday";
+export type WeekdayBullets = {
+    [key in TWeekday]: TFilterBullets;
+};
 
 const WeekCard: React.FC = () => {
-  
+    dayjs.extend(weekday);
+
     const { bullets } = useUserBullets("PastWeek");
 
-    type TFilterBullet = {score: number | null, timestamp: Timestamp};
-    type TFilterBullets = TFilterBullet[]  | undefined;
-
-    const filteredBullets: TFilterBullets = bullets?.map(({score, timestamp}) => ({score, timestamp}));
-
-    type Weekdays = "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday";
-
-    type WeekdayBullets = {
-        [key in Weekdays]: TFilterBullets;
-    };
+    const filteredBullets: TFilterBullets = bullets?.map(({ score, timestamp }) => ({ score, timestamp }));
 
     const currentWeek: WeekdayBullets = {
         Sunday: [],
@@ -234,10 +31,8 @@ const WeekCard: React.FC = () => {
         Saturday: [],
     };
 
-    dayjs.extend(weekday);
-
     const accumulator = (acc: WeekdayBullets, bullet: TFilterBullet) => {
-        const bulletDay = dayjs(bullet.timestamp.toDate()).format("dddd") as Weekdays;
+        const bulletDay = dayjs(bullet.timestamp.toDate()).format("dddd") as TWeekday;
         acc[bulletDay]?.push(bullet);
         return acc;
     };
@@ -245,17 +40,11 @@ const WeekCard: React.FC = () => {
     filteredBullets?.reduce(accumulator, currentWeek);
 
     Object.keys(currentWeek).map((day, index) => {
-      const weekDate = dayjs().weekday(index);
-      console.log(weekDate.toDate());
-      console.log(currentWeek[day as Weekdays]);
+        const weekDate = dayjs().weekday(index);
+        const dayBullets = currentWeek[day as TWeekday];
+        console.log(weekDate.toDate());
+        console.log();
     });
-
-    let weekCardDates: number[] = [];
-
-    for(let i = 0; i < 7; i++) {
-        let temp = dayjs().startOf('week').add(i, 'days');
-        weekCardDates.push(temp.date());
-    }
 
     const infoVisible = useComponentVisible(false);
     const infoDisplayStatus = (infoVisible.isComponentVisible) ? "visible" : "invisible";
@@ -273,7 +62,7 @@ const WeekCard: React.FC = () => {
         setInfoTime("");
         setInfoScore(-100);
     }
-    
+
     return (
         // <div ref={infoVisible.ref} className={`${isWeekCardVisible ? "visible opacity-100" : "invisible opacity-0"}
         //                                     my-2 flex flex-col transition-all duration-500`}>
@@ -282,7 +71,18 @@ const WeekCard: React.FC = () => {
             <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-                
+                {
+                    Object.keys(currentWeek).map((day, index) => {
+                        const weekDate = dayjs().weekday(index).toDate();
+
+                        return (
+                            <DayCard
+                                dayNumber={weekDate.getDate()}
+                                dayBullets={currentWeek[day as TWeekday]}
+                            />
+                        )
+                    })
+                }
             </div>
 
             {/* DAYCARD POINT INFORMATION */}

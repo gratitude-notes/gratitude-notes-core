@@ -1,41 +1,15 @@
 import { Timestamp } from '@firebase/firestore';
+import { TFilterBullets } from './WeekCard';
+ 
+const SECONDS_IN_DAY = 86400;
+const SECONDS_IN_HOUR = 3600;
+const SECONDS_IN_MINUTE = 60;
 
-// EXAMPLE OBJECT FOR SINGLE DAY
-const data = {
-    "date": "February 22, 2023",
-    "noteData": [
-      {
-        "time": "11:59:00 PM",
-        "score": 2
-      },
-      {
-        "time": "1:45:30 AM",
-        "score": 0
-      },
-      {
-        "time": "12:15:00 AM",
-        "score": -1
-      },
-      {
-        "time": "3:00:15 PM",
-        "score": 1
-      },
-      {
-        "time": "9:30:45 PM",
-        "score": 2
-      }
-    ]
-  }
-  
-  const SECONDS_IN_DAY = 86400;
-  const SECONDS_IN_HOUR = 3600;
-  const SECONDS_IN_MINUTE = 60;
-  
-  const MIN_SCORE = -2;
-  const MAX_SCORE = 2;
-  
-  const MIN_SCALE = 0;
-  const MAX_SCALE = 100;
+const MIN_SCORE = -2;
+const MAX_SCORE = 2;
+
+const MIN_SCALE = 0;
+const MAX_SCALE = 100;
   
 /**
  * Returns the Tailwind CSS background color class name corresponding to the given score.
@@ -62,15 +36,15 @@ const getPointBackgroundColor = (score: number | null): string => {
   
   interface Point {
     timestamp: Timestamp
-    score: number,
-    handleMouseOn: (time: Timestamp, score: number) => void,
-    handleMouseOut: () => void
+    score: number | null,
+    // handleMouseOn: (time: Timestamp, score: number) => void,
+    // handleMouseOut: () => void
   }
   
-  const DayCardPoint: React.FC<Point> = ({ timestamp, score, handleMouseOn, handleMouseOut }) => {
+  const DayCardPoint: React.FC<Point> = ({ timestamp, score }) => {
     
     const dateObj = new Date(timestamp.toDate());
-  
+    
     const hours = dateObj.getHours();
     const minutes = dateObj.getMinutes();
     const seconds = dateObj.getSeconds();
@@ -78,45 +52,46 @@ const getPointBackgroundColor = (score: number | null): string => {
     const totalSeconds = (hours * SECONDS_IN_HOUR) + (minutes * SECONDS_IN_MINUTE) + (seconds);
   
     const pointX = (totalSeconds / SECONDS_IN_DAY * 100).toFixed(0); // time
-  
-    let normalizePointY = (score - (MIN_SCORE)) / ((MAX_SCORE) - (MIN_SCORE)) * 100;
+    
+    // normalize score
+    const normalizePointY = (score === null) ? 50 : (score - (MIN_SCORE)) / ((MAX_SCORE) - (MIN_SCORE)) * 100;
   
     // reverse scale of pointY
     const reversePointY = (MIN_SCALE - normalizePointY + MAX_SCALE).toFixed(0);  // score
     
     // get background color
-    let pointBackgroundColor = getPointBackgroundColor(score);
+    const pointBackgroundColor = getPointBackgroundColor(score);
   
     return (
-      <div onMouseOver={() => handleMouseOn(timestamp, score)} onMouseOut={handleMouseOut} 
-        className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px]`} />
+        <div className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px]`} />
     );
-  }
+    }
   
   interface DayCardData {
-    timestamp: Timestamp,
-    noteData: {
-      time: string,
-      score: number
-    }[],
-    handleMouseOn: (timestamp: Timestamp, score: number) => void,
-    handleMouseOut: () => void
+    dayNumber: number
+    dayBullets: TFilterBullets
+    // handleMouseOn: (timestamp: Timestamp, score: number) => void,
+    // handleMouseOut: () => void
   }
   
-  const DayCard: React.FC<DayCardData> = ({ timestamp, noteData, handleMouseOn, handleMouseOut }) => {
-  
+  const DayCard: React.FC<DayCardData> = ({ dayNumber, dayBullets }) => {
+    
+    dayBullets?.forEach((bullet) => {
+        console.log(bullet);
+    });
+
     return (
       <div className="relative border border-gray-400">
-        <h1 className="p-1 text-right text-sm dark:text-white">{"A"}</h1>
+        <h1 className="p-1 text-right text-sm dark:text-white">{dayNumber}</h1>
         <div className="relative mx-[6px] mb-1 w-20 h-16">
           <hr className="absolute top-50% left-0 right-0"/>
-          {noteData.map((singleNoteData: { time: string, score: number }, key) => {
-            return (
-              <DayCardPoint key={key} timestamp={timestamp} score={singleNoteData.score}
-                            handleMouseOn={handleMouseOn}
-                            handleMouseOut={handleMouseOut} />
-            );
-          })}
+          {
+            dayBullets?.map((bullet) => {
+                return (
+                    <DayCardPoint timestamp={bullet.timestamp} score={bullet.score} />
+                );
+            })
+          }
         </div>
       </div>
     );
