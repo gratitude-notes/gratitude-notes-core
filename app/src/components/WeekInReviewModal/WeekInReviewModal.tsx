@@ -1,26 +1,19 @@
 import React, { useRef } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ViewState } from '../../pages/Dashboard';
+import { Player } from '@remotion/player';
+import { WeeklyDosageVideo } from "./Remotion/WeeklyDosageVideo";
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
 }
 
 const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
-  
   const ref = useRef<null | HTMLDivElement>(null); 
 
   const handleClick = () => {
     ref.current?.scrollIntoView({behavior: 'smooth'});
   }
-
-  const data = [
-      { text: 'Hey', value: 1000 },
-      { text: 'lol', value: 200 },
-      { text: 'first impression', value: 800 },
-      { text: 'very cool', value: 100 },
-      { text: 'duck', value: 500 }
-  ]
 
   return (
     <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
@@ -38,13 +31,23 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
           <h1>MAP</h1>
           <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
         </div>
-        <div ref={ref} className="h-full bg-blue-500">
-          <h1>DETAILED INFO ABOUT USERS WEEK</h1>
-          {/* <Streaks></Streaks> */}
+        <div ref={ref} className="h-full flex justify-center items-center">
+          <Player
+              component={WeeklyDosageVideo}
+              inputProps={{  }}
+              durationInFrames={30 * 30}  // 30 second total video length
+              // 1080x1920 (Vertical Video)
+              // 9:16 aspect ratio
+              // Scale-down to 306x544
+              compositionWidth={1080}
+              compositionHeight={1920}
+              style={{ width: '100%', height: '100%' }}
+              fps={30}
+              controls
+          />
         </div>
       </div>
 
-      {/* <WordCloud data={data} /> */}
     </div>
   );
 }
