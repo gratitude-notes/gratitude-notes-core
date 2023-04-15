@@ -1,10 +1,12 @@
+import { Timestamp } from '@firebase/firestore';
+
 // EXAMPLE OBJECT FOR SINGLE DAY
 const data = {
     "date": "February 22, 2023",
     "noteData": [
       {
         "time": "11:59:00 PM",
-        "score": 5
+        "score": 2
       },
       {
         "time": "1:45:30 AM",
@@ -16,7 +18,7 @@ const data = {
       },
       {
         "time": "3:00:15 PM",
-        "score": -3
+        "score": 1
       },
       {
         "time": "9:30:45 PM",
@@ -29,32 +31,45 @@ const data = {
   const SECONDS_IN_HOUR = 3600;
   const SECONDS_IN_MINUTE = 60;
   
-  const MIN_SCORE = -5;
-  const MAX_SCORE = 5;
+  const MIN_SCORE = -2;
+  const MAX_SCORE = 2;
   
   const MIN_SCALE = 0;
   const MAX_SCALE = 100;
   
-  const getPointBackgroundColor = (score: number) => {
-    if (score >= -5 && score <= -2) return 'bg-red-400'  // red
-    else if (score >= -1 && score <= 1) return 'bg-yellow-400'  // yellow
-    else if (score >= 2 && score <= 5) return 'bg-green-400' // green
-  }
+/**
+ * Returns the Tailwind CSS background color class name corresponding to the given score.
+ * If the score is null, returns a neutral gray color.
+ * @param score - The score to map to a background color.
+ * @returns The Tailwind CSS background color class name.
+ */
+const getPointBackgroundColor = (score: number | null): string => {
+    // Define a mapping of scores to Tailwind CSS background color class names.
+    const colorMap: Record<string, string> = {
+      "-2": "bg-red-500",
+      "-1": "bg-orange-500",
+      "0": "bg-yellow-500",
+      "1": "bg-green-500",
+      "2": "bg-blue-500",
+    };
+  
+    // Look up the background color class name for the given score.
+    const color = colorMap[score?.toString() ?? ""];
+
+    // If the color is null or an empty string, return a neutral gray color.
+    return color ?? "bg-gray-300";
+};  
   
   interface Point {
-    date: string,
-    time: string,
+    timestamp: Timestamp
     score: number,
-    handleMouseOn: (time: string, score: number) => void,
+    handleMouseOn: (time: Timestamp, score: number) => void,
     handleMouseOut: () => void
   }
   
-  const DayCardPoint: React.FC<Point> = ({ date, time, score, handleMouseOn, handleMouseOut }) => {
-  
-    // Give format like February 22, 2023 11:20:09 PM
-    const dateTime = [date, time].join(" ");
+  const DayCardPoint: React.FC<Point> = ({ timestamp, score, handleMouseOn, handleMouseOut }) => {
     
-    const dateObj = new Date(dateTime);
+    const dateObj = new Date(timestamp.toDate());
   
     const hours = dateObj.getHours();
     const minutes = dateObj.getMinutes();
@@ -73,33 +88,31 @@ const data = {
     let pointBackgroundColor = getPointBackgroundColor(score);
   
     return (
-      <div  onMouseOver={() => handleMouseOn(time, score)}
-            onMouseOut={handleMouseOut}
-            className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px]`}>
-    </div>
+      <div onMouseOver={() => handleMouseOn(timestamp, score)} onMouseOut={handleMouseOut} 
+        className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px]`} />
     );
   }
   
   interface DayCardData {
-    date: string,
+    timestamp: Timestamp,
     noteData: {
       time: string,
       score: number
     }[],
-    handleMouseOn: (time: string, score: number) => void,
+    handleMouseOn: (timestamp: Timestamp, score: number) => void,
     handleMouseOut: () => void
   }
   
-  const DayCard: React.FC<DayCardData> = ({ date, noteData, handleMouseOn, handleMouseOut }) => {
+  const DayCard: React.FC<DayCardData> = ({ timestamp, noteData, handleMouseOn, handleMouseOut }) => {
   
     return (
       <div className="relative border border-gray-400">
-        <h1 className="p-1 text-right text-sm dark:text-white">{date.split(" ")[1].replace(',', '')}</h1>
+        <h1 className="p-1 text-right text-sm dark:text-white">{"A"}</h1>
         <div className="relative mx-[6px] mb-1 w-20 h-16">
           <hr className="absolute top-50% left-0 right-0"/>
           {noteData.map((singleNoteData: { time: string, score: number }, key) => {
             return (
-              <DayCardPoint key={key} date={date} time={singleNoteData.time} score={singleNoteData.score}
+              <DayCardPoint key={key} timestamp={timestamp} score={singleNoteData.score}
                             handleMouseOn={handleMouseOn}
                             handleMouseOut={handleMouseOut} />
             );

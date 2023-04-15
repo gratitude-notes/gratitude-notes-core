@@ -1,212 +1,257 @@
 import DayCard from "./DayCard";
 import { Timestamp } from "@firebase/firestore";
 import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
 import useComponentVisible from "../../hooks/useComponentVisible";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useUserBullets from "../../hooks/useUserBullets";
 
 const data = [
     {
-        "date": "February 15, 2023",
+        "date": "February 22, 2023",
         "noteData": [
-            {
-                "time": "11:59:00 PM",
-                "score": 5
-            },
-            {
-                "time": "1:45:30 AM",
-                "score": 0
-            },
-            {
-                "time": "8:15:00 AM",
-                "score": -1
-            },
-            {
-                "time": "3:00:15 PM",
-                "score": -3
-            },
-            {
-                "time": "9:30:45 PM",
-                "score": 2
-            }
-        ]
-    },
-    {
-        "date": "February 16, 2023",
-        "noteData": [
-        {
-            "time": "9:15:00 AM",
-            "score": 3
-        },
-        {
-            "time": "12:30:45 PM",
-            "score": -2
-        },
-        {
-            "time": "6:00:00 PM",
-            "score": 1
-        },
-        {
-            "time": "11:59:59 PM",
-            "score": 4
-        },
-        {
-            "time": "10:30:45 PM",
+          {
+            "time": "11:59:00 PM",
             "score": 2
-        }
-        ]
-    },
-    {
-        "date": "February 17, 2023",
-        "noteData": [
-        {
-            "time": "8:00:00 AM",
-            "score": 1
-        },
-        {
-            "time": "10:30:15 AM",
-            "score": -3
-        },
-        {
-            "time": "2:45:00 PM",
-            "score": 2
-        },
-        {
-            "time": "7:15:30 PM",
+          },
+          {
+            "time": "1:45:30 AM",
             "score": 0
-        },
-        {
-            "time": "11:59:59 PM",
-            "score": 4
-        }
-        ]
-    },
-    {
-        "date": "February 19, 2023",
-        "noteData": [
-        {
-            "time": "9:00:00 AM",
-            "score": 3
-        },
-        {
-            "time": "12:30:15 PM",
+          },
+          {
+            "time": "12:15:00 AM",
             "score": -1
-        },
-        {
-            "time": "4:45:00 PM",
-            "score": 2
-        },
-        {
-            "time": "8:15:30 PM",
+          },
+          {
+            "time": "3:00:15 PM",
             "score": 1
-        },
-        {
-            "time": "11:59:59 PM",
-            "score": 5
-        }
-        ]
-    },
-    {
-        "date": "February 20, 2023",
-        "noteData": [
-        {
-            "time": "9:30:00 AM",
-            "score": 2
-        },
-        {
-            "time": "12:00:45 PM",
-            "score": -2
-        },
-        {
-            "time": "3:15:00 PM",
-            "score": 1
-        },
-        {
-            "time": "7:00:15 PM",
-            "score": 0
-        },
-        {
-            "time": "11:59:59 PM",
-            "score": 4
-        }
-        ]
-    },
-    {
-        "date": "February 21, 2023",
-        "noteData": [
-        {
-            "time": "8:45:00 AM",
-            "score": 0
-        },
-        {
-            "time": "12:15:30 PM",
-            "score": -1
-        },
-        {
-            "time": "4:30:00 PM",
-            "score": 2
-        },
-        {
-            "time": "9:00:45 PM",
-            "score": 3
-        },
-        {
-            "time": "7:00:15 PM",
-            "score": 1
-        }
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
         ]
     },
     {
         "date": "February 22, 2023",
         "noteData": [
-        {
-            "time": "10:00:00 AM",
-            "score": 1
-        },
-        {
-            "time": "12:30:45 PM",
-            "score": -2
-        },
-        {
-            "time": "3:45:00 PM",
-            "score": 3
-        },
-        {
-            "time": "7:15:30 PM",
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
             "score": 0
-        },
-        {
-            "time": "11:59:59 PM",
-            "score": 5
-        }
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -1
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
         ]
-    }
+    },
+    {
+        "date": "February 22, 2023",
+        "noteData": [
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
+            "score": 0
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -1
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
+        ]
+    },
+    {
+        "date": "February 22, 2023",
+        "noteData": [
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
+            "score": 0
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -1
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
+        ]
+    },
+    {
+        "date": "February 22, 2023",
+        "noteData": [
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
+            "score": 0
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -1
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
+        ]
+    },
+    {
+        "date": "February 22, 2023",
+        "noteData": [
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
+            "score": 0
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -1
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
+        ]
+    },
+    {
+        "date": "February 22, 2023",
+        "noteData": [
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
+            "score": 0
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -2
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
+        ]
+    },
+    {
+        "date": "February 22, 2023",
+        "noteData": [
+          {
+            "time": "11:59:00 PM",
+            "score": 2
+          },
+          {
+            "time": "1:45:30 AM",
+            "score": 0
+          },
+          {
+            "time": "12:15:00 AM",
+            "score": -1
+          },
+          {
+            "time": "3:00:15 PM",
+            "score": 1
+          },
+          {
+            "time": "9:30:45 PM",
+            "score": null
+          }
+        ]
+    },
 ]
 
-
-
-type CalendarBullet = {
-    score: number,
-    timestamp: Timestamp
-}
-
-type WeekCardProps = {
-    isWeekCardVisible: boolean
-}
-
 const WeekCard: React.FC = () => {
-    // const { notes } = useNoteData();
-    // let calendarBullets: CalendarBullet[] = [];
+  
+    const { bullets } = useUserBullets("PastWeek");
 
-    // if (notes) {
-    //     calendarBullets = notes.map((noteBullet) => {
-    //         return {
-    //           score: noteBullet.score,
-    //           timestamp: noteBullet.timestamp
-    //         }
-    //     })
-    // }
+    type TFilterBullet = {score: number | null, timestamp: Timestamp};
+    type TFilterBullets = TFilterBullet[]  | undefined;
 
-    // console.log(calendarBullets);
+    const filteredBullets: TFilterBullets = bullets?.map(({score, timestamp}) => ({score, timestamp}));
+
+    type Weekdays = "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday";
+
+    type WeekdayBullets = {
+        [key in Weekdays]: TFilterBullets;
+    };
+
+    const currentWeek: WeekdayBullets = {
+        Sunday: [],
+        Monday: [],
+        Tuesday: [],
+        Wednesday: [],
+        Thursday: [],
+        Friday: [],
+        Saturday: [],
+    };
+
+    dayjs.extend(weekday);
+
+    const accumulator = (acc: WeekdayBullets, bullet: TFilterBullet) => {
+        const bulletDay = dayjs(bullet.timestamp.toDate()).format("dddd") as Weekdays;
+        acc[bulletDay]?.push(bullet);
+        return acc;
+    };
+
+    filteredBullets?.reduce(accumulator, currentWeek);
+
+    console.log(currentWeek);
+
+    Object.keys(currentWeek).map((day, index) => {
+      const weekDate = dayjs().weekday(index);
+      console.log(weekDate.toDate());
+      console.log(index, day);
+      
+    });
 
     let weekCardDates: number[] = [];
 
@@ -240,18 +285,13 @@ const WeekCard: React.FC = () => {
             <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
                             scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-                {data.map((singleDayData, key) => {
-                    return (
-                        <DayCard key={key} date={singleDayData.date} noteData={singleDayData.noteData}
-                                handleMouseOn={handleMouseOn} handleMouseOut={handleMouseOut}/>
-                    );
-                })}
+                
             </div>
 
             {/* DAYCARD POINT INFORMATION */}
-            <div className={`${infoDisplayStatus} flex h-fit items-center w-fit mx-auto text-black dark:text-white`}>
-                <h1 className="font-semibold text-sm text-gray-400">Info time: {infoTime} | Info score: {infoScore}</h1>
-            </div>
+            {/* <div className={`${infoDisplayStatus} flex h-fit items-center w-fit mx-auto text-black dark:text-white`}>
+                <h1 className="font-semibold text-sm text-gray-400">Info time: {infoTime} | Info score: {(infoScore) ? infoScore : 'null'}</h1>
+            </div> */}
         </div>
     );
 }
