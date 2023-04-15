@@ -244,13 +244,10 @@ const WeekCard: React.FC = () => {
 
     filteredBullets?.reduce(accumulator, currentWeek);
 
-    console.log(currentWeek);
-
     Object.keys(currentWeek).map((day, index) => {
       const weekDate = dayjs().weekday(index);
       console.log(weekDate.toDate());
-      console.log(index, day);
-      
+      console.log(currentWeek[day as Weekdays]);
     });
 
     let weekCardDates: number[] = [];
