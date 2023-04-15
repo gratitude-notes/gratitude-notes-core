@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { doc, DocumentData, DocumentSnapshot, FirestoreError, onSnapshot, setDoc, Timestamp } from '@firebase/firestore';
+import { doc, DocumentData, DocumentSnapshot, Firestore, FirestoreError, onSnapshot, setDoc, Timestamp } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 
 export type UserSettings = {
@@ -17,6 +17,10 @@ export type UserStreaks = {
 type UserProfile = {
     settings: UserSettings,
     streaks: UserStreaks
+} | null;
+
+type UserPublicProfile = {
+    displayName: string
 } | null;
 
 // Custom hook to read auth record and user profile
@@ -52,9 +56,23 @@ const useProfileData = () => {
         }
     }
 
+    const createPublicProfile = async () => {
+        const initialPublicProfileData: UserPublicProfile = {
+            displayName: session?.user?.displayName!
+        }
+
+        if (session?.user) {
+            const ref = collection(fb_firestore, "users", session.user.uid, "public_profile");
+            const newProfileDocRef = await addDoc(ref, initialPublicProfileData);
+
+            // await setDoc(newProfileDocRef, {profileID: session.user.uid}, {merge: true});
+        }
+    }
+
     const handleData = async (snapshot: DocumentSnapshot<DocumentData>) => {
         if (!snapshot.exists()) {
             await createProfileData();
+            await createPublicProfile();
         }
         else {
             const userProfileDoc = snapshot.data();
@@ -79,3 +97,15 @@ const useProfileData = () => {
 }
 
 export default useProfileData;
+
+function collection(fb_firestore: Firestore, arg1: string, uid: string, arg3: string) {
+    throw new Error("Function not implemented.");
+}
+function updateDoc(ref: void, initialPublicProfileData: { displayName: string; }) {
+    throw new Error("Function not implemented.");
+}
+
+function addDoc(ref: void, initialPublicProfileData: { displayName: string; }) {
+    throw new Error("Function not implemented.");
+}
+

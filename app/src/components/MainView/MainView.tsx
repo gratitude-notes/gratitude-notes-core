@@ -6,7 +6,7 @@ import UserPublicBoard from "../../pages/UserPublicBoard"
 
 export const MainView: React.FC = () => {
     const session = useSession();
-
+    console.log(session?.user)
     return (
         <Routes>
             <Route 
