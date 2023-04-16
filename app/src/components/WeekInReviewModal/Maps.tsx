@@ -11,16 +11,16 @@ import ProhibitedEmoji from "../../assets/emojis/prohibited_emoji.png";
 import { ViewState } from '../../pages/Dashboard';
 import toast from "react-hot-toast";
 import { useSettings } from "../../lib/Settings";
-import { error } from "console";
 
 type MyMapComponentProps = {
     userBullets: NoteBullet[] | null,
-    zoom: number,
+    defaultZoom: number,
     markerPositions: google.maps.LatLngLiteral[],
 }
 
-const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, zoom, markerPositions }) => {
+const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoom, markerPositions }) => {
     const [center, setCenter] = useState<google.maps.LatLngLiteral>({ lat: 39.8283, lng: -98.5795 }); // Default Center is US
+    const [zoom, setZoom] = useState<number>(defaultZoom);
     const settings = useSettings();
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, zoom, mark
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
             });
-            console.log(center);
+            setZoom(8);
         }, (error) => {
             toast.error("Please accept the geolocation request or deny geolocation in your settings and on your device.")
         });
@@ -67,6 +67,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, zoom, mark
                 center,
                 zoom,
                 streetViewControl: false,
+                backgroundColor: "#1f2937FF",
             });
 
             const infoWindow = new google.maps.InfoWindow({
@@ -114,9 +115,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, zoom, mark
                 return InfoWindowHtml;
             }) : [];
 
-            const filteredLocationBullets = userBullets?.filter((bullet) => (bullet.bulletLatitude !== null && bullet.bulletLongitude !== null && bullet.bulletLatitude !== undefined && bullet.bulletLongitude !== undefined));
-
-            const markers = filteredLocationBullets?.map((bullet, i) => {
+            const markers = userBullets?.map((bullet, i) => {
                 const marker = new google.maps.Marker({
                     position: {
                         lat: bullet.bulletLatitude ?? 0,
@@ -192,7 +191,9 @@ const Map: React.FC = () => {
     const { bullets } = useUserBullets("PastWeek");
     const locations: google.maps.LatLngLiteral[] = [];
 
-    bullets?.forEach((bullet) => {
+    const filteredByLocationBullets = bullets?.filter((bullet) => (bullet.bulletLatitude !== null && bullet.bulletLongitude !== null && bullet.bulletLatitude !== undefined && bullet.bulletLongitude !== undefined));
+
+    filteredByLocationBullets?.forEach((bullet) => {
         locations.push({
             lat: bullet.bulletLatitude ?? 0,
             lng: bullet.bulletLongitude ?? 0,
@@ -202,7 +203,7 @@ const Map: React.FC = () => {
     return (
         <div className="h-full">
             <Wrapper apiKey={import.meta.env.VITE_GCP_MAPS_API_KEY}>
-                <MyMapComponent userBullets={bullets} zoom={zoom} markerPositions={locations} />
+                <MyMapComponent userBullets={bullets} defaultZoom={zoom} markerPositions={locations} />
             </Wrapper>
         </div>
     );
