@@ -19,7 +19,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
 
     const onClickShareButton = async () => {
         const deviceInfo = await Device.getInfo();
-        
+
         const shareDateStr = shareDate.toDate().toLocaleString(
             'en-US',
             { month: '2-digit', day: '2-digit', year: 'numeric' }
@@ -34,9 +34,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
         const shareFormattedText = shareText.trim();
         const shareFormattedAddress = (shareAddress) ? `${shareAddress.trim()}\n` : '';
         const shareString = `${shareFormattedText}\n\n${shareFormattedTime}\n${shareFormattedAddress}\nShared via DoseHappiness - https://dosehappiness.com/`;
-        
+
         const ShareAPIAvailability = await Share.canShare();
-        
+
         if (deviceInfo.platform === 'web' || !ShareAPIAvailability) {
             setShareAPI(false);
             await Clipboard.write({
@@ -68,11 +68,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
     }, []);
 
     return (
-        <>
-            <button onClick={onClickShareButton} className={clsx(shareAPI ? "hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full" : "hover:bg-orange-700 hover:bg-opacity-20 hover:text-orange-500 p-2 hover:rounded-full")}>
-                {shareButtonIcon}
-            </button>
-        </>
+        <button onClick={onClickShareButton} className={clsx(shareAPI ? "hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full" : "hover:bg-orange-700 hover:bg-opacity-20 hover:text-orange-500 p-2 hover:rounded-full")}>
+            {shareButtonIcon}
+        </button>
     );
 }
 
