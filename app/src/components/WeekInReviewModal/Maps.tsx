@@ -161,7 +161,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                 renderer: {
                     render: ({ count, position, markers }) => {
                         let mark = new google.maps.Marker({
-                            label: { text: String(count), className: "bg-cyan-500 rounded-full py-2 px-4 fixed top-2 font-bold shadow-inner shadow-gray-800" },
+                            label: { text: String(count), className: "bg-gray-800 rounded-full py-2 px-4 fixed top-2 font-bold", color: "white" },
                             icon: {
                                 url: averageEmoji(markers ?? []),
                                 scaledSize: new google.maps.Size(65, 65),

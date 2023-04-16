@@ -39,7 +39,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
         </div>
         <div ref={mapRef} className="h-full sm:flex sm:items-center sm:justify-center sm:relative">
           <Map />
-          <button onClick={handleRemotionRefClick} className="hidden sm:visible absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for remotion</button>
+          <button onClick={handleRemotionRefClick} className="hidden sm:visible sm:flex absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for remotion</button>
         </div>
       </div>
     </div>
