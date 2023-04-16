@@ -67,7 +67,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                 center,
                 zoom,
                 streetViewControl: false,
-                backgroundColor: "#1f2937FF",
+                backgroundColor: "none",
             });
 
             const infoWindow = new google.maps.InfoWindow({
@@ -160,7 +160,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                 renderer: {
                     render: ({ count, position, markers }) => {
                         let mark = new google.maps.Marker({
-                            label: { text: String(count), className: "bg-white rounded-lg p-1 border border-black float-right text-black" },
+                            label: { text: String(count), className: "bg-cyan-500 rounded-full py-2 px-4 fixed top-2 font-bold shadow-inner shadow-gray-800" },
                             icon: {
                                 url: averageEmoji(markers ?? []),
                                 scaledSize: new google.maps.Size(65, 65),
@@ -201,7 +201,7 @@ const Map: React.FC = () => {
     });
 
     return (
-        <div className="h-full">
+        <div className="h-full sm:h-3/4 sm:aspect-square">
             <Wrapper apiKey={import.meta.env.VITE_GCP_MAPS_API_KEY}>
                 <MyMapComponent userBullets={bullets} defaultZoom={zoom} markerPositions={locations} />
             </Wrapper>
