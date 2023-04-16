@@ -54,6 +54,7 @@ const WeekCard: React.FC = () => {
                         return (
                             <DayCard
                                 handleDayClick={handleDayClick}
+                                key={`${weekDate.toString()}DayCard`}
                                 dayNumber={weekDate.getDate()}
                                 dayBullets={currentWeek[day as TWeekday]}
                             />

@@ -81,7 +81,7 @@ const getPointBackgroundColor = (score: number | null): string => {
           {
             dayBullets?.map((bullet) => {
                 return (
-                    <DayCardPoint timestamp={bullet.timestamp} score={bullet.score} />
+                    <DayCardPoint timestamp={bullet.timestamp} score={bullet.score} key={`${bullet.timestamp.toString()}Point`} />
                 );
             })
           }
