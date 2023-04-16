@@ -37,7 +37,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
         
         <div className="h-full">
           <h1 className="dark:text-white">MAP</h1>
-          {/* <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button> */}
+          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
           <Map></Map>
         </div>
         <div ref={ref} className="h-full bg-blue-500">
