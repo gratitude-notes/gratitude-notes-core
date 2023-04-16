@@ -33,10 +33,7 @@ const PublicBoardNoteItem: React.FC<PublicNoteBullet> = ({ bulletJSON, keywords,
                 <div className="flex flex-col">
                     <KeyWordItem {...{keywords}} />
                     <div className="flex justify-between text-black dark:text-white">
-                        <div className="flex gap-4 sm:gap-10 items-end text-gray-600 dark:text-gray-200">
-                            <ShareButton bulletDocID={bulletDocID} />
-                        </div>
-                        <div className="flex flex-col text-right">
+                        <div className="flex flex-col ml-auto mr-0 text-right">
                             <EmojiScore emojiScore={score}/>
                             <time className="text-sm text-gray-400">{timeStr}</time>
                             <Location address={bulletAddress}/>
