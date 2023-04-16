@@ -33,7 +33,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
         const shareFormattedTime = `${shareDateStr} • ${shareTimeStr}`;
         const shareFormattedText = shareText.trim();
         const shareFormattedAddress = (shareAddress) ? `${shareAddress.trim()}\n` : '';
-        const shareString = `${shareFormattedText}\n\n${shareFormattedTime}\n${shareFormattedAddress}\nShared via DoseHappiness - https://dosehappiness.com/`;
+        const shareString = `${shareFormattedText}\n\n${shareFormattedTime}\n${shareFormattedAddress}\nShared via DOSE. - https://dosehappiness.com/`;
 
         const ShareAPIAvailability = await Share.canShare();
 
