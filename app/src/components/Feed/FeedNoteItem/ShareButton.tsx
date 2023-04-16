@@ -32,8 +32,10 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
         const shareFormattedText = shareText.trim();
         const shareFormattedAddress = (shareAddress) ? `${shareAddress.trim()}\n` : '';
         const shareString = `${shareFormattedText}\n\n${shareFormattedTime}\n${shareFormattedAddress}\nShared via DoseHappiness - https://dosehappiness.com/`;
-
-        if (deviceInfo.platform === 'web') {
+        
+        const ShareAPIAvailability = await Share.canShare();
+        
+        if (deviceInfo.platform === 'web' || !ShareAPIAvailability) {
             await Clipboard.write({
                 string: shareString
             });
@@ -61,6 +63,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
         getShareButtonIcon();
     }, []);
 
+    let className = 'flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition duration-200 ease-in-out';
     return (
         <>
             <button onClick={onClickShareButton} className="hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full">
