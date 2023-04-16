@@ -7,7 +7,7 @@ type SearchbarProps = {
 const Searchbar: React.FC<SearchbarProps> = ({searchCategory, handleSearchChange}) => {  
 
     return (
-        <input className="w-full px-2 py-1
+        <input id="searchbar" className="w-full px-2 py-1
                         bg-gray-200 dark:bg-gray-900 
                         focus:bg-white focus:dark:bg-gray-800
                         focus:border-none focus:outline-2 focus:outline-cyan-500

@@ -12,14 +12,16 @@ import ProhibitedEmoji from "../../assets/emojis/prohibited_emoji.png";
 
 import toast from "react-hot-toast";
 import { useSettings } from "../../lib/Settings";
+import { ViewState } from "../../pages/Dashboard";
 
 type MyMapComponentProps = {
     userBullets: NoteBullet[] | null,
     defaultZoom: number,
     markerPositions: google.maps.LatLngLiteral[],
+    updateViewState: (state: ViewState) => void
 }
 
-const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoom, markerPositions }) => {
+const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoom, markerPositions, updateViewState }) => {
     const [center, setCenter] = useState<google.maps.LatLngLiteral>({ lat: 39.8283, lng: -98.5795 }); // Default Center is US
     const [zoom, setZoom] = useState<number>(defaultZoom);
     const settings = useSettings();
@@ -99,7 +101,9 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                     const button = document.getElementById(bid);
                     if (button) {
                         button.addEventListener('click', () => {
-                            console.log(bid)
+                            // const searchbar = document.getElementById('searchbar')?.nodeValue
+                            
+                            updateViewState("Home");
                         });
                     }
                 });
@@ -187,7 +191,11 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
     return <div ref={ref} id="map" className="w-full h-full" />;
 }
 
-const Map: React.FC = () => {
+type MapProps = {
+    updateViewState: (state: ViewState) => void
+}
+
+const Map: React.FC<MapProps> = ({updateViewState}) => {
     const zoom = 4;
     const { bullets } = useUserBullets("PastWeek");
     const locations: google.maps.LatLngLiteral[] = [];
@@ -204,7 +212,7 @@ const Map: React.FC = () => {
     return (
         <div className="h-full sm:h-3/4 sm:aspect-square">
             <Wrapper apiKey={import.meta.env.VITE_GCP_MAPS_API_KEY}>
-                <MyMapComponent userBullets={bullets} defaultZoom={zoom} markerPositions={locations} />
+                <MyMapComponent userBullets={bullets} defaultZoom={zoom} markerPositions={locations} updateViewState={updateViewState}/>
             </Wrapper>
         </div>
     );
