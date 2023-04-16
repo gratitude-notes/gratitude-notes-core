@@ -2,8 +2,6 @@ import DayCard from "./DayCard";
 import { Timestamp } from "@firebase/firestore";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
-import useComponentVisible from "../../hooks/useComponentVisible";
-import { useState } from "react";
 import useUserBullets from "../../hooks/useUserBullets";
 
 export type TFilterBullet = { score: number | null, timestamp: Timestamp };
@@ -17,7 +15,7 @@ export type WeekdayBullets = {
 const WeekCard: React.FC = () => {
     dayjs.extend(weekday);
 
-    const { bullets } = useUserBullets("PastWeek");
+    const { bullets } = useUserBullets("CurrentWeek");
 
     const filteredBullets: TFilterBullets = bullets?.map(({ score, timestamp }) => ({ score, timestamp }));
 
@@ -38,35 +36,13 @@ const WeekCard: React.FC = () => {
     };
 
     filteredBullets?.reduce(accumulator, currentWeek);
-
-    Object.keys(currentWeek).map((day, index) => {
-        const weekDate = dayjs().weekday(index);
-        const dayBullets = currentWeek[day as TWeekday];
-        console.log(weekDate.toDate());
-        console.log();
-    });
-
-    const infoVisible = useComponentVisible(false);
-    const infoDisplayStatus = (infoVisible.isComponentVisible) ? "visible" : "invisible";
-    const [infoTime, setInfoTime] = useState("");
-    const [infoScore, setInfoScore] = useState(-100);
-
-    const handleMouseOn = (time: string, score: number) => {
-        setInfoTime(time);
-        setInfoScore(score);
-        infoVisible.setComponentVisible(true);
-    }
-
-    const handleMouseOut = () => {
-        infoVisible.setComponentVisible(false);
-        setInfoTime("");
-        setInfoScore(-100);
+   
+    const handleDayClick = () => {
+        console.log("day clicked");
     }
 
     return (
-        // <div ref={infoVisible.ref} className={`${isWeekCardVisible ? "visible opacity-100" : "invisible opacity-0"}
-        //                                     my-2 flex flex-col transition-all duration-500`}>
-        <div ref={infoVisible.ref} className={`my-2 flex flex-col transition-all duration-500`}>
+        <div className={`my-2 flex flex-col transition-all duration-500`}>
             {/* WEEKCARD */}
             <div className="flex flex-row overflow-x-scroll md:justify-center
                             md:scrollbar-none
@@ -77,6 +53,7 @@ const WeekCard: React.FC = () => {
 
                         return (
                             <DayCard
+                                handleDayClick={handleDayClick}
                                 dayNumber={weekDate.getDate()}
                                 dayBullets={currentWeek[day as TWeekday]}
                             />
@@ -84,11 +61,6 @@ const WeekCard: React.FC = () => {
                     })
                 }
             </div>
-
-            {/* DAYCARD POINT INFORMATION */}
-            {/* <div className={`${infoDisplayStatus} flex h-fit items-center w-fit mx-auto text-black dark:text-white`}>
-                <h1 className="font-semibold text-sm text-gray-400">Info time: {infoTime} | Info score: {(infoScore) ? infoScore : 'null'}</h1>
-            </div> */}
         </div>
     );
 }

@@ -37,8 +37,6 @@ const getPointBackgroundColor = (score: number | null): string => {
   interface Point {
     timestamp: Timestamp
     score: number | null,
-    // handleMouseOn: (time: Timestamp, score: number) => void,
-    // handleMouseOut: () => void
   }
   
   const DayCardPoint: React.FC<Point> = ({ timestamp, score }) => {
@@ -65,23 +63,18 @@ const getPointBackgroundColor = (score: number | null): string => {
     return (
         <div className={`absolute left-${pointX}% top-${reversePointY}% ${pointBackgroundColor} h-[7px] w-[7px] rounded-full -m-[3.5px]`} />
     );
-    }
+  }
   
   interface DayCardData {
     dayNumber: number
     dayBullets: TFilterBullets
-    // handleMouseOn: (timestamp: Timestamp, score: number) => void,
-    // handleMouseOut: () => void
+    handleDayClick: () => void,
   }
   
-  const DayCard: React.FC<DayCardData> = ({ dayNumber, dayBullets }) => {
+  const DayCard: React.FC<DayCardData> = ({ dayNumber, dayBullets, handleDayClick }) => {
     
-    dayBullets?.forEach((bullet) => {
-        console.log(bullet);
-    });
-
     return (
-      <div className="relative border border-gray-400">
+      <div className="relative border border-gray-400" onClick={handleDayClick}>
         <h1 className="p-1 text-right text-sm dark:text-white">{dayNumber}</h1>
         <div className="relative mx-[6px] mb-1 w-20 h-16">
           <hr className="absolute top-50% left-0 right-0"/>

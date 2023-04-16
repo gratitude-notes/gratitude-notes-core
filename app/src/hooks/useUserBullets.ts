@@ -23,7 +23,7 @@ export type NoteBullet = {
     bulletAddress: string | null
 }
 
-export type TQuery = "Personal" | "Favorites" | "Public" | "PastWeek"
+export type TQuery = "Personal" | "Favorites" | "Public" | "PastWeek" | "CurrentWeek"
 
 const useUserBullets = (feedQuery: TQuery) => {
     const session = useSession();
@@ -75,6 +75,10 @@ const useUserBullets = (feedQuery: TQuery) => {
 
             const orderDescending = orderBy('timestamp', 'desc');
             const orderAscending = orderBy('timestamp', 'asc');
+
+            const previousStartOfWeek = Timestamp.fromDate(dayjs().startOf('week').subtract(1, 'week').toDate());
+            const previousEndOfWeek = Timestamp.fromDate(dayjs().endOf('week').subtract(1, 'week').toDate());
+
             const startOfWeek = Timestamp.fromDate(dayjs().startOf('week').toDate());
             const endOfWeek = Timestamp.fromDate(dayjs().endOf('week').toDate());
             
@@ -90,8 +94,11 @@ const useUserBullets = (feedQuery: TQuery) => {
               case 'Public':
                 q = query(ref, orderDescending, where('isPublic', '==', true));
                 break;
-              case 'PastWeek':
+              case 'CurrentWeek':
                 q = query(ref, orderDescending, where('timestamp', '<', endOfWeek), where('timestamp', '>', startOfWeek));
+                break;
+              case 'PastWeek':
+                q = query(ref, orderAscending, where('timestamp', '<', previousEndOfWeek), where('timestamp', '>', previousStartOfWeek));
                 break;
               default:
                 throw new Error(`Invalid feed query: ${feedQuery}`);
