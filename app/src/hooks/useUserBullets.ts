@@ -74,7 +74,6 @@ const useUserBullets = (feedQuery: TQuery) => {
             const ref = collection(fb_firestore, "users", session.user.uid, "notes");
 
             const orderDescending = orderBy('timestamp', 'desc');
-            const orderAscending = orderBy('timestamp', 'asc');
 
             const previousStartOfWeek = Timestamp.fromDate(dayjs().startOf('week').subtract(1, 'week').toDate());
             const previousEndOfWeek = Timestamp.fromDate(dayjs().endOf('week').subtract(1, 'week').toDate());
@@ -98,7 +97,7 @@ const useUserBullets = (feedQuery: TQuery) => {
                 q = query(ref, orderDescending, where('timestamp', '<', endOfWeek), where('timestamp', '>', startOfWeek));
                 break;
               case 'PastWeek':
-                q = query(ref, orderAscending, where('timestamp', '<', previousEndOfWeek), where('timestamp', '>', previousStartOfWeek));
+                q = query(ref, orderDescending, where('timestamp', '<', previousEndOfWeek), where('timestamp', '>', previousStartOfWeek));
                 break;
               default:
                 throw new Error(`Invalid feed query: ${feedQuery}`);
