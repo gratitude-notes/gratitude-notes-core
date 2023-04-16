@@ -2,7 +2,6 @@ import FeedList from "../components/Feed/FeedList";
 import LeftSidebar from "../components/LeftSidebar/LeftSidebar";
 import WriteNoteModal from "../components/WriteNoteSequence/WriteNoteModal";
 import RightSidebar from "../components/RightSidebar/RightSidebar";
-import useComponentVisible from "../hooks/useComponentVisible";
 import WeekCard from "../components/WeekCard/WeekCard";
 import Navbar from "../components/Navbar/Navbar";
 import FooterNavbar from "../components/FooterNavbar/FooterNavbar";
@@ -10,7 +9,7 @@ import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useSettings } from "../lib/Settings";
-import { useSession } from "../lib/Session";
+
 
 const screens = ["Home", "Write", "Settings", "Week Review", "Edit Public Board"] as const;
 export type ViewState = typeof screens[number];

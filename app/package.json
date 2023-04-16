@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@capacitor/android": "^4.7.0",
+    "@capacitor/clipboard": "^4.1.0",
     "@capacitor/core": "^4.7.0",
+    "@capacitor/device": "^4.1.0",
     "@capacitor/ios": "^4.7.0",
     "@capacitor/share": "^4.1.1",
     "@googlemaps/markerwithlabel": "^2.0.14",
