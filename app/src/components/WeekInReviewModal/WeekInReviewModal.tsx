@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { BsArrowLeft } from 'react-icons/bs';
 import { ViewState } from '../../pages/Dashboard';
+import Map from './Maps';
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
@@ -8,19 +9,16 @@ type WeekInReviewModalState = {
 
 const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
   
-  const ref = useRef<null | HTMLDivElement>(null); 
+  const mapRef = useRef<null | HTMLDivElement>(null);
+  const remotionRef = useRef<null | HTMLDivElement>(null);
 
-  const handleClick = () => {
-    ref.current?.scrollIntoView({behavior: 'smooth'});
+  const handleMapRefClick = () => {
+    mapRef.current?.scrollIntoView({behavior: 'smooth'});
   }
 
-  const data = [
-      { text: 'Hey', value: 1000 },
-      { text: 'lol', value: 200 },
-      { text: 'first impression', value: 800 },
-      { text: 'very cool', value: 100 },
-      { text: 'duck', value: 500 }
-  ]
+  const handleRemotionRefClick = () => {
+    remotionRef.current?.scrollIntoView({behavior: 'smooth'});
+  }
 
   return (
     <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
@@ -34,17 +32,16 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       <div className="h-full overflow-y-auto
                       scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
         
-        <div className="h-full bg-red-500">
-          <h1>MAP</h1>
-          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
+        <div ref={remotionRef} className="h-full relative">
+          <h1 className="dark:text-white">Remotion here</h1>
+          <button onClick={handleMapRefClick} className="absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for map</button>
+          
         </div>
-        <div ref={ref} className="h-full bg-blue-500">
-          <h1>DETAILED INFO ABOUT USERS WEEK</h1>
-          {/* <Streaks></Streaks> */}
+        <div ref={mapRef} className="h-full sm:flex sm:items-center sm:justify-center sm:relative">
+          <Map />
+          <button onClick={handleRemotionRefClick} className="hidden sm:visible sm:flex absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for remotion</button>
         </div>
       </div>
-
-      {/* <WordCloud data={data} /> */}
     </div>
   );
 }

@@ -1,6 +1,3 @@
-
-import { useEffect, useState } from "react";
-import { ComponentVisbilityProps } from "../../hooks/useComponentVisible";
 import { ViewState } from "../../pages/Dashboard";
 import WriteNoteForm from "../Editor/WriteNoteForm";
 
