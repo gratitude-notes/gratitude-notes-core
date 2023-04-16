@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import useUserBullets, { NoteBullet } from "../../hooks/useUserBullets";
 import { MarkerClusterer, MarkerClustererOptions } from "@googlemaps/markerclusterer";
+
 import SadEmoji from "../../assets/emojis/sad_emoji.png";
 import SlightlySadEmoji from "../../assets/emojis/slightly_sad_emoji.png";
 import NeutralEmoji from "../../assets/emojis/neutral_emoji.png";
 import SlightlyHappyEmoji from "../../assets/emojis/slightly_happy_emoji.png";
 import HappyEmoji from "../../assets/emojis/happy_emoji.png";
 import ProhibitedEmoji from "../../assets/emojis/prohibited_emoji.png";
-import { ViewState } from '../../pages/Dashboard';
+
 import toast from "react-hot-toast";
 import { useSettings } from "../../lib/Settings";
 
