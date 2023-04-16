@@ -5,6 +5,7 @@ import { Clipboard } from '@capacitor/clipboard';
 import toast from 'react-hot-toast';
 import { Timestamp } from '@firebase/firestore';
 import { useEffect, useState } from 'react';
+import clsx from 'clsx';
 
 type ShareButtonProps = {
     shareText: string
@@ -14,7 +15,8 @@ type ShareButtonProps = {
 
 const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAddress }) => {
     const [shareButtonIcon, setShareButtonIcon] = useState<JSX.Element>(<BsClipboard size={24} />);
-    
+    const [shareAPI, setShareAPI] = useState<boolean>(false);
+
     const onClickShareButton = async () => {
         const deviceInfo = await Device.getInfo();
         
@@ -36,11 +38,13 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
         const ShareAPIAvailability = await Share.canShare();
         
         if (deviceInfo.platform === 'web' || !ShareAPIAvailability) {
+            setShareAPI(false);
             await Clipboard.write({
                 string: shareString
             });
             toast.success('Copied to clipboard!');
         } else {
+            setShareAPI(true);
             await Share.share({
                 title: 'Share your note with someone!',
                 text: shareText,
@@ -63,10 +67,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAd
         getShareButtonIcon();
     }, []);
 
-    let className = 'flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition duration-200 ease-in-out';
     return (
         <>
-            <button onClick={onClickShareButton} className="hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full">
+            <button onClick={onClickShareButton} className={clsx(shareAPI ? "hover:bg-green-700 hover:bg-opacity-20 hover:text-green-500 p-2 hover:rounded-full" : "hover:bg-orange-700 hover:bg-opacity-20 hover:text-orange-500 p-2 hover:rounded-full")}>
                 {shareButtonIcon}
             </button>
         </>
