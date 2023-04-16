@@ -11,15 +11,32 @@ import ProhibitedEmoji from "../../assets/emojis/prohibited_emoji.png";
 import { ViewState } from '../../pages/Dashboard';
 import toast from "react-hot-toast";
 import { useSettings } from "../../lib/Settings";
+import { error } from "console";
 
 type MyMapComponentProps = {
     userBullets: NoteBullet[] | null,
-    center: google.maps.LatLngLiteral,
     zoom: number,
     markerPositions: google.maps.LatLngLiteral[],
 }
 
-const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, center, zoom, markerPositions }) => {
+const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, zoom, markerPositions }) => {
+    const [center, setCenter] = useState<google.maps.LatLngLiteral>({ lat: 39.8283, lng: -98.5795 }); // Default Center is US
+    const settings = useSettings();
+
+    useEffect(() => {
+        if (!navigator.geolocation || !settings?.geolocation) return;
+        navigator.geolocation.getCurrentPosition((position) => {
+            setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            });
+            console.log(center);
+        }, (error) => {
+            toast.error("Please accept the geolocation request or deny geolocation in your settings and on your device.")
+        });
+    }, [userBullets]);
+    
+    
     const ref = useRef<HTMLDivElement>(null);
     const markersRef = useRef<google.maps.Marker[]>([]);
 
@@ -165,19 +182,12 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, center, zo
                 markersRef.current.forEach((marker) => marker.setMap(null));
             };
         }
-    }, [userBullets, center, zoom, markerPositions]);
+    }, [userBullets, zoom, markerPositions]);
 
     return <div ref={ref} id="map" className="w-full h-full" />;
 }
 
-
-
 const Map: React.FC = () => {
-    const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-        lat: 0,
-        lng: 0,
-    });
-
     const zoom = 4;
     const { bullets } = useUserBullets("PastWeek");
     const locations: google.maps.LatLngLiteral[] = [];
@@ -189,43 +199,10 @@ const Map: React.FC = () => {
         });
     });
 
-    useEffect(() => {
-        const getCurrentPosition = async () => {
-            const settings = useSettings();
-            
-            if (!navigator.geolocation || !settings?.geolocation) {
-                setCenter({
-                    lat: 39.8283,
-                    lng: -98.5795,
-                });
-                console.log(center);
-                return;
-            }
-    
-            try {
-                const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-                    navigator.geolocation.getCurrentPosition(resolve, reject);
-                });
-    
-                setCenter({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                })
-                console.log(center);
-                return;
-            } catch (error) {
-                if (error instanceof GeolocationPositionError)
-                    toast.error("Please accept the geolocation request or deny geolocation in your settings.")
-            }
-        };
-
-        getCurrentPosition();
-    }, [center]);
-
     return (
         <div className="h-full">
             <Wrapper apiKey={import.meta.env.VITE_GCP_MAPS_API_KEY}>
-                <MyMapComponent userBullets={bullets} center={center} zoom={zoom} markerPositions={locations} />
+                <MyMapComponent userBullets={bullets} zoom={zoom} markerPositions={locations} />
             </Wrapper>
         </div>
     );
