@@ -10,7 +10,7 @@ import EmojiScore from "./EmojiScore";
 import ShareButton from "./ShareButton";
 import PublicBoardButton from "./PublicBoardButton";
 
-const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp, isFavorited, isPublic, bulletDocID, images, bulletAddress }) => {
+const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, bulletTextContent, keywords, score, timestamp, isFavorited, isPublic, bulletDocID, images, bulletAddress }) => {
     const date = timestamp.toDate();
     const month = date.getMonth() + 1
     const day = date.getDate();
@@ -39,7 +39,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, keywords, score, timestamp
                     <div className="flex justify-between text-black dark:text-white">
                         <div className="flex gap-4 sm:gap-10 items-end text-gray-600 dark:text-gray-200">
                             <LikeButton isFavorited={isFavorited} bulletDocID={bulletDocID} />
-                            <ShareButton bulletDocID={bulletDocID} />
+                            <ShareButton shareText={bulletTextContent} shareDate={timestamp} shareAddress={bulletAddress} />
                             <PublicBoardButton isPublic={isPublic} bulletDocID={bulletDocID} />
                         </div>
                         <div className="flex flex-col text-right">
