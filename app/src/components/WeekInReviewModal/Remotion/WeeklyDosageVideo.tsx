@@ -4,6 +4,8 @@ import { useSession } from "../../../lib/Session";
 import useUserBullets from "../../../hooks/useUserBullets";
 import { CurrentWeekIntro } from "./CurrentWeekIntro";
 import { NumberNotesContent } from "./NumberNotesContent";
+import useProfileData from "../../../hooks/useProfileData";
+import { ShowStreakContent } from "./ShowStreakContent"
 
 type WeeklyDosageVideoProps = {
 }
@@ -12,6 +14,7 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
     const session = useSession();
     const pastWeekBullets = useUserBullets("PastWeek");
     const lifetimeBullets = useUserBullets("Personal");
+    const profData = useProfileData();
 
     return (
         <div className="bg-white text-black h-full w-full">
@@ -30,6 +33,11 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                 <Sequence from={8 * 30} durationInFrames={5 * 30}>
                     <NumberNotesContent pastWeekBullets={pastWeekBullets.bullets} lifetimeBullets={lifetimeBullets.bullets}/>
                 </Sequence>
+                {/* Starts at 13 seconds, 5 seconds long */}
+                <Sequence from={13 * 30} durationInFrames={4 * 30}>
+                    <ShowStreakContent streakCount={profData?.streaks.streakCount}/>
+                </Sequence>
+
 
             </>
         </div>

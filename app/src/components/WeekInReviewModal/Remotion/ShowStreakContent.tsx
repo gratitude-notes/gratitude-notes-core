@@ -1,11 +1,14 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { NoteBullet } from "../../../hooks/useUserBullets";
+import StreakEmoji from "../../../assets/emojis/fire_emoji.png"
+import { useState } from "react";
+import { useEffect } from "react";
+
 
 type ShowStreakContentProps = {
-
+    streakCount: number | null | undefined,
 }
 
-export const NumberNotesContent: React.FC<ShowStreakContentProps> = ({  }) => {
+export const ShowStreakContent: React.FC<ShowStreakContentProps> = ({ streakCount }) => {
     const frame = useCurrentFrame();
     const { fps } = useVideoConfig();
     const { durationInFrames } = useVideoConfig();
@@ -23,6 +26,46 @@ export const NumberNotesContent: React.FC<ShowStreakContentProps> = ({  }) => {
     // [0, 1] * this is the range of values we expect for opacity
     const opacityLifetime = interpolate(frame, [(durationInFrames / 2), ( 2 * durationInFrames / 3)], [0, 1]);
 
+    const [weeklyDosageVisible, setWeeklyDosageVisible] = useState(false);
+    const [forVisible, setForVisible] = useState(false);
+    const [firstDateVisible, setFirstDateVisible] = useState(false);
+    const [toDateVisible, setToDateVisible] = useState(false);
+    const [secondDateVisible, setSecondDateVisible] = useState(false);
+
+    const [imageStyles, setImageStyles] = useState<Array<{ position: string, left: string, top: string }>>([]);
+
+
+    useEffect(() => {
+    const styles = [];
+    for (let i = 0; i < 3; i++) {
+        const randomLeft = Math.floor(Math.random() * 80) + 10;
+        const randomTop = Math.floor(Math.random() * 80) + 10;
+        const style = {
+        position: 'absolute',
+        left: `${randomLeft}%`,
+        top: `${randomTop}%`,
+        };
+        styles.push(style);
+    }
+    setImageStyles(styles);
+    }, []);
+
+    useEffect(() => {
+        if (frame >= 15) setWeeklyDosageVisible(true);  // 0.5 second from start of sequence
+        if (frame >= 30) setForVisible(true);           // 1 second from start of sequence
+        if (frame >= 60) setFirstDateVisible(true);     // 2 second from start of sequence
+        if (frame >= 75) setToDateVisible(true);        // 2.5 second from start of sequence
+        if (frame >= 90) setSecondDateVisible(true);    // 3 second from start of sequence
+    }, [frame])
+
+    const randomLeft = Math.floor(Math.random() * 80) + 10;
+    const randomTop = Math.floor(Math.random() * 80) + 10;
+    const imageStyle = {
+        position: 'absolute' as const,
+        left: `${randomLeft}%`,
+        top: `${randomTop}%`,
+      };
+
 
     const scale = spring({
         fps,
@@ -30,8 +73,19 @@ export const NumberNotesContent: React.FC<ShowStreakContentProps> = ({  }) => {
     });
 
     return (
-        <div className="flex flex-col justify-center mx-auto text-center">
-            
+        <div className="flex flex-col justify-between h-screen">
+            <div className="border-black text-left pt-4" > 
+                <h1 className="text-[75px]">You are on a </h1>
+            </div>
+            <div className="flex justify-center items-center">
+                <h1 className="text-[85px] text-red-500 flex justify-center items-center">{streakCount} day</h1>
+            </div>
+            <div className="text-right pb-4">
+                <h1 className="text-[75px] text-right pb-3"> steak</h1>
+            </div>
+            {imageStyles.map((style, i) => (
+                <img key={i} style={imageStyle} className="w-[70px] h-[80px]" src={StreakEmoji} alt="" />
+            ))}
         </div>
     );
 };
