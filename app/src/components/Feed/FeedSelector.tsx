@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { FeedViews } from "../../hooks/useUserBullets";
+import { TQuery } from "../../hooks/useUserBullets";
 
 type FeedSelectorProps = {
     handleTopOfList: () => void,
-    feedSelection: FeedViews,
-    handleFeedSelectorChange: (selection: FeedViews) => void
+    feedSelection: TQuery,
+    handleFeedSelectorChange: (selection: TQuery) => void
 }
 
 const FeedSelector: React.FC<FeedSelectorProps> = ({handleTopOfList, feedSelection, handleFeedSelectorChange}) => {  
