@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: cd ./app; npm i && npm run build
+      - run: cd ./app; echo "${{ secrets.ENV_FILE }}" > .env && npm i && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           entrypoint: ./app
