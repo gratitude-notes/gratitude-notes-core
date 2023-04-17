@@ -31,7 +31,7 @@ const Explosion: React.FC<{
     <AbsoluteFill>
       {new Array(AMOUNT).fill(true).map((_, i) => {
         return (
-          <AbsoluteFill
+          <AbsoluteFill key={i}
             style={{
               rotate: (i / AMOUNT) * (2 * Math.PI) + "rad",
             }}
@@ -53,7 +53,7 @@ const Trail: React.FC<{
       <AbsoluteFill>
         {new Array(amount).fill(true).map((a, i) => {
           return (
-            <Sequence from={i * 30}>
+            <Sequence from={i * 30} key={i}>
               <AbsoluteFill
                 style={{
                   translate: `0 ${-extraOffset}px`,
