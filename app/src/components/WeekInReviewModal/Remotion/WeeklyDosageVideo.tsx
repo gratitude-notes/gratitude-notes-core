@@ -71,7 +71,7 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                 </Sequence>
 
                 {/* Starts at 29 seconds, 2 seconds long */}
-                <Sequence from={21 * 30} durationInFrames={2 * 30}>
+                <Sequence from={29 * 30} durationInFrames={2 * 30}>
                     {/* HAVE A GREAT WEEK FINAL */}
                     <HaveAGreatWeekFinal />
                 </Sequence>
