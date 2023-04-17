@@ -25,7 +25,7 @@ const NoteItem: React.FC<NoteBullet> = ({ bulletJSON, bulletTextContent, keyword
     
     return (
         <div className="relative border-b border-gray-400">
-            <DotMenu />
+            {/* <DotMenu /> */}
             <div className="flex flex-col px-4 py-2">
                 <Reader noteJSON={bulletJSON}/>
 
