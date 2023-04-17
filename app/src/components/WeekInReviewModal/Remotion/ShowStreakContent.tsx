@@ -2,6 +2,7 @@ import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import StreakEmoji from "../../../assets/emojis/fire_emoji.png"
 import { useState } from "react";
 import { useEffect } from "react";
+import { StreakFall } from "./StreakFall";
 
 
 type ShowStreakContentProps = {
@@ -58,13 +59,7 @@ export const ShowStreakContent: React.FC<ShowStreakContentProps> = ({ streakCoun
         if (frame >= 90) setSecondDateVisible(true);    // 3 second from start of sequence
     }, [frame])
 
-    const randomLeft = Math.floor(Math.random() * 80) + 10;
-    const randomTop = Math.floor(Math.random() * 80) + 10;
-    const imageStyle = {
-        position: 'absolute' as const,
-        left: `${randomLeft}%`,
-        top: `${randomTop}%`,
-      };
+
 
 
     const scale = spring({
@@ -75,17 +70,14 @@ export const ShowStreakContent: React.FC<ShowStreakContentProps> = ({ streakCoun
     return (
         <div className="flex flex-col justify-between h-screen">
             <div className="border-black text-left pt-4" > 
-                <h1 className="text-[75px]">You are on a </h1>
+                <h1 className="text-[80px]">You are on a </h1>
             </div>
             <div className="flex justify-center items-center">
-                <h1 className="text-[85px] text-red-500 flex justify-center items-center">{streakCount} day</h1>
+                <h1 className="text-[100px] text-red-500 flex justify-center items-center">{streakCount} day</h1>
             </div>
             <div className="text-right pb-4">
-                <h1 className="text-[75px] text-right pb-3"> steak</h1>
+                <h1 className="text-[80px] text-right pb-3"> steak</h1>
             </div>
-            {imageStyles.map((style, i) => (
-                <img key={i} style={imageStyle} className="w-[70px] h-[80px]" src={StreakEmoji} alt="" />
-            ))}
         </div>
     );
 };
