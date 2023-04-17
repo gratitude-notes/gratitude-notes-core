@@ -14,7 +14,7 @@ type ShareButtonProps = {
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({ shareText, shareDate, shareAddress }) => {
-    const [shareButtonIcon, setShareButtonIcon] = useState<JSX.Element>(<BsClipboard size={24} />);
+    const [shareButtonIcon, setShareButtonIcon] = useState<JSX.Element>(<BsClipboard size={15} />);
     const [shareAPI, setShareAPI] = useState<boolean>(false);
 
     const onClickShareButton = async () => {
