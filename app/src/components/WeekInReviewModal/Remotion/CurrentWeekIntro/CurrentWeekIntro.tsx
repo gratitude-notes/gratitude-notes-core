@@ -60,7 +60,7 @@ export const CurrentWeekIntro: React.FC<CurrentWeekIntroProps> = ({  }) => {
 	    spread: 60,
 	    x: 320,
 	    y: 1000,
-	    scalar: 1,
+	    scalar: 1.5,
 	};
 
 	const confettiConfig2 = {
@@ -72,8 +72,7 @@ export const CurrentWeekIntro: React.FC<CurrentWeekIntroProps> = ({  }) => {
 		gravity: 0.5,
 		x: 850,
 		y: 1300,
-		scalar: 1,
-		colors: ['#000000', '#FFFFFF'],
+		scalar: 1.5
 	};
 
     return (

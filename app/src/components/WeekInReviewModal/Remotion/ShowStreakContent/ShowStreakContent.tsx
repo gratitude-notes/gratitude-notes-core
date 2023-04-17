@@ -2,7 +2,7 @@ import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } fr
 import StreakEmoji from "../../../assets/emojis/fire_emoji.png"
 import { useState } from "react";
 import { useEffect } from "react";
-import { StreakFall } from "../StreakFall";
+import { StreakFall } from "./Effects/StreakFall";
 
 
 type ShowStreakContentProps = {

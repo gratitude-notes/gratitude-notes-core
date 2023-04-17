@@ -1,7 +1,7 @@
 import { random, AbsoluteFill } from "remotion";
 import React, { useMemo } from "react";
 
-import { Streak } from "./Streak";
+import { Streak } from "../../ShowStreakContent/Effects/Streak";
 
 const dropCount = 600;
 

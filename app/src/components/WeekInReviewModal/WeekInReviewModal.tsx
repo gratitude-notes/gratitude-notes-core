@@ -28,14 +28,16 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
             <Player
                 component={WeeklyDosageVideo}
                 inputProps={{  }}
-                durationInFrames={30 * 30}  // 30 second total video length
+                durationInFrames={31 * 30}  // 31 second total video length
                 // 1080x1920 (Vertical Video)
                 // 9:16 aspect ratio
-                // Scale-down to 306x544
                 compositionWidth={1080}
                 compositionHeight={1920}
                 style={{ width: '100%', height: '100%' }}
                 fps={30}
+                // autoPlay
+                // loop
+                // clickToPlay
                 controls
             />
           </div>
