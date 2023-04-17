@@ -27,12 +27,8 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       <div className="h-full overflow-y-auto
                       scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
         
-        <div className="h-full bg-red-500">
-          <h1>MAP</h1>
-          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
-        </div>
-        <div ref={ref} className="h-full flex justify-center items-center">
-          <Player
+        <div className="h-full">
+        <Player
               component={WeeklyDosageVideo}
               inputProps={{  }}
               durationInFrames={30 * 30}  // 30 second total video length
@@ -45,6 +41,10 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
               fps={30}
               controls
           />
+          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
+        </div>
+        <div ref={ref} className="h-full flex justify-center items-center">
+
         </div>
       </div>
 
