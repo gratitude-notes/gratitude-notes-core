@@ -13,6 +13,7 @@ import ProhibitedEmoji from "../../assets/emojis/prohibited_emoji.png";
 import toast from "react-hot-toast";
 import { useSettings } from "../../lib/Settings";
 import { ViewState } from "../../pages/Dashboard";
+import { useGlobal } from "../../lib/Global";
 
 type MyMapComponentProps = {
     userBullets: NoteBullet[] | null,
@@ -22,6 +23,8 @@ type MyMapComponentProps = {
 }
 
 const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoom, markerPositions, updateViewState }) => {
+    const global = useGlobal();
+    
     const [center, setCenter] = useState<google.maps.LatLngLiteral>({ lat: 39.8283, lng: -98.5795 }); // Default Center is US
     const [zoom, setZoom] = useState<number>(defaultZoom);
     const settings = useSettings();
@@ -102,7 +105,9 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                     if (button) {
                         button.addEventListener('click', () => {
                             // const searchbar = document.getElementById('searchbar')?.nodeValue
-                            
+                            if (global) {
+                                global.searchQuery = bid;
+                            }
                             updateViewState("Home");
                         });
                     }

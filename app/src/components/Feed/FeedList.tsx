@@ -50,8 +50,15 @@ const FeedList: React.FC = () => {
   monthMap.set(10, "november");
   monthMap.set(11, "december");
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchQuery = e.target.value.toLowerCase();
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
+    console.log(typeof e);
+    let searchQuery: string;
+    if (e instanceof String) {
+      searchQuery = e.toLowerCase();
+    } else if (e instanceof Object) {
+      searchQuery = e.target.value.toLowerCase();
+    }
+    // const searchQuery = (e instanceof String) ? e.toLowerCase() : e.target.value.toLowerCase();
 
     const results = bullets?.filter((bullet: NoteBullet) => {
       const bulletTextContent = bullet.bulletTextContent.toLowerCase();
@@ -88,12 +95,15 @@ const FeedList: React.FC = () => {
       }
     })
 
-    console.log(results);
+    // console.log(results);
+    
     setSearch(() => ({
-      query: e.target.value,
+      query: searchQuery,
       bulletsList: results || []
     }));
   }
+
+  console.log(search.query);
 
   const handleSearchCategoryChange = (category: string) => {
     setSearchCategory(category);

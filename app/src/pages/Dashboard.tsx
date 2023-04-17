@@ -9,6 +9,7 @@ import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useSettings } from "../lib/Settings";
+import { useGlobal } from "../lib/Global";
 
 const screens = ["Home", "Write", "Settings", "Weekly Dosage", "Edit Public Board"] as const;
 export type ViewState = typeof screens[number];

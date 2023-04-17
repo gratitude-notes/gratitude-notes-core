@@ -13,7 +13,7 @@ export const useSettings = () => {
     }
 }
 
-export const SettingsWrapper = ({ children }: { children: JSX.Element[] }) => {
+export const SettingsWrapper = ({ children }: { children: JSX.Element }) => {
     const [settings, setSettings] = useState<Settings | undefined>();
     
     const currentUserProfileData = useProfileData();
