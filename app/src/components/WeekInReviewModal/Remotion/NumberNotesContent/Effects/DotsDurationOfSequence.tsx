@@ -1,12 +1,12 @@
 import React from 'react';
 import {AbsoluteFill, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 
-type DotsSecondHalfOfSequenceProps = {
+type DotsDurationOfSequenceProps = {
   from: number,
   durationInFrames: number
 }
 
-const DotsSecondHalfOfSequence: React.FC<DotsSecondHalfOfSequenceProps> = ({from, durationInFrames}) => {
+const DotsDurationOfSequence: React.FC<DotsDurationOfSequenceProps> = ({from, durationInFrames}) => {
 	return (
 		<Explosion>
 			<Trail amount={5} extraOffset={0}>
@@ -20,7 +20,7 @@ const DotsSecondHalfOfSequence: React.FC<DotsSecondHalfOfSequenceProps> = ({from
 	);
 };
 
-export default DotsSecondHalfOfSequence;
+export default DotsDurationOfSequence;
 
 const AMOUNT = 10;
  
@@ -53,7 +53,7 @@ const Trail: React.FC<{
       <AbsoluteFill>
         {new Array(amount).fill(true).map((a, i) => {
           return (
-            <Sequence from={i * 3}>
+            <Sequence from={i * 30}>
               <AbsoluteFill
                 style={{
                   translate: `0 ${-extraOffset}px`,

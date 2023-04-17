@@ -7,8 +7,7 @@ import { NumberNotesContent } from "./NumberNotesContent/NumberNotesContent";
 import useProfileData from "../../../hooks/useProfileData";
 import { ShowStreakContent } from "./ShowStreakContent"
 import { StreakFall } from "./StreakFall";
-import DotsFirstHalfOfSequence from "./NumberNotesContent/Effects/DotsFirstHalfOfSequence";
-import DotsSecondHalfOfSequence from "./NumberNotesContent/Effects/DotsSecondHalfOfSequence";
+import DotsDurationOfSequence from "./NumberNotesContent/Effects/DotsDurationOfSequence";
 
 type WeeklyDosageVideoProps = {
 }
@@ -38,7 +37,7 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                     <NumberNotesContent pastWeekBullets={pastWeekBullets.bullets} lifetimeBullets={lifetimeBullets.bullets}/>
                     
                     {/* Slow spinning dot effect, lasts duration of clip => 150 frames */}
-                    <DotsFirstHalfOfSequence from={0 * 30} durationInFrames={5 * 30}/>
+                    <DotsDurationOfSequence from={0 * 30} durationInFrames={5 * 30}/>
                 </Sequence>
 
                 {/* <Slowed> */}
