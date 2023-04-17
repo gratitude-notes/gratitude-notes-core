@@ -1,5 +1,5 @@
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { NoteBullet } from "../../../hooks/useUserBullets";
+import { NoteBullet } from "../../../../hooks/useUserBullets";
 
 type NumberNotesContentProps = {
     pastWeekBullets: NoteBullet[] | null,
@@ -33,13 +33,18 @@ export const NumberNotesContent: React.FC<NumberNotesContentProps> = ({ pastWeek
     });
 
     return (
-        <div className="flex flex-col justify-center mx-auto text-center">
+        // 5 second clip, 2.5 second subclips split
+        // 5 second total = 150secs
+        // 2.5 seconds = 75secs
+        <div className={`flex flex-col justify-center mx-auto text-center`}>
             <h1 style={{ opacity: opacityPastWeek, }}
-                className="text-[100px]">
+                className={`${frame <= 75 ? 'visible' : 'hidden'}
+                            text-[100px]`}>
                 You wrote <strong>{numberOfPastWeekBullets}</strong> notes this past week!
             </h1>
             <h1 style={{ opacity: opacityLifetime, }}
-                className="text-[100px]">
+                className={`${frame >= 75 ? 'visible' : 'hidden'}
+                            text-[100px]`}>
                 This adds to your grand total of <strong>{numberOfLifetimeBullets}</strong> notes lifetime!
             </h1>
         </div>
