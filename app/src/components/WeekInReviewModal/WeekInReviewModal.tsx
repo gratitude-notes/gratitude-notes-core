@@ -50,7 +50,6 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
               fps={30}
               controls
           />
-          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
         </div>
       </div>
 
@@ -64,7 +63,6 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
           <button onClick={handleRemotionRefClick} className="hidden sm:visible sm:flex absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for remotion</button>
         </div>
       </div>
-    </div>
   );
 }
 
