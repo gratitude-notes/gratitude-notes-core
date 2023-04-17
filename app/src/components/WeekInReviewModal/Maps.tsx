@@ -83,7 +83,7 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                 let bid: string = element.bulletDocID ?? ""
 
                 let str: string = element.bulletTextContent;
-                if (str.length > 100) str = str.substring(0, 100) + "...";
+                // if (str.length > 100) str = str.substring(0, 100) + "...";
 
                 const date = element?.timestamp.toDate();
                 const month = date.getMonth() + 1
@@ -110,7 +110,6 @@ const MyMapComponent: React.FC<MyMapComponentProps> = ({ userBullets, defaultZoo
                     <img src=${icons[element.score ?? NaN]?.icon} style="width:20px; display: block; margin-left: auto; margin-right: 0;"></img>
                     <p style="text-align: right">${timeStr}</p>
                     <p style="text-align: right">${element?.bulletAddress}</p>
-                    <button id="${bid}">View Note</button>
                     </div>
                 `
                 return InfoWindowHtml;
