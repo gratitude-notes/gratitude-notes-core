@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../lib/Session";
-import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy, CollectionReference } from '@firebase/firestore';
+import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy, Query } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 import dayjs from "dayjs";
 
@@ -23,7 +23,7 @@ export type NoteBullet = {
     bulletAddress: string | null
 }
 
-export type TQuery = "Personal" | "Favorites" | "Public" | "PastWeek"
+export type TQuery = "Personal" | "Favorites" | "Public" | "PastWeek" | "CurrentWeek"
 
 const useUserBullets = (feedQuery: TQuery) => {
     const session = useSession();
@@ -72,26 +72,37 @@ const useUserBullets = (feedQuery: TQuery) => {
     useEffect(() => {
         if (session?.user) {
             const ref = collection(fb_firestore, "users", session.user.uid, "notes");
-            let q;
+
+            const orderDescending = orderBy('timestamp', 'desc');
+
+            const previousStartOfWeek = Timestamp.fromDate(dayjs().startOf('week').subtract(1, 'week').toDate());
+            const previousEndOfWeek = Timestamp.fromDate(dayjs().endOf('week').subtract(1, 'week').toDate());
+
+            const startOfWeek = Timestamp.fromDate(dayjs().startOf('week').toDate());
+            const endOfWeek = Timestamp.fromDate(dayjs().endOf('week').toDate());
+            
+            let q: Query<DocumentData>;
             
             switch (feedQuery) {
-                case "Personal":
-                    q = query(ref, orderBy('timestamp', 'desc'));
-                    break;
-                case "Favorites":
-                    q = query(ref, orderBy('timestamp', 'desc'), where("isFavorited", "==", true));
-                    break;
-                case "Public":
-                    q = query(ref, orderBy('timestamp', 'desc'), where("isPublic", "==", true));
-                    break;
-                case "PastWeek":
-                    const startOfWeek = Timestamp.fromDate(dayjs().startOf('week').toDate())
-                    const endOfWeek = Timestamp.fromDate(dayjs().endOf('week').toDate())
-                    
-                    q = query(ref, orderBy('timestamp', 'desc'), where("timestamp", "<", endOfWeek), where("timestamp", ">", startOfWeek));
-                    break;
-            }
-        
+              case 'Personal':
+                q = query(ref, orderDescending);
+                break;
+              case 'Favorites':
+                q = query(ref, orderDescending, where('isFavorited', '==', true));
+                break;
+              case 'Public':
+                q = query(ref, orderDescending, where('isPublic', '==', true));
+                break;
+              case 'CurrentWeek':
+                q = query(ref, orderDescending, where('timestamp', '<', endOfWeek), where('timestamp', '>', startOfWeek));
+                break;
+              case 'PastWeek':
+                q = query(ref, orderDescending, where('timestamp', '<', previousEndOfWeek), where('timestamp', '>', previousStartOfWeek));
+                break;
+              default:
+                throw new Error(`Invalid feed query: ${feedQuery}`);
+            }       
+            
             if (q) {
               const unsubscribe = onSnapshot(q, handleData, handleError);
               return unsubscribe;

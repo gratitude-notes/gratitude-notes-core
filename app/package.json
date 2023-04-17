@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm i && vite",
+    "dev": "npm i && vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "setupAndroid": "npx cap add android",
@@ -12,8 +12,12 @@
   },
   "dependencies": {
     "@capacitor/android": "^4.7.0",
+    "@capacitor/clipboard": "^4.1.0",
     "@capacitor/core": "^4.7.0",
+    "@capacitor/device": "^4.1.0",
     "@capacitor/ios": "^4.7.0",
+    "@googlemaps/markerclusterer": "^2.0.14",
+    "@capacitor/share": "^4.1.1",
     "@googlemaps/markerwithlabel": "^2.0.14",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@lexical/react": "^0.9.0",
@@ -62,10 +66,6 @@
     {
       "name": "Allison Moyer",
       "email": "armoyer10@gmail.com"
-    },
-    {
-      "name": "Myan Nguyen",
-      "email": "mhn5056@psu.edu"
     }
   ]
 }

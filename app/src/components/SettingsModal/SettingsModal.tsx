@@ -58,9 +58,6 @@ const SettingsModal: React.FC<SettingsModalState> = ({updateViewState}) => {
                 <div className="justify-center text-center py-1">
                     <DeleteAccountModal />
                 </div>
-
-                {/* USED FOR EXAMPLE PURPOSES TO SHOW OVERFLOW DIV IN ACTION */}
-                <div className="h-[1000px] bg-red-500"></div>
             </div>
         </div>
     );
