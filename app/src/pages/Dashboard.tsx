@@ -9,7 +9,6 @@ import SettingsModal from "../components/SettingsModal/SettingsModal";
 import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useSettings } from "../lib/Settings";
-import { useGlobal } from "../lib/Global";
 
 const screens = ["Home", "Write", "Settings", "Weekly Dosage", "Edit Public Board"] as const;
 export type ViewState = typeof screens[number];
@@ -44,9 +43,9 @@ const Dashboard: React.FC = () => {
 
   const renderCurrent = () => {
     switch(viewState) {
-        case "Write": return <WriteNoteModal updateViewState={updateViewState} />;
-        case "Settings": return <SettingsModal updateViewState={updateViewState}/>;
-        case "Weekly Dosage": return <WeekInReviewModal updateViewState={updateViewState}/>;
+        case "Write": return <WriteNoteModal />;
+        case "Settings": return <SettingsModal />;
+        case "Weekly Dosage": return <WeekInReviewModal />;
         default: return (
           <>
             <Navbar updateViewState={updateViewState}/>

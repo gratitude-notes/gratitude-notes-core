@@ -1,4 +1,4 @@
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import useUserBullets, { TQuery, NoteBullet } from "../../hooks/useUserBullets";
 import SearchBar from "../SearchBar";
 import FeedNoteItem from "./FeedNoteItem/FeedNoteItem";
@@ -7,11 +7,14 @@ import { BsQuestion } from "react-icons/bs";
 import SearchGuide from "./SearchGuide";
 import SearchDropdown from "./SearchDropdown";
 import FeedSelector from "./FeedSelector";
+import { useGlobal } from "../../lib/Global";
 
 const FeedList: React.FC = () => {
   const [feedSelection, setFeedSelection] = useState<TQuery>("Personal");
   const { bullets } = useUserBullets(feedSelection);
   const [searchCategory, setSearchCategory] = useState("All");
+  const global = useGlobal();
+
   const [search, setSearch] = useState({
     query: "",
     bulletsList: bullets
@@ -50,16 +53,8 @@ const FeedList: React.FC = () => {
   monthMap.set(10, "november");
   monthMap.set(11, "december");
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement> | string) => {
-    console.log(typeof e);
-    let searchQuery: string;
-    if (e instanceof String) {
-      searchQuery = e.toLowerCase();
-    } else if (e instanceof Object) {
-      searchQuery = e.target.value.toLowerCase();
-    }
-    // const searchQuery = (e instanceof String) ? e.toLowerCase() : e.target.value.toLowerCase();
-
+  const filter = (searchQuery: string) => {
+    console.log("BULLETS", bullets);
     const results = bullets?.filter((bullet: NoteBullet) => {
       const bulletTextContent = bullet.bulletTextContent.toLowerCase();
       const bulletDay = dayMap.get(bullet.timestamp.toDate().getDay());
@@ -91,19 +86,38 @@ const FeedList: React.FC = () => {
                   bulletAddress?.includes(searchQuery) ||
                   bulletDocID === searchQuery;
         }
-        
       }
-    })
-
-    // console.log(results);
+    });
     
+    console.log("FILTER: ", results);
+    return results;
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchQuery: string = e.target.value
+
+    const results = filter(searchQuery.toLowerCase());
+
     setSearch(() => ({
       query: searchQuery,
       bulletsList: results || []
     }));
   }
 
-  console.log(search.query);
+  useEffect(() => {
+    if (global && global.searchQuery) {
+        if (!(global.searchQuery === "null")) {
+          const globalSearchQueryRequest = global.searchQuery.toLowerCase();
+          console.log("GLOBAL SEARCH QUERY REQUEST: ", globalSearchQueryRequest)
+          const results = filter(globalSearchQueryRequest);
+
+          setSearch(() => ({
+            query: globalSearchQueryRequest,
+            bulletsList: results || []
+          }));
+        }
+    };
+  }, [global?.searchQuery]);
 
   const handleSearchCategoryChange = (category: string) => {
     setSearchCategory(category);

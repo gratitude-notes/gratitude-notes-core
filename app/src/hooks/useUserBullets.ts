@@ -3,6 +3,7 @@ import { useSession } from "../lib/Session";
 import { collection, Timestamp, QuerySnapshot, DocumentData, QueryDocumentSnapshot, FirestoreError, onSnapshot, query, where, orderBy, CollectionReference } from '@firebase/firestore';
 import { fb_firestore } from "../lib/Firebase";
 import dayjs from "dayjs";
+import { useGlobal } from "../lib/Global";
 
 type Bullets = {
     bullets: NoteBullet[] | null
@@ -27,6 +28,8 @@ export type TQuery = "Personal" | "Favorites" | "Public" | "PastWeek"
 
 const useUserBullets = (feedQuery: TQuery) => {
     const session = useSession();
+    const global = useGlobal();
+    
     const [userBullets, setUserBullets] = useState<Bullets>({bullets: null});
 
     const composeUserNotes = (documents: QueryDocumentSnapshot<DocumentData>[]) => {
@@ -97,7 +100,7 @@ const useUserBullets = (feedQuery: TQuery) => {
               return unsubscribe;
             }
           }
-    }, [session?.user, feedQuery])
+    }, [session?.user, feedQuery, global?.searchQuery, global])
     
     return userBullets;
 }

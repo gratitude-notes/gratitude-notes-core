@@ -1,21 +1,14 @@
-import { ViewState } from "../../pages/Dashboard";
+
 import WriteNoteForm from "../Editor/WriteNoteForm";
+import FooterNavbar from "../FooterNavbar/FooterNavbar";
 
-// interface WriteNoteModalState {
-//     visible: ComponentVisbilityProps,
-//     handleChange: () => void
-// }
-
-type WriteNoteModalState = {
-    updateViewState: (state: ViewState) => void
-}
-
-const WriteNoteModal: React.FC<WriteNoteModalState> = ({updateViewState}) => {
+const WriteNoteModal: React.FC = () => {
 
     return (    
-        <div className={`md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow`}>
+        <div className={`bg-white dark:bg-gray-800 h-screen md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow`}>
             {/* WRITE NOTE */}
-            <WriteNoteForm {...{updateViewState}}/>
+            <WriteNoteForm />
+            <FooterNavbar updateViewState={()=>{}} currentState={"Home"}/>
         </div>
     );
 }

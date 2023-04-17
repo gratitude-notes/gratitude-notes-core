@@ -25,13 +25,10 @@ import EditorSpeechToTextButton from './EditorSpeechToTextButton';
 import EmojiPicker from './EmojiScorePicker';
 import useProfileData from '../../hooks/useProfileData';
 import { useSettings } from '../../lib/Settings';
+import { Link, useNavigate } from 'react-router-dom';
 
-
-type FormHandlerProps = {
-  updateViewState: (state: ViewState) => void;
-};
-
-const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
+const WriteNoteForm: React.FC = () => {
+  const navigate = useNavigate();
   const session = useSession();
   const settings = useSettings();
 
@@ -133,7 +130,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       toast.error('Error Submitting Note.');
     }
 
-    updateViewState('Home');
+    navigate("/");
   };
 
 
@@ -224,9 +221,9 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
   return (
     <div className="flex flex-col text-black dark:text-white">
       <div className="h-14 flex justify-between py-2 px-4 text-black dark:text-white">
-        <button onClick={() => updateViewState('Home')} className="">
+        <Link to="/">
           <BsArrowLeft size={20} />
-        </button>
+        </Link>
         <button
           onClick={onSubmit}
           className="font-bold text-white bg-cyan-500 rounded-full px-6"

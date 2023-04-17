@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Global = {
-    searchQuery: string
+    searchQuery: string | null
 }
 
 const GlobalContext = createContext<Global | undefined>(undefined);
@@ -17,7 +17,7 @@ export const useGlobal = () => {
 export const GlobalWrapper = ({ children }: { children: JSX.Element[] }) => {
     const [global, setGlobal] = useState<Global | undefined>();
 
-    useEffect(() => setGlobal({ searchQuery: "" }), []);
+    useEffect(() => setGlobal({ searchQuery: "null" }), []);
 
     return (
         <GlobalContext.Provider value={global}>

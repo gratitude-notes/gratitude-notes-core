@@ -7,12 +7,9 @@ import SettingsProfile from "./SettingsProfile";
 import { updateDoc, doc } from '@firebase/firestore';
 import { fb_firestore } from "../../lib/Firebase";
 import { useSettings } from "../../lib/Settings";
+import { Link } from "react-router-dom";
 
-type SettingsModalState = {
-    updateViewState: (state: ViewState) => void
-}
-
-const SettingsModal: React.FC<SettingsModalState> = ({updateViewState}) => {
+const SettingsModal: React.FC = () => {
     const session = useSession();
     const settings = useSettings();
     
@@ -36,10 +33,10 @@ const SettingsModal: React.FC<SettingsModalState> = ({updateViewState}) => {
     }
 
     return (
-        <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
+        <div className={`bg-white dark:bg-gray-800 h-screen py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
             {/* HEADER AND PROFILE */}
             <div className="flex justify-between text-black dark:text-white">
-                <button onClick={() => updateViewState("Home")}><BsArrowLeft size={20}/></button>
+                <Link to="/"><BsArrowLeft size={20}/></Link>
                 <h1 className="text-xl font-bold text-black dark:text-white justify-end">Settings</h1>
             </div>
             <SettingsProfile />
