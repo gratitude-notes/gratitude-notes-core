@@ -39,8 +39,8 @@ export const CurrentWeekIntro: React.FC<CurrentWeekIntroProps> = ({  }) => {
     monthMap.set(10, "November");
     monthMap.set(11, "December");
 
-    const startOfWeek = Timestamp.fromDate(dayjs().startOf('week').toDate()).toDate()
-    const endOfWeek = Timestamp.fromDate(dayjs().endOf('week').toDate()).toDate()
+    const startOfWeek = Timestamp.fromDate(dayjs().startOf('week').subtract(1, 'week').toDate()).toDate()
+    const endOfWeek = Timestamp.fromDate(dayjs().endOf('week').subtract(1, 'week').toDate()).toDate()
 
     const startOfWeekObj = {
         month: monthMap.get(startOfWeek.getMonth()),
@@ -59,7 +59,7 @@ export const CurrentWeekIntro: React.FC<CurrentWeekIntroProps> = ({  }) => {
 	    startVelocity: 30,
 	    spread: 60,
 	    x: 320,
-	    y: 360,
+	    y: 1000,
 	    scalar: 1,
 	};
 
@@ -70,8 +70,8 @@ export const CurrentWeekIntro: React.FC<CurrentWeekIntroProps> = ({  }) => {
 		spread: 360,
 		ticks: 100,
 		gravity: 0.5,
-		x: 960,
-		y: 360,
+		x: 850,
+		y: 1300,
 		scalar: 1,
 		colors: ['#000000', '#FFFFFF'],
 	};
@@ -103,11 +103,16 @@ export const CurrentWeekIntro: React.FC<CurrentWeekIntroProps> = ({  }) => {
                 </h1>
             </div>
 
-            {/* Drop confetti at 15 seconds */}
-            <Sequence from={0.5 * 30}>
+            {/* Drop confetti1 at 2 seconds */}
+            <Sequence from={2 * 30}>
                 <Confetti {...confettiConfig1} />
+            </Sequence>     
+
+            {/* Drop confetti2 at 3 seconds */}
+            <Sequence from={3 * 30}>
                 <Confetti {...confettiConfig2} />
-            </Sequence>
+            </Sequence>  
+            
         </AbsoluteFill>
     );
 };
