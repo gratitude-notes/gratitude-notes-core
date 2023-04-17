@@ -16,8 +16,8 @@
     "@capacitor/core": "^4.7.0",
     "@capacitor/device": "^4.1.0",
     "@capacitor/ios": "^4.7.0",
-    "@googlemaps/markerclusterer": "^2.0.14",
     "@capacitor/share": "^4.1.1",
+    "@googlemaps/markerclusterer": "^2.0.14",
     "@googlemaps/markerwithlabel": "^2.0.14",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@lexical/react": "^0.9.0",
@@ -36,6 +36,7 @@
     "react-slick": "^0.29.0",
     "react-social-icons": "^5.15.0",
     "remotion": "^3.3.83",
+    "remotion-confetti": "^0.3.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
