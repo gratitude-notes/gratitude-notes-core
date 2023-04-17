@@ -11,18 +11,6 @@ type WeekInReviewModalState = {
 
 const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
 
-  const mapRef = useRef<null | HTMLDivElement>(null);
-  const remotionRef = useRef<null | HTMLDivElement>(null);
-
-
-  const handleMapRefClick = () => {
-    mapRef.current?.scrollIntoView({behavior: 'smooth'});
-  }
-
-  const handleRemotionRefClick = () => {
-    remotionRef.current?.scrollIntoView({behavior: 'smooth'});
-  }
-
   return (
     <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
       {/* HEADER */}
@@ -34,37 +22,32 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       {/* OVERFLOW DIV */}
       <div className="h-full overflow-y-auto
                       scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
-        
+         
+          {/* REMOTION */}
+          <div className="h-full relative">
+            <Player
+                component={WeeklyDosageVideo}
+                inputProps={{  }}
+                durationInFrames={30 * 30}  // 30 second total video length
+                // 1080x1920 (Vertical Video)
+                // 9:16 aspect ratio
+                // Scale-down to 306x544
+                compositionWidth={1080}
+                compositionHeight={1920}
+                style={{ width: '100%', height: '100%' }}
+                fps={30}
+                controls
+            />
+          </div>
 
-        <div className="h-full">
-        <Player
-              component={WeeklyDosageVideo}
-              inputProps={{  }}
-              durationInFrames={30 * 30}  // 30 second total video length
-              // 1080x1920 (Vertical Video)
-              // 9:16 aspect ratio
-              // Scale-down to 306x544
-              compositionWidth={1080}
-              compositionHeight={1920}
-              style={{ width: '100%', height: '100%' }}
-              fps={30}
-              controls
-          />
-          <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
-        </div>
-      </div>
+          {/* MAP */}
+          <div className="h-full sm:flex sm:items-center sm:justify-center sm:relative">
+            <Map />
+          </div>
 
-        <div ref={remotionRef} className="h-full relative">
-          <h1 className="dark:text-white">Remotion here</h1>
-          <button onClick={handleMapRefClick} className="absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for map</button>
-          
-        </div>
-        <div ref={mapRef} className="h-full sm:flex sm:items-center sm:justify-center sm:relative">
-          <Map />
-          <button onClick={handleRemotionRefClick} className="hidden sm:visible sm:flex absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for remotion</button>
-        </div>
       </div>
     </div>
+
   );
 }
 
