@@ -3,16 +3,24 @@ import { BsArrowLeft } from 'react-icons/bs';
 import { ViewState } from '../../pages/Dashboard';
 import { Player } from '@remotion/player';
 import { WeeklyDosageVideo } from "./Remotion/WeeklyDosageVideo";
+import Map from './Maps';
 
 type WeekInReviewModalState = {
   updateViewState: (state: ViewState) => void
 }
 
 const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
-  const ref = useRef<null | HTMLDivElement>(null); 
 
-  const handleClick = () => {
-    ref.current?.scrollIntoView({behavior: 'smooth'});
+  const mapRef = useRef<null | HTMLDivElement>(null);
+  const remotionRef = useRef<null | HTMLDivElement>(null);
+
+
+  const handleMapRefClick = () => {
+    mapRef.current?.scrollIntoView({behavior: 'smooth'});
+  }
+
+  const handleRemotionRefClick = () => {
+    remotionRef.current?.scrollIntoView({behavior: 'smooth'});
   }
 
   return (
@@ -27,6 +35,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
       <div className="h-full overflow-y-auto
                       scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-track-gray-700">
         
+
         <div className="h-full">
         <Player
               component={WeeklyDosageVideo}
@@ -43,11 +52,18 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
           />
           <button onClick={handleClick} className="rounded-full p-2 bg-blue-500">click me</button>
         </div>
-        <div ref={ref} className="h-full flex justify-center items-center">
-
-        </div>
       </div>
 
+        <div ref={remotionRef} className="h-full relative">
+          <h1 className="dark:text-white">Remotion here</h1>
+          <button onClick={handleMapRefClick} className="absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for map</button>
+          
+        </div>
+        <div ref={mapRef} className="h-full sm:flex sm:items-center sm:justify-center sm:relative">
+          <Map />
+          <button onClick={handleRemotionRefClick} className="hidden sm:visible sm:flex absolute bottom-2 right-2 rounded-full p-2 bg-cyan-500">click for remotion</button>
+        </div>
+      </div>
     </div>
   );
 }

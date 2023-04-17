@@ -204,7 +204,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       }
     } catch (error) {
       if (error instanceof GeolocationPositionError)
-        toast.error("Please accept the geolocation request or deny geolocation in your settings.")
+        toast.error("Please accept the geolocation request or deny geolocation in your settings and on your device.")
       
       return {
         bulletLatitude: null,
