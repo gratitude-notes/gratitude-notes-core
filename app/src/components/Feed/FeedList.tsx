@@ -61,6 +61,7 @@ const FeedList: React.FC = () => {
       const bulletYear = bullet.timestamp.toDate().getFullYear().toString();
       const bulletScore = bullet.score?.toString();
       const bulletAddress = bullet.bulletAddress?.toLowerCase();
+      const bulletDocID = bullet.bulletDocID?.toString().toLowerCase();
 
       switch (searchCategory.toLowerCase()) {
         // Advanced searching
@@ -80,10 +81,14 @@ const FeedList: React.FC = () => {
                   bulletDate?.includes(searchQuery) ||
                   bulletYear?.includes(searchQuery) ||
                   bulletScore === searchQuery ||
-                  bulletAddress?.includes(searchQuery);
+                  bulletAddress?.includes(searchQuery) ||
+                  bulletDocID === searchQuery;
         }
+        
       }
     })
+
+    console.log(results);
     setSearch(() => ({
       query: e.target.value,
       bulletsList: results || []

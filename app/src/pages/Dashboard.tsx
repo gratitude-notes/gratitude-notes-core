@@ -10,7 +10,6 @@ import WeekInReviewModal from "../components/WeekInReviewModal/WeekInReviewModal
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useSettings } from "../lib/Settings";
 
-
 const screens = ["Home", "Write", "Settings", "Weekly Dosage", "Edit Public Board"] as const;
 export type ViewState = typeof screens[number];
 
