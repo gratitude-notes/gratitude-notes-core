@@ -56,9 +56,9 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
                 compositionHeight={1920}
                 style={{ width: '100%', height: '100%' }}
                 fps={30}
-                loop
+                // loop
                 clickToPlay
-                // controls
+                controls
             />
           </div>
 
