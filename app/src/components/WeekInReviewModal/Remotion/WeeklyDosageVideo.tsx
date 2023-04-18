@@ -21,6 +21,19 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
     const lifetimeBullets = useUserBullets("Personal");
     const profData = useProfileData();
 
+
+    // let filteredMarkers = markers.filter((marker) => marker.getTitle() !== "null");
+    //             let average = 0;
+
+    //             filteredMarkers.forEach((marker) => {
+    //                 average += Number(marker.getTitle() ?? 0);
+    //             })
+
+    //             average = average / filteredMarkers.length;
+    //             const normalizedScore = Math.round(average);
+
+    //             return icons[normalizedScore].icon;
+
     return (
         <div className="bg-white text-black h-full w-full">
             <AbsoluteFill>
@@ -67,7 +80,7 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
 
                 {/* Starts at 26 seconds, 3 seconds long */}
                 <Sequence from={26 * 30} durationInFrames={3 * 30}>
-                    <AverageScoreWeekContent />
+                    <AverageScoreWeekContent scoreArray={pastWeekBullets?.bullets}/>
                 </Sequence>
 
                 {/* Starts at 29 seconds, 2 seconds long */}
