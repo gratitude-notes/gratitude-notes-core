@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: cd ./app; npm i && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
         env: 
           VITE_FB_API_KEY: ${{ secrets.VITE_FB_API_KEY }}
           VITE_FB_AUTH_DOMAIN: ${{ secrets.VITE_FB_AUTH_DOMAIN }}
@@ -20,6 +19,7 @@ jobs:
           VITE_FB_APP_ID: ${{ secrets.VITE_FB_APP_ID }}
           VITE_GCP_MAPS_API_KEY: ${{ secrets.VITE_GCP_MAPS_API_KEY }}
           VITE_GCP_NLP_API_KEY: ${{ secrets.VITE_GCP_NLP_API_KEY }}
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           entrypoint: ./app
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
