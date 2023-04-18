@@ -1,13 +1,11 @@
-import { getRedirectResult, GoogleAuthProvider, signInWithRedirect } from "@firebase/auth";
-import { fb_auth } from "../../lib/Firebase";
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 
 const SignInButton = () => {
     const handleClick = async () => {
-        const provider = new GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/userinfo.email');
-        
-        await signInWithRedirect(fb_auth, provider);
-        await getRedirectResult(fb_auth);
+        await FirebaseAuthentication.signInWithGoogle({
+          mode: "redirect",
+          scopes: ['https://www.googleapis.com/auth/userinfo.email'],
+        });
     }
 
     return (

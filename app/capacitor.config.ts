@@ -1,9 +1,15 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.gratitudenotes.app',
-  appName: 'gratitude-notes-core',
+  appId: 'com.dose.app',
+  appName: 'dose',
   webDir: 'dist',
+  plugins: {
+    FirebaseAuthentication: {
+      skipNativeAuth: false,
+      providers: ["google.com"],
+    }
+  },
   bundledWebRuntime: false
 };
 

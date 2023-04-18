@@ -1,6 +1,7 @@
 import { onAuthStateChanged, User } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { fb_auth } from "./Firebase";
+import { FirebaseAuthentication } from "@capacitor-firebase/authentication";
 
 type Session = {
     user: User | null
@@ -19,8 +20,11 @@ export const useSession = () => {
 export const SessionWrapper = ({ children } : { children: JSX.Element }) => {
     const [session, setSession] = useState<Session | undefined>();
 
-    const onChange = () => {
+    const onChange = async () => {
+        const { user } = await FirebaseAuthentication.getCurrentUser();
+        console.log(user);
         setSession({ user: fb_auth.currentUser })
+        console.log(session);
     }
 
     useEffect(() => {
