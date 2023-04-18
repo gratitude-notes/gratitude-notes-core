@@ -11,6 +11,7 @@ import background_music from "../../../assets/weekly_dosage/audio/background_mus
 import { ShowATopScoreNoteContent } from "./ShowATopScoredNoteContent/ShowATopScoreNoteContent";
 import { AverageScoreWeekContent } from "./AverageScoreWeekContent/AverageScoreWeekContent";
 import { HaveAGreatWeekFinal } from "./HaveAGreatWeekFinal/Effects/HaveAGreatWeekFinal";
+import StarsForSequence from "./ShowATopScoredNoteContent/Effects/StarsForSequence";
 
 type WeeklyDosageVideoProps = {
 }
@@ -63,6 +64,8 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                 {/* Starts at 18 seconds, 8 seconds long */}
                 <Sequence from={18 * 30} durationInFrames={8 * 30}>
                     <ShowATopScoreNoteContent pastWeekBullets={pastWeekBullets.bullets} />
+
+                    <StarsForSequence />
                 </Sequence>
 
                 {/* Starts at 26 seconds, 3 seconds long */}
@@ -70,8 +73,8 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                     <AverageScoreWeekContent />
                 </Sequence>
 
-                {/* Starts at 29 seconds, 2 seconds long */}
-                <Sequence from={29 * 30} durationInFrames={2 * 30}>
+                {/* Starts at 29 seconds, 4.5 seconds long */}
+                <Sequence from={29 * 30} durationInFrames={4.5 * 30}>
                     {/* HAVE A GREAT WEEK FINAL */}
                     <HaveAGreatWeekFinal />
                 </Sequence>

@@ -12,6 +12,7 @@ export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> =
     const { durationInFrames } = useVideoConfig();
     const [randomNoteVisible, setRandomNoteVisible] = useState(false);
     const [randomTopScoredNote, setRandomTopScoredNote] = useState<NoteBullet | null>();
+    const [truncatedTopScoredNoteContent, setTruncatedTopScoredNoteContent] = useState<string>("*No notes entered past week.");
 
     const getATopScoredNote = () => {
         const TOP_SCORE = 2;
@@ -37,6 +38,13 @@ export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> =
       setRandomTopScoredNote(note);
     }, []);
 
+    useEffect(() => {
+        if (randomTopScoredNote != undefined) {
+            const truncatedString = randomTopScoredNote.bulletTextContent.length > 100 ? randomTopScoredNote.bulletTextContent.slice(0, 100) + "..." : randomTopScoredNote.bulletTextContent;
+            setTruncatedTopScoredNoteContent(truncatedString);
+        } 
+    }, [randomTopScoredNote])
+    
     // Fade-in / Fade-out
     const opacityTitle = interpolate(
         frame,
@@ -46,32 +54,32 @@ export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> =
     );
 
     // Fade-in
-    // [(durationInFrames / 3), ( 2 * durationInFrames / 3)] * the fade-in will occur from half-way thru clip to 2/3 of way thru clip
+    // [(durationInFrames / 4), ( 2 * durationInFrames / 3)] * the fade-in will occur from half-way thru clip to 2/3 of way thru clip
     // [0, 1] * this is the range of values we expect for opacity
-    const opacityContent = interpolate(frame, [(durationInFrames / 3), ( 2 * durationInFrames / 3)], [0, 1]);
+    const opacityContent = interpolate(frame, [(durationInFrames / 4), ( 2 * durationInFrames / 3)], [0, 1]);
 
     useEffect(() => {
         if (frame >= 60) setRandomNoteVisible(true);  // 2 second from start of sequence
     }, [frame])
 
+
     return (
         <AbsoluteFill className="bg-white">
             <div className="flex flex-col gap-20 text-[100px]">
                 <div style={{ opacity: opacityTitle, }}
-                    className="">
+                    className="pl-10">
                     <h1>Here is a snippet</h1>
                     <h1>of one of your <strong>top scored</strong> notes</h1>
                     <h1>this past week.</h1>
+
                 </div>
                 <hr className={`border-4 border-gray-200
                                 ${randomNoteVisible === false ? 'invisible' : 'visible'}`}/>
                 <h1 style={{ opacity: opacityContent, }}
-                    className={`text-center text-[75px] font-semi-bold
+                    className={`pl-10 text-[75px] font-semi-bold
                                 ${randomNoteVisible === false ? 'invisible' : 'visible'}`}>
-                    
-                    {randomTopScoredNote?.bulletTextContent}
+                    {truncatedTopScoredNoteContent}
                 </h1>
-
 
             </div>
         </AbsoluteFill>
