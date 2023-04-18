@@ -50,7 +50,7 @@ export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = (
 
     const imgEmoji = icons[normalizedScore].icon;
 
-    const rotate = interpolate(frame, [0, 1.5], [0, 2]);
+    const rotate = interpolate(frame, [0, 1.5], [0, 2]) - 160;
 
     // Fade-in
     // [0, ( durationInFrames / 2)] * the fade-in will occur from start of clip thru 1/2 thru clip
