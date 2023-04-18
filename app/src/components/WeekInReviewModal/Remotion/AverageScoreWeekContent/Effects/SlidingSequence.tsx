@@ -42,7 +42,7 @@ const SlidingSequence: React.FC<SlidingSequenceProps> = ({ colorHeart, slidingDi
   });
 
   return (
-    <div className={`fixed ${position === "Bottom" ? "top-[90%]" : "top-0"}`}
+    <div className={`fixed ${position === "Bottom" ? "top-[92%]" : "top-0"}`}
       style={{ width, height }}>
       {trail}
       <div style={{ position: 'absolute', 
