@@ -58,7 +58,7 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
                 fps={30}
                 loop
                 clickToPlay
-                controls
+                // controls
             />
           </div>
 
