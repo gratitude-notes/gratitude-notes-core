@@ -2,13 +2,13 @@ import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remo
 import { NoteBullet } from "../../../../hooks/useUserBullets";
 import { useEffect, useState } from "react";
 
+
 type ShowATopScoreNoteContentProps = {
     pastWeekBullets: NoteBullet[] | null,
 }
 
 export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> = ({ pastWeekBullets }) => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
     const { durationInFrames } = useVideoConfig();
     const [randomNoteVisible, setRandomNoteVisible] = useState(false);
     const [randomTopScoredNote, setRandomTopScoredNote] = useState<NoteBullet | null>();
@@ -44,14 +44,12 @@ export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> =
             setTruncatedTopScoredNoteContent(truncatedString);
         } 
     }, [randomTopScoredNote])
-    
-    // Fade-in / Fade-out
-    const opacityTitle = interpolate(
-        frame,
-        [0, 20, (durationInFrames) - 20, (durationInFrames)],
-        // v--v---v----------------------v
-        [0, 1, 1, 0]
-    );
+
+    // Fade-out
+    // [0, ( durationInFrames / 2)] * the fade-out will occur from 0 to half way thru clio
+    // [1, 0] * this is the range of values we expect for opacity
+    const opacityTitle = interpolate(frame, [0, (durationInFrames / 2)], [1, 0]);
+
 
     // Fade-in
     // [(durationInFrames / 4), ( 2 * durationInFrames / 3)] * the fade-in will occur from half-way thru clip to 2/3 of way thru clip
@@ -65,7 +63,7 @@ export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> =
 
     return (
         <AbsoluteFill className="bg-white">
-            <div className="flex flex-col gap-20 text-[100px]">
+            <div className="flex flex-col gap-[100px] text-[100px]">
                 <div style={{ opacity: opacityTitle, }}
                     className="pl-10">
                     <h1>Here is a snippet</h1>
@@ -73,8 +71,6 @@ export const ShowATopScoreNoteContent: React.FC<ShowATopScoreNoteContentProps> =
                     <h1>this past week.</h1>
 
                 </div>
-                <hr className={`border-4 border-gray-200
-                                ${randomNoteVisible === false ? 'invisible' : 'visible'}`}/>
                 <h1 style={{ opacity: opacityContent, }}
                     className={`pl-10 text-[75px] font-semi-bold
                                 ${randomNoteVisible === false ? 'invisible' : 'visible'}`}>

@@ -1,8 +1,10 @@
-import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import StreakEmoji from "../../../assets/emojis/fire_emoji.png"
 import { useState } from "react";
 import { useEffect } from "react";
 import { StreakFall } from "./Effects/StreakFall";
+import animated_fire_gif from "../../../../assets/fire_gif.gif";
+import StreakSequence from "./Effects/StreakSequence";
 
 
 type ShowStreakContentProps = {
@@ -14,64 +16,59 @@ export const ShowStreakContent: React.FC<ShowStreakContentProps> = ({ streakCoun
     const { fps } = useVideoConfig();
     const { durationInFrames } = useVideoConfig();
 
-    // Fade-in / Fade-out
-    const opacityPastWeek = interpolate(
-        frame,
-        [0, 20, (durationInFrames / 2) - 20, (durationInFrames / 2)],
-        // v--v---v----------------------v
-        [0, 1, 1, 0]
-    );
+    // Fade-in
+    // [0, ( durationInFrames / 2)] * the fade-in will occur from start of clip to half-way thru clip
+    // [0, 1] * this is the range of values we expect for opacity
+    const opacityTitle = interpolate(frame, [0, ( durationInFrames / 2)], [0, 1]);
 
     // Fade-in
-    // [(durationInFrames / 2), ( 2 * durationInFrames / 3)] * the fade-in will occur from half-way thru clip to 2/3 of way thru clip
+    // [( durationInFrames / 2), ( 2 * durationInFrames / 3)] * the fade-in will occur from half-way thru clip to 2/3 of way thru clip
     // [0, 1] * this is the range of values we expect for opacity
-    const opacityLifetime = interpolate(frame, [(durationInFrames / 2), ( 2 * durationInFrames / 3)], [0, 1]);
-
-    const [weeklyDosageVisible, setWeeklyDosageVisible] = useState(false);
-    const [forVisible, setForVisible] = useState(false);
-    const [firstDateVisible, setFirstDateVisible] = useState(false);
-    const [toDateVisible, setToDateVisible] = useState(false);
-    const [secondDateVisible, setSecondDateVisible] = useState(false);
+    const opacityContent = interpolate(frame, [( durationInFrames / 2), ( 2 * durationInFrames / 3)], [0, 1]);
 
     const [imageStyles, setImageStyles] = useState<Array<{ position: string, left: string, top: string }>>([]);
 
 
     useEffect(() => {
-    const styles = [];
-    for (let i = 0; i < 3; i++) {
-        const randomLeft = Math.floor(Math.random() * 80) + 10;
-        const randomTop = Math.floor(Math.random() * 80) + 10;
-        const style = {
-        position: 'absolute',
-        left: `${randomLeft}%`,
-        top: `${randomTop}%`,
-        };
-        styles.push(style);
-    }
-    setImageStyles(styles);
+        const styles = [];
+        for (let i = 0; i < 3; i++) {
+            const randomLeft = Math.floor(Math.random() * 80) + 10;
+            const randomTop = Math.floor(Math.random() * 80) + 10;
+            const style = {
+            position: 'absolute',
+            left: `${randomLeft}%`,
+            top: `${randomTop}%`,
+            };
+            styles.push(style);
+        }
+        setImageStyles(styles);
     }, []);
 
-    useEffect(() => {
-        if (frame >= 15) setWeeklyDosageVisible(true);  // 0.5 second from start of sequence
-        if (frame >= 30) setForVisible(true);           // 1 second from start of sequence
-        if (frame >= 60) setFirstDateVisible(true);     // 2 second from start of sequence
-        if (frame >= 75) setToDateVisible(true);        // 2.5 second from start of sequence
-        if (frame >= 90) setSecondDateVisible(true);    // 3 second from start of sequence
-    }, [frame])
-
-
-
-
-    const scale = spring({
-        fps,
-        frame,
-    });
-
     return (
-        <AbsoluteFill className="bg-white justify-center items-center">
-            <h1 className="text-[100px]">You are on a </h1>
-            <h1 className="text-[100px] text-red-500 flex justify-center items-center">{streakCount} day</h1>
-            <h1 className="text-[80px] text-right pb-3"> steak</h1>
+        <AbsoluteFill className="bg-white justify-center items-center text-[100px]">
+            {/* First 4 seconds */}
+            <div className={`${frame >= 120 ? 'hidden' : 'visible'}`}>
+                <div style={{ opacity: opacityTitle, }}
+                    className="flex items-end justify-center">
+                    <h1>You are on</h1>
+                    <img className="h-[200px]" src={animated_fire_gif} alt="fire gif..." />
+                </div>
+                <div>
+                    <h1 className={`${frame >= 60 ? 'visible' : 'invisible'} text-center`}>with a current streak of</h1>
+                </div>
+            </div>
+
+            {/* Last 2 seconds */}
+            <div className={`${frame >= 120 ? 'visible' : 'hidden'}`}>
+                <h1 className="font-semibold">{streakCount} days!</h1>
+            </div>
+
+            <Sequence from={120}>
+                <StreakSequence />
+            </Sequence>
+            
+            {/* <h1 className="text-[100px] text-red-500 flex justify-center items-center">{streakCount} day</h1>
+            <h1 className="text-[80px] text-right pb-3"> steak</h1> */}
         </AbsoluteFill>
     );
 };

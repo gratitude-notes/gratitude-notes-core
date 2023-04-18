@@ -28,8 +28,6 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                 {/* Starts at 0 seconds, 4 seconds long */}
                 <Sequence from={0} durationInFrames={4 * 30}>
                     <HelloUserIntro displayName={session?.user?.displayName}/>
-
-                    {/* <Confetti /> */}
                 </Sequence>
 
                 {/* Starts at 4 seconds, 5 seconds long */}
@@ -46,36 +44,25 @@ export const WeeklyDosageVideo: React.FC<WeeklyDosageVideoProps> = ({  }) => {
                     <DotsDurationOfSequence from={0 * 30} durationInFrames={5 * 30}/>
                 </Sequence>
 
-                {/* <Slowed> */}
-                        {/* <Dots /> */}
-                        {/* <RedHearts />
-                        <YellowHearts /> */}
-                        {/* <Stars /> */}
-                        {/* <Stars /> */}
-                    {/* </Slowed> */}
-
-
-                {/* Starts at 14 seconds, 4 seconds long */}
-                <Sequence from={14 * 30} durationInFrames={4 * 30}>
-                    {/* <StreakFall></StreakFall> */}
+                {/* Starts at 14 seconds, 7 seconds long */}
+                <Sequence from={14 * 30} durationInFrames={7 * 30}>
                     <ShowStreakContent streakCount={profData?.streaks.streakCount}/>
                 </Sequence>
 
-                {/* Starts at 18 seconds, 8 seconds long */}
-                <Sequence from={18 * 30} durationInFrames={8 * 30}>
+                {/* Starts at 21 seconds, 8 seconds long */}
+                <Sequence from={21 * 30} durationInFrames={8 * 30}>
                     <ShowATopScoreNoteContent pastWeekBullets={pastWeekBullets.bullets} />
 
                     <StarsForSequence />
                 </Sequence>
 
-                {/* Starts at 26 seconds, 3 seconds long */}
-                <Sequence from={26 * 30} durationInFrames={3 * 30}>
-                    <AverageScoreWeekContent />
+                {/* Starts at 29 seconds, 4 seconds long */}
+                <Sequence from={29 * 30} durationInFrames={4 * 30}>
+                    <AverageScoreWeekContent scoreArray={pastWeekBullets?.bullets}/>
                 </Sequence>
 
-                {/* Starts at 29 seconds, 4.5 seconds long */}
-                <Sequence from={29 * 30} durationInFrames={4.5 * 30}>
-                    {/* HAVE A GREAT WEEK FINAL */}
+                {/* Starts at 33 seconds, 4.5 seconds long */}
+                <Sequence from={33 * 30} durationInFrames={4.5 * 30}>
                     <HaveAGreatWeekFinal />
                 </Sequence>
 
