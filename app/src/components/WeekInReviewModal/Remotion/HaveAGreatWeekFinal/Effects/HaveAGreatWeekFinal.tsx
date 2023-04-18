@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useRef} from 'react';
-import {AbsoluteFill, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import './HaveAGreatWeekFinal.css';
 
 const texts = ['Have', 'a', 'Great', 'Week!' ];
@@ -95,39 +95,51 @@ export const HaveAGreatWeekFinal = () => {
 		}
 	}, [fraction, morph, textIndex]);
 
-	return (
-		<AbsoluteFill>
-			<div id="container">
-				<span
-					ref={text1}
-					style={{
-						lineHeight: height + 'px',
-					}}
-					id="text1"
-				/>
-				<span
-					ref={text2}
-					style={{
-						lineHeight: height + 'px',
-					}}
-					id="text2"
-				/>
-			</div>
+	const { durationInFrames } = useVideoConfig();
 
-			<svg id="filters">
-				<defs>
-					<filter id="threshold">
-						<feColorMatrix
-							in="SourceGraphic"
-							type="matrix"
-							values="1 0 0 0 0
-									0 1 0 0 0
-									0 0 1 0 0
-									0 0 0 255 -140"
-						/>
-					</filter>
-				</defs>
-			</svg>
+	// Fade-in
+    // [0, ( durationInFrames / 2)] * the fade-in will occur from start of clip thru 1/2 thru clip
+    // [0, 1] * this is the range of values we expect for opacity
+    const opacityTitle = interpolate(frame, [0, (durationInFrames / 2)], [0, 1]);
+
+	return (
+		// MORPH EFFECT
+		// <AbsoluteFill>
+		// 	<div id="container">
+		// 		<span
+		// 			ref={text1}
+		// 			style={{
+		// 				lineHeight: height + 'px',
+		// 			}}
+		// 			id="text1"
+		// 		/>
+		// 		<span
+		// 			ref={text2}
+		// 			style={{
+		// 				lineHeight: height + 'px',
+		// 			}}
+		// 			id="text2"
+		// 		/>
+		// 	</div>
+
+		// 	<svg id="filters">
+		// 		<defs>
+		// 			<filter id="threshold">
+		// 				<feColorMatrix
+		// 					in="SourceGraphic"
+		// 					type="matrix"
+		// 					values="1 0 0 0 0
+		// 							0 1 0 0 0
+		// 							0 0 1 0 0
+		// 							0 0 0 255 -140"
+		// 				/>
+		// 			</filter>
+		// 		</defs>
+		// 	</svg>
+		// </AbsoluteFill>
+		<AbsoluteFill className="justify-center items-center text-[100px]">
+			<h1 style={{ opacity: opacityTitle, }}
+				className="font-bold">Have a great week!</h1>
 		</AbsoluteFill>
 	);
 };

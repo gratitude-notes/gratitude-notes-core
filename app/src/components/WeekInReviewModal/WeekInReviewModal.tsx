@@ -14,22 +14,22 @@ const WeekInReview: React.FC<WeekInReviewModalState> = ({updateViewState}) => {
   const detectScrollRef = useRef<HTMLDivElement | null>(null);
   const remotionPlayerRef = useRef<PlayerRef>(null);
 
-  useEffect(() => {
-    const onScroll = (event: any) => {
-      const { current } = remotionPlayerRef;
-      current?.play(event);
-    };
+  // useEffect(() => {
+  //   const onScroll = (event: any) => {
+  //     const { current } = remotionPlayerRef;
+  //     current?.play(event);
+  //   };
 
-    if (detectScrollRef.current) {
-      detectScrollRef.current.addEventListener('scroll', onScroll);
-    }
+  //   if (detectScrollRef.current) {
+  //     detectScrollRef.current.addEventListener('scroll', onScroll);
+  //   }
 
-    return () => {
-      if (detectScrollRef.current) {
-        detectScrollRef.current.removeEventListener('scroll', onScroll);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (detectScrollRef.current) {
+  //       detectScrollRef.current.removeEventListener('scroll', onScroll);
+  //     }
+  //   };
+  // }, []);
 
   return (
     <div className={`py-2 px-4 md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow overflow-y-auto select-none`}>
