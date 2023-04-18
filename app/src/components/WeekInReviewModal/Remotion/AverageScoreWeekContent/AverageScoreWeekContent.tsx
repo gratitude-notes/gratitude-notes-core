@@ -7,8 +7,8 @@ import NeutralEmoji from "../../../../assets/emojis/neutral_emoji.png";
 import SlightlyHappyEmoji from "../../../../assets/emojis/slightly_happy_emoji.png";
 import HappyEmoji from "../../../../assets/emojis/happy_emoji.png";
 import ProhibitedEmoji from "../../../../assets/emojis/prohibited_emoji.png";
-import RedHeartsSequence from "./Effects/RedHeartsSequence";
-import YellowHeartsSequence from "./Effects/YellowHeartsSequence";
+
+import SlidingSequence from "./Effects/SlidingSequence";
 
 
 type AverageScoreWeekContentProps = {
@@ -64,8 +64,8 @@ export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = (
 
     // Fade-out
     // [0, durationInFrames] * the fade-out will occur from 0 to to whole way thru clip
-    // [1, 0] * this is the range of values we expect for opacity
-    const opacityHearts = interpolate(frame, [0, durationInFrames], [1, 0]);
+    // [1, 0.5] * this is the range of values we expect for opacity
+    const opacityHearts = interpolate(frame, [0, durationInFrames], [1, 0.5]);
 
     return (
         <AbsoluteFill className="bg-white justify-center items-center text-[100px]">
@@ -91,8 +91,8 @@ export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = (
             </div>
 
             <Sequence>
-                    <RedHeartsSequence opacity={opacityHearts}/>
-                    <YellowHeartsSequence opacity={opacityHearts}/>
+                <SlidingSequence colorHeart={"Red"} slidingDirection={"Right"} position={"Bottom"}/>
+                <SlidingSequence colorHeart={"Yellow"} slidingDirection={"Left"} position={"Top"}/>
             </Sequence>
             
         </AbsoluteFill>
