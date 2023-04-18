@@ -15,8 +15,8 @@ const StreakSequence: React.FC = () => {
   }, []);
   return (
     <AbsoluteFill>
-      {drops.map((d) => {
-        return <Streak x={d.x} delay={d.delay} size={d.size} />;
+      {drops.map((d, i) => {
+        return <Streak key={i} x={d.x} delay={d.delay} size={d.size} />;
       })}
     </AbsoluteFill>
   );
