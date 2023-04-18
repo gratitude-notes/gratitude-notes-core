@@ -1,4 +1,4 @@
-import { getRedirectResult, GoogleAuthProvider, signInWithRedirect } from "@firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
 import { fb_auth } from "../../lib/Firebase";
 
 const SignInButton = () => {
@@ -6,8 +6,7 @@ const SignInButton = () => {
         const provider = new GoogleAuthProvider();
         provider.addScope('https://www.googleapis.com/auth/userinfo.email');
         
-        await signInWithRedirect(fb_auth, provider);
-        await getRedirectResult(fb_auth);
+        await signInWithPopup(fb_auth, provider);
     }
 
     return (
