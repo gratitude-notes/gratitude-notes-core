@@ -36,6 +36,7 @@
     "react-slick": "^0.29.0",
     "react-social-icons": "^5.15.0",
     "remotion": "^3.3.83",
+    "remotion-confetti": "^0.3.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

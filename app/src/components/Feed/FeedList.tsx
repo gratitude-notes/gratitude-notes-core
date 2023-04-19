@@ -88,7 +88,6 @@ const FeedList: React.FC = () => {
       }
     })
 
-    console.log(results);
     setSearch(() => ({
       query: e.target.value,
       bulletsList: results || []
