@@ -82,7 +82,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       return;
     }
 
-    await generateKeywords(editorTextContent);
+    const keywords = await generateKeywords(editorTextContent);
     const bulletLatLong = await getBulletLatLong();
     let bulletAddress = null;
 
@@ -100,7 +100,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       score: emojiScore,
       timestamp: Timestamp.now(),
       images: [],
-      keywords: [],
+      keywords: keywords,
       isFavorited: false,
       isPublic: false,
       bulletTextContent: editorTextContent,
@@ -258,11 +258,16 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       const nlpData = await nlpResponse.json();
       const nlpDataCategoryArray = nlpData.categories;
       const nlpDataEntitiesArray = nlpData.entities;
-      console.log(nlpDataCategoryArray);
-      console.log(nlpDataEntitiesArray);
+      // console.log(nlpDataCategoryArray);
+      // console.log(nlpDataEntitiesArray);
 
-      const entities = nlpDataEntitiesArray.map((entity: any) => entity.name);
-      console.log(entities);
+      const entities = nlpDataEntitiesArray.map(({name, salience} : {name: string, salience: number}) => ({name, salience}));
+
+      entities.sort((a: {name: string, salience: number}, b: {name: string, salience: number} ) => b.salience - a.salience);
+
+      const keywords = entities.map((entity: any) => entity.name);
+      
+      return keywords.splice(0, 5); // Only send top 5 keywords sorted by salience
     }
   }
 
