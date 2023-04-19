@@ -2,8 +2,19 @@ import { BsFillEmojiSmileFill } from "react-icons/bs";
 import Navbar from "../components/Navbar/Navbar";
 import PeopleOnPhone from "../assets/TwoPeoplePhone.png";
 import { SocialIcon } from 'react-social-icons';
+import mobile_dash from '../assets/mobile_dash.png';
+import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
+import { fb_auth } from "../lib/Firebase";
 
 const Landing: React.FC = () => {
+
+  const handleGetStartedClick = async () => {
+    const provider = new GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+    
+    await signInWithPopup(fb_auth, provider);
+}
+
 
   return (
     <div className="select-none">
@@ -22,7 +33,7 @@ const Landing: React.FC = () => {
               <h1 className="text-xl text-center text-gray-400">Find out what makes you happy.</h1>
             </div>
             <div className="p-4 text-center">
-            <button className="transition ease-in-out
+            <button onClick={handleGetStartedClick} className="transition ease-in-out
                                bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
                                text-white font-bold py-2 px-4 rounded">
                 Get Started
@@ -30,12 +41,12 @@ const Landing: React.FC = () => {
             </div>
 
             {/* Phone mockup */}
-            <div className="relative flex justify-center m-auto h-[520px] w-[265px] bg-white border-8 border-black rounded-[45px]">
-              <div className="-z-10 opacity-75 absolute h-[505px] w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500">
+            <div className="relative flex justify-center m-auto h-[550px] w-[265px] rounded-[45px]">
+              <div className="-z-10 opacity-75 absolute h-[540px] w-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500">
 
               </div>
-              <div className="p-4">
-                *Show example Dashboard*
+              <div className="">
+                <img className="rounded-[45px]" src={mobile_dash} alt="mobile dashboard..."/>
               </div>
             </div>
           </section>
@@ -46,7 +57,7 @@ const Landing: React.FC = () => {
               <h1 className="text-3xl dark:text-white">Say what's on your mind</h1>
               <h1 className="text-xl text-gray-400">It's time to go digital.</h1>
               <div>
-              <button className="transition ease-in-out
+              <button onClick={handleGetStartedClick} className="transition ease-in-out
                                bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
                                text-white font-bold py-2 px-4 rounded">
                 Get Started
@@ -77,39 +88,35 @@ const Landing: React.FC = () => {
               <details className="border-b-2 duration-300 dark:text-white">
                 <summary className="text-xl cursor-pointer">Is this the right app for you?</summary>
                 <div className="py-6 border-gray-400 text-sm ">
-                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
-                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                  <p>If you're looking for a secure and convenient digital platform to track your thoughts and reflections, access prompts and inspiration, and customize your entries in different formats, our journaling app may be a good fit for you. By investing time and effort into consistent journaling, you can gain insights into your thoughts and emotions. Try it out and see if it works for you!</p>
                 </div>
               </details>
               {/* FAQ 2 */}
               <details className="border-b-2 duration-300 dark:text-white">
                 <summary className="text-xl cursor-pointer ">Do I have to write everyday?</summary>
                 <div className="py-6 border-gray-400 text-sm ">
-                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
-                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                  <p>No. You can write however much and whenever you want.</p>
                 </div>
               </details>
               {/* FAQ 3 */}
               <details className="border-b-2 duration-300 dark:text-white">
                 <summary className="text-xl cursor-pointer">What is the ideal way to interact with the app?</summary>
                 <div className="py-6 border-gray-400 text-sm">
-                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
-                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                  <p>What is your ideal way to interact with DOSE.?</p>
                 </div>
               </details>
               {/* FAQ 4 */}
               <details className="border-b-2 duration-300 dark:text-white">
                 <summary className="text-xl cursor-pointer">Is it free?</summary>
                 <div className="py-6 border-gray-400 text-sm">
-                  <p>Praesent posuere nisi vel diam congue varius. Praesent lacus nulla, congue nec rhoncus nec,
-                      suscipit et enim. Donec ultrices nec arcu et pharetra.</p>
+                  <p>Yes!</p>
                 </div>
               </details>
               {/* FAQ 5 */}
               <details className="border-b-2 duration-300 dark:text-white">
                 <summary className="text-xl cursor-pointer">Why did we build this?</summary>
                 <div className="py-6 border-gray-400 text-sm">
-                  <p>Test smaller text.</p>
+                  <p>To provide a clean, minimal journaling platform that is available across all devices.</p>
                 </div>
               </details>
             </div>

@@ -38,7 +38,7 @@ const WeekCard: React.FC = () => {
     filteredBullets?.reduce(accumulator, currentWeek);
    
     const handleDayClick = () => {
-        console.log("day clicked");
+        // console.log("day clicked");
     }
 
     return (
