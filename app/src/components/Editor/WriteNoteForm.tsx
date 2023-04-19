@@ -256,7 +256,13 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
 
     if (nlpResponse.ok) {
       const nlpData = await nlpResponse.json();
-      console.log(nlpData);
+      const nlpDataCategoryArray = nlpData.categories;
+      const nlpDataEntitiesArray = nlpData.entities;
+      console.log(nlpDataCategoryArray);
+      console.log(nlpDataEntitiesArray);
+
+      const entities = nlpDataEntitiesArray.map((entity: any) => entity.name);
+      console.log(entities);
     }
   }
 
