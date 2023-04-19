@@ -82,6 +82,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       return;
     }
 
+    await generateKeywords(editorTextContent);
     const bulletLatLong = await getBulletLatLong();
     let bulletAddress = null;
 
@@ -219,6 +220,44 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
     const formatted_address = data.plus_code.compound_code.split(' ').slice(1).join(' ');
     
     return formatted_address;
+  }
+
+  const generateIDocument = async (text: string) => {
+    return {
+      document: {
+        type: 'PLAIN_TEXT',
+        content: text
+      },
+      encodingType: 'UTF8',
+      features: {
+        classifyText: true,
+        classificationModelOptions: {
+          v2Model: {
+            contentCategoriesVersion: 'V2'
+          }
+        },
+        extractEntities: true,
+        extractDocumentSentiment: false,
+        extractEntitySentiment: false,
+        extractSyntax: false
+      }
+    }
+  }
+
+  const generateKeywords = async (text: string) => {
+    const IDocument = await generateIDocument(text);
+    const nlpResponse = await fetch(`https://language.googleapis.com/v1beta2/documents:annotateText?key=${import.meta.env.VITE_GCP_NLP_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(IDocument)
+    })
+
+    if (nlpResponse.ok) {
+      const nlpData = await nlpResponse.json();
+      console.log(nlpData);
+    }
   }
 
   return (
