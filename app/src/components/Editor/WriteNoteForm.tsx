@@ -82,7 +82,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       return;
     }
 
-    const keywords = await generateKeywords(editorTextContent);
+    const keywords = (settings?.analysis) ? await generateKeywords(editorTextContent) : [];
     const bulletLatLong = await getBulletLatLong();
     let bulletAddress = null;
 
