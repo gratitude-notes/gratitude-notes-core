@@ -82,6 +82,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       return;
     }
 
+    const keywords = await generateKeywords(editorTextContent);
     const bulletLatLong = await getBulletLatLong();
     let bulletAddress = null;
 
@@ -99,7 +100,7 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
       score: emojiScore,
       timestamp: Timestamp.now(),
       images: [],
-      keywords: [],
+      keywords: keywords,
       isFavorited: false,
       isPublic: false,
       bulletTextContent: editorTextContent,
@@ -219,6 +220,55 @@ const WriteNoteForm: React.FC<FormHandlerProps> = ({ updateViewState }) => {
     const formatted_address = data.plus_code.compound_code.split(' ').slice(1).join(' ');
     
     return formatted_address;
+  }
+
+  const generateIDocument = async (text: string) => {
+    return {
+      document: {
+        type: 'PLAIN_TEXT',
+        content: text
+      },
+      encodingType: 'UTF8',
+      features: {
+        classifyText: true,
+        classificationModelOptions: {
+          v2Model: {
+            contentCategoriesVersion: 'V2'
+          }
+        },
+        extractEntities: true,
+        extractDocumentSentiment: false,
+        extractEntitySentiment: false,
+        extractSyntax: false
+      }
+    }
+  }
+
+  const generateKeywords = async (text: string) => {
+    const IDocument = await generateIDocument(text);
+    const nlpResponse = await fetch(`https://language.googleapis.com/v1beta2/documents:annotateText?key=${import.meta.env.VITE_GCP_NLP_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(IDocument)
+    })
+
+    if (nlpResponse.ok) {
+      const nlpData = await nlpResponse.json();
+      const nlpDataCategoryArray = nlpData.categories;
+      const nlpDataEntitiesArray = nlpData.entities;
+      // console.log(nlpDataCategoryArray);
+      // console.log(nlpDataEntitiesArray);
+
+      const entities = nlpDataEntitiesArray.map(({name, salience} : {name: string, salience: number}) => ({name, salience}));
+
+      entities.sort((a: {name: string, salience: number}, b: {name: string, salience: number} ) => b.salience - a.salience);
+
+      const keywords = entities.map((entity: any) => entity.name);
+      
+      return keywords.splice(0, 5); // Only send top 5 keywords sorted by salience
+    }
   }
 
   return (
