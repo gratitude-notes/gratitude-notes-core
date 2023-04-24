@@ -23,5 +23,6 @@ jobs:
         with:
           entrypoint: ./app
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          expires: 30d
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GRATITUDENOTES }}'
           projectId: gratitudenotes
