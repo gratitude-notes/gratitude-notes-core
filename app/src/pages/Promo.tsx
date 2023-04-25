@@ -147,7 +147,7 @@ const Promo: React.FC = () => {
                   <h2 className="text-lg dark:text-white text-center">Lead UX Engineer</h2>
                   <div className="flex flex-row justify-evenly mt-2">
                     <SocialIcon url="https://www.linkedin.com/in/brady-waughen/" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
-                    <SocialIcon url="https://twitter.com" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://twitter.com/bradywaughen" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
                     <SocialIcon url="https://github.com/BradyWaughen" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
                   </div>
                 </div>
