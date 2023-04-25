@@ -6,15 +6,17 @@ import mobile_dash from '../assets/mobile_dash.png';
 import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
 import { fb_auth } from "../lib/Firebase";
 
-const Promo: React.FC = () => {
+import Allison from "../assets/team/a4.jpg";
+import Brady from "../assets/team/strugs.jpg";
+import Dinesh from "../assets/team/dinuma.jpg";
 
+const Promo: React.FC = () => {
   const handleGetStartedClick = async () => {
     const provider = new GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/userinfo.email');
     
     await signInWithPopup(fb_auth, provider);
-}
-
+  }
 
   return (
     <div className="select-none">
@@ -128,7 +130,38 @@ const Promo: React.FC = () => {
           <section>
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl dark:text-white">Meet the team</h1>
-              
+              <div className="flex flex-row gap-x-10 justify-center">
+                <div>
+                  <img src={Allison} className="w-48 rounded-full mb-2" />
+                  <h1 className="text-2xl dark:text-white text-center">Allison Moyer</h1>
+                  <h2 className="text-lg dark:text-white text-center">Full-Stack Developer</h2>
+                  <div className="flex flex-row justify-evenly mt-2">
+                    <SocialIcon url="https://www.linkedin.com/in/allison-moyer-526255212/" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://twitter.com" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://github.com/al-moy729" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                  </div>
+                </div>
+                <div>
+                  <img src={Brady} className="w-48 rounded-full mb-2" />
+                  <h1 className="text-2xl dark:text-white text-center ">Brady Waughen</h1>
+                  <h2 className="text-lg dark:text-white text-center">Lead UX Engineer</h2>
+                  <div className="flex flex-row justify-evenly mt-2">
+                    <SocialIcon url="https://www.linkedin.com/in/brady-waughen/" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://twitter.com" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://github.com/BradyWaughen" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                  </div>
+                </div>
+                <div>
+                  <img src={Dinesh} className="w-48 rounded-full mb-2" />
+                  <h1 className="text-2xl dark:text-white text-center">Dinesh Umasankar</h1>
+                  <h2 className="text-lg dark:text-white text-center">Team/Tech Lead</h2>
+                  <div className="flex flex-row justify-evenly mt-2">
+                  <SocialIcon url="https://www.linkedin.com/in/dinesh-umasankar-78354b184/" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://twitter.com/DineshUmasankar" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://github.com/dineshUmasankar" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -136,6 +169,18 @@ const Promo: React.FC = () => {
           <section>
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl dark:text-white">Design Documents</h1>
+            </div>
+          </section>
+
+          {/* Project Source Code Link */}
+          <section>
+            <div className="flex flex-col gap-4">
+              <h1 className="text-3xl dark:text-white">Project Source Code</h1>
+              <a href="https://github.com/gratitude-notes/gratitude-notes-core" className="transition ease-in-out
+                               bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
+                               text-white font-bold py-2 px-4 rounded text-center">
+                See Project Source Code
+              </a>
             </div>
           </section>
 
