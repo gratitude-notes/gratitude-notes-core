@@ -1,35 +1,40 @@
 import useComponentVisible from '../../hooks/useComponentVisible';
-import { signOut } from "@firebase/auth";
-import { fb_auth } from "../../lib/Firebase";
+import { signOut } from '@firebase/auth';
+import { fb_auth } from '../../lib/Firebase';
 import { useSession } from '../../lib/Session';
 import { BsGear, BsGlobe, BsPencil } from 'react-icons/bs';
 import { ViewState } from '../../pages/Dashboard';
 import { BiLogOutCircle } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 type AvatarButtonProps = {
     updateViewState: (state: ViewState) => void;
-}
+};
 
-const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
-    const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);    
+const AvatarButton: React.FC<AvatarButtonProps> = ({ updateViewState }) => {
+    const { ref, isComponentVisible, setComponentVisible } = useComponentVisible(false);
     const session = useSession();
     const sessionUid = session?.user?.uid;
 
     const handleDropdown = () => {
-        (isComponentVisible) ? setComponentVisible(false) : setComponentVisible(true);
-    }
+        isComponentVisible ? setComponentVisible(false) : setComponentVisible(true);
+    };
 
-    const dropdownVisbile = (isComponentVisible) ? "visible" : "hidden";
+    const dropdownVisbile = isComponentVisible ? 'visible' : 'hidden';
 
     const handleClick = () => {
         signOut(fb_auth);
-    }
+    };
 
     return (
         <div ref={ref} className="relative text-black dark:text-white select-none">
-            <div id="avatarButton" onClick={handleDropdown} className="relative cursor-pointer w-10 h-10 overflow-hidden rounded-full">
-            <img src={`${session?.user?.photoURL}`} alt="user photoURL..." referrerPolicy="no-referrer" />
+            <div
+                id="avatarButton"
+                onClick={handleDropdown}
+                className="relative cursor-pointer w-10 h-10 overflow-hidden rounded-full"
+            >
+                <img src={`${session?.user?.photoURL}`} alt="user photoURL..." referrerPolicy="no-referrer" />
             </div>
 
             {/* Dropdown Menu */}
@@ -40,29 +45,33 @@ const AvatarButton: React.FC<AvatarButtonProps> = ({updateViewState}) => {
                     </div>
                     <div
                         className="flex gap-2 cursor-pointer p-2 text-sm
-                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in"
+                    >
                         <Link className="flex items-center space-x-2" to={`/users/${sessionUid}/public`}>
                             <BsGlobe size={20} />
                             <span className="whitespace-nowrap">View My Public Board</span>
                         </Link>
                     </div>
-                    <div onClick={() => updateViewState("Settings")}
+                    <div
+                        onClick={() => updateViewState('Settings')}
                         className="flex gap-2 cursor-pointer p-2 text-sm
-                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
-                        <BsGear size={20}/>                            
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in"
+                    >
+                        <BsGear size={20} />
                         <span>Settings</span>
                     </div>
-                    <div onClick={handleClick}
+                    <div
+                        onClick={handleClick}
                         className="flex gap-2 cursor-pointer p-2 text-sm
-                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in">
-                        <BiLogOutCircle size={20}/>
+                                    hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md transition-colors duration-100 ease-in"
+                    >
+                        <BiLogOutCircle size={20} />
                         <span>Sign Out</span>
-                    </div>          
+                    </div>
                 </div>
             </div>
-
         </div>
     );
-}
+};
 
 export default AvatarButton;

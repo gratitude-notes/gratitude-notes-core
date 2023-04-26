@@ -1,43 +1,43 @@
-import { useCurrentFrame, AbsoluteFill, useVideoConfig, interpolate, Sequence } from "remotion";
-import { NoteBullet } from "../../../../hooks/useUserBullets";
+import { useCurrentFrame, AbsoluteFill, useVideoConfig, interpolate, Sequence } from 'remotion';
+import { NoteBullet } from '../../../../hooks/useUserBullets';
 
-import SadEmoji from "../../../../assets/emojis/sad_emoji.png";
-import SlightlySadEmoji from "../../../../assets/emojis/slightly_sad_emoji.png";
-import NeutralEmoji from "../../../../assets/emojis/neutral_emoji.png";
-import SlightlyHappyEmoji from "../../../../assets/emojis/slightly_happy_emoji.png";
-import HappyEmoji from "../../../../assets/emojis/happy_emoji.png";
-import ProhibitedEmoji from "../../../../assets/emojis/prohibited_emoji.png";
+import SadEmoji from '../../../../assets/emojis/sad_emoji.png';
+import SlightlySadEmoji from '../../../../assets/emojis/slightly_sad_emoji.png';
+import NeutralEmoji from '../../../../assets/emojis/neutral_emoji.png';
+import SlightlyHappyEmoji from '../../../../assets/emojis/slightly_happy_emoji.png';
+import HappyEmoji from '../../../../assets/emojis/happy_emoji.png';
+import ProhibitedEmoji from '../../../../assets/emojis/prohibited_emoji.png';
 
-import SlidingSequence from "./Effects/SlidingSequence";
-
+import SlidingSequence from './Effects/SlidingSequence';
+import React from 'react';
 
 type AverageScoreWeekContentProps = {
     scoreArray: NoteBullet[] | null;
-}
+};
 export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = ({ scoreArray }) => {
     const frame = useCurrentFrame();
     const { width } = useVideoConfig();
     const { durationInFrames } = useVideoConfig();
 
     const icons: Record<number, { icon: string }> = {
-        "-2": {
+        '-2': {
             icon: SadEmoji,
         },
-        "-1": {
+        '-1': {
             icon: SlightlySadEmoji,
         },
-        "0": {
+        '0': {
             icon: NeutralEmoji,
         },
-        "1": {
+        '1': {
             icon: SlightlyHappyEmoji,
         },
-        "2": {
+        '2': {
             icon: HappyEmoji,
         },
-        "NaN": {
-            icon: ProhibitedEmoji
-        }
+        NaN: {
+            icon: ProhibitedEmoji,
+        },
     };
 
     const results = scoreArray?.filter((bullet: NoteBullet) => bullet.score !== null);
@@ -55,12 +55,12 @@ export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = (
     // Fade-in
     // [0, ( durationInFrames / 2)] * the fade-in will occur from start of clip thru 1/2 thru clip
     // [0, 1] * this is the range of values we expect for opacity
-    const opacityTitle = interpolate(frame, [0, (durationInFrames / 2)], [0, 1]);
+    const opacityTitle = interpolate(frame, [0, durationInFrames / 2], [0, 1]);
 
     // Fade-in
     // [0, ( 3 * durationInFrames / 4)] * the fade-in will occur from start of clip thru 3/4 way thru clip
     // [0, 1] * this is the range of values we expect for opacity
-    const opacityEmoji = interpolate(frame, [0, ( 3 * durationInFrames / 4)], [0, 1]);
+    const opacityEmoji = interpolate(frame, [0, (3 * durationInFrames) / 4], [0, 1]);
 
     // Fade-out
     // [0, durationInFrames] * the fade-out will occur from 0 to to whole way thru clip
@@ -69,16 +69,18 @@ export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = (
 
     return (
         <AbsoluteFill className="bg-white justify-center items-center text-[100px]">
-            <div style={{ opacity: opacityTitle, }}>
-                This week you were
-            </div>
+            <div style={{ opacity: opacityTitle }}>This week you were</div>
 
-            <div style={{
-                    // position: "absolute",
-                    // top: "65%",
-                    // left: "50%",
-                    // transform: "translate(-50%, -35%)",
-                  }}>
+            <div
+                style={
+                    {
+                        // position: "absolute",
+                        // top: "65%",
+                        // left: "50%",
+                        // transform: "translate(-50%, -35%)",
+                    }
+                }
+            >
                 <img
                     src={imgEmoji}
                     alt="emoji..."
@@ -91,10 +93,9 @@ export const AverageScoreWeekContent: React.FC<AverageScoreWeekContentProps> = (
             </div>
 
             <Sequence>
-                <SlidingSequence colorHeart={"Red"} slidingDirection={"Right"} position={"Bottom"}/>
-                <SlidingSequence colorHeart={"Yellow"} slidingDirection={"Left"} position={"Top"}/>
+                <SlidingSequence colorHeart={'Red'} slidingDirection={'Right'} position={'Bottom'} />
+                <SlidingSequence colorHeart={'Yellow'} slidingDirection={'Left'} position={'Top'} />
             </Sequence>
-            
         </AbsoluteFill>
     );
 };

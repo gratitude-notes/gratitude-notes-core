@@ -1,5 +1,5 @@
-import { ViewState } from "../../pages/Dashboard";
-import WriteNoteForm from "../Editor/WriteNoteForm";
+import { ViewState } from '../../pages/Dashboard';
+import WriteNoteForm from '../Editor/WriteNoteForm';
 
 // interface WriteNoteModalState {
 //     visible: ComponentVisbilityProps,
@@ -7,17 +7,16 @@ import WriteNoteForm from "../Editor/WriteNoteForm";
 // }
 
 type WriteNoteModalState = {
-    updateViewState: (state: ViewState) => void
-}
+    updateViewState: (state: ViewState) => void;
+};
 
-const WriteNoteModal: React.FC<WriteNoteModalState> = ({updateViewState}) => {
-
-    return (    
-        <div className={`md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow`}>
+const WriteNoteModal: React.FC<WriteNoteModalState> = ({ updateViewState }) => {
+    return (
+        <div className={'md:px-[100px] lg:px-[200px] flex flex-col gap-6 flex-grow'}>
             {/* WRITE NOTE */}
-            <WriteNoteForm {...{updateViewState}}/>
+            <WriteNoteForm {...{ updateViewState }} />
         </div>
     );
-}
+};
 
 export default WriteNoteModal;
