@@ -218,7 +218,7 @@ const Promo: React.FC = () => {
                 <a href="https://github.com/gratitude-notes/gratitude-notes-core/blob/master/phase-3/Phase3-ProjectPlanner.pdf" className="transition ease-in-out
                                 bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
                                 text-white font-bold py-2 px-4 rounded text-center">
-                  See Phase 3 Design Documents [Implementation Plan]
+                  See Phase 3 Design Documents [Implementation / Test Plan]
                 </a>
               </div>
             </div>
