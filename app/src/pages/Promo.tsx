@@ -9,8 +9,43 @@ import { fb_auth } from "../lib/Firebase";
 import Allison from "../assets/team/a4.jpg";
 import Brady from "../assets/team/strugs.jpg";
 import Dinesh from "../assets/team/dinuma.jpg";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
+let deferredPrompt: any;
 const Promo: React.FC = () => {
+  const [installable, setInstallable] = useState(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setInstallable(true);
+    });
+
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('app installed');
+    });
+  }, []);
+
+  const handleInstallClick = () => {
+    if (!deferredPrompt) {
+      toast("Install via Add To Home Screen or on Chrome.")
+      return;
+    }
+    setInstallable(false);
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+    });
+  }
+
   const handleGetStartedClick = async () => {
     const provider = new GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/userinfo.email');
@@ -128,7 +163,7 @@ const Promo: React.FC = () => {
 
           {/* Meet the team */}
           <section>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               <h1 className="text-3xl dark:text-white">Meet the team</h1>
               <div className="flex flex-row gap-x-10 justify-center">
                 <div>
@@ -167,8 +202,42 @@ const Promo: React.FC = () => {
 
           {/* Design Documents */}
           <section>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col">
               <h1 className="text-3xl dark:text-white">Design Documents</h1>
+              <div className="flex flex-col gap-y-2 mt-2">
+                <a href="https://github.com/gratitude-notes/gratitude-notes-core/blob/master/phase-1/Phase1-RequirementsReview.pdf" className="transition ease-in-out
+                                bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
+                                text-white font-bold py-2 px-4 rounded text-center">
+                  See Phase 1 Design Documents [Preliminary]
+                </a>
+                <a href="https://github.com/gratitude-notes/gratitude-notes-core/blob/master/phase-2/Phase%202-Design%20Review%26Project%20Milestone2.pdf" className="transition ease-in-out
+                                bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
+                                text-white font-bold py-2 px-4 rounded text-center">
+                  See Phase 2 Design Documents [Detailed]
+                </a>
+                <a href="https://github.com/gratitude-notes/gratitude-notes-core/blob/master/phase-3/Phase3-ProjectPlanner.pdf" className="transition ease-in-out
+                                bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
+                                text-white font-bold py-2 px-4 rounded text-center">
+                  See Phase 3 Design Documents [Implementation Plan]
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Download Now */}
+          <section>
+            <div className="flex flex-col">
+              <h1 className="text-3xl dark:text-white">Use our App Now</h1>
+              <button onClick={handleInstallClick} className="transition ease-in-out
+                              bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
+                              text-white font-bold py-2 px-4 rounded text-center mt-2">
+                Download Now
+              </button>
+              <button onClick={handleGetStartedClick} className="transition ease-in-out
+                              bg-cyan-500 hover:-translate-y-1 hover:scale-110 duration-300
+                              text-white font-bold py-2 px-4 rounded text-center mt-2">
+                Sign In
+              </button>
             </div>
           </section>
 

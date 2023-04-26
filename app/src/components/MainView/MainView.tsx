@@ -12,11 +12,7 @@ export const MainView: React.FC = () => {
         <Routes>
             <Route 
                 path="/"
-                element={(session?.user) ? <Dashboard /> : <Landing />}
-            />
-            <Route 
-                path="/promo"
-                element={<Promo />}
+                element={(session?.user) ? <Dashboard /> : <Promo />}
             />
             <Route 
                 path="/users/:userID/public" 
