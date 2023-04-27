@@ -13,6 +13,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+import PromoVideo from "../assets/videos/promo.mp4";
+
 let deferredPrompt: any;
 const Promo: React.FC = () => {
   const [installable, setInstallable] = useState(false);
@@ -191,7 +193,7 @@ const Promo: React.FC = () => {
                   <h1 className="text-2xl dark:text-white text-center">Dinesh Umasankar</h1>
                   <h2 className="text-lg dark:text-white text-center">Team/Tech Lead</h2>
                   <div className="flex flex-row justify-evenly mt-2">
-                  <SocialIcon url="https://www.linkedin.com/in/dinesh-umasankar-78354b184/" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
+                    <SocialIcon url="https://www.linkedin.com/in/dinesh-umasankar-78354b184/" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
                     <SocialIcon url="https://twitter.com/DineshUmasankar" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
                     <SocialIcon url="https://github.com/dineshUmasankar" style={{ height: 40, width: 40 }} bgColor="#06b6d4"/>
                   </div>
@@ -224,6 +226,50 @@ const Promo: React.FC = () => {
             </div>
           </section>
 
+          {/* Promo Video */}
+          <section>
+            <div className="flex flex-col gap-4">
+              <h1 className="text-3xl dark:text-white">Promo Video</h1>
+              <video width="1920" height="1080" controls>
+                <source src={PromoVideo} type="video/mp4"/>
+                Your browser does not support the video tag.
+              </video>
+            </div>  
+          </section>
+
+          {/* Some of our features */}
+          <section>
+            <div className="flex flex-col gap-4">
+              <h1 className="text-3xl dark:text-white">Some of our Features</h1>
+              <ul className="list-disc pl-10">
+                <li>
+                  Custom Text Editor that supports Speech-to-text, Emoji reactions, and Image support
+                </li>
+                <li>
+                  Personal, Favorites, and Public Feeds with searching capabilities
+                </li>
+                <li>
+                  Daily streaks to incentivize user interaction with the app
+                </li>
+                <li>
+                  Light and Dark theme support
+                </li>
+                <li>
+                  Remember your notes by keywords, location, and date and time
+                </li>
+                <li>
+                  A week card to get an overview of how your current week is going
+                </li>
+                <li>
+                  A high-level overview of your past week in your Weekly Dosage with a personalized video and a map
+                </li>
+                <li>
+                    Use your Public Board to share your current thoughts and feelings with others
+                </li>
+              </ul>
+            </div>  
+          </section>
+
           {/* Download Now */}
           <section>
             <div className="flex flex-col">
@@ -252,6 +298,8 @@ const Promo: React.FC = () => {
               </a>
             </div>
           </section>
+
+          
 
         </div>
 
